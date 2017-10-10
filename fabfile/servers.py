@@ -40,6 +40,7 @@ def setup():
     # generate_secret_key()
 
 
+@task
 def create_directories():
     """
     Create server directories.
