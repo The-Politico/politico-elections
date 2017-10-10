@@ -4,7 +4,7 @@ from fabric.api import local, settings, task
 from fabric.state import env
 
 # Other fabfiles
-from . import servers
+from . import data, servers
 
 """
 Base configuration

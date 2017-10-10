@@ -114,3 +114,5 @@ logs/
 # redis
 dump.rdb
 .DS_Store
+
+test.csv
