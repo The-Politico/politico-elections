@@ -49,6 +49,8 @@ def create_directories():
     run('mkdir -p %(SERVER_PROJECT_PATH)s' % server_config.__dict__)
     sudo('mkdir -p /etc/uwsgi')
     sudo('mkdir -p /etc/uwsgi/sites')
+    sudo('mkdir -p /run/uwsgi')
+    sudo('chown ubuntu:www-data /run/uwsgi')
     # run('mkdir -p /var/www/uploads/%(PROJECT_FILENAME)s' % server_config.__dict__)
 
 
