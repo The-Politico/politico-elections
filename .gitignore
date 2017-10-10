@@ -116,3 +116,4 @@ dump.rdb
 .DS_Store
 
 test.csv
+confs/rendered
