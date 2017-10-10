@@ -31,18 +31,13 @@ def setup():
     require('settings', provided_by=['production', 'staging'])
     require('branch', provided_by=['stable', 'master', 'branch'])
 
-    if not server_config.DEPLOY_TO_SERVERS:
-        logger.error('You must set DEPLOY_TO_SERVERS = True in your server_config.py before setting up the servers.')
-
-        return
-
     create_directories()
     create_virtualenv()
     clone_repo()
     checkout_latest()
     install_requirements()
     setup_logs()
-    generate_secret_key()
+    # generate_secret_key()
 
 
 def create_directories():
@@ -313,8 +308,5 @@ def fabcast(command):
     by staging() or production().
     """
     require('settings', provided_by=['production', 'staging'])
-
-    if not server_config.DEPLOY_TO_SERVERS:
-        logging.error('You must set DEPLOY_TO_SERVERS = True in your server_config.py and setup a server before fabcasting.')
 
     run('cd %s && bash run_on_server.sh fab %s $DEPLOYMENT_TARGET %s' % (server_config.SERVER_REPOSITORY_PATH, env.branch, command))
