@@ -1,22 +1,26 @@
 from django.db import models
 from postgres_copy import CopyManager
-
-# Create your models here.
+from .candidate import Candidate
+from .geography import Geography
+from .result_run import ResultRun
 
 class ElexResult(models.Model):
-    id = models.CharField(max_length=80, primary_key=True)
+    id = models.UUIDField(primary_key=True)
+    elexid = models.CharField(max_length=80)
     raceid = models.CharField(max_length=5, null=True)
     racetype = models.TextField(null=True)
     racetypeid = models.CharField(max_length=1, null=True)
     ballotorder = models.PositiveSmallIntegerField(null=True)
+    candidate = models.ForeignKey(Candidate)
     candidateid = models.TextField(null=True)
     description = models.TextField(null=True)
-    delegatecount = models.PositiveIntegerField(null=True)
+    delegatecount = models.IntegerField(null=True)
     electiondate = models.DateField(null=True)
     electtotal = models.PositiveSmallIntegerField(null=True)
     electwon = models.PositiveSmallIntegerField(null=True)
     fipscode = models.CharField(max_length=5, null=True)
     first = models.TextField(null=True)
+    geography = models.ForeignKey(Geography)
     incumbent = models.BooleanField(default=False)
     initialization_data = models.BooleanField(default=False)
     is_ballot_measure = models.BooleanField(default=False)
@@ -32,6 +36,7 @@ class ElexResult(models.Model):
     precinctsreporting = models.PositiveSmallIntegerField(null=True)
     precinctsreportingpct = models.DecimalField(max_digits=7, decimal_places=6, null=True)
     precinctstotal = models.PositiveSmallIntegerField(null=True)
+    resultrun = models.ForeignKey(ResultRun)
     reportingunitid = models.TextField(null=True)
     reportingunitname = models.TextField(null=True)
     runoff = models.BooleanField(default=False)
