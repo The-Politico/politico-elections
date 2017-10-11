@@ -71,8 +71,8 @@ class Race(models.Model):
 
     def __str__(self):
         base = '{0} {1} {2}, {3}'.format(
-            self.seat.geography.label,
-            self.seat.office.label,
+            self.seat.seat_geography.label,
+            self.seat.seat_office.label,
             self.election_type.label,
             self.election.election_date
         )
