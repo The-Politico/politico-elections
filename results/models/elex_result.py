@@ -2,7 +2,11 @@ from django.db import models
 from postgres_copy import CopyManager
 from .candidate import Candidate
 from .geography import Geography
-from .result_run import ResultRun
+
+
+class ResultRun(models.Model):
+    run_time = models.DateTimeField(auto_now=True)
+
 
 class ElexResult(models.Model):
     id = models.UUIDField(primary_key=True)

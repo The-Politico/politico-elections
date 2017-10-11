@@ -10,7 +10,7 @@ class ElectionCycle(SlugModel):
     pass
 
 
-class ElectionType(SlugModel):
+class RaceType(SlugModel):
     """
     e.g. "General", "Primary"
     """
@@ -32,15 +32,15 @@ class Office(SlugModel):
         (MUNICIPAL, 'Municipal'),
     )
 
-    office_level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
+    level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
 
 
 class Seat(SlugModel):
     """
     e.g. "Senator", "Governor"
     """
-    seat_geography = models.ForeignKey(Geography)
-    seat_office = models.ForeignKey(Office)
+    geography = models.ForeignKey(Geography)
+    office = models.ForeignKey(Office)
 
 
 class Party(SlugModel):
@@ -50,34 +50,45 @@ class Party(SlugModel):
     short_label = "GOP"
     """
     ap_code = models.CharField(max_length=3)
+    aggregate_candidates = models.BooleanField(default=True)
 
 
 class Election(models.Model):
     """
     election_date = 2018-11-08
     """
-    election_date = models.DateField()
-    election_cycle = models.ForeignKey(ElectionCycle)
+    date = models.DateField()
+    cycle = models.ForeignKey(ElectionCycle)
 
     def __str__(self):
         return self.election_date
 
 
-class Race(models.Model):
+class BallotMeasure(SlugModel):
+    """
+    """
+    question = models.TextField()
+    geography = models.ForeignKey(Geography)
     election = models.ForeignKey(Election)
-    election_type = models.ForeignKey(ElectionType)
+
+
+class Race(SlugModel):
+    election = models.ForeignKey(Election)
+    race_type = models.ForeignKey(RaceType)
     seat = models.ForeignKey(Seat)
     party = models.ForeignKey(Party, null=True)
 
-    def __str__(self):
+    def save(self, *args, **kwargs):
         base = '{0} {1} {2}, {3}'.format(
-            self.seat.seat_geography.label,
-            self.seat.seat_office.label,
-            self.election_type.label,
-            self.election.election_date
+            self.seat.geography.label,
+            self.seat.office.label,
+            self.race_type.label,
+            self.election.date
         )
 
         if self.party:
-            return '{0} {1}'.format(self.party, base)
+            self.label = '{0} {1}'.format(self.party.label, base)
         else:
-            return base
+            self.label = base
+
+        super(Race, self).save(*args, **kwargs)

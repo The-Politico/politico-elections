@@ -1,6 +1,7 @@
+from collections import defaultdict
 from django.db import models
 from .base import SlugModel
-from .election_meta import Party, Race
+from .election_meta import Party, Race, BallotMeasure
 
 
 class Person(SlugModel):
@@ -10,9 +11,11 @@ class Person(SlugModel):
     suffix = models.CharField(max_length=10, null=True)
 
     def save(self, *args, **kwargs):
-        self.label = '{0} {1} {2}'.format(
+        self.label = '{0}{1}{2}'.format(
             self.first_name,
-            self.middle_name,
+            '{0}'.format(
+                ' ' + self.middle_name + ' ' if self.middle_name else ' '
+            ),
             self.last_name
         )
         self.short_label = self.last_name
@@ -24,6 +27,12 @@ class Candidate(models.Model):
     party = models.ForeignKey(Party)
     race = models.ForeignKey(Race)
     ap_candidate_id = models.CharField(max_length=255)
+    aggregable = models.BooleanField(default=True)
 
     def __str__(self):
         return self.person.label
+
+
+class BallotAnswer(SlugModel):
+    answer = models.TextField()
+    ballot_measure = models.ForeignKey(BallotMeasure)
