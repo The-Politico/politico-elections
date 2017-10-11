@@ -1,0 +1,663 @@
+[
+  {
+    "model": "results.geographylevel",
+    "pk": 56,
+    "fields": {
+      "code": 0,
+      "label": "national",
+      "slug": "national"
+    }
+  },
+  {
+    "model": "results.geographylevel",
+    "pk": 57,
+    "fields": {
+      "code": 1,
+      "label": "state",
+      "slug": "state"
+    }
+  },
+  {
+    "model": "results.geographylevel",
+    "pk": 58,
+    "fields": {
+      "code": 2,
+      "label": "district",
+      "slug": "district"
+    }
+  },
+  {
+    "model": "results.geographylevel",
+    "pk": 59,
+    "fields": {
+      "code": 3,
+      "label": "county",
+      "slug": "county"
+    }
+  },
+  {
+    "model": "results.geographylevel",
+    "pk": 60,
+    "fields": {
+      "code": 4,
+      "label": "precinct",
+      "slug": "precinct"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 1,
+    "fields": {
+      "code": "01",
+      "state_fips": "01",
+      "geography_level": 57,
+      "label": "Alabama",
+      "slug": "alabama"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 2,
+    "fields": {
+      "code": "02",
+      "state_fips": "02",
+      "geography_level": 57,
+      "label": "Alaska",
+      "slug": "alaska"
+    }
+  },
+    {
+    "model": "results.geography",
+    "pk": 3,
+    "fields": {
+      "code": "05",
+      "state_fips": "05",
+      "geography_level": 57,
+      "label": "Arkansas",
+      "slug": "arkansas"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 4,
+    "fields": {
+      "code": "04",
+      "state_fips": "04",
+      "geography_level": 57,
+      "label": "Arizona",
+      "slug": "arizona"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 5,
+    "fields": {
+      "code": "60",
+      "state_fips": "60",
+      "geography_level": 57,
+      "label": "American Samoa",
+      "slug": "american-samoa"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 6,
+    "fields": {
+      "code": "06",
+      "state_fips": "06",
+      "geography_level": 57,
+      "label": "California",
+      "slug": "california"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 7,
+    "fields": {
+      "code": "08",
+      "state_fips": "08",
+      "geography_level": 57,
+      "label": "Colorado",
+      "slug": "colorado"
+    }
+  },
+    {
+    "model": "results.geography",
+    "pk": 8,
+    "fields": {
+      "code": "09",
+      "state_fips": "09",
+      "geography_level": 57,
+      "label": "Connecticut",
+      "slug": "connecticut"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 9,
+    "fields": {
+      "code": "10",
+      "state_fips": "10",
+      "geography_level": 57,
+      "label": "Delaware",
+      "slug": "delaware"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 10,
+    "fields": {
+      "code": "11",
+      "state_fips": "11",
+      "geography_level": 57,
+      "label": "District of Columbia",
+      "slug": "district-of-columbia"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 11,
+    "fields": {
+      "code": "12",
+      "state_fips": "12",
+      "geography_level": 57,
+      "label": "Florida",
+      "slug": "florida"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 12,
+    "fields": {
+      "code": "13",
+      "state_fips": "13",
+      "geography_level": 57,
+      "label": "Georgia",
+      "slug": "georgia"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 13,
+    "fields": {
+      "code": "66",
+      "state_fips": "66",
+      "geography_level": 57,
+      "label": "Guam",
+      "slug": "guam"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 13,
+    "fields": {
+      "code": "15",
+      "state_fips": "15",
+      "geography_level": 57,
+      "label": "Hawaii",
+      "slug": "hawaii"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 14,
+    "fields": {
+      "code": "19",
+      "state_fips": "19",
+      "geography_level": 57,
+      "label": "Iowa",
+      "slug": "iowa"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 15,
+    "fields": {
+      "code": "16",
+      "state_fips": "16",
+      "geography_level": 57,
+      "label": "Idaho",
+      "slug": "idaho"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 16,
+    "fields": {
+      "code": "17",
+      "state_fips": "17",
+      "geography_level": 57,
+      "label": "Illinois",
+      "slug": "illinois"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 17,
+    "fields": {
+      "code": "18",
+      "state_fips": "18",
+      "geography_level": 57,
+      "label": "Indiana",
+      "slug": "indiana"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 18,
+    "fields": {
+      "code": "20",
+      "state_fips": "20",
+      "geography_level": 57,
+      "label": "Kansas",
+      "slug": "kansas"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 19,
+    "fields": {
+      "code": "21",
+      "state_fips": "21",
+      "geography_level": 57,
+      "label": "Kentucky",
+      "slug": "kentucky"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 20,
+    "fields": {
+      "code": "22",
+      "state_fips": "22",
+      "geography_level": 57,
+      "label": "Louisiana",
+      "slug": "louisiana"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 21,
+    "fields": {
+      "code": "25",
+      "state_fips": "25",
+      "geography_level": 57,
+      "label": "Massachusetts",
+      "slug": "massachusetts"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 22,
+    "fields": {
+      "code": "24",
+      "state_fips": "24",
+      "geography_level": 57,
+      "label": "Maryland",
+      "slug": "maryland"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 23,
+    "fields": {
+      "code": "23",
+      "state_fips": "23",
+      "geography_level": 57,
+      "label": "Maine",
+      "slug": "maine"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 24,
+    "fields": {
+      "code": "26",
+      "state_fips": "26",
+      "geography_level": 57,
+      "label": "Michigan",
+      "slug": "michigan"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 25,
+    "fields": {
+      "code": "27",
+      "state_fips": "27",
+      "geography_level": 57,
+      "label": "Minnesota",
+      "slug": "minnesota"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 26,
+    "fields": {
+      "code": "29",
+      "state_fips": "29",
+      "geography_level": 57,
+      "label": "Missouri",
+      "slug": "missouri"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 27,
+    "fields": {
+      "code": "28",
+      "state_fips": "28",
+      "geography_level": 57,
+      "label": "Mississippi",
+      "slug": "mississippi"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 28,
+    "fields": {
+      "code": "30",
+      "state_fips": "30",
+      "geography_level": 57,
+      "label": "Montana",
+      "slug": "montana"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 29,
+    "fields": {
+      "code": "37",
+      "state_fips": "37",
+      "geography_level": 57,
+      "label": "North Carolina",
+      "slug": "north-carolina"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 30,
+    "fields": {
+      "code": "38",
+      "state_fips": "38",
+      "geography_level": 57,
+      "label": "North Dakota",
+      "slug": "north-dakota"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 31,
+    "fields": {
+      "code": "31",
+      "state_fips": "31",
+      "geography_level": 57,
+      "label": "Nebraska",
+      "slug": "nebraska"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 32,
+    "fields": {
+      "code": "33",
+      "state_fips": "33",
+      "geography_level": 57,
+      "label": "New Hampshire",
+      "slug": "new-hampshire"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 33,
+    "fields": {
+      "code": "34",
+      "state_fips": "34",
+      "geography_level": 57,
+      "label": "New Jersey",
+      "slug": "new-jersey"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 34,
+    "fields": {
+      "code": "35",
+      "state_fips": "35",
+      "geography_level": 57,
+      "label": "New Mexico",
+      "slug": "new-mexico"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 35,
+    "fields": {
+      "code": "32",
+      "state_fips": "32",
+      "geography_level": 57,
+      "label": "Nevada",
+      "slug": "nevada"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 36,
+    "fields": {
+      "code": "36",
+      "state_fips": "36",
+      "geography_level": 57,
+      "label": "New York",
+      "slug": "new-york"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 37,
+    "fields": {
+      "code": "39",
+      "state_fips": "39",
+      "geography_level": 57,
+      "label": "Ohio",
+      "slug": "ohio"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 38,
+    "fields": {
+      "code": "40",
+      "state_fips": "40",
+      "geography_level": 57,
+      "label": "Oklahoma",
+      "slug": "oklahoma"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 39,
+    "fields": {
+      "code": "41",
+      "state_fips": "41",
+      "geography_level": 57,
+      "label": "Oregon",
+      "slug": "oregon"
+    }
+  },
+    {
+    "model": "results.geography",
+    "pk": 40,
+    "fields": {
+      "code": "42",
+      "state_fips": "42",
+      "geography_level": 57,
+      "label": "Pennsylvania",
+      "slug": "pennsylvania"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 41,
+    "fields": {
+      "code": "72",
+      "state_fips": "72",
+      "geography_level": 57,
+      "label": "Puerto Rico",
+      "slug": "puerto-rico"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 42,
+    "fields": {
+      "code": "44",
+      "state_fips": "44",
+      "geography_level": 57,
+      "label": "Rhode Island",
+      "slug": "rhode-island"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 43,
+    "fields": {
+      "code": "45",
+      "state_fips": "45",
+      "geography_level": 57,
+      "label": "South Carolina",
+      "slug": "south-carolina"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 44,
+    "fields": {
+      "code": "46",
+      "state_fips": "46",
+      "geography_level": 57,
+      "label": "South Dakota",
+      "slug": "south-dakota"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 45,
+    "fields": {
+      "code": "47",
+      "state_fips": "47",
+      "geography_level": 57,
+      "label": "Tennessee",
+      "slug": "tennessee"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 46,
+    "fields": {
+      "code": "48",
+      "state_fips": "48",
+      "geography_level": 57,
+      "label": "Texas",
+      "slug": "texas"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 47,
+    "fields": {
+      "code": "49",
+      "state_fips": "49",
+      "geography_level": 57,
+      "label": "Utah",
+      "slug": "utah"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 48,
+    "fields": {
+      "code": "51",
+      "state_fips": "51",
+      "geography_level": 57,
+      "label": "Virginia",
+      "slug": "virginia"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 49,
+    "fields": {
+      "code": "78",
+      "state_fips": "78",
+      "geography_level": 57,
+      "label": "Virgin Islands",
+      "slug": "virgin-islands"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 50,
+    "fields": {
+      "code": "50",
+      "state_fips": "50",
+      "geography_level": 57,
+      "label": "Vermont",
+      "slug": "vermont"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 51,
+    "fields": {
+      "code": "53",
+      "state_fips": "53",
+      "geography_level": 57,
+      "label": "Washington",
+      "slug": "washington"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 52,
+    "fields": {
+      "code": "55",
+      "state_fips": "55",
+      "geography_level": 57,
+      "label": "Wisconsin",
+      "slug": "wisconsin"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 53,
+    "fields": {
+      "code": "54",
+      "state_fips": "54",
+      "geography_level": 57,
+      "label": "West Virginia",
+      "slug": "west-virginia"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 54,
+    "fields": {
+      "code": "56",
+      "state_fips": "56",
+      "geography_level": 57,
+      "label": "Wyoming",
+      "slug": "wyoming"
+    }
+  },
+  {
+    "model": "results.geography",
+    "pk": 55,
+    "fields": {
+      "code": "00",
+      "state_fips": "00",
+      "geography_level": 56,
+      "label": "United States",
+      "slug": "united-states"
+    }
+  }
+]
