@@ -137,19 +137,31 @@ def _get_or_create_person(row):
 
 
 def _get_or_create_candidate(row, person, party, race):
+    id_components = row['id'].split('-')
+    candidate_id = '{0}-{1}'.format(
+        id_components[1],
+        id_components[2]
+    )
+
     return Candidate.objects.get_or_create(
         person=person,
         party=party,
         race=race,
-        ap_candidate_id=row['candidateid']
+        ap_candidate_id=candidate_id
     )[0]
 
 
 def _get_or_create_ballot_measure(row, geography, election):
+    if row['level'] == 'state':
+        state = geography
+    else:
+        state = Geography.objects.get(code=geography.state_fips)
+
+
     return BallotMeasure.objects.get_or_create(
         question=row['seatname'],
         label=row['seatname'],
-        geography=geography,
+        geography=state,
         election=election
     )[0]
 
@@ -163,6 +175,13 @@ def _get_or_create_ballot_answer(row, ballot_measure):
 
 
 def process_row(row):
+    print('Processing {0} {1} {2} {3}'.format(
+        row['statename'],
+        row['level'],
+        row['last'],
+        row['officename']
+    ))
+
     level = _get_or_create_geography_level(row)
     geography = _get_or_create_geography(row, level)
     election_cycle = _get_or_create_election_cycle('2018')
@@ -193,7 +212,8 @@ class Command(BaseCommand):
         subprocess.run([
             'elex',
             'results',
-            options['election_date']
+            options['election_date'],
+            '--national-only'
         ], stdout=writefile)
 
         with open('test.csv', 'r') as readfile:
