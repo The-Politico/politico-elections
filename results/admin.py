@@ -1,3 +1,5 @@
 from django.contrib import admin
+from results.models import Geography, GeographyLevel
 
-# Register your models here.
+admin.site.register(Geography)
+admin.site.register(GeographyLevel)
