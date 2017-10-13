@@ -7,6 +7,39 @@ from uuslug import slugify
 class Command(BaseCommand):
     help = 'finds race ids necessary for pages'
 
+    def serialize_race_ids(self, races, field, second_field=None, file_prefix=None):
+        values = races.values(field).distinct()
+
+        for value in values:
+            label = value[field]
+            filters = {
+                field: label
+            }
+
+            filtered_races = races.filter(**filters)
+            
+            if second_field:
+                self.serialize_race_ids(filtered_races, second_field, file_prefix=label)
+                continue
+
+            race_ids = []
+            for race in filtered_races:
+                race_ids.append(race.ap_race_id)
+
+            if file_prefix:
+                filename = '{0}-{1}-ids.json'.format(
+                    slugify(file_prefix), 
+                    slugify(label)
+                )
+            else:
+                filename = '{0}-ids.json'.format(slugify(label))
+
+
+            with open('scripts/{0}'.format(filename), 'w') as f:
+                json.dump(race_ids, f)
+
+
+
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)
 
@@ -14,37 +47,11 @@ class Command(BaseCommand):
         races = Race.objects.filter(
             election__date=options['election_date'],
         )
-        states = races.values('seat__geography__label').distinct()
-        offices = races.values('seat__office__label').distinct()
-
-        for state_obj in states:
-            state = state_obj['seat__geography__label']
-            state_races = races.filter(
-                seat__geography__label=state
-            )
-            race_ids = []
-
-            for race in state_races:
-                race_ids.append(race.ap_race_id)
-
-            with open(
-                'scripts/{0}-races.json'.format(slugify(state)), 
-                'w'
-            ) as f:
-                json.dump(race_ids, f)
-
-        for office_obj in offices:
-            office = office_obj['seat__office__label']
-            office_races = races.filter(
-                seat__office__label=office
-            )
-            race_ids = []
-
-            for race in office_races:
-                race_ids.append(race.ap_race_id)
-
-            with open(
-                'scripts/{0}-races.json'.format(slugify(office)),
-                'w'
-            ) as f:
-                json.dump(race_ids, f)
+        
+        self.serialize_race_ids(races, 'seat__geography__label')
+        self.serialize_race_ids(races, 'seat__office__label')
+        self.serialize_race_ids(
+            races, 
+            'seat__geography__label',
+            second_field='seat__office__label'
+        )
