@@ -1,7 +1,5 @@
 from django.db import models
 from postgres_copy import CopyManager
-from .candidate import Candidate
-from .geography import Geography
 
 
 class ResultRun(models.Model):
@@ -9,13 +7,11 @@ class ResultRun(models.Model):
 
 
 class ElexResult(models.Model):
-    id = models.UUIDField(primary_key=True)
     elexid = models.CharField(max_length=80)
     raceid = models.CharField(max_length=5, null=True)
     racetype = models.TextField(null=True)
     racetypeid = models.CharField(max_length=1, null=True)
     ballotorder = models.PositiveSmallIntegerField(null=True)
-    candidate = models.ForeignKey(Candidate)
     candidateid = models.TextField(null=True)
     description = models.TextField(null=True)
     delegatecount = models.IntegerField(null=True)
@@ -24,7 +20,6 @@ class ElexResult(models.Model):
     electwon = models.PositiveSmallIntegerField(null=True)
     fipscode = models.CharField(max_length=5, null=True)
     first = models.TextField(null=True)
-    geography = models.ForeignKey(Geography)
     incumbent = models.BooleanField(default=False)
     initialization_data = models.BooleanField(default=False)
     is_ballot_measure = models.BooleanField(default=False)

@@ -28,6 +28,11 @@ class Candidate(models.Model):
     race = models.ForeignKey(Race)
     ap_candidate_id = models.CharField(max_length=255)
     aggregable = models.BooleanField(default=True)
+    winner = models.BooleanField(default=False)
+    incumbent = models.BooleanField(default=False)
+    uncontested = models.BooleanField(default=False)
+    gender = models.CharField(max_length=50, null=True)
+    image = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.person.label
@@ -35,4 +40,5 @@ class Candidate(models.Model):
 
 class BallotAnswer(SlugModel):
     answer = models.TextField()
+    winner = models.BooleanField(default=False)
     ballot_measure = models.ForeignKey(BallotMeasure)

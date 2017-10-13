@@ -70,6 +70,11 @@ class BallotMeasure(SlugModel):
     question = models.TextField()
     geography = models.ForeignKey(Geography)
     election = models.ForeignKey(Election)
+    precincts_reporting = models.PositiveIntegerField(null=True)
+    precincts_total = models.PositiveIntegerField(null=True)
+    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
+    called = models.BooleanField(default=False)
+    tabulated = models.BooleanField(default=False)
 
 
 class Race(SlugModel):
@@ -77,6 +82,12 @@ class Race(SlugModel):
     race_type = models.ForeignKey(RaceType)
     seat = models.ForeignKey(Seat)
     party = models.ForeignKey(Party, null=True)
+    ap_race_id = models.CharField(max_length=10)
+    precincts_reporting = models.PositiveIntegerField(null=True)
+    precincts_total = models.PositiveIntegerField(null=True)
+    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
+    called = models.BooleanField(default=False)
+    tabulated = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         base = '{0} {1} {2}, {3}'.format(

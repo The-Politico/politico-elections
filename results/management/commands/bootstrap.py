@@ -125,7 +125,8 @@ def _get_or_create_race(row, election, seat, race_type):
         election=election,
         race_type=race_type,
         seat=seat,
-        party=party
+        party=party,
+        ap_race_id=row['raceid']
     )[0]
 
 
