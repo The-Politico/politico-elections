@@ -1,5 +1,7 @@
+import json
 import os
 import shutil
+import subprocess
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -8,17 +10,15 @@ import shapefile
 from django.core.management.base import BaseCommand
 from results.models import Geography, GeographyLevel
 
-YEAR = '2017'
 FTP_BASE = 'ftp://ftp2.census.gov/geo/tiger/'
 DATA_DIRECTORY = './data/geo/'
 
 
 class Command(BaseCommand):
-    help = 'Downloads and loads geo data for states and couties'
+    help = 'Downloads and loads geo data for states and counties'
 
-    @staticmethod
-    def download_data(geo):
-        TL_SLUG = 'tl_{}_us_{}'.format(YEAR, geo.lower())
+    def download_data(self, geo):
+        TL_SLUG = 'tl_{}_us_{}'.format(self.YEAR, geo.lower())
         DOWNLOAD_PATH = os.path.join(
             DATA_DIRECTORY,
             TL_SLUG
@@ -26,9 +26,9 @@ class Command(BaseCommand):
         ZIPFILE = '{}{}.zip'.format(DOWNLOAD_PATH, TL_SLUG)
         FTP_PATH = os.path.join(
             FTP_BASE,
-            'TIGER{}'.format(YEAR),
+            'TIGER{}'.format(self.YEAR),
             geo.upper(),
-            'tl_{}_us_{}.zip'.format(YEAR, geo.lower())
+            'tl_{}_us_{}.zip'.format(self.YEAR, geo.lower())
         )
 
         if not os.path.exists(DOWNLOAD_PATH):
@@ -44,8 +44,27 @@ class Command(BaseCommand):
                 file.extractall(DOWNLOAD_PATH)
 
     @staticmethod
-    def create_state_fixtures():
-        TL_SLUG = 'tl_{}_us_state'.format(YEAR)
+    def toposimplify(geojson, p):
+        """
+        Convert geojson and simplify topology.
+        """
+        proc_out = subprocess.run(
+            ['geo2topo'],
+            input=bytes(
+                json.dumps(geojson),
+                'utf-8'),
+            stdout=subprocess.PIPE
+        )
+        proc_out = subprocess.run(
+            ['toposimplify', '-P', p],
+            input=proc_out.stdout,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL
+        )
+        return json.loads(proc_out.stdout)
+
+    def create_state_fixtures(self):
+        TL_SLUG = 'tl_{}_us_state'.format(self.YEAR)
         DOWNLOAD_PATH = os.path.join(
             DATA_DIRECTORY,
             TL_SLUG
@@ -81,13 +100,16 @@ class Command(BaseCommand):
                 code=state['STATEFP'],
                 state_fips=state['STATEFP'],
                 geography_level=level,
-                geojson=shp.shape.__geo_interface__
             )
+            state_obj.geojson = self.toposimplify(
+                shp.shape.__geo_interface__,
+                '0.05'
+            )
+            state_obj.save()
             state_obj.parent.add(NATION)
 
-    @staticmethod
-    def create_county_fixtures():
-        TL_SLUG = 'tl_{}_us_county'.format(YEAR)
+    def create_county_fixtures(self):
+        TL_SLUG = 'tl_{}_us_county'.format(self.YEAR)
         DOWNLOAD_PATH = os.path.join(
             DATA_DIRECTORY,
             TL_SLUG
@@ -114,13 +136,28 @@ class Command(BaseCommand):
                 state_fips=county['STATEFP'],
                 geojson=shp.shape.__geo_interface__
             )
+
+            county_obj.geojson = self.toposimplify(
+                shp.shape.__geo_interface__,
+                '0.075'
+            )
+            county_obj.save()
             county_obj.parent.add(state)
 
-    def handle(self, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument(
+            'tigerline_year',
+            type=str,
+            help='Year of shapefile series'
+        )
 
-        print('Download data')
+    def handle(self, *args, **options):
+        self.YEAR = options['tigerline_year']
+
+        print('Downloading data')
         self.download_data('state')
         self.download_data('county')
-        print('Create fixtures')
+
+        print('Creating fixtures')
         self.create_state_fixtures()
         self.create_county_fixtures()

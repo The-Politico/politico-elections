@@ -118,3 +118,5 @@ dump.rdb
 test.csv
 confs/rendered
 data/
+
+node_modules/
