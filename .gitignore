@@ -117,3 +117,5 @@ dump.rdb
 
 test.csv
 confs/rendered
+scripts/*.json
+master.json
