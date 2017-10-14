@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = server_config.STAGING_SERVERS
 
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
+
 
 # Application definition
 

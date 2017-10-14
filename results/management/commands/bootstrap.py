@@ -2,10 +2,9 @@ import csv
 import subprocess
 
 from django.core.management.base import BaseCommand, CommandError
-from results.models import (Geography, GeographyLevel, Election,
-                        ElectionCycle, Office, Seat, Party,
-                        RaceType, Race, Person, Candidate,
-                        BallotMeasure, BallotAnswer)
+from results.models import (BallotAnswer, BallotMeasure, Candidate, Election,
+                            ElectionCycle, Geography, GeoLevel, Office, Party,
+                            Person, Race, RaceType, Seat)
 
 
 def _get_or_create_geography(row, level):
@@ -40,7 +39,7 @@ def _get_or_create_geography_level(row):
         code = 4
 
 
-    return GeographyLevel.objects.get_or_create(
+    return GeoLevel.objects.get_or_create(
         label=row['level'],
         code=code
     )[0]
@@ -200,5 +199,3 @@ class Command(BaseCommand):
             reader = csv.DictReader(readfile)
             for row in reader:
                 process_row(row)
-
-    
