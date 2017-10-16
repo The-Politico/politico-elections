@@ -11,7 +11,7 @@ import shapefile
 from census import Census
 from django.core.management.base import BaseCommand, CommandError
 
-from results.models import Division, DivisionLevel, Geography
+from geography.models import Division, DivisionLevel, Geography
 
 census = Census(os.getenv('CENSUS_API_KEY'))
 

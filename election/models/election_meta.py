@@ -1,7 +1,8 @@
 from django.db import models
 
-from .base import LabelBase, NameBase, UUIDBase
-from .division import Division
+from core.models import LabelBase, NameBase, UUIDBase
+from entity.models import Office
+from geography.models import Division
 
 
 class ElectionCycle(NameBase):
@@ -16,32 +17,6 @@ class ElectionType(LabelBase):
     e.g. "General", "Primary"
     """
     ap_code = models.CharField(max_length=1)
-
-
-class Body(LabelBase):
-    """
-    label = 'Senate'
-    office_level = 0
-    """
-    FEDERAL = 0
-    STATE = 1
-    MUNICIPAL = 2
-
-    LEVEL_CHOICES = (
-        (FEDERAL, 'Federal'),
-        (STATE, 'State'),
-        (MUNICIPAL, 'Municipal'),
-    )
-
-    level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
-
-
-class Office(LabelBase):
-    """
-    e.g. "Senator", "Governor"
-    """
-    division = models.ForeignKey(Division)
-    body = models.ForeignKey(Body, null=True)
 
 
 class Party(LabelBase):
@@ -107,17 +82,4 @@ class Race(LabelBase):
         )
 
         super(Race, self).save(*args, **kwargs)
-
-
-class APElectionMeta(UUIDBase):
-    election = models.ForeignKey(Election, null=True)
-    ballot_measure = models.ForeignKey(BallotMeasure, null=True)
-    ap_election_id = models.CharField(max_length=10)
-    called = models.BooleanField(default=False)
-    tabulated = models.BooleanField(default=False)
-    override_ap_call = models.BooleanField(default=False)
-    override_ap_votes = models.BooleanField(default=False)
-    precincts_reporting = models.PositiveIntegerField(null=True)
-    precincts_total = models.PositiveIntegerField(null=True)
-    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
 

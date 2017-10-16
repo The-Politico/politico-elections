@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
-from .base import EffectiveDateBase, LabelBase, NameBase, SelfRelatedBase
+from core.models import EffectiveDateBase, LabelBase, NameBase, SelfRelatedBase
 
 
 class DivisionLevel(NameBase, SelfRelatedBase):

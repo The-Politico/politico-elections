@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from results.models import Division, DivisionLevel, Geography
+from geography.models import Division, DivisionLevel, Geography
 
 
 class DivisionAdmin(admin.ModelAdmin):
