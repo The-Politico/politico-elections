@@ -1,6 +1,6 @@
 from django.db import models
-from .base import SlugModel
-from .candidate import Candidate, BallotMeasure
+
+from .candidate import BallotMeasure, Candidate
 from .geography import Geography
 
 

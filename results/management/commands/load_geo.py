@@ -8,29 +8,40 @@ from pathlib import Path
 
 import geojson
 import shapefile
+from census import Census
 from django.core.management.base import BaseCommand, CommandError
-from results.models import Geography, GeoJson, GeoLevel
+
+from results.models import Division, DivisionLevel, Geography
+
+census = Census(os.getenv('CENSUS_API_KEY'))
+
+COUNTIES = census.sf1.get('NAME', geo={'for': 'county:*'})
+COUNTY_LOOKUP = {}
+for c in COUNTIES:
+    if c['state'] not in COUNTY_LOOKUP:
+        COUNTY_LOOKUP[c['state']] = {}
+    COUNTY_LOOKUP[c['state']][c['county']] = c['NAME']
 
 SHP_BASE = 'https://www2.census.gov/geo/tiger/GENZ{}/shp/'
 DATA_DIRECTORY = './data/geo/'
 
-NATION_LEVEL, created = GeoLevel.objects.get_or_create(
-    label='national',
-    code=0
+FEDERAL_LEVEL, created = DivisionLevel.objects.get_or_create(
+    name='federal'
 )
-STATE_LEVEL, created = GeoLevel.objects.get_or_create(
-    label='state',
-    code=1
+STATE_LEVEL, created = DivisionLevel.objects.get_or_create(
+    name='state',
+    parent=FEDERAL_LEVEL
 )
-COUNTY_LEVEL, created = GeoLevel.objects.get_or_create(
-    label='county',
-    code=3
+COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
+    name='county',
+    parent=STATE_LEVEL
 )
 
-NATION, created = Geography.objects.get_or_create(
-    geocode='00',
+NATION, created = Division.objects.get_or_create(
+    code='00',
+    name='United States of America',
     label='United States of America',
-    geolevel=NATION_LEVEL
+    level=FEDERAL_LEVEL,
 )
 
 
@@ -100,19 +111,24 @@ class Command(BaseCommand):
         county_records = [
             shp for shp in shape.shapeRecords()
             if dict(zip(field_names, shp.record))['STATEFP'] == fips or
-            fips == '00'
+            (
+                fips == '00' and
+                int(dict(zip(field_names, shp.record))['STATEFP']) <= 56
+            )
         ]
         features = []
         for shp in county_records:
-            record = dict(zip(field_names, shp.record))
+            rec = dict(zip(field_names, shp.record))
             geometry = shp.shape.__geo_interface__
             geodata = {
                 'type': 'Feature',
                 'geometry': geometry,
                 'properties': {
-                    'state': record['STATEFP'],
-                    'county': record['COUNTYFP'],
-                    'name': record['NAME']
+                    'state': rec['STATEFP'],
+                    'county': rec['COUNTYFP'],
+                    'name': COUNTY_LOOKUP[rec['STATEFP']].get(
+                        rec['COUNTYFP'], rec['NAME']
+                    )
                 }
             }
             features.append(geodata)
@@ -124,6 +140,9 @@ class Command(BaseCommand):
         )
 
     def create_nation_fixtures(self):
+        """
+        Create national US and State Map
+        """
         SHP_SLUG = 'cb_{}_us_state_500k'.format(self.YEAR)
         DOWNLOAD_PATH = os.path.join(
             DATA_DIRECTORY,
@@ -148,9 +167,9 @@ class Command(BaseCommand):
                 }
             }
             features.append(geodata)
-        GeoJson.objects.update_or_create(
-            geography=NATION,
-            geography_level=STATE_LEVEL,
+        Geography.objects.update_or_create(
+            division=NATION,
+            subdivision_level=STATE_LEVEL,
             simplification=self.THRESHOLDS['nation'],
             defaults={
                 'topojson': self.toposimplify(
@@ -160,9 +179,9 @@ class Command(BaseCommand):
             },
         )
 
-        geo, created = GeoJson.objects.update_or_create(
-            geography=NATION,
-            geography_level=COUNTY_LEVEL,
+        geo, created = Geography.objects.update_or_create(
+            division=NATION,
+            subdivision_level=COUNTY_LEVEL,
             simplification=self.THRESHOLDS['nation'],
             defaults={
                 'topojson': self.get_county_shp('00'),
@@ -187,13 +206,21 @@ class Command(BaseCommand):
         fields = shape.fields[1:]
         field_names = [f[0] for f in fields]
 
+        nation_obj = Division.objects.get(code='00')
+
         for shp in shape.shapeRecords():
             state = dict(zip(field_names, shp.record))
-            state_obj, created = Geography.objects.get_or_create(
-                label=state['NAME'],
-                geocode=state['STATEFP'],
-                geolevel=STATE_LEVEL,
-                parent=NATION
+            # Skip territories
+            if int(state['STATEFP']) > 56:
+                continue
+            state_obj, created = Division.objects.update_or_create(
+                code=state['STATEFP'],
+                level=STATE_LEVEL,
+                parent=nation_obj,
+                defaults={
+                    'name': state['NAME'],
+                    'label': state['NAME'],
+                }
             )
             geodata = {
                 'type': 'Feature',
@@ -203,9 +230,9 @@ class Command(BaseCommand):
                     'name': state['NAME']
                 }
             }
-            geojson, created = GeoJson.objects.update_or_create(
-                geography=state_obj,
-                geography_level=STATE_LEVEL,
+            geojson, created = Geography.objects.update_or_create(
+                division=state_obj,
+                subdivision_level=STATE_LEVEL,
                 simplification=self.THRESHOLDS['state'],
                 defaults={
                     'topojson': self.toposimplify(
@@ -214,9 +241,9 @@ class Command(BaseCommand):
                     ),
                 },
             )
-            geojson, created = GeoJson.objects.update_or_create(
-                geography=state_obj,
-                geography_level=COUNTY_LEVEL,
+            geojson, created = Geography.objects.update_or_create(
+                division=state_obj,
+                subdivision_level=COUNTY_LEVEL,
                 simplification=self.THRESHOLDS['county'],
                 defaults={
                     'topojson': self.get_county_shp(state['STATEFP']),
@@ -228,41 +255,32 @@ class Command(BaseCommand):
             ))
 
     def create_county_fixtures(self):
-        TL_SLUG = 'tl_{}_us_county'.format(self.YEAR)
-        DOWNLOAD_PATH = os.path.join(
-            DATA_DIRECTORY,
-            TL_SLUG
-        )
-        shape = shapefile.Reader(os.path.join(
-            DOWNLOAD_PATH,
-            '{}.shp'.format(TL_SLUG)
-        ))
-
-        fields = shape.fields[1:]
-        field_names = [f[0] for f in fields]
-        level, created = GeoLevel.objects.get_or_create(
-            label='county',
-            code=3
-        )
-        for shp in shape.shapeRecords():
-            county = dict(zip(field_names, shp.record))
-            print('>  {}'.format(county['GEOID']))
-            state = Geography.objects.get(code=county['STATEFP'])
-            county_obj, created = Geography.objects.get_or_create(
-                label=county['NAME'],
-                code=county['GEOID'],
-                geography_level=level,
-                state_fips=county['STATEFP'],
+        for county in COUNTIES:
+            state = Division.objects.get(
+                code=county['state'],
+                level=STATE_LEVEL
             )
-            county_obj.geojson = self.toposimplify(
-                shp.shape.__geo_interface__,
-                self.THRESHOLDS['county']
+            Division.objects.update_or_create(
+                level=COUNTY_LEVEL,
+                code='{}{}'.format(
+                    county['state'],
+                    county['county']
+                ),
+                parent=state,
+                defaults={
+                    'name': county['NAME'],
+                    'label': county['NAME'],
+                    'code_components': {
+                        'fips': {
+                            'state': county['state'],
+                            'county': county['county']
+                        }
+                    }
+                }
             )
-            county_obj.save()
-            county_obj.parent.add(state)
-            print('>  FIPS {}  @ ~{}kb'.format(
-                county['GEOID'],
-                round(len(json.dumps(county_obj.geojson)) / 1000)
+            print('>  FIPS {}{}'.format(
+                county['state'],
+                county['county'],
             ))
 
     def add_arguments(self, parser):
@@ -337,8 +355,8 @@ class Command(BaseCommand):
         self.create_nation_fixtures()
         if not options['counties']:
             self.create_state_fixtures()
-        # if not options['states']:
-        #     self.create_county_fixtures()
+        if not options['states']:
+            self.create_county_fixtures()
         self.stdout.write(
             self.style.SUCCESS('Finished loading geography fixtures.')
         )

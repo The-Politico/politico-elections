@@ -1,10 +1,10 @@
-from collections import defaultdict
 from django.db import models
-from .base import SlugModel
-from .election_meta import Party, Race, BallotMeasure
+
+from .base import LabelBase
+from .election_meta import BallotMeasure, Party, Race
 
 
-class Person(SlugModel):
+class Person(LabelBase):
     first_name = models.CharField(max_length=255, null=True)
     middle_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255)
@@ -33,6 +33,6 @@ class Candidate(models.Model):
         return self.person.label
 
 
-class BallotAnswer(SlugModel):
+class BallotAnswer(LabelBase):
     answer = models.TextField()
     ballot_measure = models.ForeignKey(BallotMeasure)

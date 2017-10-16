@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'elections.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('ELECTIONS_POSTGRES_NAME', 'elections2'),
+        'NAME': os.environ.get('ELECTIONS_POSTGRES_NAME', 'elections'),
         'USER': os.environ.get('ELECTIONS_POSTGRES_USER', None),
         'PASSWORD': os.environ.get('ELECTIONS_POSTGRES_PASSWORD', None),
         'HOST': os.environ.get('ELECTIONS_POSTGRES_HOST', 'localhost'),

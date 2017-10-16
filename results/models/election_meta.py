@@ -1,23 +1,24 @@
 from django.db import models
-from .base import SlugModel
+
+from .base import LabelBase
 from .geography import Geography
 
 
-class ElectionCycle(SlugModel):
+class ElectionCycle(LabelBase):
     """
     e.g. "2016"
     """
     pass
 
 
-class RaceType(SlugModel):
+class RaceType(LabelBase):
     """
     e.g. "General", "Primary"
     """
     pass
 
 
-class Office(SlugModel):
+class Office(LabelBase):
     """
     label = 'Senate'
     office_level = 0
@@ -35,7 +36,7 @@ class Office(SlugModel):
     level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
 
 
-class Seat(SlugModel):
+class Seat(LabelBase):
     """
     e.g. "Senator", "Governor"
     """
@@ -43,7 +44,7 @@ class Seat(SlugModel):
     office = models.ForeignKey(Office)
 
 
-class Party(SlugModel):
+class Party(LabelBase):
     """
     label = "Republican"
     ap_code = "gop"
@@ -64,7 +65,7 @@ class Election(models.Model):
         return self.election_date
 
 
-class BallotMeasure(SlugModel):
+class BallotMeasure(LabelBase):
     """
     """
     question = models.TextField()
@@ -72,7 +73,7 @@ class BallotMeasure(SlugModel):
     election = models.ForeignKey(Election)
 
 
-class Race(SlugModel):
+class Race(LabelBase):
     election = models.ForeignKey(Election)
     race_type = models.ForeignKey(RaceType)
     seat = models.ForeignKey(Seat)

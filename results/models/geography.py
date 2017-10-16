@@ -5,57 +5,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
 
-from .base import SlugModel
+from .base import EffectiveDateBase
+from .division import Division, DivisionLevel
 
 
-class GeoLevel(SlugModel):
-    NATIONAL = 0
-    STATE = 1
-    DISTRICT = 2
-    COUNTY = 3
-    PRECINCT = 4
-
-    CODE_CHOICES = (
-        (NATIONAL, 'National'),
-        (STATE, 'State'),
-        (DISTRICT, 'District'),
-        (COUNTY, 'County or equivalent'),
-        (PRECINCT, 'Precinct')
-    )
-
-    code = models.PositiveSmallIntegerField(choices=CODE_CHOICES)
-
-
-class Geography(SlugModel):
-    geolevel = models.ForeignKey(
-        GeoLevel,
-        on_delete=models.PROTECT,
-        related_name="geographies",
-        null=True
-    )
-
-    geocode = models.CharField(
-        max_length=30,
-        help_text="Code representing a geography: FIPS code for states and \
-        counties, district number for districts, precinct number for \
-        precincts, etc."
-    )
-
-    effective_start = models.DateTimeField(null=True)
-    effective_end = models.DateTimeField(null=True)
-
-    parent = models.ForeignKey(
-        "self",
-        null=True,
-        on_delete=models.CASCADE,
-        related_name="children"
-    )
-
-    class Meta:
-        verbose_name_plural = "geographies"
-
-
-class GeoJson(models.Model):
+class Geography(EffectiveDateBase):
     D3 = '''
         <div id="map{0}"></div>
         <script>
@@ -84,14 +38,14 @@ class GeoJson(models.Model):
             round(len(json.dumps(self.topojson)) / 1000)
         )
 
-    geography = models.ForeignKey(
-        Geography,
+    division = models.ForeignKey(
+        Division,
         on_delete=models.CASCADE,
-        related_name="topographies"
+        related_name="geographies"
     )
-    geography_level = models.ForeignKey(
-        GeoLevel,
-        on_delete=models.CASCADE,
+    subdivision_level = models.ForeignKey(
+        DivisionLevel,
+        on_delete=models.PROTECT,
         related_name="+"
     )
     simplification = models.FloatField(
@@ -106,10 +60,10 @@ class GeoJson(models.Model):
 
     def __str__(self):
         return '{} - {} map, {}'.format(
-            self.geography.label,
-            self.geography_level.label,
+            self.division.label,
+            self.division.level.name,
             self.simplification
         )
 
     class Meta:
-        verbose_name_plural = "GeoJSON"
+        verbose_name_plural = "Geographies"
