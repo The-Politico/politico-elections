@@ -86,4 +86,3 @@ class Race(LabelBase):
         self.name = name_label
 
         super(Race, self).save(*args, **kwargs)
-

@@ -36,10 +36,26 @@ COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
     name='county',
     parent=STATE_LEVEL
 )
+
 TOWNSHIP_LEVEL, created = DivisionLevel.objects.get_or_create(
     name='township',
     parent=COUNTY_LEVEL
 )
+
+# Other fixtures
+DivisionLevel.objects.get_or_create(
+    name='district',
+    parent=STATE_LEVEL
+)
+DivisionLevel.objects.get_or_create(
+    name='township',
+    parent=COUNTY_LEVEL
+)
+DivisionLevel.objects.get_or_create(
+    name='precinct',
+    parent=COUNTY_LEVEL
+)
+
 NATION, created = Division.objects.get_or_create(
     code='00',
     name='United States of America',

@@ -3,6 +3,7 @@ asn1crypto==0.23.0
 bcrypt==3.1.4
 CacheControl==0.11.7
 cement==2.10.2
+census==0.8.4
 cffi==1.11.2
 cryptography==2.1.1
 decorator==4.1.2
@@ -11,10 +12,12 @@ django-postgres-copy==2.0.1
 django-uuslug==1.1.8
 elex==2.4.1
 Fabric3==1.13.1.post1
+geojson==2.3.0
 idna==2.6
 ipython==6.2.1
 ipython-genutils==0.2.0
 jedi==0.11.0
+jellyfish==0.5.6
 Jinja2==2.9.6
 lockfile==0.12.2
 MarkupSafe==1.0
@@ -37,7 +40,9 @@ pytz==2017.2
 requests==2.11.1
 simplegeneric==0.8.1
 six==1.11.0
+tqdm==4.19.4
 traitlets==4.3.2
 ujson==1.35
 Unidecode==0.4.21
+us==1.0.0
 wcwidth==0.1.7
