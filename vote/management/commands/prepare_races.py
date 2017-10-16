@@ -1,7 +1,7 @@
 import json
 
 from django.core.management.base import BaseCommand, CommandError
-from results.models import Race
+from election.models import Race
 from uuslug import slugify
 
 class Command(BaseCommand):

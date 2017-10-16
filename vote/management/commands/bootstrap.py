@@ -1,78 +1,59 @@
 import csv
-import results.models as models
+import election.models as election
+import entity.models as entity
+import geography.models as geography
 import subprocess
+import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
-<<<<<<< Updated upstream
-from results.models import (BallotAnswer, BallotMeasure, Candidate, Election,
-                            ElectionCycle, Geography, GeoLevel, Office, Party,
-                            Person, Race, RaceType, Seat)
-=======
->>>>>>> Stashed changes
 
 
-def _get_or_create_geography(row, level):
+def _get_division_level(row):
+    return geography.DivisionLevel.objects.get(
+        name=row['level']
+    )
+
+
+def _get_division(row, level):
+    kwargs = {
+        'level': level
+    }
+
     if row['reportingunitname']:
-        label = row['reportingunitname']
+        name = row['reportingunitname']
     else:
-        label = row['statename']
+        name = row['statename']
 
-    if level.code <= 1:
-        return models.Geography.objects.get(
-            label=label
-        )
+    if level.name in ['county', 'township']:
+        kwargs['code'] = row['fipscode']
     else:
-        return models.Geography.objects.get_or_create(
-            code=row['fipscode'],
-            state_fips=row['fipscode'][:2],
-            geography_level=level,
-            label=label
-        )[0]
+        kwargs['name'] = name
+
+    return geography.Division.objects.get_or_create(**kwargs)[0]
 
 
-def _get_or_create_geography_level(row):
-    if row['level'] == 'national':
-        code = 0
-    elif row['level'] == 'state':
-        code = 1
-    elif row['level'] == 'district':
-        code = 2
-    elif row['level'] == 'county' or row['level'] == 'township':
-        code = 3
-    else:
-        code = 4
-
-
-<<<<<<< Updated upstream
-    return GeoLevel.objects.get_or_create(
-=======
-    return models.GeographyLevel.objects.get_or_create(
->>>>>>> Stashed changes
-        label=row['level'],
-        code=code
+def _get_or_create_election_cycle(year):
+    return election.ElectionCycle.objects.get_or_create(
+        name=year
     )[0]
 
 
 def _get_or_create_election_day(row, election_cycle):
-    return models.Election_day.objects.get_or_create(
+    return election.ElectionDay.objects.get_or_create(
         date=row['electiondate'],
         cycle=election_cycle
     )[0]
 
 
-def _get_or_create_election_cycle(year):
-    return models.ElectionCycle.objects.get_or_create(
-        label=year
-    )[0]
-
-
 def _get_or_create_body(row):
-    return models.Body.objects.get_or_create(
+    return entity.Body.objects.get_or_create(
         label=row['officename'],
+        name=row['officename'],
         level=0
     )[0]
 
-def _get_or_create_office(row, body, geography):
+
+def _get_or_create_office(row, body, division):
     office = '{0} {1}'.format(
         row['statename'],
         row['officename']
@@ -84,54 +65,71 @@ def _get_or_create_office(row, body, geography):
         office_label = office
 
     if row['level'] not in ['state', 'national']:
-        return models.Office.objects.get(
-            label=office_label,
+        return entity.Office.objects.get(
+            name=office_label,
             body__label=body.label,
-            geography__state_fips=geography.state_fips
+            division__code=division.code_components.get('fips').get('state')
         )
 
-    return models.Office.objects.get_or_create(
+    return entity.Office.objects.get_or_create(
         label=office_label,
-        geography=geography,
-        office=office
+        name=office_label,
+        division=division,
+        body=body
     )[0]
 
 
 def _get_or_create_party(row):
-    return models.Party.objects.get_or_create(
+    return election.Party.objects.get_or_create(
         ap_code=row['party'],
-        label=row['party']
+        name=row['party']
     )[0]
 
 
 def _get_or_create_election_type(row):
-    return models.ElectionType.objects.get_or_create(
-        label=row['racetype']
+    return election.ElectionType.objects.get_or_create(
+        label=row['racetype'],
+        name=row['racetype'],
+        ap_code=row['racetypeid']
     )[0]
 
 
-def _get_or_create_race(row, election, seat, race_type):
-    if race_type.label not in ['General', 'Runoff']:
-        if row['racetypeid'] in ['D', 'E']:
-            party = models.Party.objects.get(ap_code='Dem')
-        elif row['racetypeid'] in ['R', 'S']:
-            party = models.Party.objects.get(ap_code='GOP')
+def _get_or_create_election(row, election_day, division, election_type, race):
+    if row['level'] == 'state':
+        state = division
+    else:
+        state = geography.Division.objects.get(
+            code=division.code_components.get('fips').get('state')
+        )
+
+    if election_type.label not in ['General', 'Runoff']:
+        if election_type.ap_code in ['D', 'E']:
+            party = election.Party.objects.get(ap_code='Dem')
+        elif election_type.ap_code in ['R', 'S']:
+            party = election.Party.objects.get(ap_code='GOP')
         else:
             party = None
     else:
         party = None
 
-    return models.Race.objects.get_or_create(
-        election=election,
-        race_type=race_type,
-        seat=seat,
+    return election.Election.objects.get_or_create(
+        election_day=election_day,
+        election_type=election_type,
+        division=state,
         party=party,
-        ap_race_id=row['raceid']
+        race=race
+    )[0]
+
+
+def _get_or_create_race(row, office, cycle):
+    return election.Race.objects.get_or_create(
+        office=office,
+        cycle=cycle
     )[0]
 
 
 def _get_or_create_person(row):
-    return models.Person.objects.get_or_create(
+    return entity.Person.objects.get_or_create(
         first_name=row['first'],
         last_name=row['last']
     )[0]
@@ -144,7 +142,7 @@ def _get_or_create_candidate(row, person, party, race):
         id_components[2]
     )
 
-    return models.Candidate.objects.get_or_create(
+    return election.Candidate.objects.get_or_create(
         person=person,
         party=party,
         race=race,
@@ -152,25 +150,27 @@ def _get_or_create_candidate(row, person, party, race):
     )[0]
 
 
-def _get_or_create_ballot_measure(row, geography, election):
+def _get_or_create_ballot_measure(row, division, election_day):
     if row['level'] == 'state':
-        state = geography
+        state = division
     else:
-        state = models.Geography.objects.get(code=geography.state_fips)
+        state = geography.Division.objects.get(
+            code=division.code_components.get('fips').get('state')
+        )
 
 
-    return models.BallotMeasure.objects.get_or_create(
+    return election.BallotMeasure.objects.get_or_create(
         question=row['seatname'],
-        label=row['seatname'],
-        geography=state,
-        election=election
+        name=row['seatname'],
+        division=state,
+        election_day=election_day
     )[0]
 
 
 def _get_or_create_ballot_answer(row, ballot_measure):
-    return models.BallotAnswer.objects.get_or_create(
+    return election.BallotAnswer.objects.get_or_create(
         answer=row['last'],
-        label=row['last'],
+        name=row['last'],
         ballot_measure=ballot_measure
     )
 
@@ -183,20 +183,21 @@ def process_row(row):
         row['officename']
     ))
 
-    level = _get_or_create_geography_level(row)
-    geography = _get_or_create_geography(row, level)
+    level = _get_division_level(row)
+    division = _get_division(row, level)
     election_cycle = _get_or_create_election_cycle('2018')
-    election = _get_or_create_election(row, election_cycle)
+    election_day = _get_or_create_election_day(row, election_cycle)
 
     if row['is_ballot_measure'] == 'True':
-        ballot_measure = _get_or_create_ballot_measure(row, geography, election)
+        ballot_measure = _get_or_create_ballot_measure(row, division, election_day)
         ballot_answer = _get_or_create_ballot_answer(row, ballot_measure)
     else:
-        office = _get_or_create_office(row)
-        seat = _get_or_create_seat(row, office, geography)
+        body = _get_or_create_body(row)
+        office = _get_or_create_office(row, body, division)
         party = _get_or_create_party(row)
-        race_type = _get_or_create_race_type(row)
-        race = _get_or_create_race(row, election, seat, race_type)
+        election_type = _get_or_create_election_type(row)
+        race = _get_or_create_race(row, office, election_cycle)
+        election = _get_or_create_election(row, election_day, division, election_type, race)
         person = _get_or_create_person(row)
         candidate = _get_or_create_candidate(row, person, party, race)
 
@@ -220,4 +221,6 @@ class Command(BaseCommand):
         with open('test.csv', 'r') as readfile:
             reader = csv.DictReader(readfile)
             for row in reader:
+                if row['level'] == 'township':
+                    continue
                 process_row(row)

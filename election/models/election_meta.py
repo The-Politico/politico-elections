@@ -34,7 +34,7 @@ class BallotMeasure(LabelBase):
     """
     question = models.TextField()
     division = models.ForeignKey(Division)
-    election = models.ForeignKey('Election')
+    election_day = models.ForeignKey('ElectionDay')
 
 
 class ElectionDay(UUIDBase):
@@ -56,17 +56,18 @@ class Election(LabelBase):
     division = models.ForeignKey(Division)
 
     def save(self, *args, **kwargs):
-        base = '{0} {1} {2}, {3}'.format(
-            self.division.label,
-            self.race.office.body.label,
+        base = '{0}, {1}, {2}'.format(
+            self.race.office.label,
             self.election_type.label,
             self.election_day.date
         )
 
         if self.party:
             self.label = '{0} {1}'.format(self.party.label, base)
+            self.name = '{0} {1}'.format(self.party.label, base)
         else:
             self.label = base
+            self.name = base
 
         super(Election, self).save(*args, **kwargs)
 
@@ -76,10 +77,13 @@ class Race(LabelBase):
     cycle = models.ForeignKey(ElectionCycle)
 
     def save(self, *args, **kwargs):
-        self.label = '{0} {1}'.format(
-            self.cycle.label,
+        name_label = '{0} {1}'.format(
+            self.cycle.name,
             self.office.label
         )
+
+        self.label = name_label
+        self.name = name_label
 
         super(Race, self).save(*args, **kwargs)
 
