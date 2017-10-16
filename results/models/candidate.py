@@ -1,10 +1,10 @@
-from collections import defaultdict
 from django.db import models
-from .base import SlugModel
-from .election_meta import Party, Race, BallotMeasure
+
+from .base import LabelBase
+from .election_meta import BallotMeasure, Party, Race
 
 
-class Person(SlugModel):
+class Person(LabelBase):
     first_name = models.CharField(max_length=255, null=True)
     middle_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255)
@@ -22,10 +22,10 @@ class Person(SlugModel):
         super(Person, self).save(*args, **kwargs)
 
 
-class Candidate(models.Model):
+class Candidate(LabelBase):
+    race = models.ForeignKey(Race)
     person = models.ForeignKey(Person)
     party = models.ForeignKey(Party)
-    race = models.ForeignKey(Race)
     ap_candidate_id = models.CharField(max_length=255)
     aggregable = models.BooleanField(default=True)
     winner = models.BooleanField(default=False)
@@ -33,12 +33,13 @@ class Candidate(models.Model):
     uncontested = models.BooleanField(default=False)
     gender = models.CharField(max_length=50, null=True)
     image = models.URLField(null=True, blank=True)
+    top_of_ticket = models.ForeignKey('self', null=True, related_name='ticket')
 
     def __str__(self):
         return self.person.label
 
 
-class BallotAnswer(SlugModel):
+class BallotAnswer(LabelBase):
     answer = models.TextField()
     winner = models.BooleanField(default=False)
     ballot_measure = models.ForeignKey(BallotMeasure)

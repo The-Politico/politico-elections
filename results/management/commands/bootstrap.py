@@ -1,11 +1,14 @@
 import csv
+import results.models as models
 import subprocess
 
 from django.core.management.base import BaseCommand, CommandError
-from results.models import (Geography, GeographyLevel, Election,
-                        ElectionCycle, Office, Seat, Party,
-                        RaceType, Race, Person, Candidate,
-                        BallotMeasure, BallotAnswer)
+<<<<<<< Updated upstream
+from results.models import (BallotAnswer, BallotMeasure, Candidate, Election,
+                            ElectionCycle, Geography, GeoLevel, Office, Party,
+                            Person, Race, RaceType, Seat)
+=======
+>>>>>>> Stashed changes
 
 
 def _get_or_create_geography(row, level):
@@ -15,11 +18,11 @@ def _get_or_create_geography(row, level):
         label = row['statename']
 
     if level.code <= 1:
-        return Geography.objects.get(
+        return models.Geography.objects.get(
             label=label
         )
     else:
-        return Geography.objects.get_or_create(
+        return models.Geography.objects.get_or_create(
             code=row['fipscode'],
             state_fips=row['fipscode'][:2],
             geography_level=level,
@@ -40,72 +43,69 @@ def _get_or_create_geography_level(row):
         code = 4
 
 
-    return GeographyLevel.objects.get_or_create(
+<<<<<<< Updated upstream
+    return GeoLevel.objects.get_or_create(
+=======
+    return models.GeographyLevel.objects.get_or_create(
+>>>>>>> Stashed changes
         label=row['level'],
         code=code
     )[0]
 
 
-def _get_or_create_election(row, election_cycle):
-    return Election.objects.get_or_create(
+def _get_or_create_election_day(row, election_cycle):
+    return models.Election_day.objects.get_or_create(
         date=row['electiondate'],
         cycle=election_cycle
     )[0]
 
 
 def _get_or_create_election_cycle(year):
-    return ElectionCycle.objects.get_or_create(
+    return models.ElectionCycle.objects.get_or_create(
         label=year
     )[0]
 
 
-def _get_or_create_office(row):
-    return Office.objects.get_or_create(
+def _get_or_create_body(row):
+    return models.Body.objects.get_or_create(
         label=row['officename'],
         level=0
     )[0]
 
-def _get_or_create_seat(row, office, geography):
-    if row['officename'] == 'President':
-        return Seat.objects.get_or_create(
-            label='President',
-            geography=Geography.objects.get(label='United States'),
-            office=office
-        )[0]
-
-    seat_label_base = '{0} {1}'.format(
+def _get_or_create_office(row, body, geography):
+    office = '{0} {1}'.format(
         row['statename'],
         row['officename']
     )
 
     if row['seatname']:
-        seat_label = '{0}, {1}'.format(seat_label_base, row['seatname'])
+        office_label = '{0}, {1}'.format(office, row['seatname'])
     else:
-        seat_label = seat_label_base
+        office_label = office
 
     if row['level'] not in ['state', 'national']:
-        return Seat.objects.get(
-            label=seat_label,
-            office__label=office.label,
+        return models.Office.objects.get(
+            label=office_label,
+            body__label=body.label,
             geography__state_fips=geography.state_fips
         )
 
-    return Seat.objects.get_or_create(
-        label=seat_label,
+    return models.Office.objects.get_or_create(
+        label=office_label,
         geography=geography,
         office=office
     )[0]
 
 
 def _get_or_create_party(row):
-    return Party.objects.get_or_create(
+    return models.Party.objects.get_or_create(
         ap_code=row['party'],
         label=row['party']
     )[0]
 
 
-def _get_or_create_race_type(row):
-    return RaceType.objects.get_or_create(
+def _get_or_create_election_type(row):
+    return models.ElectionType.objects.get_or_create(
         label=row['racetype']
     )[0]
 
@@ -113,15 +113,15 @@ def _get_or_create_race_type(row):
 def _get_or_create_race(row, election, seat, race_type):
     if race_type.label not in ['General', 'Runoff']:
         if row['racetypeid'] in ['D', 'E']:
-            party = Party.objects.get(ap_code='Dem')
+            party = models.Party.objects.get(ap_code='Dem')
         elif row['racetypeid'] in ['R', 'S']:
-            party = Party.objects.get(ap_code='GOP')
+            party = models.Party.objects.get(ap_code='GOP')
         else:
             party = None
     else:
         party = None
 
-    return Race.objects.get_or_create(
+    return models.Race.objects.get_or_create(
         election=election,
         race_type=race_type,
         seat=seat,
@@ -131,7 +131,7 @@ def _get_or_create_race(row, election, seat, race_type):
 
 
 def _get_or_create_person(row):
-    return Person.objects.get_or_create(
+    return models.Person.objects.get_or_create(
         first_name=row['first'],
         last_name=row['last']
     )[0]
@@ -144,7 +144,7 @@ def _get_or_create_candidate(row, person, party, race):
         id_components[2]
     )
 
-    return Candidate.objects.get_or_create(
+    return models.Candidate.objects.get_or_create(
         person=person,
         party=party,
         race=race,
@@ -156,10 +156,10 @@ def _get_or_create_ballot_measure(row, geography, election):
     if row['level'] == 'state':
         state = geography
     else:
-        state = Geography.objects.get(code=geography.state_fips)
+        state = models.Geography.objects.get(code=geography.state_fips)
 
 
-    return BallotMeasure.objects.get_or_create(
+    return models.BallotMeasure.objects.get_or_create(
         question=row['seatname'],
         label=row['seatname'],
         geography=state,
@@ -168,7 +168,7 @@ def _get_or_create_ballot_measure(row, geography, election):
 
 
 def _get_or_create_ballot_answer(row, ballot_measure):
-    return BallotAnswer.objects.get_or_create(
+    return models.BallotAnswer.objects.get_or_create(
         answer=row['last'],
         label=row['last'],
         ballot_measure=ballot_measure
@@ -221,5 +221,3 @@ class Command(BaseCommand):
             reader = csv.DictReader(readfile)
             for row in reader:
                 process_row(row)
-
-    

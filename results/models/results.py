@@ -1,13 +1,33 @@
 from django.db import models
-from .base import SlugModel
-from .candidate import Candidate, BallotMeasure
-from .geography import Geography
+<<<<<<< Updated upstream
+
+from .candidate import BallotMeasure, Candidate
+from .base import UUIDBase
+from .candidate import Candidate, BallotAnswer
+from .election_meta import Election
+from .division import Divison
 
 
-class Result(models.Model):
+class BaseResult(UUIDBase):
+    election = models.ForeignKey(Election)
     candidate = models.ForeignKey(Candidate, null=True)
-    ballot_measure = models.ForeignKey(BallotMeasure, null=True)
-    vote_count = models.PositiveIntegerField()
-    vote_pct = models.DecimalField(decimal_places=3, max_digits=5)
-    total_votes = models.PositiveIntegerField()
-    geography = models.ForeignKey(Geography)
+    division = models.ForeignKey(Divison)
+    count = models.PositiveIntegerField()
+    pct = models.DecimalField(decimal_places=3, max_digits=5)
+    total = models.PositiveSmallIntegerField()
+
+    class Meta:
+        abstract = True
+
+
+class Votes(BaseResult):
+    ballot_answer = models.ForeignKey(BallotAnswer, null=True)
+    winning = models.BooleanField(default=False)
+
+
+class ElectoralVotes(BaseResult):
+    winning = models.BooleanField(default=False)
+
+
+class Delegates(BaseResult):
+    superdelegates = models.BooleanField(default=False)

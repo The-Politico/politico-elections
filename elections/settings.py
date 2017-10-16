@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
 import server_config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,6 +28,9 @@ SECRET_KEY = 'nla@(0+98vds4sc+tp31k)p#lp2v%bz0%2ef33rymw2(hr7%ar'
 DEBUG = True
 
 ALLOWED_HOSTS = server_config.STAGING_SERVERS
+
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
 
 
 # Application definition
@@ -78,7 +82,7 @@ WSGI_APPLICATION = 'elections.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('ELECTIONS_POSTGRES_NAME', None),
+        'NAME': os.environ.get('ELECTIONS_POSTGRES_NAME', 'elections'),
         'USER': os.environ.get('ELECTIONS_POSTGRES_USER', None),
         'PASSWORD': os.environ.get('ELECTIONS_POSTGRES_PASSWORD', None),
         'HOST': os.environ.get('ELECTIONS_POSTGRES_HOST', 'localhost'),

@@ -4,7 +4,7 @@
 elex results 2016-11-08 --national-only -o json > master.json
 
 
-for file in ./scripts/*.json ; do
+for file in ./output/races/*.json ; do
   if [ -e "$file" ] ; then
     races=`cat $file`
     # filter results

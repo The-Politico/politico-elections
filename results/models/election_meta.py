@@ -1,23 +1,24 @@
 from django.db import models
-from .base import SlugModel
-from .geography import Geography
+
+from .base import LabelBase, NameBase, UUIDBase
+from .division import Division
 
 
-class ElectionCycle(SlugModel):
+class ElectionCycle(NameBase):
     """
     e.g. "2016"
     """
     pass
 
 
-class RaceType(SlugModel):
+class ElectionType(LabelBase):
     """
     e.g. "General", "Primary"
     """
-    pass
+    ap_code = models.CharField(max_length=1)
 
 
-class Office(SlugModel):
+class Body(LabelBase):
     """
     label = 'Senate'
     office_level = 0
@@ -35,15 +36,15 @@ class Office(SlugModel):
     level = models.PositiveSmallIntegerField(choices=LEVEL_CHOICES)
 
 
-class Seat(SlugModel):
+class Office(LabelBase):
     """
     e.g. "Senator", "Governor"
     """
-    geography = models.ForeignKey(Geography)
-    office = models.ForeignKey(Office)
+    division = models.ForeignKey(Division)
+    body = models.ForeignKey(Body, null=True)
 
 
-class Party(SlugModel):
+class Party(LabelBase):
     """
     label = "Republican"
     ap_code = "gop"
@@ -53,7 +54,15 @@ class Party(SlugModel):
     aggregate_candidates = models.BooleanField(default=True)
 
 
-class Election(models.Model):
+class BallotMeasure(LabelBase):
+    """
+    """
+    question = models.TextField()
+    division = models.ForeignKey(Division)
+    election = models.ForeignKey('Election')
+
+
+class ElectionDay(UUIDBase):
     """
     election_date = 2018-11-08
     """
@@ -64,37 +73,19 @@ class Election(models.Model):
         return self.election_date
 
 
-class BallotMeasure(SlugModel):
-    """
-    """
-    question = models.TextField()
-    geography = models.ForeignKey(Geography)
-    election = models.ForeignKey(Election)
-    precincts_reporting = models.PositiveIntegerField(null=True)
-    precincts_total = models.PositiveIntegerField(null=True)
-    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
-    called = models.BooleanField(default=False)
-    tabulated = models.BooleanField(default=False)
-
-
-class Race(SlugModel):
-    election = models.ForeignKey(Election)
-    race_type = models.ForeignKey(RaceType)
-    seat = models.ForeignKey(Seat)
+class Election(LabelBase):
+    election_type = models.ForeignKey(ElectionType)
+    race = models.ForeignKey('Race')
     party = models.ForeignKey(Party, null=True)
-    ap_race_id = models.CharField(max_length=10)
-    precincts_reporting = models.PositiveIntegerField(null=True)
-    precincts_total = models.PositiveIntegerField(null=True)
-    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
-    called = models.BooleanField(default=False)
-    tabulated = models.BooleanField(default=False)
+    election_day = models.ForeignKey(ElectionDay)
+    division = models.ForeignKey(Division)
 
     def save(self, *args, **kwargs):
         base = '{0} {1} {2}, {3}'.format(
-            self.seat.geography.label,
-            self.seat.office.label,
-            self.race_type.label,
-            self.election.date
+            self.division.label,
+            self.race.office.body.label,
+            self.election_type.label,
+            self.election_day.date
         )
 
         if self.party:
@@ -102,4 +93,31 @@ class Race(SlugModel):
         else:
             self.label = base
 
+        super(Election, self).save(*args, **kwargs)
+
+
+class Race(LabelBase):
+    office = models.ForeignKey(Office)
+    cycle = models.ForeignKey(ElectionCycle)
+
+    def save(self, *args, **kwargs):
+        self.label = '{0} {1}'.format(
+            self.cycle.label,
+            self.office.label
+        )
+
         super(Race, self).save(*args, **kwargs)
+
+
+class APElectionMeta(UUIDBase):
+    election = models.ForeignKey(Election, null=True)
+    ballot_measure = models.ForeignKey(BallotMeasure, null=True)
+    ap_election_id = models.CharField(max_length=10)
+    called = models.BooleanField(default=False)
+    tabulated = models.BooleanField(default=False)
+    override_ap_call = models.BooleanField(default=False)
+    override_ap_votes = models.BooleanField(default=False)
+    precincts_reporting = models.PositiveIntegerField(null=True)
+    precincts_total = models.PositiveIntegerField(null=True)
+    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
+

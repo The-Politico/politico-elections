@@ -33,7 +33,8 @@ class ElexResult(models.Model):
     polid = models.TextField(null=True)
     polnum = models.TextField(null=True)
     precinctsreporting = models.PositiveSmallIntegerField(null=True)
-    precinctsreportingpct = models.DecimalField(max_digits=7, decimal_places=6, null=True)
+    precinctsreportingpct = models.DecimalField(
+        max_digits=7, decimal_places=6, null=True)
     precinctstotal = models.PositiveSmallIntegerField(null=True)
     resultrun = models.ForeignKey(ResultRun)
     reportingunitid = models.TextField(null=True)

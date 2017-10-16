@@ -119,3 +119,11 @@ test.csv
 confs/rendered
 scripts/*.json
 master.json
+<<<<<<< Updated upstream
+data/
+output
+
+node_modules/
+=======
+output
+>>>>>>> Stashed changes
