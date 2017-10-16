@@ -175,6 +175,20 @@ def _get_or_create_ballot_answer(row, ballot_measure):
     )
 
 
+def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
+    kwargs = {
+        'ap_election_id': row['raceid']
+    }
+
+    if election:
+        kwargs['election'] = election
+
+    if ballot_measure:
+        kwargs['ballot_measure'] = ballot_measure
+
+    return vote.APElectionMeta.objects.get_or_create(**kwargs)
+
+
 def process_row(row):
     print('Processing {0} {1} {2} {3}'.format(
         row['statename'],
@@ -191,6 +205,7 @@ def process_row(row):
     if row['is_ballot_measure'] == 'True':
         ballot_measure = _get_or_create_ballot_measure(row, division, election_day)
         ballot_answer = _get_or_create_ballot_answer(row, ballot_measure)
+        meta = _get_or_create_ap_election_meta(row, ballot_measure=ballot_measure)
     else:
         body = _get_or_create_body(row)
         office = _get_or_create_office(row, body, division)
@@ -200,6 +215,7 @@ def process_row(row):
         election = _get_or_create_election(row, election_day, division, election_type, race)
         person = _get_or_create_person(row)
         candidate = _get_or_create_candidate(row, person, party, race)
+        meta = _get_or_create_ap_election_meta(row, election=election)
 
 
 
