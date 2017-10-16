@@ -3,15 +3,14 @@
 # grab elex results for everything
 elex results 2016-11-08 --national-only -o json > master.json
 
-
-for file in ./output/races/*.json ; do
+for file in ./output/elections/*.json ; do
   if [ -e "$file" ] ; then
-    races=`cat $file`
+    elections=`cat $file`
     # filter results
     cat master.json \
-    | jq -c --argjson races "$races" '[
+    | jq -c --argjson elections "$elections" '[
       .[] |
-      select(.raceid as $id | $races|index($id)) |
+      select(.raceid as $id | $elections|index($id)) |
       {
         fipscode: .fipscode,
         level: .level,

@@ -1,17 +1,17 @@
 import json
 
 from django.core.management.base import BaseCommand, CommandError
-from results.models import Race
+from election.models import Election
 from uuslug import slugify
 
 class Command(BaseCommand):
     help = 'finds race ids necessary for pages'
 
-    def serialize_race_ids(self, races, field, second_field=None, file_prefix=None):
-        # get distinct values for field from passed races queryset
-        values = races.values(field).distinct()
+    def serialize_race_ids(self, elections, field, second_field=None, file_prefix=None):
+        # get distinct values for field from passed elections queryset
+        values = elections.values(field).distinct()
 
-        # loop through our distinct values to build a list of races
+        # loop through our distinct values to build a list of elections
         # for each value
         for value in values:
             # get the label out of the object
@@ -22,8 +22,8 @@ class Command(BaseCommand):
                 field: label
             }
 
-            # filter races based on current value
-            filtered_races = races.filter(**filters)
+            # filter elections based on current value
+            filtered_races = elections.filter(**filters)
             
             # BEFORE WE BUILD OUR FILE, check if we need to do this again
             # at a second level
@@ -31,21 +31,21 @@ class Command(BaseCommand):
                 self.serialize_race_ids(filtered_races, second_field, file_prefix=label)
                 continue
 
-            # loop through our filtered races to get the race id
+            # loop through our filtered elections to get the race id
             race_ids = []   
             for race in filtered_races:
-                race_ids.append(race.ap_race_id)
+                race_ids.append(race.apelectionmeta_set.all()[0].ap_election_id)
 
             # build our file of race ids
             if file_prefix:
-                filename = '{0}-{1}-races.json'.format(
+                filename = '{0}-{1}-elections.json'.format(
                     slugify(file_prefix), 
                     slugify(label)
                 )
             else:
-                filename = '{0}-races.json'.format(slugify(label))
+                filename = '{0}-elections.json'.format(slugify(label))
 
-            with open('output/races/{0}'.format(filename), 'w') as f:
+            with open('output/elections/{0}'.format(filename), 'w') as f:
                 json.dump(race_ids, f)
 
 
@@ -54,14 +54,14 @@ class Command(BaseCommand):
         parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
-        races = Race.objects.filter(
-            election__date=options['election_date'],
+        elections = Election.objects.filter(
+            election_day__date=options['election_date'],
         )
         
-        self.serialize_race_ids(races, 'office__geography__label')
-        self.serialize_race_ids(races, 'office__body__label')
+        self.serialize_race_ids(elections, 'race__office__division__code')
+        self.serialize_race_ids(elections, 'race__office__body__name')
         self.serialize_race_ids(
-            races, 
-            'office__geography__label',
-            second_field='office__body__label'
+            elections, 
+            'race__office__division__code',
+            second_field='race__office__body__name'
         )

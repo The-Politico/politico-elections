@@ -10,12 +10,15 @@ class Person(LabelBase):
     suffix = models.CharField(max_length=10, null=True)
 
     def save(self, *args, **kwargs):
-        self.label = '{0}{1}{2}'.format(
+        name_label = '{0}{1}{2}'.format(
             self.first_name,
             '{0}'.format(
                 ' ' + self.middle_name + ' ' if self.middle_name else ' '
             ),
             self.last_name
         )
+
+        self.label = name_label
+        self.name = name_label
         self.short_label = self.last_name
         super(Person, self).save(*args, **kwargs)

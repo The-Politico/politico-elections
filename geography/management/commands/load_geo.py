@@ -37,6 +37,11 @@ COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
     parent=STATE_LEVEL
 )
 
+TOWNSHIP_LEVEL, created = DivisionLevel.objects.get_or_create(
+    name='township',
+    parent=COUNTY_LEVEL
+)
+
 # Other fixtures
 DivisionLevel.objects.get_or_create(
     name='district',
