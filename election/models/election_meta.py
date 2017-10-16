@@ -82,4 +82,3 @@ class Race(LabelBase):
         )
 
         super(Race, self).save(*args, **kwargs)
-
