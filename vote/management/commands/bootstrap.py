@@ -186,7 +186,7 @@ def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
     if ballot_measure:
         kwargs['ballot_measure'] = ballot_measure
 
-    return vote.APElectionMeta.objects.get_or_create(**kwargs)
+    return vote.APElectionMeta.objects.get_or_create(**kwargs)[0]
 
 
 def process_row(row):

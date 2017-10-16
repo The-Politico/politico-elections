@@ -49,6 +49,13 @@ class Command(BaseCommand):
                 json.dump(race_ids, f)
 
 
+    def all_elections(self, elections):
+        for election in elections:
+            election_id = election.apelectionmeta_set.all()[0].ap_election_id
+            with open('output/elections/{0}.json'.format(election_id), 'w') as f:
+                json.dump([election_id], f)
+
+
 
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)
@@ -65,3 +72,4 @@ class Command(BaseCommand):
             'race__office__division__code',
             second_field='race__office__body__name'
         )
+        self.all_elections(elections)
