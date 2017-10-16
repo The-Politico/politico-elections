@@ -256,6 +256,8 @@ class Command(BaseCommand):
 
     def create_county_fixtures(self):
         for county in COUNTIES:
+            if int(county['state']) > 56:
+                continue
             state = Division.objects.get(
                 code=county['state'],
                 level=STATE_LEVEL
