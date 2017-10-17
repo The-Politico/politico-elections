@@ -64,7 +64,8 @@ class LabelBase(NameBase):
 
 
 class SelfRelatedBase(models.Model):
-    parent = models.ForeignKey('self', null=True, related_name='children')
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='children')
 
     class Meta:
         abstract = True

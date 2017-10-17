@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'entity',
     'geography',
     'vote',
+    'showtime',
 ]
 
 MIDDLEWARE = [
