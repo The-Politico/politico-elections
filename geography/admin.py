@@ -1,9 +1,17 @@
 from django.contrib import admin
 
-from geography.models import Division, DivisionLevel, Geography
+from geography.models import (Division, DivisionLevel, Geography,
+                              PeerRelationship)
+
+
+class PeerRelationshipInline(admin.StackedInline):
+    model = PeerRelationship
+    fk_name = 'from_division'
+    extra = 0
 
 
 class DivisionAdmin(admin.ModelAdmin):
+    inlines = (PeerRelationshipInline,)
     list_display = ('label', 'level', 'code')
     list_filter = ('level',)
     search_fields = ('code',)
