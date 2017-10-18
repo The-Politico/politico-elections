@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CensusLabel, CensusTable, CensusVariable
+from .models import CensusEstimate, CensusLabel, CensusTable, CensusVariable
 
 
 class CensusVariableInline(admin.TabularInline):
@@ -12,7 +12,7 @@ class CensusVariableInline(admin.TabularInline):
             db_field, request, **kwargs
         )
         if db_field.name == 'label':
-            if request._obj_ is not None:
+            if hasattr(request, '_obj_'):
                 field.queryset = field.queryset.filter(
                     table=request._obj_
                 )
@@ -54,3 +54,26 @@ class CensusLabelAdmin(admin.ModelAdmin):
     search_fields = ('table',)
     list_filter = ('table__year', 'table__series')
     list_display = ('label', 'table')
+
+
+@admin.register(CensusEstimate)
+class CensusEstimateAdmin(admin.ModelAdmin):
+    list_filter = ('variable__table__code',)
+    list_display = (
+        'variable_code',
+        'table_code',
+        'division_name',
+        'estimate',
+    )
+
+    def variable_code(self, obj):
+        return obj.variable.code
+
+    def table_code(self, obj):
+        return obj.variable.table.code
+
+    def division_name(self, obj):
+        return '{0}, {1}'.format(
+            obj.division.name,
+            obj.division.parent.name
+        )

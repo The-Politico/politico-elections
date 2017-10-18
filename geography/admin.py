@@ -1,12 +1,21 @@
 from django.contrib import admin
 
-from geography.models import Division, DivisionLevel, Geography
+from geography.models import (Division, DivisionLevel, Geography,
+                              IntersectRelationship)
+
+
+class IntersectRelationshipInline(admin.StackedInline):
+    model = IntersectRelationship
+    fk_name = 'from_division'
+    extra = 0
 
 
 class DivisionAdmin(admin.ModelAdmin):
+    inlines = (IntersectRelationshipInline,)
     list_display = ('label', 'level', 'code')
     list_filter = ('level',)
     search_fields = ('code',)
+    readonly_fields = ('parent',)
 
 
 class GeographyAdmin(admin.ModelAdmin):
