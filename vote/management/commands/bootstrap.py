@@ -44,16 +44,37 @@ def _get_or_create_election_day(row, election_cycle):
         cycle=election_cycle
     )[0]
 
+def _get_or_create_jurisdiction(row):
+    us = geography.Division.objects.get(code='00')
 
-def _get_or_create_body(row):
-    return entity.Body.objects.get_or_create(
-        label=row['officename'],
-        name=row['officename'],
-        level=0
-    )[0]
+    if row['officename'] == 'Governor':
+        # find the state and return it
+        return None
+    else:
+        return entity.Jurisdiction.objects.get(
+            division=us,
+            name='U.S. Federal Government'
+        )
 
 
-def _get_or_create_office(row, body, division):
+def _get_or_create_body(row, jurisdiction):
+    if row['officename'] in ['President', 'Governor']:
+        return None
+    else:
+        return entity.Body.objects.get_or_create(
+            label=row['officename'],
+            name=row['officename'],
+            jurisdiction=jurisdiction
+        )[0]
+
+
+def _get_or_create_office(row, body, division=None, jurisdiction=None):
+    if row['officename'] == 'President':
+        return entity.Office.objects.get(
+            label='President',
+            name='President of the United States'
+        )
+
     office = '{0} {1}'.format(
         row['statename'],
         row['officename']
@@ -67,7 +88,6 @@ def _get_or_create_office(row, body, division):
     if row['level'] not in ['state', 'national']:
         return entity.Office.objects.get(
             name=office_label,
-            body__label=body.label,
             division__code=division.code_components.get('fips').get('state')
         )
 
@@ -75,6 +95,7 @@ def _get_or_create_office(row, body, division):
         label=office_label,
         name=office_label,
         division=division,
+        jurisdiction=jurisdiction,
         body=body
     )[0]
 
@@ -142,12 +163,15 @@ def _get_or_create_candidate(row, person, party, race):
         id_components[2]
     )
 
-    return election.Candidate.objects.get_or_create(
+    candidate = election.Candidate.objects.get_or_create(
         person=person,
         party=party,
         race=race,
         ap_candidate_id=candidate_id
-    )[0]
+    )
+
+    print(candidate[0], candidate[1])
+    return candidate[0]
 
 
 def _get_or_create_ballot_measure(row, division, election_day):
@@ -189,6 +213,24 @@ def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
     return vote.APElectionMeta.objects.get_or_create(**kwargs)[0]
 
 
+def _get_or_create_votes(row, election, division, candidate=None, ballot_answer=None):
+    kwargs = {
+        'election': election,
+        'division': division,
+        'count': row['votecount'],
+        'pct': row['votepct'],
+        'total': 0,
+        'winning': row['winner']
+    }
+
+    if candidate:
+        kwargs['candidate'] = candidate
+
+    if ballot_answer:
+        kwargs['ballot_answer'] = ballot_answer
+
+    return vote.Votes.objects.get_or_create(**kwargs)[0]
+
 def process_row(row):
     print('Processing {0} {1} {2} {3}'.format(
         row['statename'],
@@ -207,8 +249,9 @@ def process_row(row):
         ballot_answer = _get_or_create_ballot_answer(row, ballot_measure)
         meta = _get_or_create_ap_election_meta(row, ballot_measure=ballot_measure)
     else:
-        body = _get_or_create_body(row)
-        office = _get_or_create_office(row, body, division)
+        jurisdiction = _get_or_create_jurisdiction(row)
+        body = _get_or_create_body(row, jurisdiction)
+        office = _get_or_create_office(row, body, division=division, jurisdiction=jurisdiction)
         party = _get_or_create_party(row)
         election_type = _get_or_create_election_type(row)
         race = _get_or_create_race(row, office, election_cycle)
@@ -216,6 +259,7 @@ def process_row(row):
         person = _get_or_create_person(row)
         candidate = _get_or_create_candidate(row, person, party, race)
         meta = _get_or_create_ap_election_meta(row, election=election)
+        votes = _get_or_create_votes(row, election, division, candidate=candidate)
 
 
 

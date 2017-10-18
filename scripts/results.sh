@@ -31,3 +31,4 @@ for file in ./output/elections/*.json ; do
 done
 
 # take master results and insert to django
+python manage.py update_results
