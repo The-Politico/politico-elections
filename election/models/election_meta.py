@@ -45,7 +45,23 @@ class ElectionDay(UUIDBase):
     cycle = models.ForeignKey(ElectionCycle)
 
     def __str__(self):
-        return self.election_date
+        return str(self.date)
+
+
+class Race(LabelBase):
+    office = models.ForeignKey(Office)
+    cycle = models.ForeignKey(ElectionCycle)
+
+    def save(self, *args, **kwargs):
+        name_label = '{0} {1}'.format(
+            self.cycle.name,
+            self.office.label
+        )
+
+        self.label = name_label
+        self.name = name_label
+
+        super(Race, self).save(*args, **kwargs)
 
 
 class Election(LabelBase):
@@ -70,19 +86,3 @@ class Election(LabelBase):
             self.name = base
 
         super(Election, self).save(*args, **kwargs)
-
-
-class Race(LabelBase):
-    office = models.ForeignKey(Office)
-    cycle = models.ForeignKey(ElectionCycle)
-
-    def save(self, *args, **kwargs):
-        name_label = '{0} {1}'.format(
-            self.cycle.name,
-            self.office.label
-        )
-
-        self.label = name_label
-        self.name = name_label
-
-        super(Race, self).save(*args, **kwargs)

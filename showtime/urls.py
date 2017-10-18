@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
 from showtime.views import (FederalBodyPage, FederalBodyPageExport,
-                            StateBodyPage, StateBodyPageExport, StatePage,
-                            StatePageExport)
+                            FederalExecutiveRacePage,
+                            FederalExecutiveRacePageExport, StateBodyPage,
+                            StateBodyPageExport, StatePage, StatePageExport)
 
 urlpatterns = [
     url(
@@ -28,5 +29,13 @@ urlpatterns = [
     url(
         r'^body/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<body>[\w-]+)/export/$',
         StateBodyPageExport.as_view()
+    ),
+    url(
+        r'^race/(?P<year>\d{4})/(?P<office>[\w-]+)/$',
+        FederalExecutiveRacePage.as_view()
+    ),
+    url(
+        r'^race/(?P<year>\d{4})/(?P<office>[\w-]+)/export/',
+        FederalExecutiveRacePageExport.as_view()
     ),
 ]
