@@ -1,2 +1,2 @@
-from .division import Division, DivisionLevel, PeerRelationship
+from .division import Division, DivisionLevel, IntersectRelationship
 from .geography import Geography

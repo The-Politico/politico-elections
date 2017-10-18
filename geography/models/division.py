@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import JSONField
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from core.models import EffectiveDateBase, LabelBase, NameBase, SelfRelatedBase
 
@@ -36,62 +36,67 @@ class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
         help_text="Component parts of code"
     )
 
-    peers = models.ManyToManyField(
+    intersecting = models.ManyToManyField(
         'self',
-        through='PeerRelationship',
+        through='IntersectRelationship',
         symmetrical=False,
         related_name='+',
-        help_text="Peers represent geographic divisions that intersect but "
-                  "do not necessarily have a parent/child relationship. The "
-                  "relationship between a congressional district and a "
-                  "precinct is an example of a peer relationship."
+        help_text="Intersecting divisions intersect this one geographically "
+                  "but do not necessarily have a parent/child relationship. "
+                  "The relationship between a congressional district and a "
+                  "precinct is an example of an intersecting relationship."
     )
 
-    def add_peer(self, division, intersection=None, symm=True):
+    def add_intersecting(self, division, intersection=None, symm=True):
         """
-        Adds paired relationships between peer divisions.
+        Adds paired relationships between intersecting divisions.
 
         Optional intersection represents the portion of the area of the related
         division intersecting this division. You can only specify an
         intersection on one side of the relationship when adding a peer.
         """
-        relationship, created = PeerRelationship.objects.update_or_create(
+        relationship, created = IntersectRelationship.objects.update_or_create(
             from_division=self,
             to_division=division,
             defaults={'intersection': intersection}
         )
         if symm:
-            division.add_peer(self, None, False)
+            division.add_intersecting(self, None, False)
         return relationship
 
-    def remove_peer(self, division, symm=True):
-        PeerRelationship.objects.filter(
+    def remove_intersecting(self, division, symm=True):
+        IntersectRelationship.objects.filter(
             from_division=self,
             to_division=division
         ).delete()
         if symm:
-            division.remove_peer(self, False)
+            division.remove_intersecting(self, False)
 
     def set_intersection(self, division, intersection):
-        PeerRelationship.objects.filter(
+        IntersectRelationship.objects.filter(
             from_division=self,
             to_division=division
         ).update(intersection=intersection)
 
     def get_intersection(self, division):
         try:
-            return PeerRelationship.objects.get(
+            return IntersectRelationship.objects.get(
                 from_division=self,
                 to_division=division
             ).intersection
         except ObjectDoesNotExist:
-            raise Exception('No peer relationship with that division.')
+            raise Exception('No intersecting relationship with that division.')
 
 
-class PeerRelationship(models.Model):
+class IntersectRelationship(models.Model):
     """
-    Each PeerRelationship instance represents one side of a paired relationship
-    between peer divisions.
+    Each IntersectRelationship instance represents one side of a paired
+    relationship between intersecting divisions.
+
+    The intersection field represents the decimal proportion of the
+    to_division that intersects with the from_division. It's useful for
+    apportioning counts between the areas, for example, population statistics
+    from census data.
     """
     from_division = models.ForeignKey(
         Division,
@@ -104,16 +109,18 @@ class PeerRelationship(models.Model):
         related_name="+"
     )
     intersection = models.DecimalField(
-        validators=[
-            MinValueValidator(0.0),
-            MaxValueValidator(1.0)
-        ],
         max_digits=7,
         decimal_places=6,
         null=True, blank=True,
         help_text="The portion of the to_division that intersects this "
                   "division."
     )
+
+    def clean(self):
+        if self.intersection < 0.0 or self.intersection > 1.0:
+            raise ValidationError(_(
+                'Intersection should be a decimal between 0 and 1.'
+            ))
 
     class Meta:
         # Don't allow duplicate relationships between divisions
