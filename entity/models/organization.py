@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.models import LabelBase, SelfRelatedBase
+from core.models import LabelBase, SelfRelatedBase, UUIDBase
 from geography.models import Division
 
 
@@ -16,7 +16,7 @@ class Jurisdiction(LabelBase, SelfRelatedBase):
     division = models.ForeignKey(Division, null=True)
 
 
-class Body(LabelBase, SelfRelatedBase):
+class Body(UUIDBase, SelfRelatedBase):
     """
     A body represents a collection of offices or individuals organized around a
     common government or public service function.
@@ -26,11 +26,24 @@ class Body(LabelBase, SelfRelatedBase):
 
     name = 'Senate'
     label = 'U.S. Senate'
+
+    * NOTE: Duplicate slugs are allowed on this model to accomodate states:
+    slug = senate
+    - Florida/Senate
+    - Michigan/Senate
     """
+    slug = models.SlugField(blank=True, max_length=255, editable=True)
+    name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+    short_label = models.CharField(max_length=50, null=True, blank=True)
+
     jurisdiction = models.ForeignKey(Jurisdiction)
 
     class Meta:
         verbose_name_plural = "Bodies"
+
+    def __str__(self):
+        return self.label
 
 
 class Office(LabelBase):

@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^showtime/', include('showtime.urls')),
+    url(r'^election-results/', include('showtime.urls')),
 ]
