@@ -6,13 +6,14 @@ FEDERAL: /election-results/{YEAR}/{BODY}/
 STATE:   /election-results/{YEAR}/{STATE}/{BODY}/
 """
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
 
 from entity.models import Body, Jurisdiction
 from geography.models import Division, DivisionLevel
 
+from .base import BaseView
 
-class FederalBodyPage(DetailView):
+
+class FederalBodyPage(BaseView):
     model = Body
     context_object_name = 'body'
     template_name = 'showtime/bodies/body.fed.live.html'
@@ -39,7 +40,7 @@ class FederalBodyPageExport(FederalBodyPage):
     template_name = 'showtime/bodies/body.fed.export.html'
 
 
-class StateBodyPage(DetailView):
+class StateBodyPage(BaseView):
     model = Body
     context_object_name = 'body'
     template_name = 'showtime/bodies/body.state.live.html'

@@ -1,16 +1,25 @@
 """
 State result pages.
 
-URL PATTERNS
+URL PATTERNS:
 /election-results/{YEAR}/{STATE}/
+
+State results for federal branch, ie, congress and the presidency.
+
+URL PATTERNS:
+/election-results/{BRANCH}/{STATE}/
+
+* Branch is either the Body of congress or the Office of the presidency
 """
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
 
+from entity.models import Body, Jurisdiction, Office
 from geography.models import Division, DivisionLevel
 
+from .base import BaseView
 
-class StatePage(DetailView):
+
+class StatePage(BaseView):
     model = Division
     context_object_name = 'state'
     template_name = 'showtime/states/state.live.html'
@@ -30,3 +39,30 @@ class StatePage(DetailView):
 
 class StatePageExport(StatePage):
     template_name = 'showtime/states/state.export.html'
+
+
+class StateFedPage(StatePage):
+    template_name = 'showtime/states/state.fed.live.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(StateFedPage, self).get_context_data(**kwargs)
+        fed = Jurisdiction.objects.get(name='U.S. Federal Government')
+        try:
+            # Try for congress
+            context['branch'] = Body.objects.get(
+                slug=self.kwargs.get('branch'),
+                jurisdiction=fed
+            )
+            context['executive'] = False
+        except:
+            # Handle for president
+            context['branch'] = Office.objects.get(
+                slug=self.kwargs.get('branch'),
+                jurisdiction=fed
+            )
+            context['executive'] = True
+        return context
+
+
+class StateFedPageExport(StateFedPage):
+    template_name = 'showtime/states/state.fed.export.html'
