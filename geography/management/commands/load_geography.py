@@ -10,6 +10,7 @@ import geojson
 import shapefile
 from census import Census
 from django.core.management.base import BaseCommand, CommandError
+from tqdm import tqdm
 
 from geography.models import Division, DivisionLevel, Geography
 
@@ -201,10 +202,10 @@ class Command(BaseCommand):
                 'topojson': self.get_county_shp('00'),
             },
         )
-        print('>  FIPS {}  @ ~{}kb'.format(
-            '00',
-            round(len(json.dumps(geo.topojson)) / 1000)
-        ))
+        # print('>  FIPS {}  @ ~{}kb'.format(
+        #     '00',
+        #     round(len(json.dumps(geo.topojson)) / 1000)
+        # ))
 
     def create_state_fixtures(self):
         SHP_SLUG = 'cb_{}_us_state_500k'.format(self.YEAR)
@@ -222,7 +223,8 @@ class Command(BaseCommand):
 
         nation_obj = Division.objects.get(code='00')
 
-        for shp in shape.shapeRecords():
+        print('States:')
+        for shp in tqdm(shape.shapeRecords()):
             state = dict(zip(field_names, shp.record))
             # Skip territories
             if int(state['STATEFP']) > 56:
@@ -263,13 +265,14 @@ class Command(BaseCommand):
                     'topojson': self.get_county_shp(state['STATEFP']),
                 },
             )
-            print('>  FIPS {}  @ ~{}kb'.format(
-                state['STATEFP'],
-                round(len(json.dumps(geojson.topojson)) / 1000)
-            ))
+            # print('>  FIPS {}  @ ~{}kb'.format(
+            #     state['STATEFP'],
+            #     round(len(json.dumps(geojson.topojson)) / 1000)
+            # ))
 
     def create_county_fixtures(self):
-        for county in COUNTIES:
+        print('Counties:')
+        for county in tqdm(COUNTIES):
             if int(county['state']) > 56:
                 continue
             state = Division.objects.get(
@@ -294,10 +297,10 @@ class Command(BaseCommand):
                     }
                 }
             )
-            print('>  FIPS {}{}'.format(
-                county['state'],
-                county['county'],
-            ))
+            # print('>  FIPS {}{}'.format(
+            #     county['state'],
+            #     county['county'],
+            # ))
 
     def add_arguments(self, parser):
         def check_threshold(arg):
@@ -374,5 +377,5 @@ class Command(BaseCommand):
         if not options['states']:
             self.create_county_fixtures()
         self.stdout.write(
-            self.style.SUCCESS('Finished loading geography fixtures.')
+            self.style.SUCCESS('Done.')
         )

@@ -1,9 +1,10 @@
 from django.contrib import admin
 
 from election.models import (Election, ElectionCycle, ElectionDay,
-                             ElectionType, Race)
+                             ElectionType, Party, Race)
 
 admin.site.register(Race)
+admin.site.register(Party)
 admin.site.register(Election)
 admin.site.register(ElectionDay)
 admin.site.register(ElectionType)

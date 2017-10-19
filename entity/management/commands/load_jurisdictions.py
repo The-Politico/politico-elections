@@ -29,4 +29,6 @@ class Command(BaseCommand):
                 label=label,
                 division=division
             )
-        print('Done.')
+        self.stdout.write(
+            self.style.SUCCESS('Done.')
+        )

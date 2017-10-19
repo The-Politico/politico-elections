@@ -3,12 +3,21 @@
 # elections
 
 
+### Loading fixtures
+
+```bash
+$ python manage.py loaddata geography entity election
+```
+
+
 ### Seeding fixtures
 
 Presumes you have installed node libraries `topojson` and `topojson-simplify`, globally.
 
 Then run these management commands in sequence:
 
-- `load_geography`
-- `load_jurisdictions`
-- `load_fed`
+```bash
+$ python manage.py load_geography
+$ python manage.py load_jurisdictions
+$ python manage.py load_fed
+```

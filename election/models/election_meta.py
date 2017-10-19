@@ -28,6 +28,9 @@ class Party(LabelBase):
     ap_code = models.CharField(max_length=3)
     aggregate_candidates = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name_plural = 'Parties'
+
 
 class BallotMeasure(LabelBase):
     """
@@ -67,7 +70,7 @@ class Race(LabelBase):
 class Election(LabelBase):
     election_type = models.ForeignKey(ElectionType)
     race = models.ForeignKey('Race')
-    party = models.ForeignKey(Party, null=True)
+    party = models.ForeignKey(Party, null=True, blank=True)
     election_day = models.ForeignKey(ElectionDay)
     division = models.ForeignKey(Division)
 
