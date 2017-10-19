@@ -3,6 +3,21 @@
 # elections
 
 
-### geography mgmtcmd
+### Loading fixtures
 
-Presumes you have installed node libraries `topojson` and `topojson-simplify` globally.
+```bash
+$ python manage.py loaddata geography entity election
+```
+
+
+### Seeding fixtures
+
+Presumes you have installed node libraries `topojson` and `topojson-simplify`, globally.
+
+Then run these management commands in sequence:
+
+```bash
+$ python manage.py load_geography
+$ python manage.py load_jurisdictions
+$ python manage.py load_fed
+```

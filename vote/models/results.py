@@ -1,6 +1,7 @@
 from django.db import models
+
 from core.models import UUIDBase
-from election.models import Candidate, BallotAnswer, Election, BallotMeasure
+from election.models import BallotAnswer, BallotMeasure, Candidate, Election
 from geography.models import Division
 
 
@@ -39,4 +40,6 @@ class APElectionMeta(UUIDBase):
     override_ap_votes = models.BooleanField(default=False)
     precincts_reporting = models.PositiveIntegerField(null=True)
     precincts_total = models.PositiveIntegerField(null=True)
-    precincts_reporting_pct = models.DecimalField(max_digits=5, decimal_places=3, null=True)
+    precincts_reporting_pct = models.DecimalField(
+        max_digits=5, decimal_places=3, null=True
+    )

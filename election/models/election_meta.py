@@ -28,6 +28,9 @@ class Party(LabelBase):
     ap_code = models.CharField(max_length=3)
     aggregate_candidates = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name_plural = 'Parties'
+
 
 class BallotMeasure(LabelBase):
     """
@@ -45,13 +48,29 @@ class ElectionDay(UUIDBase):
     cycle = models.ForeignKey(ElectionCycle)
 
     def __str__(self):
-        return self.election_date
+        return str(self.date)
+
+
+class Race(LabelBase):
+    office = models.ForeignKey(Office)
+    cycle = models.ForeignKey(ElectionCycle)
+
+    def save(self, *args, **kwargs):
+        name_label = '{0} {1}'.format(
+            self.cycle.name,
+            self.office.label
+        )
+
+        self.label = name_label
+        self.name = name_label
+
+        super(Race, self).save(*args, **kwargs)
 
 
 class Election(LabelBase):
     election_type = models.ForeignKey(ElectionType)
     race = models.ForeignKey('Race')
-    party = models.ForeignKey(Party, null=True)
+    party = models.ForeignKey(Party, null=True, blank=True)
     election_day = models.ForeignKey(ElectionDay)
     division = models.ForeignKey(Division)
 
@@ -70,19 +89,3 @@ class Election(LabelBase):
             self.name = base
 
         super(Election, self).save(*args, **kwargs)
-
-
-class Race(LabelBase):
-    office = models.ForeignKey(Office)
-    cycle = models.ForeignKey(ElectionCycle)
-
-    def save(self, *args, **kwargs):
-        name_label = '{0} {1}'.format(
-            self.cycle.name,
-            self.office.label
-        )
-
-        self.label = name_label
-        self.name = name_label
-
-        super(Race, self).save(*args, **kwargs)
