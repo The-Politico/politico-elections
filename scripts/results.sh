@@ -29,6 +29,3 @@ for file in ./output/elections/*.json ; do
     ]' > $file # gzip and copy to s3 after this
   fi
 done
-
-# take master results and insert to django
-python manage.py update_results

@@ -16,6 +16,7 @@ class Command(BaseCommand):
         for value in values:
             # get the label out of the object
             label = value[field]
+            print(label)
 
             # build dict for passing as kwarg
             filters = {
@@ -48,15 +49,6 @@ class Command(BaseCommand):
             with open('output/elections/{0}'.format(filename), 'w') as f:
                 json.dump(race_ids, f)
 
-
-    def all_elections(self, elections):
-        for election in elections:
-            election_id = election.apelectionmeta_set.all()[0].ap_election_id
-            with open('output/elections/{0}.json'.format(election_id), 'w') as f:
-                json.dump([election_id], f)
-
-
-
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)
 
@@ -66,10 +58,9 @@ class Command(BaseCommand):
         )
         
         self.serialize_race_ids(elections, 'race__office__division__code')
-        self.serialize_race_ids(elections, 'race__office__body__name')
-        self.serialize_race_ids(
-            elections, 
-            'race__office__division__code',
-            second_field='race__office__body__name'
-        )
-        self.all_elections(elections)
+        # self.serialize_race_ids(elections, 'race__office__body__name')
+        # self.serialize_race_ids(
+        #     elections, 
+        #     'race__office__division__code',
+        #     second_field='race__office__body__name'
+        # )

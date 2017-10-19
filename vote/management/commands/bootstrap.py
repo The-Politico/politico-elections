@@ -163,20 +163,15 @@ def _get_or_create_candidate(row, person, party, race):
         id_components[2]
     )
 
-    # try to get candidate based on person and race first
-    try:
-        return election.Candidate.objects.get(
-            person=person,
-            race=race,
-            ap_candidate_id=candidate_id
-        )
-    except:
-        return election.Candidate.objects.get_or_create(
-            person=person,
-            party=party,
-            race=race,
-            ap_candidate_id=candidate_id
-        )[0]
+    defaults = {
+        'party': party
+    }
+
+    return election.Candidate.objects.get_or_create(
+        person=person,
+        race=race,
+        ap_candidate_id=candidate_id
+    , defaults=defaults)[0]
 
 
 

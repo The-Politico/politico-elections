@@ -8,6 +8,15 @@ from django.core.management.base import BaseCommand, CommandError
 class Command(BaseCommand):
     help = 'ingests master JSON file to update results models'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--force',
+            action='store_true',
+            dest='force',
+            default=False,
+            help="force update to run"
+        )
+
     def handle(self, *args, **options):
         with open('master.json') as f:
             data = json.load(f)
