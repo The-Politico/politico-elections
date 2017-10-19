@@ -9,6 +9,7 @@ class Command(BaseCommand):
     *AFTER* load_geo.'
 
     def handle(self, *args, **options):
+        print('Loading the fed')
         USA = Division.objects.get(code='00')
         FED, created = Jurisdiction.objects.get_or_create(
             name="U.S. Federal Government",
@@ -16,18 +17,24 @@ class Command(BaseCommand):
             division=USA
         )
         Body.objects.get_or_create(
+            slug="senate",
             name="U.S. Senate",
             label="U.S. Senate",
             jurisdiction=FED,
         )
         Body.objects.get_or_create(
+            slug="house",
             name="U.S. House of Representatives",
             label="U.S. House of Representatives",
             jurisdiction=FED,
         )
         Office.objects.get_or_create(
+            slug="president",
             name="President of the United States",
             label="President",
             jurisdiction=FED,
             division=USA,
+        )
+        self.stdout.write(
+            self.style.SUCCESS('Done.')
         )

@@ -22,7 +22,7 @@ class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
     For example, a particular state, county, district, precinct or
     municipality.
     """
-    level = models.ForeignKey(DivisionLevel)
+    level = models.ForeignKey(DivisionLevel, related_name='divisions')
 
     code = models.CharField(
         max_length=200,

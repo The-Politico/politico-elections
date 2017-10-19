@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.models import LabelBase, SelfRelatedBase
+from core.models import LabelBase, SelfRelatedBase, UUIDBase
 from geography.models import Division
 
 
@@ -16,7 +16,7 @@ class Jurisdiction(LabelBase, SelfRelatedBase):
     division = models.ForeignKey(Division, null=True)
 
 
-class Body(LabelBase, SelfRelatedBase):
+class Body(UUIDBase, SelfRelatedBase):
     """
     A body represents a collection of offices or individuals organized around a
     common government or public service function.
@@ -26,14 +26,27 @@ class Body(LabelBase, SelfRelatedBase):
 
     name = 'Senate'
     label = 'U.S. Senate'
+
+    * NOTE: Duplicate slugs are allowed on this model to accomodate states:
+    slug = senate
+    - florida/senate/
+    - michigan/senate/
     """
+    slug = models.SlugField(blank=True, max_length=255, editable=True)
+    name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+    short_label = models.CharField(max_length=50, null=True, blank=True)
+
     jurisdiction = models.ForeignKey(Jurisdiction)
 
     class Meta:
         verbose_name_plural = "Bodies"
 
+    def __str__(self):
+        return self.label
 
-class Office(LabelBase):
+
+class Office(UUIDBase):
     """
     An office represents a post, seat or position occuppied by an individual
     as a result of an election.
@@ -43,7 +56,20 @@ class Office(LabelBase):
     In the case of executive positions, like governor or president, the office
     is tied directlty to a jurisdiction. Otherwise, the office ties to a body
     tied to a jurisdiction.
+
+    * NOTE: Duplicate slugs are allowed on this model to accomodate states:
+    slug = seat-2
+    - florida/house/seat-2/
+    - michigan/house/seat-2/
     """
+    slug = models.SlugField(blank=True, max_length=255, editable=True)
+    name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+    short_label = models.CharField(max_length=50, null=True, blank=True)
+
     division = models.ForeignKey(Division)
-    jurisdiction = models.ForeignKey(Jurisdiction, null=True)
-    body = models.ForeignKey(Body, null=True)
+    jurisdiction = models.ForeignKey(Jurisdiction, null=True, blank=True)
+    body = models.ForeignKey(Body, null=True, blank=True)
+
+    def __str__(self):
+        return self.label
