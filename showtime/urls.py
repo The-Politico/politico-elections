@@ -2,12 +2,17 @@ from django.conf.urls import url
 
 from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
                             FederalBodyPageExport, FederalExecutiveRacePage,
-                            FederalExecutiveRacePageExport, StateBodyPage,
-                            StateBodyPageExport, StateExecutiveRacePage,
+                            FederalExecutiveRacePageExport, LinkPreview,
+                            StateBodyPage, StateBodyPageExport,
+                            StateExecutiveRacePage,
                             StateExecutiveRacePageExport, StateFedPage,
                             StateFedPageExport, StatePage, StatePageExport)
 
 urlpatterns = [
+    url(r'^$',
+        LinkPreview.as_view(),
+        name='preview'
+    ),
     url(
         r'^cycle/(?P<year>\d{4})/$',
         CyclePage.as_view(),

@@ -1,4 +1,38 @@
 {% extends "showtime/base.html" %}
 
 {%block content%}
+<h1>Sample Pages</h1>
+<ul>
+  <li>
+    <a href="{%url 'cycle-page' year='2018' %}">/election-results/2018/</a>
+    <a href="{%url 'cycle-page-export' year='2018'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'fed-body-page' year='2018' body='senate' %}">/election-results/2018/senate/</a>
+    <a href="{%url 'fed-body-page-export' year='2018' body='senate'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'fed-exec-race-page' year='2018' office='president' %}">/election-results/2018/president/</a>
+    <a href="{%url 'fed-exec-race-page-export' year='2018' office='president'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-fed-page' year='2018' branch='president' state='texas'%}">/election-results/2018/president/texas/</a>
+    <a href="{%url 'state-fed-page-export' year='2018' branch='president' state='texas'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-page' year='2018' state='texas'%}">/election-results/2018/texas/</a>
+    <a href="{%url 'state-page-export' year='2018' state='texas'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-body-page' year='2018' state='texas' body='senate'%}">/election-results/2018/texas/senate/</a>
+    <a href="{%url 'state-body-page-export' year='2018' state='texas' body='senate'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-exec-race-page' year='2018' state='texas' office='governor'%}">/election-results/2018/texas/governor/</a>
+    <a href="{%url 'state-exec-race-page-export' year='2018' state='texas' office='governor'%}"><small>export</small></a>
+  </li>
+</ul>
+
 {%endblock%}
+
+{%block preview_home%}{%endblock%}
