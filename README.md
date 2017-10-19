@@ -3,6 +3,12 @@
 # elections
 
 
-### geography mgmtcmd
+### Seeding fixtures
 
-Presumes you have installed node libraries `topojson` and `topojson-simplify` globally.
+Presumes you have installed node libraries `topojson` and `topojson-simplify`, globally.
+
+Then run these management commands in sequence:
+
+- `load_geography`
+- `load_jurisdictions`
+- `load_fed`
