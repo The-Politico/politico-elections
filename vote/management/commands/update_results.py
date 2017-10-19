@@ -21,18 +21,14 @@ class Command(BaseCommand):
                 election__division__name=result['statename']
             )
 
-            if result['polid']:
-                candidate_id = 'polid-{0}'.format(result['polid'])
-            else:
-                candidate_id = 'polnum-{0}'.format(result['polnum'])
-
-
-
-            candidates = election.Candidate.objects.filter(
+            id_components = result['id'].split('-')
+            candidate_id = '{0}-{1}'.format(
+                id_components[1],
+                id_components[2]
+            )
+            candidate = election.Candidate.objects.get(
                 ap_candidate_id=candidate_id
             )
-            candidate = candidates[0]
-
 
             vote.Votes.objects.update_or_create(
                 election=ap_meta.election,
