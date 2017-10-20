@@ -1,5 +1,6 @@
 import data
 import json
+import os
 import server_config
 import sys
 
@@ -32,10 +33,14 @@ def main(run_once=False):
 
         if (now - results_start) > server_config.DAEMON_INTERVAL:
             results_start = now
-
-            local('python manage.py prepare_races 2016-11-08')
             local('bash scripts/results.sh')
                 
+            if not os.path.exists('scripts/times_run.json'):
+                with open('scripts/times_run.json', 'w') as writefile:
+                    json.dump({
+                        'times_run': 0
+                    }, writefile)
+
             with open('scripts/times_run.json') as readfile:
                 data = json.load(readfile)
                 data['times_run'] += 1

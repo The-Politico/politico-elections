@@ -60,12 +60,17 @@ def _get_or_create_jurisdiction(row):
 def _get_or_create_body(row, jurisdiction):
     if row['officename'] in ['President', 'Governor']:
         return None
+
+    if row['officename'] == 'U.S. House':
+        full_name = 'U.S. House of Representatives'
     else:
-        return entity.Body.objects.get_or_create(
-            label=row['officename'],
-            name=row['officename'],
-            jurisdiction=jurisdiction
-        )[0]
+        full_name = row['officename']
+        
+    return entity.Body.objects.get_or_create(
+        label=full_name,
+        name=full_name,
+        jurisdiction=jurisdiction
+    )[0]
 
 
 def _get_or_create_office(row, body, division=None, jurisdiction=None):

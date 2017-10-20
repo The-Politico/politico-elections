@@ -3,7 +3,9 @@
 # grab elex results for everything
 elex results 2016-11-08 --national-only -o json > master.json
 
-for file in ./output/elections/*.json ; do
+cp output/elections/*.json output/results/
+
+for file in ./output/results/*.json ; do
   if [ -e "$file" ] ; then
     elections=`cat $file`
     # filter results
