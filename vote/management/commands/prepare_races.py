@@ -48,7 +48,7 @@ class Command(BaseCommand):
 
         self._write_to_json(state_elections, state)
 
-    def serialize_state_federal_body(self, state, body, elections):
+    def serialize_state_body(self, state, body, elections):
         """
         /election-results/cycle/senate/state/
         /election-results/cycle/house/state/
@@ -110,11 +110,10 @@ class Command(BaseCommand):
         ).values_list('race__office__slug', flat=True))
 
         for body in bodies:
-            print(body)
             self.serialize_federal_body(body, elections)
 
             for state in states:
-                self.serialize_state_federal_body(state, body, elections)
+                self.serialize_state_body(state, body, elections)
 
         for state in states:
             self.serialize_state(state, elections)
