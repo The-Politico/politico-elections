@@ -6,6 +6,10 @@ const _ = require('lodash');
 module.exports = (port) => ({
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat',
+    },
   },
   entry:  _.zipObject(
     glob.sync('./src/js/main-*.js*').map(f => path.basename(f, path.extname(f))),
