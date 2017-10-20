@@ -1,5 +1,12 @@
 {%extends "showtime/base.html"%}
 {%load staticfiles%}
+
+{%block meta%}
+<meta name="description" content="{{state.label}} {{race.office.name}} Election">
+{%endblock%}
+
+
+
 {%block content%}
 <h1>Page at /election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/</h1>
 <div id="app"></div>
