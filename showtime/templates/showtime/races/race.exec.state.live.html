@@ -1,6 +1,7 @@
 {%extends "showtime/base.html"%}
 {%load staticfiles%}
 
+
 {%block page-meta%}
 <!-- Site URL -->
 <meta property="og:url" content="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
@@ -10,7 +11,7 @@
 <link rel="canonical" href="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
 <!-- Project title -->
 <meta property="twitter:title" content="Live {{race}} Election Results" />
-<meta property="og:title" content="Live {{race}}ial Election Results" />
+<meta property="og:title" content="Live {{race}} Election Results" />
 <!-- Project description -->
 <meta property="twitter:description" content="{{race}}: See results, maps and live coverage." />
 <meta property="og:description" content="{{race}}: See results, maps and live coverage." />
@@ -20,6 +21,8 @@
 {%endblock%}
 
 
+
+{%block content%}
 <header class="center">
     <div class="share">
        <a href="" class="icon icon-facebook" target="_blank"></a>
