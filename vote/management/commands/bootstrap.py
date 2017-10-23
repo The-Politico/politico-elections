@@ -246,7 +246,6 @@ def _get_or_create_votes(row, election, division, candidate=None, ballot_answer=
         'division': division,
         'count': row['votecount'],
         'pct': row['votepct'],
-        'total': 0,
         'winning': row['winner']
     }
 
