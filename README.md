@@ -5,8 +5,6 @@
 
 ## Developing
 
-
-
 ### Starting up
 
 ##### Prereqs
@@ -44,7 +42,7 @@
 6. Load sample data into the database:
 
   ```
-  $ python manage.py loaddata geography entity election
+  $ python manage.py loaddata geography entity
   ```
 
 7. Move to `showtime/staticapp` directory and yarn install node dependencies.
@@ -59,7 +57,6 @@
   $ gulp
   ```
 
-
 ### Seeding fixtures
 
 Presumes you have installed node libraries `topojson` and `topojson-simplify`, globally.
@@ -70,4 +67,26 @@ Then run these management commands in sequence:
 $ python manage.py load_geography
 $ python manage.py load_jurisdictions
 $ python manage.py load_fed
+```
+
+### Getting results data
+
+Presumes you have `AP_API_KEY` exported as an environment variable.
+
+First, bootstrap the results data for a particular election
+
+```bash
+$ python manage.py bootstrap 2017-11-07
+```
+
+Then, get all of the race ids for each file you need to create
+
+```bash
+$ python manage.py prepare_races 2017-11-07
+```
+
+Finally, run the daemon that will get results every ten seconds
+
+```bash
+$ fab staging daemons.deploy
 ```
