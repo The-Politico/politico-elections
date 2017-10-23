@@ -2,6 +2,7 @@ import csv
 import election.models as election
 import entity.models as entity
 import geography.models as geography
+import server_config
 import subprocess
 import vote.models as vote
 
@@ -297,13 +298,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         writefile = open('test.csv', 'w')
-        subprocess.run([
-            'elex',
-            'results',
-            options['election_date'],
-            '--national-only',
-            '--test'
-        ], stdout=writefile)
+        elex_args = ['elex', 'results', options['election_date']]
+        elex_args.extend(server_config.ELEX_FLAGS)
+        print(elex_args)
+        subprocess.run(elex_args, stdout=writefile)
 
         with open('test.csv', 'r') as readfile:
             reader = csv.DictReader(readfile)
