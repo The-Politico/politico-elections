@@ -49,8 +49,14 @@ def _get_or_create_jurisdiction(row):
     us = geography.Division.objects.get(code='00')
 
     if row['officename'] == 'Governor':
-        # find the state and return it
-        return None
+        state = geography.Division.objects.get(
+            name=row['statename']
+        )
+
+        return entity.Jurisdiction.objects.get(
+            division=state
+        )
+
     else:
         return entity.Jurisdiction.objects.get(
             division=us,
