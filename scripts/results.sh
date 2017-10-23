@@ -1,22 +1,27 @@
 #!/bin/bash
 
 # grab elex results for everything
-elex results 2016-11-08 --national-only -o json > master.json
+elex results 2017-11-07 --national-only --test -o json > master.json
 
-cp output/elections/*.json output/results/
+# cp output/elections/*.json output/results/
 
-for file in ./output/results/*.json ; do
+for file in ./output/elections/*.json ; do
   if [ -e "$file" ] ; then
-    elections=`cat $file`
+    elections=`cat $file | jq '.elections'`
+    levels=`cat $file | jq '.levels'`
+    path=`cat $file | jq -r '.filename'`
+    fullpath="output/results/$path"
+    mkdir -p "$(dirname "$fullpath")"
+
     # filter results
     cat master.json \
-    | jq -c --argjson elections "$elections" '[
+    | jq -c --argjson elections "$elections" --argjson levels "$levels" '[
       .[] |
       select(.raceid as $id | $elections|index($id)) |
+      select(.level as $level | $levels|index($level)) |
       {
         fipscode: .fipscode,
         level: .level,
-        party: .party,
         polid: .polid,
         polnum: .polnum,
         precinctsreporting: .precinctsreporting,
@@ -28,6 +33,6 @@ for file in ./output/results/*.json ; do
         votepct: .votepct,
         winner: .winner
       }
-    ]' > $file # gzip and copy to s3 after this
+    ]' > $fullpath # gzip and copy to s3 after this
   fi
 done

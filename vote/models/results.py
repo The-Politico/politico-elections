@@ -11,7 +11,7 @@ class BaseResult(UUIDBase):
     division = models.ForeignKey(Division)
     count = models.PositiveIntegerField()
     pct = models.DecimalField(decimal_places=3, max_digits=5)
-    total = models.PositiveIntegerField()
+    total = models.PositiveIntegerField(null=True)
 
     class Meta:
         abstract = True

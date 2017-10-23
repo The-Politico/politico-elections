@@ -6,6 +6,7 @@ import subprocess
 import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
+from uuslug import slugify
 
 
 def _get_division_level(row):
@@ -63,12 +64,15 @@ def _get_or_create_body(row, jurisdiction):
 
     if row['officename'] == 'U.S. House':
         full_name = 'U.S. House of Representatives'
+        slug = 'house'
     else:
         full_name = row['officename']
+        slug = 'senate'
         
     return entity.Body.objects.get_or_create(
         label=full_name,
         name=full_name,
+        slug=slug,
         jurisdiction=jurisdiction
     )[0]
 
@@ -91,14 +95,20 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
         office_label = office
 
     if row['level'] not in ['state', 'national']:
+        if row['fipscode'] == '02000':
+            code = '02'
+        else:
+            code = division.code_components.get('fips').get('state')
+
         return entity.Office.objects.get(
             name=office_label,
-            division__code=division.code_components.get('fips').get('state')
+            division__code=code,
         )
 
     return entity.Office.objects.get_or_create(
         label=office_label,
         name=office_label,
+        slug=slugify(row['officename']),
         division=division,
         jurisdiction=jurisdiction,
         body=body
@@ -121,12 +131,17 @@ def _get_or_create_election_type(row):
 
 
 def _get_or_create_election(row, election_day, division, election_type, race):
-    if row['level'] == 'state':
+    if row['level'] in ['state', 'national']:
         state = division
     else:
-        state = geography.Division.objects.get(
-            code=division.code_components.get('fips').get('state')
-        )
+        if row['fipscode'] == '02000':
+            state = geography.Division.objects.get(
+                code='02'
+            )
+        else:
+            state = geography.Division.objects.get(
+                code=division.code_components.get('fips').get('state')
+            )
 
     if election_type.label not in ['General', 'Runoff']:
         if election_type.ap_code in ['D', 'E']:
@@ -281,7 +296,8 @@ class Command(BaseCommand):
             'elex',
             'results',
             options['election_date'],
-            '--national-only'
+            '--national-only',
+            '--test'
         ], stdout=writefile)
 
         with open('test.csv', 'r') as readfile:
