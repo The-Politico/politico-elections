@@ -6,7 +6,7 @@
 ### Loading fixtures
 
 ```bash
-$ python manage.py loaddata geography entity election
+$ python manage.py loaddata geography entity
 ```
 
 
@@ -29,13 +29,13 @@ Presumes you have `AP_API_KEY` exported as an environment variable.
 First, bootstrap the results data for a particular election
 
 ```bash
-$ python manage.py bootstrap 2016-11-08
+$ python manage.py bootstrap 2017-11-07
 ```
 
 Then, get all of the race ids for each file you need to create
 
 ```bash
-$ python manage.py prepare_races 2016-11-08
+$ python manage.py prepare_races 2017-11-07
 ```
 
 Finally, run the daemon that will get results every ten seconds
