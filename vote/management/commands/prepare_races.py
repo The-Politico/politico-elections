@@ -16,7 +16,7 @@ class Command(BaseCommand):
         )
         levels = ['national', 'state']
         config_key = cycle
-        output_key = '{0}/data.json'.format(cycle)
+        output_key = '{0}'.format(cycle)
 
         self._write_to_json(elections, config_key, levels, output_key)
 
@@ -30,7 +30,7 @@ class Command(BaseCommand):
         )
         levels = ['state']
         config_key = body
-        output_key = '{0}/{1}/data.json'.format(cycle, body)
+        output_key = '{0}/{1}'.format(cycle, body)
 
         self._write_to_json(body_elections, config_key, levels, output_key)
 
@@ -43,7 +43,7 @@ class Command(BaseCommand):
         )
         levels = ['national', 'state']
         config_key = office
-        output_key = '{0}/{1}/data.json'.format(cycle, office)
+        output_key = '{0}/{1}'.format(cycle, office)
 
         self._write_to_json(office_elections, config_key, levels, output_key)
 
@@ -56,7 +56,7 @@ class Command(BaseCommand):
         )
         levels = ['state', 'county']
         config_key = state
-        output_key = '{0}/{1}/data.json'.format(cycle, state)
+        output_key = '{0}/{1}'.format(cycle, state)
 
         self._write_to_json(state_elections, config_key, levels, output_key)
 
@@ -73,7 +73,7 @@ class Command(BaseCommand):
         if len(state_federal_body_elections) > 0:
             levels = ['state', 'county']
             config_key = '{0}-{1}'.format(body, state)
-            output_key = '{0}/{1}/{2}/data.json'.format(
+            output_key = '{0}/{1}/{2}'.format(
                 cycle, 
                 body, 
                 state
@@ -94,7 +94,7 @@ class Command(BaseCommand):
         if len(state_body_elections) > 0:
             levels = ['state', 'county']
             config_key = '{0}-state-{1}'.format(state, body)
-            output_key = '{0}/{1}/{2}/data.json'.format(
+            output_key = '{0}/{1}/{2}'.format(
                 cycle,
                 state,
                 body
@@ -114,7 +114,7 @@ class Command(BaseCommand):
         if len(state_office_elections) > 0:
             levels = ['state', 'county']
             config_key = '{0}-{1}'.format(office, state)
-            output_key = '{0}/{1}/{2}/data.json'.format(
+            output_key = '{0}/{1}/{2}'.format(
                 cycle,
                 office,
                 state
@@ -132,7 +132,7 @@ class Command(BaseCommand):
         )
         levels = ['state', 'county']
         config_key = '{0}-{1}'.format(state, office)
-        output_key = '{0}/{1}/{2}/data.json'.format(
+        output_key = '{0}/{1}/{2}'.format(
             cycle,
             state,
             office
