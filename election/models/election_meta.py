@@ -75,16 +75,29 @@ class Election(LabelBase):
     division = models.ForeignKey(Division)
 
     def save(self, *args, **kwargs):
-        base = '{0}, {1}, {2}'.format(
-            self.race.office.label,
-            self.election_type.label,
-            self.election_day.date
+        base = '{0} {1}'.format(
+            self.race.cycle.name,
+            self.race.office.label
         )
 
-        if self.party:
-            self.label = '{0} {1}'.format(self.party.label, base)
-            self.name = '{0} {1}'.format(self.party.label, base)
-        else:
+        if self.election_type.label != 'General':
+            if self.party:
+                extra_info = '{0} {1}'.format(
+                    self.party.label,
+                    self.election_type.label
+                )
+            else:
+                extra_info = self.election_type.label
+
+            self.label = '{0} {1}'.format(
+                base,
+                extra_info
+            )
+            self.name = '{0} {1}'.format(
+                base,
+                extra_info
+            )
+        else: 
             self.label = base
             self.name = base
 
