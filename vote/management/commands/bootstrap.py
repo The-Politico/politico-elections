@@ -6,6 +6,7 @@ import subprocess
 import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
+from uuslug import slugify
 
 
 def _get_division_level(row):
@@ -44,16 +45,51 @@ def _get_or_create_election_day(row, election_cycle):
         cycle=election_cycle
     )[0]
 
+def _get_or_create_jurisdiction(row):
+    us = geography.Division.objects.get(code='00')
 
-def _get_or_create_body(row):
+    if row['officename'] == 'Governor':
+        state = geography.Division.objects.get(
+            name=row['statename']
+        )
+
+        return entity.Jurisdiction.objects.get(
+            division=state
+        )
+
+    else:
+        return entity.Jurisdiction.objects.get(
+            division=us,
+            name='U.S. Federal Government'
+        )
+
+
+def _get_or_create_body(row, jurisdiction):
+    if row['officename'] in ['President', 'Governor']:
+        return None
+
+    if row['officename'] == 'U.S. House':
+        full_name = 'U.S. House of Representatives'
+        slug = 'house'
+    else:
+        full_name = row['officename']
+        slug = 'senate'
+        
     return entity.Body.objects.get_or_create(
-        label=row['officename'],
-        name=row['officename'],
-        level=0
+        label=full_name,
+        name=full_name,
+        slug=slug,
+        jurisdiction=jurisdiction
     )[0]
 
 
-def _get_or_create_office(row, body, division):
+def _get_or_create_office(row, body, division=None, jurisdiction=None):
+    if row['officename'] == 'President':
+        return entity.Office.objects.get(
+            label='President',
+            name='President of the United States'
+        )
+
     office = '{0} {1}'.format(
         row['statename'],
         row['officename']
@@ -65,16 +101,22 @@ def _get_or_create_office(row, body, division):
         office_label = office
 
     if row['level'] not in ['state', 'national']:
+        if row['fipscode'] == '02000':
+            code = '02'
+        else:
+            code = division.code_components.get('fips').get('state')
+
         return entity.Office.objects.get(
             name=office_label,
-            body__label=body.label,
-            division__code=division.code_components.get('fips').get('state')
+            division__code=code,
         )
 
     return entity.Office.objects.get_or_create(
         label=office_label,
         name=office_label,
+        slug=slugify(row['officename']),
         division=division,
+        jurisdiction=jurisdiction,
         body=body
     )[0]
 
@@ -95,12 +137,17 @@ def _get_or_create_election_type(row):
 
 
 def _get_or_create_election(row, election_day, division, election_type, race):
-    if row['level'] == 'state':
+    if row['level'] in ['state', 'national']:
         state = division
     else:
-        state = geography.Division.objects.get(
-            code=division.code_components.get('fips').get('state')
-        )
+        if row['fipscode'] == '02000':
+            state = geography.Division.objects.get(
+                code='02'
+            )
+        else:
+            state = geography.Division.objects.get(
+                code=division.code_components.get('fips').get('state')
+            )
 
     if election_type.label not in ['General', 'Runoff']:
         if election_type.ap_code in ['D', 'E']:
@@ -142,12 +189,16 @@ def _get_or_create_candidate(row, person, party, race):
         id_components[2]
     )
 
+    defaults = {
+        'party': party
+    }
+
     return election.Candidate.objects.get_or_create(
         person=person,
-        party=party,
         race=race,
         ap_candidate_id=candidate_id
-    )[0]
+    , defaults=defaults)[0]
+
 
 
 def _get_or_create_ballot_measure(row, division, election_day):
@@ -186,8 +237,26 @@ def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
     if ballot_measure:
         kwargs['ballot_measure'] = ballot_measure
 
-    return vote.APElectionMeta.objects.get_or_create(**kwargs)
+    return vote.APElectionMeta.objects.get_or_create(**kwargs)[0]
 
+
+def _get_or_create_votes(row, election, division, candidate=None, ballot_answer=None):
+    kwargs = {
+        'election': election,
+        'division': division,
+        'count': row['votecount'],
+        'pct': row['votepct'],
+        'total': 0,
+        'winning': row['winner']
+    }
+
+    if candidate:
+        kwargs['candidate'] = candidate
+
+    if ballot_answer:
+        kwargs['ballot_answer'] = ballot_answer
+
+    return vote.Votes.objects.get_or_create(**kwargs)[0]
 
 def process_row(row):
     print('Processing {0} {1} {2} {3}'.format(
@@ -207,8 +276,9 @@ def process_row(row):
         ballot_answer = _get_or_create_ballot_answer(row, ballot_measure)
         meta = _get_or_create_ap_election_meta(row, ballot_measure=ballot_measure)
     else:
-        body = _get_or_create_body(row)
-        office = _get_or_create_office(row, body, division)
+        jurisdiction = _get_or_create_jurisdiction(row)
+        body = _get_or_create_body(row, jurisdiction)
+        office = _get_or_create_office(row, body, division=division, jurisdiction=jurisdiction)
         party = _get_or_create_party(row)
         election_type = _get_or_create_election_type(row)
         race = _get_or_create_race(row, office, election_cycle)
@@ -216,6 +286,7 @@ def process_row(row):
         person = _get_or_create_person(row)
         candidate = _get_or_create_candidate(row, person, party, race)
         meta = _get_or_create_ap_election_meta(row, election=election)
+        votes = _get_or_create_votes(row, election, division, candidate=candidate)
 
 
 
@@ -231,7 +302,8 @@ class Command(BaseCommand):
             'elex',
             'results',
             options['election_date'],
-            '--national-only'
+            '--national-only',
+            '--test'
         ], stdout=writefile)
 
         with open('test.csv', 'r') as readfile:
