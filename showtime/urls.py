@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
+from rest_framework import routers
 
 from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
                             FederalBodyPageExport, FederalExecutiveRacePage,
@@ -8,7 +9,14 @@ from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
                             StateExecutiveRacePageExport, StateFedPage,
                             StateFedPageExport, StatePage, StatePageExport)
 
+from .viewsets import StateViewSet
+
+router = routers.DefaultRouter()
+
+router.register(r'states', StateViewSet)
+
 urlpatterns = [
+    url(r'^api/', include(router.urls)),
     url(r'^$',
         LinkPreview.as_view(),
         name='preview'
