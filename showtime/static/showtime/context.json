@@ -1,0 +1,1691 @@
+{
+  "division": {
+    "children": [
+      {
+        "code": "51115",
+        "code_components": {
+          "fips": {
+            "county": "115",
+            "state": "51"
+          }
+        },
+        "label": "Mathews County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51157",
+        "code_components": {
+          "fips": {
+            "county": "157",
+            "state": "51"
+          }
+        },
+        "label": "Rappahannock County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51037",
+        "code_components": {
+          "fips": {
+            "county": "037",
+            "state": "51"
+          }
+        },
+        "label": "Charlotte County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51540",
+        "code_components": {
+          "fips": {
+            "county": "540",
+            "state": "51"
+          }
+        },
+        "label": "Charlottesville city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51690",
+        "code_components": {
+          "fips": {
+            "county": "690",
+            "state": "51"
+          }
+        },
+        "label": "Martinsville city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51079",
+        "code_components": {
+          "fips": {
+            "county": "079",
+            "state": "51"
+          }
+        },
+        "label": "Greene County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51171",
+        "code_components": {
+          "fips": {
+            "county": "171",
+            "state": "51"
+          }
+        },
+        "label": "Shenandoah County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51683",
+        "code_components": {
+          "fips": {
+            "county": "683",
+            "state": "51"
+          }
+        },
+        "label": "Manassas city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51145",
+        "code_components": {
+          "fips": {
+            "county": "145",
+            "state": "51"
+          }
+        },
+        "label": "Powhatan County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51087",
+        "code_components": {
+          "fips": {
+            "county": "087",
+            "state": "51"
+          }
+        },
+        "label": "Henrico County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51510",
+        "code_components": {
+          "fips": {
+            "county": "510",
+            "state": "51"
+          }
+        },
+        "label": "Alexandria city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51580",
+        "code_components": {
+          "fips": {
+            "county": "580",
+            "state": "51"
+          }
+        },
+        "label": "Covington city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51009",
+        "code_components": {
+          "fips": {
+            "county": "009",
+            "state": "51"
+          }
+        },
+        "label": "Amherst County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51735",
+        "code_components": {
+          "fips": {
+            "county": "735",
+            "state": "51"
+          }
+        },
+        "label": "Poquoson city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51147",
+        "code_components": {
+          "fips": {
+            "county": "147",
+            "state": "51"
+          }
+        },
+        "label": "Prince Edward County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51680",
+        "code_components": {
+          "fips": {
+            "county": "680",
+            "state": "51"
+          }
+        },
+        "label": "Lynchburg city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51036",
+        "code_components": {
+          "fips": {
+            "county": "036",
+            "state": "51"
+          }
+        },
+        "label": "Charles City County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51740",
+        "code_components": {
+          "fips": {
+            "county": "740",
+            "state": "51"
+          }
+        },
+        "label": "Portsmouth city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51678",
+        "code_components": {
+          "fips": {
+            "county": "678",
+            "state": "51"
+          }
+        },
+        "label": "Lexington city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51045",
+        "code_components": {
+          "fips": {
+            "county": "045",
+            "state": "51"
+          }
+        },
+        "label": "Craig County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51083",
+        "code_components": {
+          "fips": {
+            "county": "083",
+            "state": "51"
+          }
+        },
+        "label": "Halifax County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51125",
+        "code_components": {
+          "fips": {
+            "county": "125",
+            "state": "51"
+          }
+        },
+        "label": "Nelson County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51700",
+        "code_components": {
+          "fips": {
+            "county": "700",
+            "state": "51"
+          }
+        },
+        "label": "Newport News city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51750",
+        "code_components": {
+          "fips": {
+            "county": "750",
+            "state": "51"
+          }
+        },
+        "label": "Radford city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51820",
+        "code_components": {
+          "fips": {
+            "county": "820",
+            "state": "51"
+          }
+        },
+        "label": "Waynesboro city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51025",
+        "code_components": {
+          "fips": {
+            "county": "025",
+            "state": "51"
+          }
+        },
+        "label": "Brunswick County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51177",
+        "code_components": {
+          "fips": {
+            "county": "177",
+            "state": "51"
+          }
+        },
+        "label": "Spotsylvania County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51093",
+        "code_components": {
+          "fips": {
+            "county": "093",
+            "state": "51"
+          }
+        },
+        "label": "Isle of Wight County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51095",
+        "code_components": {
+          "fips": {
+            "county": "095",
+            "state": "51"
+          }
+        },
+        "label": "James City County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51067",
+        "code_components": {
+          "fips": {
+            "county": "067",
+            "state": "51"
+          }
+        },
+        "label": "Franklin County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51121",
+        "code_components": {
+          "fips": {
+            "county": "121",
+            "state": "51"
+          }
+        },
+        "label": "Montgomery County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51051",
+        "code_components": {
+          "fips": {
+            "county": "051",
+            "state": "51"
+          }
+        },
+        "label": "Dickenson County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51590",
+        "code_components": {
+          "fips": {
+            "county": "590",
+            "state": "51"
+          }
+        },
+        "label": "Danville city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51790",
+        "code_components": {
+          "fips": {
+            "county": "790",
+            "state": "51"
+          }
+        },
+        "label": "Staunton city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51019",
+        "code_components": {
+          "fips": {
+            "county": "019",
+            "state": "51"
+          }
+        },
+        "label": "Bedford County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51550",
+        "code_components": {
+          "fips": {
+            "county": "550",
+            "state": "51"
+          }
+        },
+        "label": "Chesapeake city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51840",
+        "code_components": {
+          "fips": {
+            "county": "840",
+            "state": "51"
+          }
+        },
+        "label": "Winchester city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51027",
+        "code_components": {
+          "fips": {
+            "county": "027",
+            "state": "51"
+          }
+        },
+        "label": "Buchanan County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51163",
+        "code_components": {
+          "fips": {
+            "county": "163",
+            "state": "51"
+          }
+        },
+        "label": "Rockbridge County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51197",
+        "code_components": {
+          "fips": {
+            "county": "197",
+            "state": "51"
+          }
+        },
+        "label": "Wythe County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51135",
+        "code_components": {
+          "fips": {
+            "county": "135",
+            "state": "51"
+          }
+        },
+        "label": "Nottoway County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51127",
+        "code_components": {
+          "fips": {
+            "county": "127",
+            "state": "51"
+          }
+        },
+        "label": "New Kent County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51137",
+        "code_components": {
+          "fips": {
+            "county": "137",
+            "state": "51"
+          }
+        },
+        "label": "Orange County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51830",
+        "code_components": {
+          "fips": {
+            "county": "830",
+            "state": "51"
+          }
+        },
+        "label": "Williamsburg city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51595",
+        "code_components": {
+          "fips": {
+            "county": "595",
+            "state": "51"
+          }
+        },
+        "label": "Emporia city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51111",
+        "code_components": {
+          "fips": {
+            "county": "111",
+            "state": "51"
+          }
+        },
+        "label": "Lunenburg County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51069",
+        "code_components": {
+          "fips": {
+            "county": "069",
+            "state": "51"
+          }
+        },
+        "label": "Frederick County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51091",
+        "code_components": {
+          "fips": {
+            "county": "091",
+            "state": "51"
+          }
+        },
+        "label": "Highland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51007",
+        "code_components": {
+          "fips": {
+            "county": "007",
+            "state": "51"
+          }
+        },
+        "label": "Amelia County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51081",
+        "code_components": {
+          "fips": {
+            "county": "081",
+            "state": "51"
+          }
+        },
+        "label": "Greensville County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51153",
+        "code_components": {
+          "fips": {
+            "county": "153",
+            "state": "51"
+          }
+        },
+        "label": "Prince William County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51167",
+        "code_components": {
+          "fips": {
+            "county": "167",
+            "state": "51"
+          }
+        },
+        "label": "Russell County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51119",
+        "code_components": {
+          "fips": {
+            "county": "119",
+            "state": "51"
+          }
+        },
+        "label": "Middlesex County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51185",
+        "code_components": {
+          "fips": {
+            "county": "185",
+            "state": "51"
+          }
+        },
+        "label": "Tazewell County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51660",
+        "code_components": {
+          "fips": {
+            "county": "660",
+            "state": "51"
+          }
+        },
+        "label": "Harrisonburg city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51520",
+        "code_components": {
+          "fips": {
+            "county": "520",
+            "state": "51"
+          }
+        },
+        "label": "Bristol city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51117",
+        "code_components": {
+          "fips": {
+            "county": "117",
+            "state": "51"
+          }
+        },
+        "label": "Mecklenburg County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51685",
+        "code_components": {
+          "fips": {
+            "county": "685",
+            "state": "51"
+          }
+        },
+        "label": "Manassas Park city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51017",
+        "code_components": {
+          "fips": {
+            "county": "017",
+            "state": "51"
+          }
+        },
+        "label": "Bath County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51001",
+        "code_components": {
+          "fips": {
+            "county": "001",
+            "state": "51"
+          }
+        },
+        "label": "Accomack County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51187",
+        "code_components": {
+          "fips": {
+            "county": "187",
+            "state": "51"
+          }
+        },
+        "label": "Warren County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51710",
+        "code_components": {
+          "fips": {
+            "county": "710",
+            "state": "51"
+          }
+        },
+        "label": "Norfolk city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51760",
+        "code_components": {
+          "fips": {
+            "county": "760",
+            "state": "51"
+          }
+        },
+        "label": "Richmond city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51175",
+        "code_components": {
+          "fips": {
+            "county": "175",
+            "state": "51"
+          }
+        },
+        "label": "Southampton County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51131",
+        "code_components": {
+          "fips": {
+            "county": "131",
+            "state": "51"
+          }
+        },
+        "label": "Northampton County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51195",
+        "code_components": {
+          "fips": {
+            "county": "195",
+            "state": "51"
+          }
+        },
+        "label": "Wise County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51141",
+        "code_components": {
+          "fips": {
+            "county": "141",
+            "state": "51"
+          }
+        },
+        "label": "Patrick County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51113",
+        "code_components": {
+          "fips": {
+            "county": "113",
+            "state": "51"
+          }
+        },
+        "label": "Madison County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51023",
+        "code_components": {
+          "fips": {
+            "county": "023",
+            "state": "51"
+          }
+        },
+        "label": "Botetourt County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51530",
+        "code_components": {
+          "fips": {
+            "county": "530",
+            "state": "51"
+          }
+        },
+        "label": "Buena Vista city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51183",
+        "code_components": {
+          "fips": {
+            "county": "183",
+            "state": "51"
+          }
+        },
+        "label": "Sussex County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51810",
+        "code_components": {
+          "fips": {
+            "county": "810",
+            "state": "51"
+          }
+        },
+        "label": "Virginia Beach city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51057",
+        "code_components": {
+          "fips": {
+            "county": "057",
+            "state": "51"
+          }
+        },
+        "label": "Essex County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51650",
+        "code_components": {
+          "fips": {
+            "county": "650",
+            "state": "51"
+          }
+        },
+        "label": "Hampton city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51640",
+        "code_components": {
+          "fips": {
+            "county": "640",
+            "state": "51"
+          }
+        },
+        "label": "Galax city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51800",
+        "code_components": {
+          "fips": {
+            "county": "800",
+            "state": "51"
+          }
+        },
+        "label": "Suffolk city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51071",
+        "code_components": {
+          "fips": {
+            "county": "071",
+            "state": "51"
+          }
+        },
+        "label": "Giles County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51149",
+        "code_components": {
+          "fips": {
+            "county": "149",
+            "state": "51"
+          }
+        },
+        "label": "Prince George County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51005",
+        "code_components": {
+          "fips": {
+            "county": "005",
+            "state": "51"
+          }
+        },
+        "label": "Alleghany County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51173",
+        "code_components": {
+          "fips": {
+            "county": "173",
+            "state": "51"
+          }
+        },
+        "label": "Smyth County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51061",
+        "code_components": {
+          "fips": {
+            "county": "061",
+            "state": "51"
+          }
+        },
+        "label": "Fauquier County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51103",
+        "code_components": {
+          "fips": {
+            "county": "103",
+            "state": "51"
+          }
+        },
+        "label": "Lancaster County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51161",
+        "code_components": {
+          "fips": {
+            "county": "161",
+            "state": "51"
+          }
+        },
+        "label": "Roanoke County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51035",
+        "code_components": {
+          "fips": {
+            "county": "035",
+            "state": "51"
+          }
+        },
+        "label": "Carroll County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51600",
+        "code_components": {
+          "fips": {
+            "county": "600",
+            "state": "51"
+          }
+        },
+        "label": "Fairfax city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51133",
+        "code_components": {
+          "fips": {
+            "county": "133",
+            "state": "51"
+          }
+        },
+        "label": "Northumberland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51199",
+        "code_components": {
+          "fips": {
+            "county": "199",
+            "state": "51"
+          }
+        },
+        "label": "York County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51610",
+        "code_components": {
+          "fips": {
+            "county": "610",
+            "state": "51"
+          }
+        },
+        "label": "Falls Church city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51097",
+        "code_components": {
+          "fips": {
+            "county": "097",
+            "state": "51"
+          }
+        },
+        "label": "King and Queen County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51013",
+        "code_components": {
+          "fips": {
+            "county": "013",
+            "state": "51"
+          }
+        },
+        "label": "Arlington County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51155",
+        "code_components": {
+          "fips": {
+            "county": "155",
+            "state": "51"
+          }
+        },
+        "label": "Pulaski County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51059",
+        "code_components": {
+          "fips": {
+            "county": "059",
+            "state": "51"
+          }
+        },
+        "label": "Fairfax County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51021",
+        "code_components": {
+          "fips": {
+            "county": "021",
+            "state": "51"
+          }
+        },
+        "label": "Bland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51720",
+        "code_components": {
+          "fips": {
+            "county": "720",
+            "state": "51"
+          }
+        },
+        "label": "Norton city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51181",
+        "code_components": {
+          "fips": {
+            "county": "181",
+            "state": "51"
+          }
+        },
+        "label": "Surry County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51165",
+        "code_components": {
+          "fips": {
+            "county": "165",
+            "state": "51"
+          }
+        },
+        "label": "Rockingham County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51770",
+        "code_components": {
+          "fips": {
+            "county": "770",
+            "state": "51"
+          }
+        },
+        "label": "Roanoke city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51179",
+        "code_components": {
+          "fips": {
+            "county": "179",
+            "state": "51"
+          }
+        },
+        "label": "Stafford County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51730",
+        "code_components": {
+          "fips": {
+            "county": "730",
+            "state": "51"
+          }
+        },
+        "label": "Petersburg city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51049",
+        "code_components": {
+          "fips": {
+            "county": "049",
+            "state": "51"
+          }
+        },
+        "label": "Cumberland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51099",
+        "code_components": {
+          "fips": {
+            "county": "099",
+            "state": "51"
+          }
+        },
+        "label": "King George County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51041",
+        "code_components": {
+          "fips": {
+            "county": "041",
+            "state": "51"
+          }
+        },
+        "label": "Chesterfield County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51139",
+        "code_components": {
+          "fips": {
+            "county": "139",
+            "state": "51"
+          }
+        },
+        "label": "Page County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51089",
+        "code_components": {
+          "fips": {
+            "county": "089",
+            "state": "51"
+          }
+        },
+        "label": "Henry County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51107",
+        "code_components": {
+          "fips": {
+            "county": "107",
+            "state": "51"
+          }
+        },
+        "label": "Loudoun County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51043",
+        "code_components": {
+          "fips": {
+            "county": "043",
+            "state": "51"
+          }
+        },
+        "label": "Clarke County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51077",
+        "code_components": {
+          "fips": {
+            "county": "077",
+            "state": "51"
+          }
+        },
+        "label": "Grayson County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51620",
+        "code_components": {
+          "fips": {
+            "county": "620",
+            "state": "51"
+          }
+        },
+        "label": "Franklin city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51073",
+        "code_components": {
+          "fips": {
+            "county": "073",
+            "state": "51"
+          }
+        },
+        "label": "Gloucester County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51003",
+        "code_components": {
+          "fips": {
+            "county": "003",
+            "state": "51"
+          }
+        },
+        "label": "Albemarle County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51011",
+        "code_components": {
+          "fips": {
+            "county": "011",
+            "state": "51"
+          }
+        },
+        "label": "Appomattox County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51515",
+        "code_components": {
+          "fips": {
+            "county": "515",
+            "state": "51"
+          }
+        },
+        "label": "Bedford city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51101",
+        "code_components": {
+          "fips": {
+            "county": "101",
+            "state": "51"
+          }
+        },
+        "label": "King William County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51015",
+        "code_components": {
+          "fips": {
+            "county": "015",
+            "state": "51"
+          }
+        },
+        "label": "Augusta County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51169",
+        "code_components": {
+          "fips": {
+            "county": "169",
+            "state": "51"
+          }
+        },
+        "label": "Scott County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51031",
+        "code_components": {
+          "fips": {
+            "county": "031",
+            "state": "51"
+          }
+        },
+        "label": "Campbell County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51191",
+        "code_components": {
+          "fips": {
+            "county": "191",
+            "state": "51"
+          }
+        },
+        "label": "Washington County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51085",
+        "code_components": {
+          "fips": {
+            "county": "085",
+            "state": "51"
+          }
+        },
+        "label": "Hanover County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51065",
+        "code_components": {
+          "fips": {
+            "county": "065",
+            "state": "51"
+          }
+        },
+        "label": "Fluvanna County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51193",
+        "code_components": {
+          "fips": {
+            "county": "193",
+            "state": "51"
+          }
+        },
+        "label": "Westmoreland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51630",
+        "code_components": {
+          "fips": {
+            "county": "630",
+            "state": "51"
+          }
+        },
+        "label": "Fredericksburg city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51053",
+        "code_components": {
+          "fips": {
+            "county": "053",
+            "state": "51"
+          }
+        },
+        "label": "Dinwiddie County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51063",
+        "code_components": {
+          "fips": {
+            "county": "063",
+            "state": "51"
+          }
+        },
+        "label": "Floyd County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51159",
+        "code_components": {
+          "fips": {
+            "county": "159",
+            "state": "51"
+          }
+        },
+        "label": "Richmond County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51105",
+        "code_components": {
+          "fips": {
+            "county": "105",
+            "state": "51"
+          }
+        },
+        "label": "Lee County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51670",
+        "code_components": {
+          "fips": {
+            "county": "670",
+            "state": "51"
+          }
+        },
+        "label": "Hopewell city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51033",
+        "code_components": {
+          "fips": {
+            "county": "033",
+            "state": "51"
+          }
+        },
+        "label": "Caroline County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51047",
+        "code_components": {
+          "fips": {
+            "county": "047",
+            "state": "51"
+          }
+        },
+        "label": "Culpeper County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51143",
+        "code_components": {
+          "fips": {
+            "county": "143",
+            "state": "51"
+          }
+        },
+        "label": "Pittsylvania County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51109",
+        "code_components": {
+          "fips": {
+            "county": "109",
+            "state": "51"
+          }
+        },
+        "label": "Louisa County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51029",
+        "code_components": {
+          "fips": {
+            "county": "029",
+            "state": "51"
+          }
+        },
+        "label": "Buckingham County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51570",
+        "code_components": {
+          "fips": {
+            "county": "570",
+            "state": "51"
+          }
+        },
+        "label": "Colonial Heights city",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51075",
+        "code_components": {
+          "fips": {
+            "county": "075",
+            "state": "51"
+          }
+        },
+        "label": "Goochland County",
+        "level": "county",
+        "short_label": null
+      },
+      {
+        "code": "51775",
+        "code_components": {
+          "fips": {
+            "county": "775",
+            "state": "51"
+          }
+        },
+        "label": "Salem city",
+        "level": "county",
+        "short_label": null
+      }
+    ],
+    "code": "51",
+    "code_components": {
+      "fips": {
+        "state": "51"
+      }
+    },
+    "id": "df160dd4-be6e-44e5-9ecb-d56ad6ddcee8",
+    "label": "Virginia",
+    "level": "state",
+    "short_label": null
+  },
+  "elections": [
+    {
+      "ap_election_id": "123421",
+      "called": true,
+      "candidates": [
+        {
+          "aggregable": false,
+          "ap_candidate_id": "6060",
+          "first_name": "Lily",
+          "image": null,
+          "incumbent": false,
+          "last_name": "Mihalik",
+          "middle_name": null,
+          "party": "R",
+          "suffix": null,
+          "uncontested": false,
+          "winner": false
+        },
+        {
+          "aggregable": false,
+          "ap_candidate_id": "0606",
+          "first_name": "Jon",
+          "image": null,
+          "incumbent": false,
+          "last_name": "McClure",
+          "middle_name": null,
+          "party": "D",
+          "suffix": null,
+          "uncontested": false,
+          "winner": false
+        }
+      ],
+      "date": "2017-11-07",
+      "division": {
+        "code": "51",
+        "level": "state"
+      },
+      "id": "fa72f4ca-2f42-4b76-a645-0d981a6eda23",
+      "office": {
+        "id": "300e0ede-1394-47c0-9907-23c4730865d0",
+        "label": "Virginia Governor",
+        "name": "Virginia Governor",
+        "short_label": null,
+        "slug": "governor"
+      },
+      "override_ap_call": true,
+      "override_ap_votes": false,
+      "primary_party": null,
+      "tabulated": false
+    }
+  ],
+  "parties": [
+    {
+      "ap_code": "R",
+      "id": "b555f170-cbcd-44c7-b492-50e11195ca66",
+      "label": "Republican",
+      "short_label": null,
+      "slug": "republican-party"
+    },
+    {
+      "ap_code": "D",
+      "id": "89186f5e-b744-458f-b98e-7cc1c503b845",
+      "label": "Democrat",
+      "short_label": null,
+      "slug": "democratic-party"
+    }
+  ]
+}
