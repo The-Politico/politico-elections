@@ -17,6 +17,6 @@ store.subscribe(() => {
 
 setTimeout(() => {
   console.log(store.getState());
-}, 1000);
+}, 2000);
 
 export default store;

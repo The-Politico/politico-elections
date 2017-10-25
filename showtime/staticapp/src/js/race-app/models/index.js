@@ -5,9 +5,8 @@ class Election extends Model {
     return {
       id: attr(),
       date: attr(),
-      party: attr(),
       office: fk('Office'),
-      divisions: many('Division'),
+      division: fk('Division'),
       candidates: many('Candidate'),
       apMeta: oneToOne('APMeta'),
       party: fk('Party'),
@@ -25,7 +24,7 @@ class Office extends Model {
       slug: attr(),
       name: attr(),
       label: attr(),
-      shortLabel: attr(),
+      short_label: attr(),
     }
   }
 }
@@ -36,10 +35,10 @@ Office.modelName = 'Office';
 class Division extends Model {
   static get fields() {
     return {
+      id: attr(),
       level: attr(),
       label: attr(),
       shortLabel: attr(),
-      code: attr(),
       codeComponents: attr(),
       parent: fk('Division'),
     }
@@ -57,8 +56,6 @@ class Candidate extends Model {
       middleName: attr(),
       lastName: attr(),
       suffix: attr(),
-      party: attr(),
-      apCandidateId: attr(),
       aggregable: attr(),
       winner: attr(),
       incumbent: attr(),
@@ -79,7 +76,6 @@ class Party extends Model {
       id: attr(),
       label: attr(),
       shortLabel: attr(),
-      apCode: attr(),
       slug: attr(),
     }
   }
@@ -91,7 +87,7 @@ Party.modelName = 'Party';
 class APMeta extends Model {
   static get fields() {
     return {
-      apElectionId: attr(),
+      id: attr(),
       called: attr(),
       tabulated: attr(),
       overrideApCall: attr(),
@@ -106,11 +102,11 @@ APMeta.modelName = 'APMeta';
 class Result extends Model {
   static get fields() {
     return {
-      voteCount: attr(),
-      votePct: attr(),
-      precinctsReporting: attr(),
-      precinctsTotal: attr(),
-      precinctsReportingPct: attr(),
+      vote_count: attr(),
+      vote_pct: attr(),
+      precincts_reporting: attr(),
+      precincts_total: attr(),
+      precincts_reporting_pct: attr(),
       division: fk('Division'),
     }
   }
