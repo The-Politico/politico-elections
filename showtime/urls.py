@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
                             FederalBodyPageExport, FederalExecutiveRacePage,
@@ -7,6 +7,10 @@ from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
                             StateExecutiveRacePage,
                             StateExecutiveRacePageExport, StateFedPage,
                             StateFedPageExport, StatePage, StatePageExport)
+
+from .viewsets import (BodyDetail, BodyList, ElectionDayDetail,
+                       ElectionDayList, OfficeDetail, OfficeList, StateDetail,
+                       StateList)
 
 urlpatterns = [
     url(r'^$',
@@ -82,5 +86,49 @@ urlpatterns = [
         r'^race/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<office>[\w-]+)/export/',
         StateExecutiveRacePageExport.as_view(),
         name='state-exec-race-page-export'
+    ),
+    #############
+    # API VIEWS #
+    #############
+    url(
+        r'^api/elections/$',
+        ElectionDayList.as_view(),
+        name='election-list',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/$',
+        ElectionDayDetail.as_view(),
+        name='election-detail',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/states/$',
+        StateList.as_view(),
+        name='state-election-list',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/states/(?P<pk>.+)/$',
+        StateDetail.as_view(),
+        name='state-election-detail',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/bodies/$',
+        BodyList.as_view(),
+        name='body-election-list',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/bodies/(?P<pk>.+)/$',
+        BodyDetail.as_view(),
+        name='body-election-detail',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/executive-offices/$',
+        OfficeList.as_view(),
+        name='office-election-list',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/'
+        'executive-offices/(?P<pk>.+)/$',
+        OfficeDetail.as_view(),
+        name='office-election-detail',
     ),
 ]

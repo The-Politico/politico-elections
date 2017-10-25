@@ -73,8 +73,8 @@ class SelfRelatedBase(models.Model):
 
 class EffectiveDateBase(models.Model):
     effective = models.BooleanField(default=True)
-    effective_start = models.DateTimeField(null=True)
-    effective_end = models.DateTimeField(null=True)
+    effective_start = models.DateTimeField(null=True, blank=True)
+    effective_end = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         abstract = True

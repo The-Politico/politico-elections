@@ -4,10 +4,10 @@ from core.models import LabelBase
 
 
 class Person(LabelBase):
-    first_name = models.CharField(max_length=255, null=True)
-    middle_name = models.CharField(max_length=255, null=True)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255)
-    suffix = models.CharField(max_length=10, null=True)
+    suffix = models.CharField(max_length=10, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         name_label = '{0}{1}{2}'.format(

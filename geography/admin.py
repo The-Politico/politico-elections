@@ -15,7 +15,7 @@ class DivisionAdmin(admin.ModelAdmin):
     list_display = ('label', 'level', 'code')
     list_filter = ('level',)
     search_fields = ('code',)
-    readonly_fields = ('parent',)
+    readonly_fields = ('parent', 'id',)
 
 
 class GeographyAdmin(admin.ModelAdmin):

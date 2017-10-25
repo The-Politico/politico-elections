@@ -183,7 +183,7 @@ def _get_or_create_person(row):
     )[0]
 
 
-def _get_or_create_candidate(row, person, party, race):
+def _get_or_create_candidate(row, person, party, race, election_obj):
     id_components = row['id'].split('-')
     candidate_id = '{0}-{1}'.format(
         id_components[1],
@@ -194,12 +194,13 @@ def _get_or_create_candidate(row, person, party, race):
         'party': party
     }
 
-    return election.Candidate.objects.get_or_create(
+    candidate = election.Candidate.objects.get_or_create(
         person=person,
         race=race,
         ap_candidate_id=candidate_id
     , defaults=defaults)[0]
-
+    candidate.elections.add(election_obj)
+    candidate.save()
 
 
 def _get_or_create_ballot_measure(row, division, election_day):
@@ -284,7 +285,7 @@ def process_row(row):
         race = _get_or_create_race(row, office, election_cycle)
         election = _get_or_create_election(row, election_day, division, election_type, race)
         person = _get_or_create_person(row)
-        candidate = _get_or_create_candidate(row, person, party, race)
+        candidate = _get_or_create_candidate(row, person, party, race, election)
         meta = _get_or_create_ap_election_meta(row, election=election)
         votes = _get_or_create_votes(row, election, division, candidate=candidate)
 
