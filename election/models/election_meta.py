@@ -16,7 +16,7 @@ class ElectionType(LabelBase):
     """
     e.g. "General", "Primary"
     """
-    ap_code = models.CharField(max_length=1, unique=True)
+    ap_code = models.CharField(max_length=1)
 
 
 class Party(LabelBase):
