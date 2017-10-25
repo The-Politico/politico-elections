@@ -51,6 +51,18 @@
 </style>
 {%endblock%}
 
+{%block api%}
+<script type="text/javascript">
+  window.appConfig = {
+    api: {
+      context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
+      results: '{% static "showtime/results/virginia/governor/results.json"%}',
+    },
+    stateFips: '{{state.code}}',
+  };
+</script>
+{%endblock%}
+
 {%block relative_foot%}
 <script src="{% static 'showtime/js/main-race-app.js'%}"></script>
 {%endblock%}

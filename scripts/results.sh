@@ -11,7 +11,7 @@ for file in ./output/elections/*.json ; do
     levels=`cat $file | jq '.levels'`
     path=`cat $file | jq -r '.filename'`
     fullpath="output/results/$path"
-    mkdir -p "$(dirname "$fullpath")"
+    mkdir -p "$(dirname "$fullpath/p")"
 
     # filter results
     cat master.json \
