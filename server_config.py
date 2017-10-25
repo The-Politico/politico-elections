@@ -87,6 +87,8 @@ def configure_targets(deployment_target):
     global DEBUG
     global DEPLOYMENT_TARGET
     global LOG_LEVEL
+    global DAEMON_INTERVAL
+    global ELEX_FLAGS
 
     secrets = get_secrets()
 
@@ -96,18 +98,24 @@ def configure_targets(deployment_target):
         SERVER_LOG_PATH = '/var/log/%s' % PROJECT_FILENAME
         LOG_LEVEL = logging.WARNING
         DEBUG = False
+        DAEMON_INTERVAL = 10
+        ELEX_FLAGS = ['--national-only', '--test']
     elif deployment_target == 'staging':
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         SERVER_LOG_PATH = '/var/log/%s' % PROJECT_FILENAME
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
+        DAEMON_INTERVAL = 10
+        ELEX_FLAGS = ['--national-only', '--test']
     else:
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
         SERVER_LOG_PATH = '/tmp'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
+        DAEMON_INTERVAL = 10
+        ELEX_FLAGS = ['--national-only', '--test']
 
     DEPLOYMENT_TARGET = deployment_target
 

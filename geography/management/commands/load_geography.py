@@ -26,12 +26,12 @@ for c in COUNTIES:
 SHP_BASE = 'https://www2.census.gov/geo/tiger/GENZ{}/shp/'
 DATA_DIRECTORY = './data/geo/'
 
-FEDERAL_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name='federal'
+NATIONAL_LEVEL, created = DivisionLevel.objects.get_or_create(
+    name='national'
 )
 STATE_LEVEL, created = DivisionLevel.objects.get_or_create(
     name='state',
-    parent=FEDERAL_LEVEL
+    parent=NATIONAL_LEVEL
 )
 COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
     name='county',
@@ -56,7 +56,7 @@ NATION, created = Division.objects.get_or_create(
     code='00',
     name='United States of America',
     label='United States of America',
-    level=FEDERAL_LEVEL,
+    level=NATIONAL_LEVEL,
 )
 
 
