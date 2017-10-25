@@ -45,7 +45,7 @@ class ElectionDay(UUIDBase):
     """
     election_date = 2018-11-08
     """
-    date = models.DateField()
+    date = models.DateField(unique=True)
     cycle = models.ForeignKey(ElectionCycle, related_name='elections_days')
 
     def __str__(self):
@@ -70,9 +70,9 @@ class Race(LabelBase):
 
 class Election(UUIDBase):
     election_type = models.ForeignKey(ElectionType, related_name='elections')
-    race = models.ForeignKey('Race')
+    race = models.ForeignKey('Race', related_name='elections')
     party = models.ForeignKey(Party, null=True, blank=True)
-    election_day = models.ForeignKey(ElectionDay)
+    election_day = models.ForeignKey(ElectionDay, related_name='elections')
     division = models.ForeignKey(Division, related_name='elections')
 
     def __str__(self):

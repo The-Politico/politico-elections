@@ -29,34 +29,11 @@ class DivisionSerializer(ChildDivisionSerializer):
     class Meta:
         model = Division
         fields = (
-            'id',
+            # 'id',
             'label',
             'short_label',
             'code',
             'level',
             'code_components',
             'children',
-        )
-
-
-class StateSerializer(serializers.ModelSerializer):
-    division = serializers.SerializerMethodField()
-    parties = serializers.SerializerMethodField()
-    elections = serializers.SerializerMethodField()
-
-    def get_division(self, obj):
-        return DivisionSerializer(obj).data
-
-    def get_parties(self, obj):
-        return PartySerializer(Party.objects.all(), many=True).data
-
-    def get_elections(self, obj):
-        return ElectionSerializer(obj.elections.all(), many=True).data
-
-    class Meta:
-        model = Division
-        fields = (
-            'parties',
-            'division',
-            'elections',
         )

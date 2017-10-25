@@ -142,7 +142,7 @@ class PartySerializer(serializers.ModelSerializer):
     class Meta:
         model = Party
         fields = (
-            'id',
+            # 'id',
             'slug',
             'label',
             'short_label',
