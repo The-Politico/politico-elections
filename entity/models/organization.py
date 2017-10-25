@@ -67,9 +67,11 @@ class Office(UUIDBase):
     label = models.CharField(max_length=255)
     short_label = models.CharField(max_length=50, null=True, blank=True)
 
-    division = models.ForeignKey(Division)
-    jurisdiction = models.ForeignKey(Jurisdiction, null=True, blank=True)
-    body = models.ForeignKey(Body, null=True, blank=True)
+    division = models.ForeignKey(Division, related_name='offices')
+    jurisdiction = models.ForeignKey(
+        Jurisdiction, null=True, blank=True, related_name='offices')
+    body = models.ForeignKey(
+        Body, null=True, blank=True, related_name='offices')
 
     def __str__(self):
         return self.label
