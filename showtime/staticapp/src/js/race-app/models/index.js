@@ -1,6 +1,11 @@
-import {fk, many, oneToOne, attr, Model, ORM} from 'redux-orm';
+import { fk, many, oneToOne, attr, Model, ORM } from 'redux-orm';
 
 class Election extends Model {
+  serializeResults(divisions) {
+    console.log(divisions);
+    return { election: this };
+  }
+
   static get fields() {
     return {
       id: attr(),
@@ -10,7 +15,7 @@ class Election extends Model {
       candidates: many('Candidate'),
       apMeta: oneToOne('APMeta'),
       party: fk('Party'),
-    }
+    };
   }
 }
 
@@ -25,7 +30,7 @@ class Office extends Model {
       name: attr(),
       label: attr(),
       short_label: attr(),
-    }
+    };
   }
 }
 
@@ -41,7 +46,8 @@ class Division extends Model {
       shortLabel: attr(),
       codeComponents: attr(),
       parent: fk('Division'),
-    }
+      postalCode: attr(),
+    };
   }
 }
 
@@ -61,9 +67,8 @@ class Candidate extends Model {
       incumbent: attr(),
       uncontested: attr(),
       image: attr(),
-      results: many('Result'),
       party: fk('Party'),
-    }
+    };
   }
 }
 
@@ -77,7 +82,7 @@ class Party extends Model {
       label: attr(),
       shortLabel: attr(),
       slug: attr(),
-    }
+    };
   }
 }
 
@@ -92,7 +97,7 @@ class APMeta extends Model {
       tabulated: attr(),
       overrideApCall: attr(),
       overrideApVotes: attr(),
-    }
+    };
   }
 }
 
@@ -102,13 +107,16 @@ APMeta.modelName = 'APMeta';
 class Result extends Model {
   static get fields() {
     return {
-      vote_count: attr(),
-      vote_pct: attr(),
-      precincts_reporting: attr(),
-      precincts_total: attr(),
-      precincts_reporting_pct: attr(),
+      id: attr(),
+      voteCount: attr(),
+      votePct: attr(),
+      precinctsReporting: attr(),
+      precinctsTotal: attr(),
+      precinctsReportingPct: attr(),
+      winner: attr(),
       division: fk('Division'),
-    }
+      candidate: fk('Candidate'),
+    };
   }
 }
 

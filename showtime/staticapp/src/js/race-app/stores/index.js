@@ -9,14 +9,23 @@ const store = createStore(reducers, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f,
 ));
 
+console.log(actions.fetchContext);
+
 store.dispatch(actions.fetchContext());
+store.dispatch(actions.fetchResults());
+
+// setInterval(() => {
+//   console.log('It fetches results');
+//   store.dispatch(actions.fetchResults());
+// }, 2500);
+//
+// setInterval(() => {
+//   console.log('It fetches context');
+//   store.dispatch(actions.fetchContext());
+// }, 10000);
 
 store.subscribe(() => {
   window.store = _.assign({}, store.getState());
 });
-
-setTimeout(() => {
-  console.log(store.getState());
-}, 2000);
 
 export default store;
