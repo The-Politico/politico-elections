@@ -11,7 +11,10 @@ from .serializers import (BodyListSerializer, BodySerializer,
                           OfficeSerializer, StateListSerializer,
                           StateSerializer)
 
-STATE_LEVEL = DivisionLevel.objects.get(name='state')
+try:
+    STATE_LEVEL = DivisionLevel.objects.get(name='state')
+except:
+    STATE_LEVEL = None
 
 
 class ResultsPagination(PageNumberPagination):

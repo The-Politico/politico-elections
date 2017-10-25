@@ -284,7 +284,7 @@ def process_row(row):
         race = _get_or_create_race(row, office, election_cycle)
         election = _get_or_create_election(row, election_day, division, election_type, race)
         person = _get_or_create_person(row)
-        candidate = _get_or_create_candidate(row, person, party, race)
+        candidate = _get_or_create_candidate(row, person, party, race, election)
         meta = _get_or_create_ap_election_meta(row, election=election)
         votes = _get_or_create_votes(row, election, division, candidate=candidate)
 

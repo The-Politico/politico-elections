@@ -4,7 +4,10 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Division, DivisionLevel
 from .serializers import DivisionSerializer
 
-STATE_LEVEL = DivisionLevel.objects.get(name='state')
+try:
+    STATE_LEVEL = DivisionLevel.objects.get(name='state')
+except:
+    STATE_LEVEL = None
 
 
 class ResultsPagination(PageNumberPagination):
