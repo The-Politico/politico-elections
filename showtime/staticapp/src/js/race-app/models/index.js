@@ -2,8 +2,47 @@ import { fk, many, oneToOne, attr, Model, ORM } from 'redux-orm';
 
 class Election extends Model {
   serializeResults(divisions) {
-    console.log(divisions);
-    return { election: this };
+    const candidates = this.candidates.toModelArray();
+
+    // grab the first result for precinct numbers
+    const firstResult = candidates[0].resultSet.first();
+    const electionStatus = {
+      precinctsReporting: firstResult.precinctsReporting,
+      precinctsReportingPct: firstResult.precinctsReportingPct,
+      precinctsTotal: firstResult.precinctsTotal,
+      called: this.apMeta.called,
+      tabulated: this.apMeta.tabulated,
+      overrideApCall: this.apMeta.overrideApCall,
+      overrideApVotes: this.apMeta.overrideApVotes,
+    }
+
+    // build results
+    const results = [];
+    candidates.forEach((c) => {
+      divisions.forEach((d) => {
+        const matchField = d.level === 'state' ? d.postalCode : d.id;
+        const result = c.resultSet
+          .filter(f => (f.division === matchField))
+          .toModelArray()[0];
+
+        const candidate = Object.assign({}, c._fields);
+        const party = c.party._fields;
+        candidate['party'] = party;
+
+        const resultObj = {
+          candidate: candidate,
+          division: d._fields,
+          voteCount: result.voteCount,
+          votePct: result.votePct,
+        };
+        results.push(resultObj);
+      });
+    });
+
+    return {
+      electionStatus,
+      results,
+    };
   }
 
   static get fields() {

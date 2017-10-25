@@ -9,8 +9,6 @@ const store = createStore(reducers, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f,
 ));
 
-console.log(actions.fetchContext);
-
 store.dispatch(actions.fetchContext());
 store.dispatch(actions.fetchResults());
 

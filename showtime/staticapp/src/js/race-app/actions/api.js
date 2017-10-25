@@ -127,7 +127,6 @@ export const fetchContext = () =>
     });
 
 function addResults(results, dispatch) {
-  console.log(results);
   results.forEach((d) => {
     const divisionID = d.fipscode ? d.fipscode : d.statepostal;
     const candidateID = d.polid ? `polid-${d.polid}` : `polnum-${d.polnum}`;
