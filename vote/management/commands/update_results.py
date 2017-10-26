@@ -46,6 +46,5 @@ class Command(BaseCommand):
                 division=ap_meta.election.division,
                 count=result['votecount'],
                 pct=result['votepct'],
-                total=result['votecount'],
                 winning=result['winner']
             )
