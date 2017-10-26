@@ -1,12 +1,12 @@
 from django.db import models
+from uuslug import slugify, uuslug
 
-from core.models import (LabelBase, NameBase, PrimaryKeySlugBase, 
-                     SelfRelatedBase, UUIDBase)
+from core.constants import MINIMUM_STOPWORDS
+from core.models import LabelBase, NameBase, SelfRelatedBase, SlugBase, UIDBase
 from geography.models import Division
-from uuslug import slugify
 
 
-class Jurisdiction(PrimaryKeySlugBase, NameBase, SelfRelatedBase):
+class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
     """
     A Jurisdiction represents a logical unit of governance, comprising of
     a collection of legislative bodies, administrative offices or public
@@ -14,26 +14,31 @@ class Jurisdiction(PrimaryKeySlugBase, NameBase, SelfRelatedBase):
 
     For example: the United States Federal Government, the Government
     of the District of Columbia, Columbia Missouri City Government, etc.
-<<<<<<< Updated upstream
-=======
-
-    uuid
-    slug
-    name
-    parent
->>>>>>> Stashed changes
     """
     division = models.ForeignKey(Division, null=True)
 
     def save(self, *args, **kwargs):
-        #tk remove stop words
+        """
+        uid: {division.uid}_{slug}
+        """
+        stripped_name = ' '.join(
+            w for w in self.name.split()
+            if w not in MINIMUM_STOPWORDS
+        )
+
+        self.slug = uuslug(
+            stripped_name,
+            instance=self,
+            max_length=100,
+            separator='-',
+            start_no=2
+        )
+        self.uid = '{}_{}'.format(self.division.uid, slugify(stripped_name))
 
         super(Jurisdiction, self).save(*args, **kwargs)
 
-        self.slug = '{0}_{1}'.format(division.slug, self.slug)
 
-
-class Body(SelfRelatedBase):
+class Body(UIDBase, LabelBase, SelfRelatedBase):
     """
     A body represents a collection of offices or individuals organized around a
     common government or public service function.
@@ -50,21 +55,8 @@ class Body(SelfRelatedBase):
     - michigan/senate/
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
-    name = models.CharField(max_length=255)
-    label = models.CharField(max_length=255)
-    short_label = models.CharField(max_length=50, null=True, blank=True)
 
     jurisdiction = models.ForeignKey(Jurisdiction)
-
-    def save(self, *args, **kwargs):
-        # tk remove stop words
-
-        self.slug = '{0}_{1}'.format(
-            self.jurisdiction.slug,
-            slugify(self.name)
-        )
-
-        super(Body, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "Bodies"
@@ -72,8 +64,29 @@ class Body(SelfRelatedBase):
     def __str__(self):
         return self.label
 
+    def save(self, *args, **kwargs):
+        """
+        uid: {jurisdiction.uid}_{slug}
+        """
+        stripped_name = ' '.join(
+            w for w in self.name.split()
+            if w not in MINIMUM_STOPWORDS
+        )
 
-class Office(UIDBase):
+        self.slug = uuslug(
+            stripped_name,
+            instance=self,
+            max_length=100,
+            separator='-',
+            start_no=2
+        )
+        self.uid = '{}_{}'.format(
+            self.jurisdiction.uid, slugify(stripped_name))
+
+        super(Body, self).save(*args, **kwargs)
+
+
+class Office(UIDBase, LabelBase):
     """
     An office represents a post, seat or position occuppied by an individual
     as a result of an election.
@@ -90,9 +103,6 @@ class Office(UIDBase):
     - michigan/house/seat-2/
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
-    name = models.CharField(max_length=255)
-    label = models.CharField(max_length=255)
-    short_label = models.CharField(max_length=50, null=True, blank=True)
 
     division = models.ForeignKey(Division, related_name='offices')
     jurisdiction = models.ForeignKey(
@@ -102,3 +112,29 @@ class Office(UIDBase):
 
     def __str__(self):
         return self.label
+
+    def save(self, *args, **kwargs):
+        """
+        uid: {body.uid | jurisdiction.uid}_{slug}
+        """
+        stripped_name = ' '.join(
+            w for w in self.name.split()
+            if w not in MINIMUM_STOPWORDS
+        )
+
+        if not self.slug:
+            self.slug = uuslug(
+                stripped_name,
+                instance=self,
+                max_length=100,
+                separator='-',
+                start_no=2
+            )
+        if self.body:
+            self.uid = '{}_{}'.format(
+                self.body.uid, slugify(stripped_name))
+        else:
+            self.uid = '{}_{}'.format(
+                self.jurisdiction.uid, slugify(stripped_name))
+
+        super(Office, self).save(*args, **kwargs)

@@ -85,7 +85,7 @@ class OfficeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Office
         fields = (
-            'id',
+            'uid',
             'slug',
             'name',
             'label',
@@ -126,7 +126,7 @@ class ElectionSerializer(FlattenMixin, serializers.ModelSerializer):
     class Meta:
         model = Election
         fields = (
-            'id',
+            'uid',
             'date',
             'office',
             'primary_party',
@@ -142,7 +142,7 @@ class PartySerializer(serializers.ModelSerializer):
     class Meta:
         model = Party
         fields = (
-            # 'id',
+            'uid',
             'slug',
             'label',
             'short_label',

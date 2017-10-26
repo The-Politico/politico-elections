@@ -1,8 +1,5 @@
 from rest_framework import serializers
 
-from election.models import Party
-from election.serializers import ElectionSerializer, PartySerializer
-
 from .models import Division
 
 
@@ -29,7 +26,7 @@ class DivisionSerializer(ChildDivisionSerializer):
     class Meta:
         model = Division
         fields = (
-            # 'id',
+            'uid',
             'label',
             'short_label',
             'code',

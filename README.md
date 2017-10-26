@@ -57,17 +57,24 @@
   $ gulp
   ```
 
-### Seeding fixtures
+### Loading fixtures
 
 Presumes you have installed node libraries `topojson` and `topojson-simplify`, globally.
 
-Then run these management commands in sequence:
+1. Run these management commands in sequence:
 
-```bash
-$ python manage.py load_geography
-$ python manage.py load_jurisdictions
-$ python manage.py load_fed
-```
+  ```bash
+  $ python manage.py load_geography
+  $ python manage.py load_jurisdictions
+  $ python manage.py load_fed
+  ```
+
+2. Bootstrap races, elections and candidates from the AP:
+
+  ```bash
+  $ python manage.py bootstrap 2017-11-07
+  ```
+
 
 ### Getting results data
 

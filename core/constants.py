@@ -8,10 +8,21 @@ DIVISION_LEVELS = {
 }
 
 DIVISION_LEVEL_CODES = {
-    'country': 'co',
+    'national': 'co',
     'state': 'st',
     'district': 'cd',
-    'county': 'ct',
-    'township': 'tw',
-    'precinct': 'pt'
+    'county': 'cnty',
+    'township': 'twnp',
+    'precinct': 'prct'
 }
+
+MINIMUM_STOPWORDS = [
+    'a',
+    'an',
+    'by',
+    'for',
+    'in',
+    'of',
+    'with',
+    'the',
+]

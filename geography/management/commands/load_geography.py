@@ -8,10 +8,12 @@ from pathlib import Path
 
 import geojson
 import shapefile
+import us
 from census import Census
 from django.core.management.base import BaseCommand, CommandError
 from tqdm import tqdm
 
+from core.constants import DIVISION_LEVELS
 from geography.models import Division, DivisionLevel, Geography
 
 census = Census(os.getenv('CENSUS_API_KEY'))
@@ -27,28 +29,28 @@ SHP_BASE = 'https://www2.census.gov/geo/tiger/GENZ{}/shp/'
 DATA_DIRECTORY = './data/geo/'
 
 NATIONAL_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name='national'
+    name=DIVISION_LEVELS['country']
 )
 STATE_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name='state',
+    name=DIVISION_LEVELS['state'],
     parent=NATIONAL_LEVEL
 )
 COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name='county',
+    name=DIVISION_LEVELS['county'],
     parent=STATE_LEVEL
 )
 
 # Other fixtures
 DivisionLevel.objects.get_or_create(
-    name='district',
+    name=DIVISION_LEVELS['district'],
     parent=STATE_LEVEL
 )
 DivisionLevel.objects.get_or_create(
-    name='township',
+    name=DIVISION_LEVELS['township'],
     parent=COUNTY_LEVEL
 )
 DivisionLevel.objects.get_or_create(
-    name='precinct',
+    name=DIVISION_LEVELS['precinct'],
     parent=COUNTY_LEVEL
 )
 
@@ -236,6 +238,12 @@ class Command(BaseCommand):
                 defaults={
                     'name': state['NAME'],
                     'label': state['NAME'],
+                    'code_components': {
+                        'fips': {
+                            'state': state['STATEFP'],
+                        },
+                        'postal': us.states.lookup(state['STATEFP']).abbr,
+                    },
                 }
             )
             geodata = {

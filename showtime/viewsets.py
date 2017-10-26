@@ -47,8 +47,8 @@ class StateMixin(object):
         division_ids = []
         for election in date.elections.all():
             if election.division.level == STATE_LEVEL:
-                division_ids.append(election.division.id)
-        return Division.objects.filter(id__in=division_ids)
+                division_ids.append(election.division.uid)
+        return Division.objects.filter(uid__in=division_ids)
 
     def get_serializer_context(self):
         context = super(StateMixin, self).get_serializer_context()
@@ -79,8 +79,8 @@ class BodyMixin(object):
         for election in date.elections.all():
             body = election.race.office.body
             if body:
-                body_ids.append(body.id)
-        return Body.objects.filter(id__in=body_ids)
+                body_ids.append(body.uid)
+        return Body.objects.filter(uid__in=body_ids)
 
     def get_serializer_context(self):
         context = super(BodyMixin, self).get_serializer_context()
@@ -112,8 +112,8 @@ class OfficeMixin(object):
         for election in date.elections.all():
             office = election.race.office
             if not office.body:
-                office_ids.append(office.id)
-        return Office.objects.filter(id__in=office_ids)
+                office_ids.append(office.uid)
+        return Office.objects.filter(uid__in=office_ids)
 
     def get_serializer_context(self):
         context = super(OfficeMixin, self).get_serializer_context()
