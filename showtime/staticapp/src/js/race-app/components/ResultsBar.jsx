@@ -11,9 +11,14 @@ const ResultsBar = (props) => {
       d.level === 'state' &&
       d.id === window.appConfig.stateFips)
     .toModelArray();
+  const counties = db.Division
+    .filter(d => d.level === 'county')
+    .toModelArray();
 
   const results = election.serializeResults(state);
+  const countyResults = election.serializeResults(counties);
   console.log(results);
+  console.log(countyResults);
 
   return (
     <div className="results-bar">

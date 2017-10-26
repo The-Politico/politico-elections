@@ -30,6 +30,11 @@ class Election extends Model {
     this.candidates.toModelArray().forEach((candidate) => {
       divisions.forEach((division) => {
         const result = candidate.fetchResult(division);
+        // Some county divisions don't have results...
+        if (!result) {
+          console.log('No results for division:', division.id);
+          return;
+        }
 
         const resultObj = {
           candidate: candidate.serialize(),
