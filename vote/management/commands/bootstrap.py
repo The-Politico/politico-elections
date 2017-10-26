@@ -1,13 +1,13 @@
 import csv
+import subprocess
+
+from django.core.management.base import BaseCommand
+
 import election.models as election
 import entity.models as entity
 import geography.models as geography
 import server_config
-import subprocess
 import vote.models as vote
-
-from django.core.management.base import BaseCommand, CommandError
-from uuslug import slugify
 
 
 def _get_division_level(row):
@@ -48,6 +48,7 @@ def _get_or_create_election_day(row, election_cycle):
         cycle=election_cycle
     )[0]
 
+
 def _get_or_create_jurisdiction(row):
     us = geography.Division.objects.get(code='00')
 
@@ -73,15 +74,12 @@ def _get_or_create_body(row, jurisdiction):
 
     if row['officename'] == 'U.S. House':
         full_name = 'U.S. House of Representatives'
-        slug = 'house'
     else:
         full_name = row['officename']
-        slug = 'senate'
-        
+
     return entity.Body.objects.get_or_create(
         label=full_name,
         name=full_name,
-        slug=slug,
         jurisdiction=jurisdiction
     )[0]
 
@@ -117,7 +115,6 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
     return entity.Office.objects.get_or_create(
         label=office_label,
         name=office_label,
-        slug=slugify(row['officename']),
         division=division,
         jurisdiction=jurisdiction,
         body=body
@@ -211,8 +208,8 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
         person=person,
         race=race,
         ap_candidate_id=candidate_id,
-        aggregable=aggregable
-    , defaults=defaults)[0]
+        aggregable=aggregable,
+        defaults=defaults)[0]
     candidate.elections.add(election_obj)
     candidate.save()
 
@@ -224,7 +221,6 @@ def _get_or_create_ballot_measure(row, division, election_day):
         state = geography.Division.objects.get(
             code=division.code_components.get('fips').get('state')
         )
-
 
     return election.BallotMeasure.objects.get_or_create(
         question=row['seatname'],
@@ -256,7 +252,9 @@ def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
     return vote.APElectionMeta.objects.get_or_create(**kwargs)[0]
 
 
-def _get_or_create_votes(row, election, division, candidate=None, ballot_answer=None):
+def _get_or_create_votes(
+    row, election, division, candidate=None, ballot_answer=None
+):
     kwargs = {
         'election': election,
         'division': division,
@@ -273,6 +271,7 @@ def _get_or_create_votes(row, election, division, candidate=None, ballot_answer=
 
     return vote.Votes.objects.get_or_create(**kwargs)[0]
 
+
 def process_row(row):
     print('Processing {0} {1} {2} {3}'.format(
         row['statename'],
@@ -287,22 +286,33 @@ def process_row(row):
     election_day = _get_or_create_election_day(row, election_cycle)
 
     if row['is_ballot_measure'] == 'True':
-        ballot_measure = _get_or_create_ballot_measure(row, division, election_day)
+        ballot_measure = _get_or_create_ballot_measure(
+            row, division, election_day
+        )
         ballot_answer = _get_or_create_ballot_answer(row, ballot_measure)
-        meta = _get_or_create_ap_election_meta(row, ballot_measure=ballot_measure)
+        meta = _get_or_create_ap_election_meta(
+            row, ballot_measure=ballot_measure
+        )
     else:
         jurisdiction = _get_or_create_jurisdiction(row)
         body = _get_or_create_body(row, jurisdiction)
-        office = _get_or_create_office(row, body, division=division, jurisdiction=jurisdiction)
+        office = _get_or_create_office(
+            row, body, division=division, jurisdiction=jurisdiction
+        )
         party = _get_or_create_party(row)
         election_type = _get_or_create_election_type(row)
         race = _get_or_create_race(row, office, election_cycle)
-        election = _get_or_create_election(row, election_day, division, election_type, race)
+        election = _get_or_create_election(
+            row, election_day, division, election_type, race
+        )
         person = _get_or_create_person(row)
-        candidate = _get_or_create_candidate(row, person, party, race, election)
+        candidate = _get_or_create_candidate(
+            row, person, party, race, election
+        )
         meta = _get_or_create_ap_election_meta(row, election=election)
-        votes = _get_or_create_votes(row, election, division, candidate=candidate)
-
+        votes = _get_or_create_votes(
+            row, election, division, candidate=candidate
+        )
 
 
 class Command(BaseCommand):

@@ -61,7 +61,7 @@ class StateListSerializer(serializers.ModelSerializer):
         model = Division
         fields = (
             'url',
-            'id',
+            'uid',
             'name',
         )
 
@@ -83,7 +83,7 @@ class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Division
         fields = (
-            'id',
+            'uid',
             'elections',
             'parties',
             'division',
@@ -106,7 +106,7 @@ class BodyListSerializer(serializers.ModelSerializer):
         model = Division
         fields = (
             'url',
-            'id',
+            'uid',
             'name',
         )
 
@@ -134,7 +134,7 @@ class BodySerializer(serializers.ModelSerializer):
     class Meta:
         model = Body
         fields = (
-            'id',
+            'uid',
             'elections',
             'parties',
             'division',
@@ -157,7 +157,7 @@ class OfficeListSerializer(serializers.ModelSerializer):
         model = Division
         fields = (
             'url',
-            'id',
+            'uid',
             'name',
         )
 
@@ -185,7 +185,7 @@ class OfficeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Office
         fields = (
-            'id',
+            'uid',
             'elections',
             'parties',
             'division',
