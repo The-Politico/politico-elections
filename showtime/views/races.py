@@ -67,6 +67,7 @@ class StateExecutiveRacePage(BaseView):
     def get_object(self):
         cycle = ElectionCycle.objects.get(slug=self.kwargs.get('year'))
         state = Division.objects.get(slug=self.kwargs.get('state'))
+        print(self.kwargs.get('office'))
         office = Office.objects.get(
             slug=self.kwargs.get('office'),
             division=state

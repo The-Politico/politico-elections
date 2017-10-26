@@ -25,23 +25,22 @@ class Election extends Model {
     divisions.forEach((division) => {
       const obj = _.assign({}, division.serialize());
       obj.results = [];
-      const otherResults = {};
-      
+
       const firstResult = division.resultSet.first();
       if (!firstResult) {
         console.log('No results for division:', division.id);
         return;
       }
-      obj.precinctsReporting = firstResult.precinctsReporting
-      obj.precinctsReportingPct = firstResult.precinctsReportingPct
-      obj.precinctsTotal = firstResult.precinctsTotal
+      obj.precinctsReporting = firstResult.precinctsReporting;
+      obj.precinctsReportingPct = firstResult.precinctsReportingPct;
+      obj.precinctsTotal = firstResult.precinctsTotal;
 
       division.resultSet.toModelArray().forEach((result) => {
         const resultObj = {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
-          votePct: result.votePct
-        }
+          votePct: result.votePct,
+        };
 
         // Aggregate aggregable candidates' vote totals
         // and percents by division

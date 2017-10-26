@@ -83,13 +83,14 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
             if w not in MINIMUM_STOPWORDS
         )
 
-        self.slug = uuslug(
-            stripped_name,
-            instance=self,
-            max_length=100,
-            separator='-',
-            start_no=2
-        )
+        if not self.slug:
+            self.slug = uuslug(
+                stripped_name,
+                instance=self,
+                max_length=100,
+                separator='-',
+                start_no=2
+            )
         self.uid = '{}_body-{}'.format(
             self.jurisdiction.uid, slugify(stripped_name))
 

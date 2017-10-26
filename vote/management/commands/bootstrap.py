@@ -2,6 +2,7 @@ import csv
 import subprocess
 
 from django.core.management.base import BaseCommand
+from uuslug import slugify
 
 import election.models as election
 import entity.models as entity
@@ -72,12 +73,18 @@ def _get_or_create_body(row, jurisdiction):
     if row['officename'] in ['President', 'Governor']:
         return None
 
-    if row['officename'] == 'U.S. House':
+    if 'house' in row['officename'].lower():
         full_name = 'U.S. House of Representatives'
+        slug = 'house'
+    elif 'senate' in row['officename'].lower():
+        full_name = row['officename']
+        slug = 'senate'
     else:
         full_name = row['officename']
+        slug = slugify(row['officename'])
 
     return entity.Body.objects.get_or_create(
+        slug=slug,
         label=full_name,
         name=full_name,
         jurisdiction=jurisdiction
@@ -93,7 +100,7 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
 
     office = '{0} {1}'.format(
         row['statename'],
-        row['officename']
+        row['officename'],
     )
 
     if row['seatname']:
@@ -113,6 +120,7 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
         )
 
     return entity.Office.objects.get_or_create(
+        slug=slugify(row['officename']),
         label=office_label,
         name=office_label,
         division=division,

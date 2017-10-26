@@ -59,9 +59,6 @@ class Party(UIDBase, SlugBase, LabelBase):
     class Meta:
         verbose_name_plural = 'Parties'
 
-    def __str__(self):
-        return self.label
-
     def save(self, *args, **kwargs):
         """
         uid: party-{apcode}
