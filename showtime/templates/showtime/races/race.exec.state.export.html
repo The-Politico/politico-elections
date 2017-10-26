@@ -7,3 +7,15 @@
   }
 </style>
 {%endblock%}
+
+{%block api%}
+<script type="text/javascript">
+  window.config = {
+    api: {
+      context: './context.json',
+      results: './results.json',
+    },
+    stateFips: '{{state.code}}',
+  }
+</script>
+{%endblock%}

@@ -8,6 +8,10 @@ from geography.models import Division
 class ElectionCycle(NameBase):
     """
     e.g. "2016"
+
+    uuid
+    slug
+    name
     """
     pass
 
@@ -15,6 +19,12 @@ class ElectionCycle(NameBase):
 class ElectionType(LabelBase):
     """
     e.g. "General", "Primary"
+
+    uuid
+    slug
+    name
+    label
+    short_label
     """
     ap_code = models.CharField(max_length=1)
 
@@ -24,9 +34,20 @@ class Party(LabelBase):
     label = "Republican"
     ap_code = "gop"
     short_label = "GOP"
+
+    uuid
+    slug
+    name
+    label
+    short_label
     """
     ap_code = models.CharField(max_length=3, unique=True)
     aggregate_candidates = models.BooleanField(default=True)
+
+    def __str__(self):
+        if self.label:
+            return self.label
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Parties'
@@ -34,6 +55,11 @@ class Party(LabelBase):
 
 class BallotMeasure(LabelBase):
     """
+    uuid
+    slug
+    name
+    label
+    short_label
     """
     question = models.TextField()
     division = models.ForeignKey(Division, related_name='ballot_measures')
@@ -53,6 +79,13 @@ class ElectionDay(UUIDBase):
 
 
 class Race(LabelBase):
+    """
+    uuid
+    slug
+    name
+    label
+    short_label
+    """
     office = models.ForeignKey(Office, related_name='races')
     cycle = models.ForeignKey(ElectionCycle, related_name='races')
 
@@ -69,6 +102,9 @@ class Race(LabelBase):
 
 
 class Election(UUIDBase):
+    """
+    UUID
+    """
     election_type = models.ForeignKey(ElectionType, related_name='elections')
     race = models.ForeignKey('Race', related_name='elections')
     party = models.ForeignKey(Party, null=True, blank=True)

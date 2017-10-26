@@ -6,6 +6,9 @@ from geography.models import Division
 
 
 class BaseResult(UUIDBase):
+    """
+    UUID
+    """
     election = models.ForeignKey(Election)
     candidate = models.ForeignKey(Candidate, null=True)
     division = models.ForeignKey(Division)
@@ -31,6 +34,9 @@ class Delegates(BaseResult):
 
 
 class APElectionMeta(UUIDBase):
+    """
+    UUID
+    """
     election = models.OneToOneField(
         Election,
         related_name='meta',
