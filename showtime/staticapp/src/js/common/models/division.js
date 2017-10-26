@@ -8,6 +8,7 @@ class Division extends Model {
   static get fields() {
     return {
       id: attr(),
+      code: attr(),
       level: attr(),
       label: attr(),
       shortLabel: attr(),

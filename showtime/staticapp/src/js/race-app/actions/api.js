@@ -12,7 +12,8 @@ const GET = _.assign({}, headers, { method: 'GET' });
 function addDivisions(division, dispatch) {
   const parent = _.assign({}, division);
   const parentObj = {
-    id: parent.code,
+    id: parent.postal_code ? parent.postal_code : parent.code,
+    code: parent.code,
     level: parent.level,
     label: parent.label,
     shortLabel: parent.short_label,
@@ -25,6 +26,7 @@ function addDivisions(division, dispatch) {
   division.children.forEach((d) => {
     const childObj = {
       id: d.code,
+      code: d.code,
       level: d.level,
       label: d.label,
       shortLabel: d.short_label,
