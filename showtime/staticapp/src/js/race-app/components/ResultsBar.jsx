@@ -9,7 +9,7 @@ const ResultsBar = (props) => {
   const state = db.Division
     .filter(d =>
       d.level === 'state' &&
-      d.id === window.appConfig.stateFips)
+      d.code === window.appConfig.stateFips)
     .toModelArray();
   const counties = db.Division
     .filter(d => d.level === 'county')

@@ -20,55 +20,57 @@ class Election extends Model {
    * @return {Object}           Serialized results.
    */
   serializeResults(divisions) {
-    const results = [];
-    const aggregatedResults = [];
+    const divisionResults = {};
 
-    this.candidates.toModelArray().forEach((candidate) => {
-      divisions.forEach((division) => {
-        const result = candidate.fetchResult(division);
-        // Some county divisions don't have results...
-        if (!result) {
-          console.log('No results for division:', division.id);
-          return;
-        }
+    divisions.forEach((division) => {
+      const obj = _.assign({}, division.serialize());
+      obj.results = [];
+      const otherResults = {};
+      
+      const firstResult = division.resultSet.first();
+      if (!firstResult) {
+        console.log('No results for division:', division.id);
+        return;
+      }
+      obj.precinctsReporting = firstResult.precinctsReporting
+      obj.precinctsReportingPct = firstResult.precinctsReportingPct
+      obj.precinctsTotal = firstResult.precinctsTotal
 
+      division.resultSet.toModelArray().forEach((result) => {
         const resultObj = {
-          candidate: candidate.serialize(),
-          division: division.serialize(),
+          candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
-          votePct: result.votePct,
-          precinctsReporting: result.precinctsReporting,
-          precinctsTotal: result.precinctsTotal,
-          precinctsReportingPct: result.precinctsReportingPct,
-        };
+          votePct: result.votePct
+        }
 
         // Aggregate aggregable candidates' vote totals
         // and percents by division
-        if (candidate.aggregable) {
-          const divisionResult = _.find(
-            aggregatedResults,
-            d => d.division.id === division.id,
+        if (result.candidate.aggregable) {
+          const other = _.find(
+            obj.results,
+            d => d.candidate === 'other',
           );
-          if (divisionResult) {
-            aggregatedResults.pop(divisionResult);
-            divisionResult.voteCount += resultObj.voteCount;
-            divisionResult.votePct += resultObj.votePct;
-            aggregatedResults.push(divisionResult);
+          if (other) {
+            obj.results.pop(other);
+            other.voteCount += resultObj.voteCount;
+            other.votePct += resultObj.votePct;
+            obj.results.push(other);
           } else {
             resultObj.candidate = 'other';
-            aggregatedResults.push(resultObj);
+            obj.results.push(resultObj);
           }
         } else {
-          results.push(resultObj);
+          obj.results.push(resultObj);
         }
       });
+      divisionResults[division.id] = obj;
     });
 
     return {
       id: this.id,
       status: this.serializeStatus(),
       office: this.office.serialize(),
-      results: results.concat(aggregatedResults),
+      divisions: divisionResults,
     };
   }
 
