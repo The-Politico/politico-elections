@@ -123,9 +123,15 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
 
 
 def _get_or_create_party(row):
+    if row['party'] in ['Dem', 'GOP']:
+        aggregable = False
+    else:
+        aggregable = True
+
     return election.Party.objects.get_or_create(
         ap_code=row['party'],
-        name=row['party']
+        name=row['party'],
+        aggregate_candidates=aggregable
     )[0]
 
 
@@ -190,6 +196,11 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
         id_components[2]
     )
 
+    if party.ap_code in ['Dem', 'GOP']:
+        aggregable = False
+    else:
+        aggregable = True
+
     defaults = {
         'party': party
     }
@@ -197,7 +208,8 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
     candidate = election.Candidate.objects.get_or_create(
         person=person,
         race=race,
-        ap_candidate_id=candidate_id
+        ap_candidate_id=candidate_id,
+        aggregable=aggregable
     , defaults=defaults)[0]
     candidate.elections.add(election_obj)
     candidate.save()
