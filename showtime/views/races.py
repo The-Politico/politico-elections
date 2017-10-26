@@ -8,7 +8,7 @@ STATE:   /election-results/{YEAR}/{STATE}/{OFFICE}/
 
 from django.shortcuts import get_object_or_404
 
-from election.models import ElectionCycle, Race
+from election.models import ElectionCycle, ElectionDay, Race
 from entity.models import Jurisdiction, Office
 from geography.models import Division
 
@@ -82,10 +82,12 @@ class StateExecutiveRacePage(BaseView):
             **kwargs
         )
         state = Division.objects.get(slug=self.kwargs.get('state'))
+        election_day = ElectionDay.objects.get(date=self.kwargs.get('date'))
         office = Office.objects.get(
             slug=self.kwargs.get('office'),
             division=state
         )
+        context['election_day'] = election_day
         context['year'] = self.kwargs.get('year')
         context['office'] = office
         context['state'] = state

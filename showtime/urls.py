@@ -73,17 +73,19 @@ urlpatterns = [
         name='fed-exec-race-page'
     ),
     url(
-        r'^race/(?P<year>\d{4})/(?P<office>[\w-]+)/export/',
+        r'^race/(?P<year>\d{4})/(?P<office>[\w-]+)/export/$',
         FederalExecutiveRacePageExport.as_view(),
         name='fed-exec-race-page-export'
     ),
     url(
-        r'^race/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<office>[\w-]+)/$',
+        r'^race/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<office>[\w-]+)'
+        r'/(?P<date>\d{4}-\d{2}-\d{2})/$',
         StateExecutiveRacePage.as_view(),
         name='state-exec-race-page'
     ),
     url(
-        r'^race/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<office>[\w-]+)/export/',
+        r'^race/(?P<year>\d{4})/(?P<state>[\w-]+)/(?P<office>[\w-]+)'
+        r'/(?P<date>\d{4}-\d{2}-\d{2})/export/',
         StateExecutiveRacePageExport.as_view(),
         name='state-exec-race-page-export'
     ),

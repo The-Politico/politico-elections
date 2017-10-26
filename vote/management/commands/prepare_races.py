@@ -1,8 +1,10 @@
 import json
 
 from django.core.management.base import BaseCommand, CommandError
-from election.models import Election, ElectionCycle
 from uuslug import slugify
+
+from election.models import Election, ElectionCycle
+
 
 class Command(BaseCommand):
     help = 'finds race ids necessary for pages'
@@ -74,8 +76,8 @@ class Command(BaseCommand):
             levels = ['state', 'county']
             config_key = '{0}-{1}'.format(body, state)
             output_key = '{0}/{1}/{2}'.format(
-                cycle, 
-                body, 
+                cycle,
+                body,
                 state
             )
 
@@ -99,7 +101,7 @@ class Command(BaseCommand):
                 state,
                 body
             )
-            
+
             self._write_to_json(state_body_elections, config_key, levels, output_key)
 
     def serialize_state_federal_exec(self, state, office, elections, cycle):
@@ -143,9 +145,9 @@ class Command(BaseCommand):
     def _write_to_json(self, elections, config_key, levels, output_key):
         ids = []
         for election in elections:
-            meta = election.apelectionmeta_set.all()
-            if (len(meta) > 0):
-                ids.append(meta[0].ap_election_id)
+            meta = election.meta
+            if meta:
+                ids.append(meta.ap_election_id)
 
         output = {
             'elections': ids,
@@ -161,7 +163,9 @@ class Command(BaseCommand):
         parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
-        latest_cycle = ElectionCycle.objects.get(name='2018').name
+        cycle_year = options['election_date'].split('-')[0]
+
+        latest_cycle = ElectionCycle.objects.get(name=cycle_year).name
         self.serialize_cycle(latest_cycle)
 
         elections = Election.objects.filter(

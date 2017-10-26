@@ -19,6 +19,12 @@ class ElectionCycle(UIDBase, SlugBase, NameBase):
 class ElectionType(UIDBase, LabelBase):
     """
     e.g. "General", "Primary"
+
+    uuid
+    slug
+    name
+    label
+    short_label
     """
     ap_code = models.CharField(max_length=1)
 
@@ -35,9 +41,20 @@ class Party(UIDBase, SlugBase, LabelBase):
     label = "Republican"
     ap_code = "gop"
     short_label = "GOP"
+
+    uuid
+    slug
+    name
+    label
+    short_label
     """
     ap_code = models.CharField(max_length=3, unique=True)
     aggregate_candidates = models.BooleanField(default=True)
+
+    def __str__(self):
+        if self.label:
+            return self.label
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Parties'

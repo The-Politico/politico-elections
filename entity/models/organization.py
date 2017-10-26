@@ -14,6 +14,13 @@ class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
 
     For example: the United States Federal Government, the Government
     of the District of Columbia, Columbia Missouri City Government, etc.
+
+    uuid
+    slug
+    name
+    label
+    short_label
+    parent
     """
     division = models.ForeignKey(Division, null=True)
 
@@ -54,6 +61,8 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
     slug = senate
     - florida/senate/
     - michigan/senate/
+
+    UUID
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
 
@@ -102,6 +111,8 @@ class Office(UIDBase, LabelBase):
     slug = seat-2
     - florida/house/seat-2/
     - michigan/house/seat-2/
+
+    UUID
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
 

@@ -6,8 +6,8 @@ import ResultsMap from '../components/ResultsMap';
 const TopResults = (props) => {
   return (
     <div className="top-results">
-      <ResultsBar />
-      <ResultsMap />
+      <ResultsBar session={props.session} />
+      <ResultsMap session={props.session} />
     </div>
   );
 };

@@ -34,7 +34,9 @@ def _get_division(row, level):
     return geography.Division.objects.get_or_create(**kwargs)[0]
 
 
-def _get_or_create_election_cycle(year):
+def _get_or_create_election_cycle(row):
+    year = row['electiondate'].split('-')[0]
+
     return election.ElectionCycle.objects.get_or_create(
         name=year
     )[0]
@@ -120,9 +122,15 @@ def _get_or_create_office(row, body, division=None, jurisdiction=None):
 
 
 def _get_or_create_party(row):
+    if row['party'] in ['Dem', 'GOP']:
+        aggregable = False
+    else:
+        aggregable = True
+
     return election.Party.objects.get_or_create(
         ap_code=row['party'],
-        name=row['party']
+        name=row['party'],
+        aggregate_candidates=aggregable
     )[0]
 
 
@@ -187,6 +195,11 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
         id_components[2]
     )
 
+    if party.ap_code in ['Dem', 'GOP']:
+        aggregable = False
+    else:
+        aggregable = True
+
     defaults = {
         'party': party
     }
@@ -195,6 +208,7 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
         person=person,
         race=race,
         ap_candidate_id=candidate_id,
+        aggregable=aggregable,
         defaults=defaults)[0]
     candidate.elections.add(election_obj)
     candidate.save()
@@ -268,7 +282,7 @@ def process_row(row):
 
     level = _get_division_level(row)
     division = _get_division(row, level)
-    election_cycle = _get_or_create_election_cycle('2018')
+    election_cycle = _get_or_create_election_cycle(row)
     election_day = _get_or_create_election_day(row, election_cycle)
 
     if row['is_ballot_measure'] == 'True':
