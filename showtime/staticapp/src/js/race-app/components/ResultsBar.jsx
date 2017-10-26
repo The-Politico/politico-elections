@@ -18,8 +18,8 @@ const ResultsBar = (props) => {
   const results = election.serializeResults(state);
   const countyResults = election.serializeResults(counties);
 
-  console.log(results);
-  console.log(countyResults);
+  console.log('State results', results);
+  console.log('County results', countyResults);
 
   return (
     <div className="results-bar">

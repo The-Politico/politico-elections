@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Actions from '../actions/';
 import TopResults from './TopResults';
-import orm from '../models';
+import orm from '../../common/models';
 
 const App = (props) => {
   const actions = bindActionCreators(Actions, props.dispatch);

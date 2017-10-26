@@ -7,6 +7,13 @@ from .election_meta import BallotMeasure, Election, Party, Race
 
 
 class Candidate(LabelBase):
+    """
+    uuid
+    slug
+    name
+    label
+    short_label
+    """
     race = models.ForeignKey(Race, related_name='candidates')
     elections = models.ManyToManyField(Election, related_name='candidates')
     person = models.ForeignKey(Person, related_name='candidacies')
@@ -26,6 +33,13 @@ class Candidate(LabelBase):
 
 
 class BallotAnswer(LabelBase):
+    """
+    uuid
+    slug
+    name
+    label
+    short_label
+    """
     answer = models.TextField()
     winner = models.BooleanField(default=False)
     ballot_measure = models.ForeignKey(BallotMeasure)

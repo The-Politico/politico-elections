@@ -6,10 +6,16 @@ from django.db import models
 from django.utils.safestring import mark_safe
 
 from core.models import EffectiveDateBase
+
 from .division import Division, DivisionLevel
 
 
 class Geography(EffectiveDateBase):
+    """
+    effective
+    effective_start
+    effective_end
+    """
     D3 = '''
         <div id="map{0}"></div>
         <script>

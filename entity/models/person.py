@@ -4,6 +4,13 @@ from core.models import LabelBase
 
 
 class Person(LabelBase):
+    """
+    uuid
+    slug
+    name
+    label
+    short_label
+    """
     first_name = models.CharField(max_length=255, null=True, blank=True)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255)
