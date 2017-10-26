@@ -34,7 +34,9 @@ def _get_division(row, level):
     return geography.Division.objects.get_or_create(**kwargs)[0]
 
 
-def _get_or_create_election_cycle(year):
+def _get_or_create_election_cycle(row):
+    year = row['electiondate'].split('-')[0]
+
     return election.ElectionCycle.objects.get_or_create(
         name=year
     )[0]
@@ -281,7 +283,7 @@ def process_row(row):
 
     level = _get_division_level(row)
     division = _get_division(row, level)
-    election_cycle = _get_or_create_election_cycle('2018')
+    election_cycle = _get_or_create_election_cycle(row)
     election_day = _get_or_create_election_day(row, election_cycle)
 
     if row['is_ballot_measure'] == 'True':
