@@ -2,20 +2,24 @@ from django.contrib.postgres.fields import JSONField
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from uuslug import uuslug
 
-from core.models import EffectiveDateBase, LabelBase, NameBase, SelfRelatedBase
+from core.constants import DIVISION_LEVELS
+from core.models import (EffectiveDateBase, LabelBase, 
+                     NameBase, PrimaryKeySlugBase, 
+                     SelfRelatedBase)
 
 
-class DivisionLevel(NameBase, SelfRelatedBase):
+class DivisionLevel(PrimaryKeySlugBase, NameBase, SelfRelatedBase):
     """
     Level of government or administration at which a division exists.
 
-    For example, federal, state, district, county, precinct, municipal.
+    For example, national, state, district, county, precinct, municipal.
     """
     pass
 
 
-class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
+class Division(PrimaryKeySlugBase, LabelBase, SelfRelatedBase, EffectiveDateBase):
     """
     A political or administrative geography.
 
@@ -46,6 +50,24 @@ class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
                   "The relationship between a congressional district and a "
                   "precinct is an example of an intersecting relationship."
     )
+
+    def save(self, *args, **kwargs):
+        super(Division, self).save(*args, **kwargs)
+
+        level = 'country' if self.level.slug == DIVISION_LEVELS['country'] else self.level.slug
+        slug_string = '{0}-{1}'.format(level, self.code)
+
+        if self.parent:
+            parent = self.parent.slug
+            self.slug = '{0}_{1}'.format(
+                parent,
+                slug_string
+            )
+        else:
+            self.slug = slug_string
+
+
+
 
     def add_intersecting(self, division, intersection=None, symm=True):
         """

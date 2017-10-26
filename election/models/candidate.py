@@ -21,6 +21,8 @@ class Candidate(LabelBase):
     top_of_ticket = models.ForeignKey(
         'self', null=True, blank=True, related_name='ticket')
 
+    # personslug_candidate-{party-slug}-{cycle-slug}
+
     def __str__(self):
         return self.person.label
 

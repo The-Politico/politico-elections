@@ -1,10 +1,12 @@
 from django.db import models
 
-from core.models import LabelBase, SelfRelatedBase, UUIDBase
+from core.models import (LabelBase, NameBase, PrimaryKeySlugBase, 
+                     SelfRelatedBase, UUIDBase)
 from geography.models import Division
+from uuslug import slugify
 
 
-class Jurisdiction(LabelBase, SelfRelatedBase):
+class Jurisdiction(PrimaryKeySlugBase, NameBase, SelfRelatedBase):
     """
     A Jurisdiction represents a logical unit of governance, comprising of
     a collection of legislative bodies, administrative offices or public
@@ -12,11 +14,26 @@ class Jurisdiction(LabelBase, SelfRelatedBase):
 
     For example: the United States Federal Government, the Government
     of the District of Columbia, Columbia Missouri City Government, etc.
+<<<<<<< Updated upstream
+=======
+
+    uuid
+    slug
+    name
+    parent
+>>>>>>> Stashed changes
     """
     division = models.ForeignKey(Division, null=True)
 
+    def save(self, *args, **kwargs):
+        #tk remove stop words
 
-class Body(UUIDBase, SelfRelatedBase):
+        super(Jurisdiction, self).save(*args, **kwargs)
+
+        self.slug = '{0}_{1}'.format(division.slug, self.slug)
+
+
+class Body(SelfRelatedBase):
     """
     A body represents a collection of offices or individuals organized around a
     common government or public service function.
@@ -39,6 +56,16 @@ class Body(UUIDBase, SelfRelatedBase):
 
     jurisdiction = models.ForeignKey(Jurisdiction)
 
+    def save(self, *args, **kwargs):
+        # tk remove stop words
+
+        self.slug = '{0}_{1}'.format(
+            self.jurisdiction.slug,
+            slugify(self.name)
+        )
+
+        super(Body, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "Bodies"
 
@@ -46,7 +73,7 @@ class Body(UUIDBase, SelfRelatedBase):
         return self.label
 
 
-class Office(UUIDBase):
+class Office(UIDBase):
     """
     An office represents a post, seat or position occuppied by an individual
     as a result of an election.

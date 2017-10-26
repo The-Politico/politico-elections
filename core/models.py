@@ -11,6 +11,15 @@ class UUIDBase(models.Model):
         abstract = True
 
 
+class UIDBase(models.Model):
+    uid = models.CharField(
+        max_length=300,
+        primary_key=True,
+        editable=False,
+        blank=True
+    )
+
+
 class LinkBase(UUIDBase):
     note = models.CharField(
         max_length=300,
@@ -23,7 +32,7 @@ class LinkBase(UUIDBase):
         abstract = True
 
 
-class SlugBase(UUIDBase):
+class SlugBase(models.Model):
     slug = models.SlugField(
         blank=True, max_length=255, unique=True, editable=False
     )
@@ -32,7 +41,24 @@ class SlugBase(UUIDBase):
         abstract = True
 
 
-class NameBase(SlugBase):
+class PrimaryKeySlugBase(models.Model):
+    slug = models.SlugField(
+        blank=True, 
+        max_length=255, 
+        unique=True, 
+        editable=False,
+        primary_key=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+class NameBase(models.Model):
+    """
+    When using NameBase, you MUST also inherit a slug base.
+    """
+
     name = models.CharField(max_length=255)
 
     def save(self, *args, **kwargs):
@@ -53,8 +79,14 @@ class NameBase(SlugBase):
 
 
 class LabelBase(NameBase):
-    label = models.CharField(max_length=255)
+    label = models.CharField(max_length=255, blank=True)
     short_label = models.CharField(max_length=50, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.label:
+            self.label = self.name
+
+        super(LabelBase, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True

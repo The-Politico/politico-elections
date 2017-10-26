@@ -28,6 +28,16 @@ class Party(LabelBase):
     ap_code = models.CharField(max_length=3, unique=True)
     aggregate_candidates = models.BooleanField(default=True)
 
+<<<<<<< Updated upstream
+=======
+    # {ap_code}
+
+    def __str__(self):
+        if self.label:
+            return self.label
+        return self.name
+
+>>>>>>> Stashed changes
     class Meta:
         verbose_name_plural = 'Parties'
 
@@ -37,8 +47,11 @@ class BallotMeasure(LabelBase):
     """
     question = models.TextField()
     division = models.ForeignKey(Division, related_name='ballot_measures')
+    number = models.CharField(max_length=3)
     election_day = models.ForeignKey(
         'ElectionDay', related_name='ballot_measures')
+
+    # division_cycle_ballot_measure-{number}
 
 
 class ElectionDay(UUIDBase):
@@ -47,6 +60,8 @@ class ElectionDay(UUIDBase):
     """
     date = models.DateField(unique=True)
     cycle = models.ForeignKey(ElectionCycle, related_name='elections_days')
+
+    # {cycle}-{date}
 
     def __str__(self):
         return str(self.date)
@@ -57,6 +72,8 @@ class Race(LabelBase):
     cycle = models.ForeignKey(ElectionCycle, related_name='races')
 
     def save(self, *args, **kwargs):
+        # officeslug_race-{cycle}
+
         name_label = '{0} {1}'.format(
             self.cycle.name,
             self.office.label
@@ -76,6 +93,8 @@ class Election(UUIDBase):
     division = models.ForeignKey(Division, related_name='elections')
 
     def __str__(self):
+        # raceslug_election-{election_day}-{party?}
+
         base = '{0}, {1}, {2}'.format(
             self.race.office.label,
             self.election_type.label,
