@@ -33,7 +33,8 @@ class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
             separator='-',
             start_no=2
         )
-        self.uid = '{}_jurisdiction-{}'.format(self.division.uid, slugify(stripped_name))
+        self.uid = '{}_jurisdiction-{}'.format(
+            self.division.uid, slugify(stripped_name))
 
         super(Jurisdiction, self).save(*args, **kwargs)
 
