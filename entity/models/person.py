@@ -17,11 +17,11 @@ class Person(UIDBase, SlugBase, NameBase):
 
         full_name = '{0}{1}{2}'.format(
             self.first_name,
-            '{0}{1}'.format(
+            '{}'.format(
                 ' ' + self.middle_name + ' ' if self.middle_name else ' ',
-                ' ' + self.suffix if self.suffix else '',
             ),
-            self.last_name
+            self.last_name,
+            '{}'.format(' ' + self.suffix if self.suffix else '')
         )
 
         self.name = full_name
