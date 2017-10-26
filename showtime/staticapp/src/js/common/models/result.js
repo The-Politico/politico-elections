@@ -9,13 +9,6 @@ class Result extends Model {
    * Serializes the precinct status of an election.
    * @return {Object}   Status.
    */
-  serializeStatus() {
-    return {
-      precinctsReporting: this.precinctsReporting,
-      precinctsReportingPct: this.precinctsReportingPct,
-      precinctsTotal: this.precinctsTotal,
-    };
-  }
 
   static get fields() {
     return {

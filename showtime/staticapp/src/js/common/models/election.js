@@ -7,12 +7,8 @@ class Election extends Model {
    * @return {Object}   Status object.
    */
   serializeStatus() {
-    const result = this.candidates
-      .toModelArray()[0]
-      .resultSet.first();
     return _.assign(
       {},
-      result.serializeStatus(),
       this.apMeta.serialize(),
     );
   }
@@ -41,6 +37,9 @@ class Election extends Model {
           division: division.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
+          precinctsReporting: result.precinctsReporting,
+          precinctsTotal: result.precinctsTotal,
+          precinctsReportingPct: result.precinctsReportingPct,
         };
 
         // Aggregate aggregable candidates' vote totals
