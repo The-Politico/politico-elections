@@ -163,7 +163,9 @@ class Command(BaseCommand):
         parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
-        latest_cycle = ElectionCycle.objects.get(name='2018').name
+        cycle_year = options['election_date'].split('-')[0]
+
+        latest_cycle = ElectionCycle.objects.get(name=cycle_year).name
         self.serialize_cycle(latest_cycle)
 
         elections = Election.objects.filter(

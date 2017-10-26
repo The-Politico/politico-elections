@@ -38,3 +38,5 @@ for file in ./output/elections/*.json ; do
     echo $last_updated > "$fullpath/last-updated.json"
   fi
 done
+
+cp -r ./output/results/* ./showtime/static/showtime/results/
