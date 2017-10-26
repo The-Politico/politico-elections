@@ -9,10 +9,10 @@ from geography.models import Division
 class ElectionCycle(UIDBase, SlugBase, NameBase):
     def save(self, *args, **kwargs):
         """
-        uid: cycle-{year}
+        uid: cycle:{year}
         """
         self.slug = slugify(self.name)
-        self.uid = 'cycle-{}'.format(self.slug)
+        self.uid = 'cycle:{}'.format(self.slug)
         super(ElectionCycle, self).save(*args, **kwargs)
 
 
@@ -30,9 +30,9 @@ class ElectionType(UIDBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: electiontype-{name}
+        uid: electiontype:{name}
         """
-        self.uid = 'electiontype-{}'.format(slugify(self.name))
+        self.uid = 'electiontype:{}'.format(slugify(self.name))
         super(ElectionType, self).save(*args, **kwargs)
 
 
@@ -61,9 +61,9 @@ class Party(UIDBase, SlugBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: party-{apcode}
+        uid: party:{apcode}
         """
-        self.uid = 'party-{}'.format(slugify(self.ap_code))
+        self.uid = 'party:{}'.format(slugify(self.ap_code))
         self.slug = self.name
         super(Party, self).save(*args, **kwargs)
 
@@ -80,9 +80,9 @@ class ElectionDay(UIDBase, SlugBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {cycle.uid}_date-{date}
+        uid: {cycle.uid}_date:{date}
         """
-        self.uid = '{}_date-{}'.format(
+        self.uid = '{}_date:{}'.format(
             self.cycle.uid,
             self.date
         )
@@ -101,9 +101,9 @@ class BallotMeasure(UIDBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: division_cycle_ballot_measure-{number}
+        uid: division_cycle_ballotmeasure:{number}
         """
-        self.uid = '{}_{}_ballotmeasure-{}'.format(
+        self.uid = '{}_{}_ballotmeasure:{}'.format(
             self.division.uid,
             self.election_day.uid,
             self.number
@@ -164,16 +164,16 @@ class Election(UIDBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {race.uid}_election-{election_day}-{party}
+        uid: {race.uid}_election:{election_day}-{party}
         """
         if self.party:
-            self.uid = '{}_election-{}-{}'.format(
+            self.uid = '{}_election:{}-{}'.format(
                 self.race.uid,
                 self.election_day.date,
                 slugify(self.party.ap_code)
             )
         else:
-            self.uid = '{}_election-{}'.format(
+            self.uid = '{}_election:{}'.format(
                 self.race.uid,
                 self.election_day.date
             )

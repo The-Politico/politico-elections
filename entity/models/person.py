@@ -12,7 +12,7 @@ class Person(UIDBase, SlugBase, NameBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: person-{slug}
+        uid: person:{slug}
         """
 
         full_name = '{0}{1}{2}'.format(
@@ -32,6 +32,6 @@ class Person(UIDBase, SlugBase, NameBase):
             separator='-',
             start_no=2
         )
-        self.uid = 'person-{}'.format(self.slug)
+        self.uid = 'person:{}'.format(self.slug)
 
         super(Person, self).save(*args, **kwargs)

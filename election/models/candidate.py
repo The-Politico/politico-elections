@@ -23,9 +23,9 @@ class Candidate(UIDBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {person.uid}_candidate-{party.uid}-{cycle.ap_code}
+        uid: {person.uid}_candidate:{party.uid}-{cycle.ap_code}
         """
-        self.uid = '{}_candidate-{}-{}'.format(
+        self.uid = '{}_candidate:{}-{}'.format(
             self.person.uid,
             self.party.uid,
             self.race.cycle.uid

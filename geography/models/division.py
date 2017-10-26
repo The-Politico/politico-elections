@@ -65,9 +65,9 @@ class Division(
 
     def save(self, *args, **kwargs):
         """
-        uid: {parentuid}_{levelcode}-{code}
+        uid: division:{parentuid}_{levelcode}-{code}
         """
-        slug = '{}-{}'.format(self.level.uid, self.code)
+        slug = '{}:{}'.format(self.level.uid, self.code)
         if self.parent:
             self.uid = '{}_{}'.format(self.parent.uid, slug)
         else:

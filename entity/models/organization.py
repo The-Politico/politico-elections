@@ -26,7 +26,7 @@ class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {division.uid}_jurisdiction-{slug}
+        uid: {division.uid}_jurisdiction:{slug}
         """
         stripped_name = ' '.join(
             w for w in self.name.split()
@@ -40,7 +40,7 @@ class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
             separator='-',
             start_no=2
         )
-        self.uid = '{}_jurisdiction-{}'.format(
+        self.uid = '{}_jurisdiction:{}'.format(
             self.division.uid, slugify(stripped_name))
 
         super(Jurisdiction, self).save(*args, **kwargs)
@@ -76,7 +76,7 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {jurisdiction.uid}_body-{slug}
+        uid: {jurisdiction.uid}_body:{slug}
         """
         stripped_name = ' '.join(
             w for w in self.name.split()
@@ -91,7 +91,7 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
                 separator='-',
                 start_no=2
             )
-        self.uid = '{}_body-{}'.format(
+        self.uid = '{}_body:{}'.format(
             self.jurisdiction.uid, slugify(stripped_name))
 
         super(Body, self).save(*args, **kwargs)
@@ -128,7 +128,7 @@ class Office(UIDBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {body.uid | jurisdiction.uid}_office-{slug}
+        uid: {body.uid | jurisdiction.uid}_office:{slug}
         """
         stripped_name = ' '.join(
             w for w in self.name.split()
@@ -144,10 +144,10 @@ class Office(UIDBase, LabelBase):
                 start_no=2
             )
         if self.body:
-            self.uid = '{}_office-{}'.format(
+            self.uid = '{}_office:{}'.format(
                 self.body.uid, slugify(stripped_name))
         else:
-            self.uid = '{}_office-{}'.format(
+            self.uid = '{}_office:{}'.format(
                 self.jurisdiction.uid, slugify(stripped_name))
 
         super(Office, self).save(*args, **kwargs)
