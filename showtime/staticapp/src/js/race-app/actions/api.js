@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as ormActions from './orm';
 
 const headers = {
@@ -6,10 +7,10 @@ const headers = {
   },
 };
 
-const GET = Object.assign({}, headers, { method: 'GET' });
+const GET = _.assign({}, headers, { method: 'GET' });
 
 function addDivisions(division, dispatch) {
-  const parent = Object.assign({}, division);
+  const parent = _.assign({}, division);
   const parentObj = {
     id: parent.code,
     level: parent.level,
