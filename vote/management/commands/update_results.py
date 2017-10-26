@@ -5,6 +5,7 @@ import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
 
+
 class Command(BaseCommand):
     help = 'ingests master JSON file to update results models'
 

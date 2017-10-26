@@ -33,7 +33,7 @@ class Candidate(UIDBase):
         super(Candidate, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.person.label
+        return self.person.name
 
 
 class BallotAnswer(UUIDBase, LabelBase):
