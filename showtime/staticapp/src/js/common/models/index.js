@@ -11,6 +11,14 @@ import APMeta from './apMeta';
 
 const orm = new ORM();
 
-orm.register(Election, Office, Division, Candidate, Party, APMeta, Result);
+orm.register(
+  Election,
+  Office,
+  Division,
+  Candidate,
+  Party,
+  APMeta,
+  Result,
+);
 
 export default orm;

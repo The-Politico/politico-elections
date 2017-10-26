@@ -1,5 +1,5 @@
 import * as types from '../constants/actions';
-import orm from '../models/';
+import orm from '../../common/models/';
 
 export default(dbState, action) => {
   if (typeof dbState === 'undefined') {

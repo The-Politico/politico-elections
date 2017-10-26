@@ -17,6 +17,7 @@ const ResultsBar = (props) => {
 
   const results = election.serializeResults(state);
   const countyResults = election.serializeResults(counties);
+
   console.log(results);
   console.log(countyResults);
 

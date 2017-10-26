@@ -4,7 +4,7 @@ import _ from 'lodash';
 class Election extends Model {
   /**
    * Serializes the status of this election.
-   * @return {Obj} Status object.
+   * @return {Object}   Status object.
    */
   serializeStatus() {
     const result = this.candidates
@@ -19,9 +19,9 @@ class Election extends Model {
 
   /**
    * Serializes the results of this election in
-   * a given division.
+   * the given divisions.
    * @param  {Array} divisions  Divisions.
-   * @return {Obj}              Serialized results.
+   * @return {Object}           Serialized results.
    */
   serializeResults(divisions) {
     const results = [];
