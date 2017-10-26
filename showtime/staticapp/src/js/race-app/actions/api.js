@@ -41,6 +41,8 @@ function addDivisions(division, dispatch) {
 
 function addOffices(elections, dispatch) {
   elections.forEach((d) => {
+    d.office.id = d.office.uid;
+    delete d.office.uid;
     dispatch(ormActions.createOffice(d.office));
   });
 }
@@ -101,7 +103,7 @@ function addElections(elections, dispatch) {
     });
 
     const electionObj = {
-      id: d.id,
+      id: d.uid,
       date: d.date,
       office: d.office.id,
       party: d.primary_party,
