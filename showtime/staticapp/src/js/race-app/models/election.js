@@ -25,6 +25,7 @@ class Election extends Model {
    */
   serializeResults(divisions) {
     const results = [];
+    const aggregatedResults = [];
 
     this.candidates.toModelArray().forEach((candidate) => {
       divisions.forEach((division) => {
@@ -36,7 +37,26 @@ class Election extends Model {
           voteCount: result.voteCount,
           votePct: result.votePct,
         };
-        results.push(resultObj);
+
+        // Aggregate aggregable candidates' vote totals
+        // and percents by division
+        if (candidate.aggregable) {
+          const divisionResult = _.find(
+            aggregatedResults,
+            d => d.division.id === division.id,
+          );
+          if (divisionResult) {
+            aggregatedResults.pop(divisionResult);
+            divisionResult.voteCount += resultObj.voteCount;
+            divisionResult.votePct += resultObj.votePct;
+            aggregatedResults.push(divisionResult);
+          } else {
+            resultObj.candidate = 'other';
+            aggregatedResults.push(resultObj);
+          }
+        } else {
+          results.push(resultObj);
+        }
       });
     });
 
@@ -44,7 +64,7 @@ class Election extends Model {
       id: this.id,
       status: this.serializeStatus(),
       office: this.office.serialize(),
-      results,
+      results: results.concat(aggregatedResults),
     };
   }
 
