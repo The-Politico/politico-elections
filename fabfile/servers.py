@@ -104,7 +104,8 @@ def install_requirements():
     run('%(SERVER_VIRTUALENV_PATH)s/bin/pip install -U -r'
         '%(SERVER_REPOSITORY_PATH)s/requirements.txt' % server_config.__dict__)
 
-    with cd('%(SERVER_REPOSITORY_PATH)s/theshow/staticapp/'):
+    with cd('%(SERVER_REPOSITORY_PATH)s/theshow/staticapp/' %
+            server_config.__dict__):
         run('yarn')
 
 
