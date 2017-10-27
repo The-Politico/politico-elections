@@ -23,3 +23,13 @@ def bootstrap_geodb():
     local('python manage.py load_fed')
     local('python manage.py bootstrap 2017-11-07')
     local('python manage.py createsuperuser')
+
+
+@task
+def migrate_db():
+    local('python manage.py migrate')
+    local('python manage.py loaddata geography')
+    local('python manage.py load_jurisdictions')
+    local('python manage.py load_fed')
+    local('python manage.py bootstrap 2017-11-07')
+    local('python manage.py createsuperuser')
