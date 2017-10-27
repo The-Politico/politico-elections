@@ -52,15 +52,17 @@
 {%endblock%}
 
 {%block api%}
+{% with "theshow/results/"|add:state.slug|add:"/"|add:race.office.slug|add:"/results.json" as results_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
       context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
-      results: '{% static "theshow/results/virginia/governor/results.json"%}',
+      results: '{% static results_json %}',
     },
     stateFips: '{{state.code}}',
   };
 </script>
+{% endwith %}
 {%endblock%}
 
 {%block relative_foot%}

@@ -33,7 +33,7 @@ for file in ./output/elections/*.json ; do
         votepct: .votepct,
         winner: .winner
       }
-    ]' > "$fullpath/data.json" # gzip and copy to s3 after this
+    ]' > "$fullpath/results.json" # gzip and copy to s3 after this
     last_updated="{\"date\":\"`date`\"}"
     echo $last_updated > "$fullpath/last-updated.json"
   fi
