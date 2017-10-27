@@ -9,7 +9,7 @@ import logging
 import server_config
 
 from django.utils.crypto import get_random_string
-from fabric.api import local, put, settings, require, run, sudo, task
+from fabric.api import cd, local, put, settings, require, run, sudo, task
 from fabric.state import env
 from jinja2 import Template
 
@@ -103,6 +103,9 @@ def install_requirements():
 
     run('%(SERVER_VIRTUALENV_PATH)s/bin/pip install -U -r'
         '%(SERVER_REPOSITORY_PATH)s/requirements.txt' % server_config.__dict__)
+
+    with cd('%(SERVER_REPOSITORY_PATH)s/theshow/staticapp/'):
+        run('yarn')
 
 
 @task
