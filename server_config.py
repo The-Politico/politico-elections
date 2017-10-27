@@ -24,8 +24,9 @@ PROJECT_FILENAME = 'elections'
 # The name of the repository containing the source
 REPOSITORY_NAME = 'elections'
 GITHUB_USERNAME = 'The-Politico'
-REPOSITORY_URL = 'git@github.com:%s/%s.git' % (GITHUB_USERNAME, REPOSITORY_NAME)
-REPOSITORY_ALT_URL = None # 'git@bitbucket.org:nprapps/%s.git' % REPOSITORY_NAME'
+REPOSITORY_URL = 'git@github.com:%s/%s.git' % (
+    GITHUB_USERNAME, REPOSITORY_NAME
+)
 
 PRODUCTION_SERVERS = ['']
 STAGING_SERVERS = ['18.221.240.252']
@@ -45,6 +46,7 @@ SERVER_SERVICES = [
     ('app', '/etc/uwsgi/sites', 'ini'),
     ('uwsgi', '/etc/init', 'conf'),
     ('nginx', '/etc/nginx/sites-available', 'conf'),
+    ('deploy', 'etc/init', 'conf')
 ]
 
 # These variables will be set at runtime. See configure_targets() below
@@ -62,13 +64,15 @@ LOG_FORMAT = '%(levelname)s:%(name)s:%(asctime)s: %(message)s'
 """
 Utilities
 """
+
+
 def get_secrets():
     """
     A method for accessing our secrets.
     """
     secrets_dict = {}
 
-    for k,v in os.environ.items():
+    for k, v in os.environ.items():
         if k.startswith(PROJECT_FILENAME):
             k = k[len(PROJECT_FILENAME) + 1:]
             secrets_dict[k] = v
