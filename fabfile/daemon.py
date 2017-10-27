@@ -1,4 +1,3 @@
-import data
 import json
 import os
 import server_config
@@ -34,7 +33,7 @@ def main(run_once=False):
         if (now - results_start) > server_config.DAEMON_INTERVAL:
             results_start = now
             local('bash scripts/results.sh')
-                
+
             if not os.path.exists('scripts/times_run.json'):
                 with open('scripts/times_run.json', 'w') as writefile:
                     json.dump({
@@ -51,7 +50,7 @@ def main(run_once=False):
 
             with open('scripts/times_run.json', 'w') as writefile:
                 json.dump(data, writefile)
-        
+
         if run_once:
             print('run once specified, exiting')
             sys.exit(0)
