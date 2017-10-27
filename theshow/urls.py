@@ -1,13 +1,11 @@
 from django.conf.urls import include, url
 
-from showtime.views import (CyclePage, CyclePageExport, FederalBodyPage,
-                            FederalBodyPageExport, FederalExecutiveRacePage,
-                            FederalExecutiveRacePageExport, LinkPreview,
-                            StateBodyPage, StateBodyPageExport,
-                            StateExecutiveRacePage,
-                            StateExecutiveRacePageExport, StateFedPage,
-                            StateFedPageExport, StatePage, StatePageExport)
-
+from .views import (CyclePage, CyclePageExport, FederalBodyPage,
+                    FederalBodyPageExport, FederalExecutiveRacePage,
+                    FederalExecutiveRacePageExport, LinkPreview, StateBodyPage,
+                    StateBodyPageExport, StateExecutiveRacePage,
+                    StateExecutiveRacePageExport, StateFedPage,
+                    StateFedPageExport, StatePage, StatePageExport)
 from .viewsets import (BodyDetail, BodyList, ElectionDayDetail,
                        ElectionDayList, OfficeDetail, OfficeList, StateDetail,
                        StateList)
