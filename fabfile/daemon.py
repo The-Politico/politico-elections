@@ -31,6 +31,9 @@ def main(run_once=False):
         now = time()
 
         if (now - results_start) > server_config.DAEMON_INTERVAL:
+            if not os.path.exists('output'):
+                os.makedirs('output')
+
             results_start = now
             local('bash scripts/results.sh')
 

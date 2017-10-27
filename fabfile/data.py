@@ -33,3 +33,8 @@ def migrate_db():
     local('python manage.py load_fed')
     local('python manage.py bootstrap 2017-11-07')
     local('python manage.py createsuperuser')
+
+
+@task
+def prepare_races(election_date):
+    local('python manage.py prepare_races {0}'.format(election_date))
