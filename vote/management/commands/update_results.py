@@ -5,6 +5,7 @@ import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
 
+
 class Command(BaseCommand):
     help = 'ingests master JSON file to update results models'
 
@@ -45,6 +46,5 @@ class Command(BaseCommand):
                 division=ap_meta.election.division,
                 count=result['votecount'],
                 pct=result['votepct'],
-                total=result['votecount'],
                 winning=result['winner']
             )
