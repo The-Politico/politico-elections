@@ -39,4 +39,4 @@ for file in ./output/elections/*.json ; do
   fi
 done
 
-cp -r ./output/results/* ./showtime/static/showtime/results/
+cp -r ./output/results/* ./theshow/static/theshow/results/

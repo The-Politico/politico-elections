@@ -45,7 +45,7 @@
   $ python manage.py loaddata geography entity
   ```
 
-7. Move to `showtime/staticapp` directory and yarn install node dependencies.
+7. Move to `theshow/staticapp` directory and yarn install node dependencies.
 
   ```
   $ yarn

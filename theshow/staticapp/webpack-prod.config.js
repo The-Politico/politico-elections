@@ -19,7 +19,7 @@ module.exports = {
     glob.sync('./src/js/main-*.js*')
   ),
   output: {
-    path: path.resolve(__dirname, '../static/showtime'),
+    path: path.resolve(__dirname, '../static/theshow'),
     filename: 'js/[name].js',
   },
   module: {

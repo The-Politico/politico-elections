@@ -15,7 +15,7 @@ from .base import BaseView
 class CyclePage(BaseView):
     model = ElectionCycle
     context_object_name = 'cycle'
-    template_name = 'showtime/cycles/cycle.live.html'
+    template_name = 'theshow/cycles/cycle.live.html'
 
     def get_object(self):
         return get_object_or_404(ElectionCycle, slug=self.kwargs.get('year'))
@@ -27,4 +27,4 @@ class CyclePage(BaseView):
 
 
 class CyclePageExport(CyclePage):
-    template_name = 'showtime/cycles/cycle.export.html'
+    template_name = 'theshow/cycles/cycle.export.html'

@@ -1,7 +1,7 @@
 {
-  "name": "showtime-staticapp",
+  "name": "theshow-staticapp",
   "version": "1.0.0",
-  "description": "Static assets for showtime, a Django app at Politico.",
+  "description": "Static assets for theshow, a Django app at Politico.",
   "main": "./src/js/main-app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

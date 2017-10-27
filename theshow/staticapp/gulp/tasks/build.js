@@ -6,7 +6,7 @@ const webpackStream = require('webpack-stream');
 module.exports = (cb) =>
   gulp.src('src/js/main.js')
     .pipe(webpackStream(prodConfig, webpack))
-    .pipe(gulp.dest('./../static/showtime/'))
+    .pipe(gulp.dest('./../static/theshow/'))
     .on('end', () => {
       process.exit();
     });

@@ -18,7 +18,7 @@ from .base import BaseView
 class FederalExecutiveRacePage(BaseView):
     model = Race
     context_object_name = 'race'
-    template_name = 'showtime/races/race.exec.fed.live.html'
+    template_name = 'theshow/races/race.exec.fed.live.html'
 
     def get_queryset(self):
         fed = Jurisdiction.objects.get(name='U.S. Federal Government')
@@ -52,13 +52,13 @@ class FederalExecutiveRacePage(BaseView):
 
 
 class FederalExecutiveRacePageExport(FederalExecutiveRacePage):
-    template_name = 'showtime/races/race.exec.fed.export.html'
+    template_name = 'theshow/races/race.exec.fed.export.html'
 
 
 class StateExecutiveRacePage(BaseView):
     model = Race
     context_object_name = 'race'
-    template_name = 'showtime/races/race.exec.state.live.html'
+    template_name = 'theshow/races/race.exec.state.live.html'
 
     def get_queryset(self):
         state = Division.objects.get(slug=self.kwargs.get('state'))
@@ -96,4 +96,4 @@ class StateExecutiveRacePage(BaseView):
 
 
 class StateExecutiveRacePageExport(StateExecutiveRacePage):
-    template_name = 'showtime/races/race.exec.state.export.html'
+    template_name = 'theshow/races/race.exec.state.export.html'

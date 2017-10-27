@@ -16,7 +16,7 @@ from .base import BaseView
 class FederalBodyPage(BaseView):
     model = Body
     context_object_name = 'body'
-    template_name = 'showtime/bodies/body.fed.live.html'
+    template_name = 'theshow/bodies/body.fed.live.html'
 
     def get_queryset(self):
         fed = Jurisdiction.objects.get(name='U.S. Federal Government')
@@ -37,13 +37,13 @@ class FederalBodyPage(BaseView):
 
 
 class FederalBodyPageExport(FederalBodyPage):
-    template_name = 'showtime/bodies/body.fed.export.html'
+    template_name = 'theshow/bodies/body.fed.export.html'
 
 
 class StateBodyPage(BaseView):
     model = Body
     context_object_name = 'body'
-    template_name = 'showtime/bodies/body.state.live.html'
+    template_name = 'theshow/bodies/body.state.live.html'
 
     def get_queryset(self):
         states = DivisionLevel.objects.get(name='state')
@@ -66,4 +66,4 @@ class StateBodyPage(BaseView):
 
 
 class StateBodyPageExport(StateBodyPage):
-    template_name = 'showtime/bodies/body.state.export.html'
+    template_name = 'theshow/bodies/body.state.export.html'

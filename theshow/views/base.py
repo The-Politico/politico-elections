@@ -14,4 +14,4 @@ class BaseView(DetailView):
 
 
 class LinkPreview(TemplateView):
-    template_name = "showtime/preview.html"
+    template_name = "theshow/preview.html"

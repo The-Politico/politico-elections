@@ -122,4 +122,4 @@ master.json
 data/
 output/**/*.json
 node_modules/
-showtime/static/showtime/results
+theshow/static/theshow/results

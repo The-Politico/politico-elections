@@ -14,7 +14,7 @@ module.exports = {
   startServer: (port, proxy) => {
     const compiler = webpack(webpackConfig(port));
     const middleware = webpackMiddleware(compiler, {
-      publicPath: '/static/showtime/',
+      publicPath: '/static/theshow/',
       stats: {
         colors: true,
       },

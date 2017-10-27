@@ -22,7 +22,7 @@ from .base import BaseView
 class StatePage(BaseView):
     model = Division
     context_object_name = 'state'
-    template_name = 'showtime/states/state.live.html'
+    template_name = 'theshow/states/state.live.html'
 
     def get_queryset(self):
         level = DivisionLevel.objects.get(name='state')
@@ -38,11 +38,11 @@ class StatePage(BaseView):
 
 
 class StatePageExport(StatePage):
-    template_name = 'showtime/states/state.export.html'
+    template_name = 'theshow/states/state.export.html'
 
 
 class StateFedPage(StatePage):
-    template_name = 'showtime/states/state.fed.live.html'
+    template_name = 'theshow/states/state.fed.live.html'
 
     def get_context_data(self, **kwargs):
         context = super(StateFedPage, self).get_context_data(**kwargs)
@@ -65,4 +65,4 @@ class StateFedPage(StatePage):
 
 
 class StateFedPageExport(StateFedPage):
-    template_name = 'showtime/states/state.fed.export.html'
+    template_name = 'theshow/states/state.fed.export.html'

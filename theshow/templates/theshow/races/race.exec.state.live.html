@@ -1,4 +1,6 @@
-{%extends "showtime/base.html"%}
+{%extends "theshow/base.html"%}
+{%load staticfiles%}
+
 
 {%block page-meta%}
 <!-- Site URL -->
@@ -8,15 +10,16 @@
 <meta property="og:url" content="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
 <link rel="canonical" href="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
 <!-- Project title -->
-<meta property="twitter:title" content="Live **Year Race Name** Election Results: **Candidate** vs. **Candidate** Election Results" />
-<meta property="og:title" content="Live **Year Race Name** Election Results" />
+<meta property="twitter:title" content="Live **YEAR RACE NAME** Election Results: **Candidate** vs. **Candidate** Election Results" />
+<meta property="og:title" content="Live **YEAR RACE NAME** Election Results" />
 <!-- Project description -->
 <meta property="twitter:description" content="See results, maps and live coverage." />
 <meta property="og:description" content="See results, maps and live coverage." />
 <meta name="description" content="See results, maps and live coverage." />
 <!-- Keywords -->
-<meta property="og:keywords" content="Live **Year Race Name** Election Results, **Candidate(s)**, **Year Race Name** Election Results, **Year Race Name**, 2020 election, Live election results" />
+<meta property="og:keywords" content="Live **YEAR RACE NAME** Election Results, **Candidate(s)**, **YEAR RACE NAME** Election Results, **YEAR RACE NAME**, 2020 election, Live election results" />
 {%endblock%}
+
 
 
 {%block content%}
@@ -27,7 +30,7 @@
        <a class="icon icon-mail" target="_blank"></a>
     </div>
     <h1>
-    **Year Race Name** Election Results *:(when then win, display winner)* /election-results/{{year}}/{{state.slug}}/{{race.office.slug}}//
+    **Year Race Name** Election Results *:(when then win, display winner)* /{{year}}/{{state.slug}}/{{race.office.slug}}/
     </h1>
     <p class="subhead">
         Who is running / or who won and by how much, compared to the other person who had tk percent of the vote.
@@ -36,8 +39,9 @@
     </p>
     </div>
 </header>
-{%endblock%}
 
+<div id="app"></div>
+{%endblock%}
 
 {%block relative_head%}
 <style media="screen">
@@ -45,4 +49,20 @@
     color: blue;
   }
 </style>
+{%endblock%}
+
+{%block api%}
+<script type="text/javascript">
+  window.appConfig = {
+    api: {
+      context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
+      results: '{% static "theshow/results/virginia/governor/results.json"%}',
+    },
+    stateFips: '{{state.code}}',
+  };
+</script>
+{%endblock%}
+
+{%block relative_foot%}
+<script src="{% static 'theshow/js/main-race-app.js'%}"></script>
 {%endblock%}
