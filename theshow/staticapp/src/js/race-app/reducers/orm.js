@@ -39,6 +39,11 @@ export default(dbState, action) => {
     case types.CREATE_RESULT:
       Result.upsert(action.result);
       break;
+    case types.UPDATE_GEO:
+      Division
+        .filter(d => d.code === action.fips)
+        .update({ topojson: action.topojson });
+      break;
     default:
       break;
   }

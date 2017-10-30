@@ -57,6 +57,7 @@
     api: {
       context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
       results: '{% static "theshow/results/2017/virginia/governor/data.json"%}',
+      geo: '{%static "theshow/geo/virginia.json"%}', // Change me
     },
     stateFips: '{{state.code}}',
   };

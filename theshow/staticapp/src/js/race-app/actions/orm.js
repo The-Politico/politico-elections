@@ -34,3 +34,9 @@ export const createResult = result => ({
   type: types.CREATE_RESULT,
   result,
 });
+
+export const updateGeo = (fips, topojson) => ({
+  type: types.UPDATE_GEO,
+  fips,
+  topojson,
+});

@@ -5,3 +5,4 @@ export const CREATE_APMETA = 'CREATE_APMETA';
 export const CREATE_PARTY = 'CREATE_PARTY';
 export const CREATE_CANDIDATE = 'CREATE_CANDIDATE';
 export const CREATE_RESULT = 'CREATE_RESULT';
+export const UPDATE_GEO = 'UPDATE_GEO';

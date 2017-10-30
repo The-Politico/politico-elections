@@ -39,21 +39,29 @@ class ResultsMap extends React.Component {
     const election = db.Election.first();
     if (!election) return null;
 
-    const state = db.Division
+    const counties = db.Division
       .filter(d =>
-        d.level === 'state' &&
-        d.code === window.appConfig.stateFips)
+        d.level === 'county')
       .toModelArray();
 
-    return election.serializeResults(state);
+    return election.serializeResults(counties);
   }
 
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
+    const db = this.props.session;
     const results = this.fetchData();
 
     if (!results) return;
+
+    const state = db.Division
+      .filter(d => d.level === 'state')
+      .first();
+
+    if (!state.topojson) return;
+
+    console.log('Map data', results, state.topojson);
 
     chart.create('#resultsMap', results.divisions.VA);
   }

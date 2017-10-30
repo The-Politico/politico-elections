@@ -95,5 +95,5 @@ $ python manage.py prepare_races 2017-11-07
 Finally, run the daemon that will get results every ten seconds
 
 ```bash
-$ fab staging daemons.deploy
+$ fab staging daemon.deploy
 ```
