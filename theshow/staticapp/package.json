@@ -34,6 +34,7 @@
     "node-sass": "^4.5.3",
     "open": "^0.0.5",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "politico-module-elections-results-county-map": "git+ssh://git@github.com:The-Politico/module_elections-results-county-map",
     "postcss-loader": "^2.0.8",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",

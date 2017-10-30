@@ -39,4 +39,5 @@ for file in ./output/elections/*.json ; do
   fi
 done
 
+mkdir -p ./theshow/static/theshow/results/
 cp -r ./output/results/* ./theshow/static/theshow/results/
