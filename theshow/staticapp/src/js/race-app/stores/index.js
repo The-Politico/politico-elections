@@ -12,10 +12,10 @@ const store = createStore(reducers, compose(
 store.dispatch(actions.fetchContext());
 store.dispatch(actions.fetchResults());
 
-// setInterval(() => {
-//   console.log('It fetches results');
-//   store.dispatch(actions.fetchResults());
-// }, 2500);
+setInterval(() => {
+  console.log('It fetches results');
+  store.dispatch(actions.fetchResults());
+}, 2500);
 //
 // setInterval(() => {
 //   console.log('It fetches context');

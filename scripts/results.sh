@@ -44,4 +44,6 @@ for file in ./output/elections/*.json ; do
   fi
 done
 
-cp -r ./output/results/* ./theshow/static/theshow/results/
+rm ./theshow/static/theshow/results/**/*.json
+
+cp -r ./output/results/**/* ./theshow/static/theshow/results/

@@ -52,10 +52,17 @@ class ResultsBar extends React.Component {
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
     const results = this.fetchData();
+    console.log(results);
 
-    if (!results) return;
+    if (!results) {
+      console.log('returning out');
+      return
+    };
 
-    chart.create('#candidateResultsBar', results.divisions.VA);
+    console.log('creating');
+    chart.create('#candidateResultsBar', results, {
+      statePostal: Object.keys(results.divisions)[0]
+    });
   }
 
   // START HERE

@@ -108,7 +108,7 @@ def begin_test(run_once=False):
             file = '{0}/{1}'.format(test_dir, local(cmd, capture=True))
             print(file, i)
             local('bash scripts/results.sh {0}'.format(file))
-            i += 1
+            i += 10
 
         if run_once:
             print('run once specified, exiting')
