@@ -3,20 +3,33 @@ import os
 import server_config
 import sys
 
-from time import sleep, time
 from fabric.api import execute, local, require, settings, task
 from fabric.state import env
+from glob import glob
+from time import sleep, time
 
 
 @task
 def deploy(run_once=False):
     """
-    Harvest data and deploy cards
+    Gets results data and deploys to s3
     """
     require('settings', provided_by=['production', 'staging'])
     try:
         with settings(warn_only=True):
             main(run_once)
+    except KeyboardInterrupt:
+        sys.exit(0)
+
+
+@task
+def test(run_once=False):
+    """
+    Loops through test data and moves to static folder for local testing
+    """
+    try:
+        with settings(warn_only=True):
+            begin_test(run_once)
     except KeyboardInterrupt:
         sys.exit(0)
 
@@ -32,7 +45,7 @@ def main(run_once=False):
 
         if (now - results_start) > server_config.DAEMON_INTERVAL:
             results_start = now
-            process()
+            fetch_results()
 
         if run_once:
             print('run once specified, exiting')
@@ -41,7 +54,7 @@ def main(run_once=False):
         sleep(1)
 
 
-def process():
+def fetch_results():
     if '--test' in server_config.ELEX_FLAGS:
         print('writing test files')
         test_path = '/tmp/ap-elex-recordings/{0}/national'.format(
@@ -73,3 +86,47 @@ def process():
 
     with open('scripts/times_run.json', 'w') as writefile:
         json.dump(data, writefile)
+
+
+def begin_test(run_once=False):
+    """
+    Main loop
+    """
+    results_start = 0
+    i = 1
+    while True:
+        now = time()
+
+        if (now - results_start) > server_config.DAEMON_INTERVAL:
+            results_start = now
+            test_dir = '/tmp/ap-elex-recordings/{0}/national'.format(
+                server_config.CURRENT_ELECTION
+            )
+            cmd = 'ls {} | sort -t \- -k 2,2 | head -n {} | tail -n 1'.format(
+                test_dir, i
+            )
+            file = '{0}/{1}'.format(test_dir, local(cmd, capture=True))
+            print(file, i)
+            local('bash scripts/results.sh {0}'.format(file))
+            i += 1
+
+        if run_once:
+            print('run once specified, exiting')
+            sys.exit(0)
+
+        sleep(1)
+
+
+def move_test_file():
+    test_dir = '/tmp/ap-elex-recordings/{0}/national'.format(
+        server_config.CURRENT_ELECTION
+    )
+
+    top_file = local('ls {0} | sort -t _ -k 2,2 | head -n -1').format(
+        test_dir
+    )
+
+    local('mv {0}/{1} master.json').format(test_dir, top_file)
+    fabric.env('current_test_file', )
+
+    print(fabric.env('current_test_file'))
