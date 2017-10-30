@@ -109,7 +109,7 @@ class Command(BaseCommand):
                     table.code,
                     variable.code
                 )
-                print('>> Fetching {} {} - {}'.format(
+                print('>> Fetching {} {} {}'.format(
                     table.year,
                     table.series,
                     estimate
@@ -204,7 +204,7 @@ class Command(BaseCommand):
         bucket = get_bucket()
         for fips in states:
             state = Division.objects.get(level=STATE_LEVEL, code=fips)
-            print('>> Exporting state: {}'.format(state.code))
+            print('>> Exporting: {}'.format(state.code))
             state_data = self.aggregate_counties(state)
             self.export_state_files(bucket, state, state_data)
 
