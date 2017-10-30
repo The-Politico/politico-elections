@@ -55,7 +55,9 @@ class ResultsBar extends React.Component {
 
     if (!results) return;
 
-    chart.create('#candidateResultsBar', results.divisions.VA);
+    console.log(results);
+
+    chart.create('#candidateResultsBar', results);
   }
 
   // START HERE
