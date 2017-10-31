@@ -16,7 +16,7 @@ census = Census(os.getenv('CENSUS_API_KEY'))
 STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
 COUNTY_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['county'])
 
-OUTPUT_PATH = 'data/us-census'
+OUTPUT_PATH = 'election-results/data/us-census'
 
 CACHE_HEADER = str('max-age=300')
 
