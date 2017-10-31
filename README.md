@@ -132,7 +132,12 @@ export AWS_SECRET_ACCESS_KEY="<YOUR SECRET ACCESS KEY>"
 6. You can find your new data at a URL specified with this pattern:
 
   ```
-  https://www.politico.com/interactives/election-results/data/us-census/acs5/{table year}/{state fips}/{table code}.json
+  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/{series code}/{table year}/{state fips}/{table code}.json
+  ```
+
+  For example:
+  ```
+  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/acs5/2015/34/B03002.json
   ```
 
 
