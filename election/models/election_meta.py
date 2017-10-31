@@ -1,7 +1,7 @@
 from django.db import models
 from uuslug import slugify, uuslug
 
-from core.models import LabelBase, NameBase, SlugBase, UIDBase
+from core.models import LabelBase, NameBase, SlugBase, UIDBase, UUIDBase
 from entity.models import Office
 from geography.models import Division
 
@@ -145,6 +145,8 @@ class Race(UIDBase, SlugBase, LabelBase):
 
 class Election(UIDBase):
     election_type = models.ForeignKey(ElectionType, related_name='elections')
+    candidates = models.ManyToManyField(
+        'Candidate', through='CandidateElection')
     race = models.ForeignKey('Race', related_name='elections')
     party = models.ForeignKey(Party, null=True, blank=True)
     election_day = models.ForeignKey(ElectionDay, related_name='elections')
@@ -178,3 +180,103 @@ class Election(UIDBase):
                 self.election_day.date
             )
         super(Election, self).save(*args, **kwargs)
+
+    def update_or_create_candidate(
+        self, candidate, aggregable=True, uncontested=False
+    ):
+        candidate_election, created = CandidateElection.objects.update_or_create(
+            candidate=candidate,
+            election=self,
+            defaults={
+                'aggregable': aggregable,
+                'uncontested': uncontested
+            }
+        )
+
+        return candidate_election
+
+    def delete_candidate(self, candidate):
+        CandidateElection.objects.filter(
+            candidate=candidate,
+            election=self
+        ).delete()
+
+    def get_candidates(self):
+        candidate_elections = CandidateElection.objects.filter(
+            election=self
+        )
+
+        return [ce.candidate for ce in candidate_elections]
+
+    def get_candidate_election(self, candidate):
+        return CandidateElection.objects.get(
+            candidate=candidate,
+            election=self
+        )
+
+    def get_candidate_votes(self, candidate):
+        candidate_election = CandidateElection.objects.get(
+            candidate=candidate,
+            election=self
+        )
+
+        return candidate_election.votes.all()
+
+    def get_votes(self):
+        candidate_elections = CandidateElection.objects.filter(
+            election=self
+        )
+
+        votes = None
+        for ce in candidate_elections:
+            votes = votes | ce.votes.all()
+
+        return votes
+
+    def get_candidate_electoral_votes(self, candidate):
+        candidate_election = CandidateElection.objects.get(
+            candidate=candidate,
+            election=self
+        )
+
+        return candidate_election.electoral_votes.all()
+
+    def get_electoral_votes(self):
+        candidate_elections = CandidateElection.objects.filter(
+            election=self
+        )
+
+        electoral_votes = None
+        for ce in candidate_elections:
+            electoral_votes = electoral_votes | ce.electoral_votes.all()
+
+        return electoral_votes
+
+    def get_candidate_delegates(self, candidate):
+        candidate_election = CandidateElection.objects.get(
+            candidate=candidate,
+            election=self
+        )
+
+        return candidate_election.delegates.all()
+
+    def get_delegates(self):
+        candidate_elections = CandidateElection.objects.filter(
+            election=self
+        )
+
+        delegates = None
+        for ce in candidate_elections:
+            delegates = delegates | ce.delegates.all()
+
+        return delegates
+
+
+class CandidateElection(UUIDBase):
+    candidate = models.ForeignKey('Candidate', on_delete=models.CASCADE)
+    election = models.ForeignKey(Election, on_delete=models.CASCADE)
+    aggregable = models.BooleanField(default=True)
+    uncontested = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (('candidate', 'election'),)

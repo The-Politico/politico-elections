@@ -212,14 +212,20 @@ def _get_or_create_candidate(row, person, party, race, election_obj):
         'party': party
     }
 
-    candidate = election.Candidate.objects.get_or_create(
+    return election.Candidate.objects.get_or_create(
         person=person,
         race=race,
         ap_candidate_id=candidate_id,
-        aggregable=aggregable,
         defaults=defaults)[0]
-    candidate.elections.add(election_obj)
-    candidate.save()
+
+
+def _get_or_create_candidate_election(row, election, candidate, party):
+    if party.ap_code in ['Dem', 'GOP']:
+        aggregable = False
+    else:
+        aggregable = True
+
+    return election.update_or_create_candidate(candidate, aggregable)
 
 
 def _get_or_create_ballot_measure(row, division, election_day):
@@ -261,18 +267,17 @@ def _get_or_create_ap_election_meta(row, election=None, ballot_measure=None):
 
 
 def _get_or_create_votes(
-    row, election, division, candidate=None, ballot_answer=None
+    row, division, candidate_election=None, ballot_answer=None
 ):
     kwargs = {
-        'election': election,
         'division': division,
         'count': row['votecount'],
         'pct': row['votepct'],
         'winning': row['winner']
     }
 
-    if candidate:
-        kwargs['candidate'] = candidate
+    if candidate_election:
+        kwargs['candidate_election'] = candidate_election
 
     if ballot_answer:
         kwargs['ballot_answer'] = ballot_answer
@@ -317,9 +322,12 @@ def process_row(row):
         candidate = _get_or_create_candidate(
             row, person, party, race, election
         )
+        candidate_election = _get_or_create_candidate_election(
+            row, election, candidate, party
+        )
         meta = _get_or_create_ap_election_meta(row, election=election)
         votes = _get_or_create_votes(
-            row, election, division, candidate=candidate
+            row, division, candidate_election=candidate_election
         )
 
 
@@ -333,7 +341,6 @@ class Command(BaseCommand):
         writefile = open('test.csv', 'w')
         elex_args = ['elex', 'results', options['election_date']]
         elex_args.extend(server_config.ELEX_FLAGS)
-        print(elex_args)
         subprocess.run(elex_args, stdout=writefile)
 
         with open('test.csv', 'r') as readfile:

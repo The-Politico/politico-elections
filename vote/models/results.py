@@ -1,7 +1,8 @@
 from django.db import models
 
 from core.models import UUIDBase
-from election.models import BallotAnswer, BallotMeasure, Candidate, Election
+from election.models import (BallotAnswer, BallotMeasure, CandidateElection,
+                         Election)
 from geography.models import Division
 
 
@@ -9,8 +10,6 @@ class BaseResult(UUIDBase):
     """
     UUID
     """
-    election = models.ForeignKey(Election)
-    candidate = models.ForeignKey(Candidate, null=True)
     division = models.ForeignKey(Division)
     count = models.PositiveIntegerField()
     pct = models.DecimalField(decimal_places=3, max_digits=5)
@@ -21,15 +20,27 @@ class BaseResult(UUIDBase):
 
 
 class Votes(BaseResult):
+    candidate_election = models.ForeignKey(
+        CandidateElection, null=True, blank=True, related_name="votes"
+    )
     ballot_answer = models.ForeignKey(BallotAnswer, null=True)
     winning = models.BooleanField(default=False)
 
 
 class ElectoralVotes(BaseResult):
+    candidate_election = models.ForeignKey(
+        CandidateElection,
+        null=True,
+        blank=True,
+        related_name="electoral_votes"
+    )
     winning = models.BooleanField(default=False)
 
 
 class Delegates(BaseResult):
+    candidate_election = models.ForeignKey(
+        CandidateElection, null=True, blank=True, related_name="delegates"
+    )
     superdelegates = models.BooleanField(default=False)
 
 
