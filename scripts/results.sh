@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # grab elex results for everything
-elex results 2017-11-07 --national-only --test -o json > master.json
+if [ $# -eq 0 ]
+  then
+    elex results 2017-11-07 --national-only --test -o json > master.json
+  else
+    elex results 2017-11-07 --national-only --test -o json -d $1 > master.json
+fi
 
 # cp output/elections/*.json output/results/
 
@@ -39,4 +44,6 @@ for file in ./output/elections/*.json ; do
   fi
 done
 
-cp -r ./output/results/* ./theshow/static/theshow/results/
+
+mkdir -p ./theshow/static/theshow/results/
+cp -r ./output/results/**/* ./theshow/static/theshow/results/
