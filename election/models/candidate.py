@@ -3,8 +3,8 @@ from django.db import models
 from core.models import LabelBase, UIDBase, UUIDBase
 from entity.models import Person
 
-from .election_meta import (BallotMeasure, CandidateElection,
-                        Election, Party, Race)
+from .election_meta import (BallotMeasure, CandidateElection, Election, Party,
+                            Race)
 
 
 class Candidate(UIDBase):

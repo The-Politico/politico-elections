@@ -2,7 +2,7 @@ from django.db import models
 
 from core.models import UUIDBase
 from election.models import (BallotAnswer, BallotMeasure, CandidateElection,
-                         Election)
+                             Election)
 from geography.models import Division
 
 

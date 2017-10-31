@@ -184,7 +184,7 @@ class Election(UIDBase):
     def update_or_create_candidate(
         self, candidate, aggregable=True, uncontested=False
     ):
-        candidate_election, created = CandidateElection.objects.update_or_create(
+        candidate_election, c = CandidateElection.objects.update_or_create(
             candidate=candidate,
             election=self,
             defaults={
@@ -273,8 +273,16 @@ class Election(UIDBase):
 
 
 class CandidateElection(UUIDBase):
-    candidate = models.ForeignKey('Candidate', on_delete=models.CASCADE)
-    election = models.ForeignKey(Election, on_delete=models.CASCADE)
+    candidate = models.ForeignKey(
+        'Candidate',
+        on_delete=models.CASCADE,
+        related_name='candidate_elections'
+    )
+    election = models.ForeignKey(
+        Election,
+        on_delete=models.CASCADE,
+        related_name='candidate_elections'
+    )
     aggregable = models.BooleanField(default=True)
     uncontested = models.BooleanField(default=False)
 
