@@ -20,6 +20,7 @@ class Election extends Model {
    * @return {Object}           Serialized results.
    */
   serializeResults(divisions) {
+    const status = this.serializeStatus();
     const divisionResults = {};
 
     divisions.forEach((division) => {
@@ -40,7 +41,7 @@ class Election extends Model {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
-          winner: result.winner
+          winner: status.overrideApCall ? result.candidate.override_winnner : result.winner
         };
 
         // Aggregate aggregable candidates' vote totals
