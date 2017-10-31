@@ -69,7 +69,7 @@ class Election extends Model {
 
     return {
       id: this.id,
-      status: this.serializeStatus(),
+      status: status,
       office: this.office.serialize(),
       divisions: divisionResults,
     };
