@@ -97,3 +97,10 @@ Finally, run the daemon that will get results every ten seconds
 ```bash
 $ fab staging daemons.deploy
 ```
+
+
+### Colors
+
+```
+.{svg target property}_{party}_{color}
+```

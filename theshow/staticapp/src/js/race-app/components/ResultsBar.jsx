@@ -63,6 +63,8 @@ class ResultsBar extends React.Component {
     chart.create('#candidateResultsBar', results, {
       statePostal: Object.keys(results.divisions)[0]
     });
+
+    chart.create('#candidateResultsBar', results);
   }
 
   // START HERE
