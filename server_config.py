@@ -93,6 +93,7 @@ def configure_targets(deployment_target):
     global LOG_LEVEL
     global DAEMON_INTERVAL
     global ELEX_FLAGS
+    global CURRENT_ELECTION
 
     secrets = get_secrets()
 
@@ -104,6 +105,7 @@ def configure_targets(deployment_target):
         DEBUG = False
         DAEMON_INTERVAL = 10
         ELEX_FLAGS = ['--national-only', '--test']
+        CURRENT_ELECTION = '2017-11-07'
     elif deployment_target == 'staging':
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
@@ -112,6 +114,7 @@ def configure_targets(deployment_target):
         DEBUG = True
         DAEMON_INTERVAL = 10
         ELEX_FLAGS = ['--national-only', '--test']
+        CURRENT_ELECTION = '2017-11-07'
     else:
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
@@ -120,6 +123,7 @@ def configure_targets(deployment_target):
         DEBUG = True
         DAEMON_INTERVAL = 10
         ELEX_FLAGS = ['--national-only', '--test']
+        CURRENT_ELECTION = '2017-11-07'
 
     DEPLOYMENT_TARGET = deployment_target
 

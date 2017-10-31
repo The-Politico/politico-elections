@@ -40,6 +40,7 @@ class Election extends Model {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
+          winner: result.winner
         };
 
         // Aggregate aggregable candidates' vote totals

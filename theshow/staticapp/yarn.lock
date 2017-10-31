@@ -1511,8 +1511,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
-  version "1.0.1"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#62f0ca45e8b98e65ac01c95031efcc90f6536c17"
+  version "1.0.2"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#5de4834403d4d64198a489d75626f5bd750fefc3"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -2643,8 +2643,8 @@ eslint-scope@^3.7.1:
     estraverse "^4.1.1"
 
 eslint@^4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.9.0.tgz#76879d274068261b191fe0f2f56c74c2f4208e8b"
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
