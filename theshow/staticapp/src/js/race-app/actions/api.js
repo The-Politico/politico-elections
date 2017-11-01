@@ -84,7 +84,7 @@ function addCandidates(elections, dispatch) {
         suffix: e.suffix,
         party: e.party,
         aggregable: e.aggregable,
-        winner: e.winner,
+        overrideWinner: e.override_winner,
         incumbent: e.incumbent,
         uncontested: e.uncontested,
         image: e.image,

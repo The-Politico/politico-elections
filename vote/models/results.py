@@ -33,6 +33,9 @@ class Votes(BaseResult):
             self.division
         )
 
+    class Meta:
+        verbose_name_plural = "Votes"
+
 
 class ElectoralVotes(BaseResult):
     candidate_election = models.ForeignKey(
@@ -43,12 +46,18 @@ class ElectoralVotes(BaseResult):
     )
     winning = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = "Electoral Votes"
+
 
 class Delegates(BaseResult):
     candidate_election = models.ForeignKey(
         CandidateElection, null=True, blank=True, related_name="delegates"
     )
     superdelegates = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "Delegates"
 
 
 class APElectionMeta(UUIDBase):
@@ -78,3 +87,6 @@ class APElectionMeta(UUIDBase):
 
     class Meta:
         verbose_name_plural = "AP election meta data"
+
+    def __str__(self):
+        return self.election.__str__()
