@@ -2,11 +2,11 @@ import json
 import os
 import statistics
 
-import boto3
 from census import Census
 from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
+from core.aws import defaults, get_bucket
 from core.constants import DIVISION_LEVELS
 from demographic.models import CensusEstimate, CensusTable
 from geography.models import Division, DivisionLevel
@@ -16,20 +16,10 @@ census = Census(os.getenv('CENSUS_API_KEY'))
 STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
 COUNTY_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['county'])
 
-OUTPUT_PATH = 'elections/data/us-census'
-
-CACHE_HEADER = str('max-age=300')
-
-
-def get_bucket():
-    session = boto3.session.Session(
-        region_name='us-east-1',
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
-    )
-    s3 = session.resource('s3')
-    bucket = s3.Bucket(os.getenv('AWS_S3_PUBLISH_BUCKET'))
-    return bucket
+OUTPUT_PATH = os.path.join(
+    defaults.ROOT_PATH,
+    'data/us-census'
+)
 
 
 class Command(BaseCommand):
@@ -194,9 +184,9 @@ class Command(BaseCommand):
                     )
                     bucket.put_object(
                         Key=key,
-                        ACL='public-read',
+                        ACL=defaults.ACL,
                         Body=json.dumps(data[series][year][table]),
-                        CacheControl=CACHE_HEADER,
+                        CacheControl=defaults.CACHE_HEADER,
                         ContentType='application/json'
                     )
 
