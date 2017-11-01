@@ -26,12 +26,12 @@ class PageContent(models.Model):
         if division:
             kwargs['division'] = division
 
-        return self.objects.filter(**kwargs)
+        return self.objects.get(**kwargs)
 
     def get_office_content(self, office, election_day):
         office_type = ContentType.objects.get_for_model(office)
 
-        return self.objects.filter(
+        return self.objects.get(
             content_type__pk=office_type.pk,
             object_id=office.pk,
             election_day=election_day
@@ -40,7 +40,7 @@ class PageContent(models.Model):
     def get_division_content(self, division, election_day):
         division_type = ContentType.objects.get_for_model(division)
 
-        return self.objects.filter(
+        return self.objects.get(
             content_type__pk=office_type.pk,
             object_id=division.pk,
             election_day=election_day

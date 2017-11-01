@@ -15,12 +15,15 @@ store.dispatch(actions.fetchResults());
 setInterval(() => {
   console.log('It fetches results');
   store.dispatch(actions.fetchResults());
-}, 2500);
+}, 5000);
 //
 // setInterval(() => {
 //   console.log('It fetches context');
 //   store.dispatch(actions.fetchContext());
 // }, 10000);
+
+const chatter = document.querySelector('.chatter').textContent;
+store.dispatch(actions.storeChatter(chatter));
 
 store.subscribe(() => {
   window.store = _.assign({}, store.getState());
