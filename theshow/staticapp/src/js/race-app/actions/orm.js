@@ -34,3 +34,8 @@ export const createResult = result => ({
   type: types.CREATE_RESULT,
   result,
 });
+
+export const createOverrideResult = overrideResult => ({
+  type: types.CREATE_OVERRIDE_RESULT,
+  overrideResult,
+});

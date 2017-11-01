@@ -7,6 +7,7 @@ import Candidate from './candidate';
 import Party from './party';
 import Result from './result';
 import APMeta from './apMeta';
+import OverrideResult from './overrideResult';
 
 
 const orm = new ORM();
@@ -19,6 +20,7 @@ orm.register(
   Party,
   APMeta,
   Result,
+  OverrideResult,
 );
 
 export default orm;

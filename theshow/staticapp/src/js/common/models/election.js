@@ -27,7 +27,15 @@ class Election extends Model {
       const obj = _.assign({}, division.serialize());
       obj.results = [];
 
-      const firstResult = division.resultSet.first();
+      if (status.overrideApVotes) {
+        var resultSet = division.overrideresultSet;
+      } else {
+        var resultSet = division.resultSet;
+      }
+
+      console.log(division, resultSet);
+
+      const firstResult = resultSet.first();
       if (!firstResult) {
         console.log('No results for division:', division.id);
         return;
@@ -36,12 +44,12 @@ class Election extends Model {
       obj.precinctsReportingPct = firstResult.precinctsReportingPct;
       obj.precinctsTotal = firstResult.precinctsTotal;
 
-      division.resultSet.toModelArray().forEach((result) => {
+      resultSet.toModelArray().forEach((result) => {
         const resultObj = {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
-          winner: status.overrideApCall ? result.candidate.override_winnner : result.winner
+          winner: status.overrideApCall ? result.candidate.overrideWinner : result.winner
         };
 
         // Aggregate aggregable candidates' vote totals
