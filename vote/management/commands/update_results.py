@@ -6,6 +6,7 @@ import geography.models as geography
 import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
+from tqdm import tqdm
 
 
 class Command(BaseCommand):
@@ -23,7 +24,7 @@ class Command(BaseCommand):
         with open('master.json') as f:
             data = json.load(f)
 
-        for result in data:
+        for result in tqdm(data):
             if result['is_ballot_measure']:
                 continue
 
