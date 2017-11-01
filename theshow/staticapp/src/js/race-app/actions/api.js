@@ -116,41 +116,6 @@ function addElections(elections, dispatch) {
   });
 }
 
-export const fetchContext = () =>
-  dispatch => fetch(window.appConfig.api.context, GET)
-    .then(response => response.json())
-    .then(data => 
-      Promise.all([
-        addDivisions(data.division, dispatch),
-        addOffices(data.elections, dispatch),
-        addApMetas(data.elections, dispatch),
-        addParties(data.parties, dispatch),
-        addCandidates(data.elections, dispatch),
-        addElections(data.elections, dispatch),
-        addOverrideResults(data.elections, dispatch),
-      ])).catch((error) => {
-      console.log('API ERROR', error);
-    });
-
-function addOverrideResults(elections, dispatch) {
-  elections.forEach(d => {
-    if (!d.override_votes) {
-      return;
-    }
-    d.override_votes.forEach((e) => {
-      const resultObj = createResultObj(e);
-      dispatch(ormActions.createOverrideResult(resultObj));
-    });
-  })
-}
-
-function addResults(results, dispatch) {
-  results.forEach((d) => {
-    const resultObj = createResultObj(d);
-    dispatch(ormActions.createResult(resultObj));
-  });
-}
-
 function createResultObj(d) {
   const divisionID = d.fipscode ? d.fipscode : d.statepostal;
   const candidateID = d.polid ? `polid-${d.polid}` : `polnum-${d.polnum}`;
@@ -168,6 +133,41 @@ function createResultObj(d) {
 
   return resultObj;
 }
+
+function addOverrideResults(elections, dispatch) {
+  elections.forEach((d) => {
+    if (!d.override_votes) {
+      return;
+    }
+    d.override_votes.forEach((e) => {
+      const resultObj = createResultObj(e);
+      dispatch(ormActions.createOverrideResult(resultObj));
+    });
+  });
+}
+
+function addResults(results, dispatch) {
+  results.forEach((d) => {
+    const resultObj = createResultObj(d);
+    dispatch(ormActions.createResult(resultObj));
+  });
+}
+
+export const fetchContext = () =>
+  dispatch => fetch(window.appConfig.api.context, GET)
+    .then(response => response.json())
+    .then(data =>
+      Promise.all([
+        addDivisions(data.division, dispatch),
+        addOffices(data.elections, dispatch),
+        addApMetas(data.elections, dispatch),
+        addParties(data.parties, dispatch),
+        addCandidates(data.elections, dispatch),
+        addElections(data.elections, dispatch),
+        addOverrideResults(data.elections, dispatch),
+      ])).catch((error) => {
+      console.log('API ERROR', error);
+    });
 
 export const fetchResults = () =>
   dispatch => fetch(window.appConfig.api.results, GET)

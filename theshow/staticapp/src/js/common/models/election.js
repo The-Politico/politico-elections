@@ -27,13 +27,12 @@ class Election extends Model {
       const obj = _.assign({}, division.serialize());
       obj.results = [];
 
+      let resultSet;
       if (status.overrideApVotes) {
-        var resultSet = division.overrideresultSet;
+        resultSet = division.overrideresultSet;
       } else {
-        var resultSet = division.resultSet;
+        ({ resultSet } = division);
       }
-
-      console.log(division, resultSet);
 
       const firstResult = resultSet.first();
       if (!firstResult) {
@@ -49,7 +48,8 @@ class Election extends Model {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
-          winner: status.overrideApCall ? result.candidate.overrideWinner : result.winner
+          winner: status.overrideApCall ?
+            result.candidate.overrideWinner : result.winner,
         };
 
         // Aggregate aggregable candidates' vote totals
@@ -77,7 +77,7 @@ class Election extends Model {
 
     return {
       id: this.id,
-      status: status,
+      status,
       office: this.office.serialize(),
       divisions: divisionResults,
     };
