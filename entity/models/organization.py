@@ -126,6 +126,9 @@ class Office(UIDBase, LabelBase):
     def __str__(self):
         return self.label
 
+    def is_executive(self):
+        return self.body is None
+
     def save(self, *args, **kwargs):
         """
         uid: {body.uid | jurisdiction.uid}_office:{slug}

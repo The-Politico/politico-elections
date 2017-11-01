@@ -140,6 +140,42 @@ export AWS_SECRET_ACCESS_KEY="<YOUR SECRET ACCESS KEY>"
   https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/acs5/2015/34/B03002.json
   ```
 
+  ### Creating geo data
+
+  If you don't already have geography models, create them with the `load_geography` management command:
+
+  ```
+  $ python manage.py load_geography
+  ```
+
+  Bake out state county-level topojson files using state FIPS codes and the `export_geography` management command:
+
+  ```
+  $ python manage.py export_geography 51 36
+  ```
+
+  JSON files are baked out to URLs with the following pattern:
+
+  `https://dy1ht16ivl5br.cloudfront.net/elections/data/geography/{year}/state/{state fips}/counties.json`
+
+  `year` is currently 2016.
+
+
+### Creating geo data
+
+Export topojson files with the `export_geography` command. Supply states by FIPS code.
+
+```
+$ python manage.py export_geography 34 51
+```
+
+### Baking out context
+
+Bake out context files for election dates with the `bake_context` command. Supply an election date to bake context for.
+
+```
+$ python manage.py bake_context 2017-11-07
+```
 
 ### Colors
 
