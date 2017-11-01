@@ -1,9 +1,10 @@
 from rest_framework import serializers
 
-from election.models import Candidate, Election, Party
+from election.models import Candidate, CandidateElection, Election, Party
 from entity.models import Office, Person
 from geography.models import Division
 from vote.models import APElectionMeta
+from vote.serializers import VotesSerializer
 
 
 class FlattenMixin:
@@ -70,14 +71,31 @@ class CandidateSerializer(FlattenMixin, serializers.ModelSerializer):
         fields = (
             'party',
             'ap_candidate_id',
-            'aggregable',
-            'winner',
             'incumbent',
-            'uncontested',
             'image',
+            'uid',
         )
         flatten = (
             ('person', PersonSerializer),
+        )
+
+
+class CandidateElectionSerializer(FlattenMixin, serializers.ModelSerializer):
+    override_winner = serializers.SerializerMethodField()
+
+    def get_override_winner(self, obj):
+        vote = obj.votes.filter(division=obj.election.division).first()
+        return vote.winning
+
+    class Meta:
+        model = CandidateElection
+        fields = (
+            'aggregable',
+            'uncontested',
+            'override_winner',
+        )
+        flatten = (
+            ('candidate', CandidateSerializer),
         )
 
 
@@ -111,6 +129,25 @@ class ElectionSerializer(FlattenMixin, serializers.ModelSerializer):
     candidates = CandidateSerializer(many=True, read_only=True)
     date = serializers.SerializerMethodField()
     division = DivisionSerializer()
+    candidates = serializers.SerializerMethodField()
+    override_votes = serializers.SerializerMethodField()
+
+    def get_override_votes(self, obj):
+        if obj.meta.override_ap_votes:
+            all_votes = None
+            for ce in obj.candidate_elections.all():
+                if all_votes:
+                    all_votes = all_votes | ce.votes.all()
+                else:
+                    all_votes = ce.votes.all()
+            return VotesSerializer(all_votes, many=True).data
+        return False
+
+    def get_candidates(self, obj):
+        return CandidateElectionSerializer(
+            obj.candidate_elections.all(),
+            many=True
+        ).data
 
     def get_primary_party(self, obj):
         if obj.party:
@@ -132,6 +169,7 @@ class ElectionSerializer(FlattenMixin, serializers.ModelSerializer):
             'primary_party',
             'division',
             'candidates',
+            'override_votes',
         )
         flatten = (
             ('meta', APElectionMetaSerializer),

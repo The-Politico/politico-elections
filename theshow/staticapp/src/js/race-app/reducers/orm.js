@@ -15,6 +15,7 @@ export default(dbState, action) => {
     Candidate,
     Election,
     Result,
+    OverrideResult,
   } = session;
 
   switch (action.type) {
@@ -39,6 +40,8 @@ export default(dbState, action) => {
     case types.CREATE_RESULT:
       Result.upsert(action.result);
       break;
+    case types.CREATE_OVERRIDE_RESULT:
+      OverrideResult.upsert(action.overrideResult);
     default:
       break;
   }

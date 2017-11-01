@@ -84,7 +84,7 @@ function addCandidates(elections, dispatch) {
         suffix: e.suffix,
         party: e.party,
         aggregable: e.aggregable,
-        winner: e.winner,
+        overrideWinner: e.override_winner,
         incumbent: e.incumbent,
         uncontested: e.uncontested,
         image: e.image,
@@ -116,6 +116,43 @@ function addElections(elections, dispatch) {
   });
 }
 
+function createResultObj(d) {
+  const divisionID = d.fipscode ? d.fipscode : d.statepostal;
+  const candidateID = d.polid ? `polid-${d.polid}` : `polnum-${d.polnum}`;
+  const resultObj = {
+    id: `${d.raceid}-${divisionID}-${candidateID}`,
+    voteCount: d.votecount,
+    votePct: d.votepct,
+    precinctsReporting: d.precinctsreporting,
+    precinctsTotal: d.precinctstotal,
+    precinctsReportingPct: d.precinctsreportingpct,
+    winner: d.winner,
+    division: divisionID,
+    candidate: candidateID,
+  };
+
+  return resultObj;
+}
+
+function addOverrideResults(elections, dispatch) {
+  elections.forEach((d) => {
+    if (!d.override_votes) {
+      return;
+    }
+    d.override_votes.forEach((e) => {
+      const resultObj = createResultObj(e);
+      dispatch(ormActions.createOverrideResult(resultObj));
+    });
+  });
+}
+
+function addResults(results, dispatch) {
+  results.forEach((d) => {
+    const resultObj = createResultObj(d);
+    dispatch(ormActions.createResult(resultObj));
+  });
+}
+
 export const fetchContext = () =>
   dispatch => fetch(window.appConfig.api.context, GET)
     .then(response => response.json())
@@ -127,30 +164,10 @@ export const fetchContext = () =>
         addParties(data.parties, dispatch),
         addCandidates(data.elections, dispatch),
         addElections(data.elections, dispatch),
+        addOverrideResults(data.elections, dispatch),
       ])).catch((error) => {
       console.log('API ERROR', error);
     });
-
-function addResults(results, dispatch) {
-  results.forEach((d) => {
-    const divisionID = d.fipscode ? d.fipscode : d.statepostal;
-    const candidateID = d.polid ? `polid-${d.polid}` : `polnum-${d.polnum}`;
-    const resultObj = {
-      id: `${d.raceid}-${divisionID}-${candidateID}`,
-      voteCount: d.votecount,
-      votePct: d.votepct,
-      precinctsReporting: d.precinctsreporting,
-      precinctsTotal: d.precinctstotal,
-      precinctsReportingPct: d.precinctsreportingpct,
-      winner: d.winner,
-      division: divisionID,
-      candidate: candidateID,
-    };
-
-    dispatch(ormActions.createResult(resultObj));
-  });
-}
-
 
 export const fetchResults = () =>
   dispatch => fetch(window.appConfig.api.results, GET)
