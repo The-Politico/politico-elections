@@ -1,4 +1,4 @@
-import csv
+import json
 import subprocess
 
 from django.core.management.base import BaseCommand
@@ -338,14 +338,14 @@ class Command(BaseCommand):
         parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
-        writefile = open('test.csv', 'w')
+        writefile = open('bootstrap.json', 'w')
         elex_args = ['elex', 'results', options['election_date']]
         elex_args.extend(server_config.ELEX_FLAGS)
         subprocess.run(elex_args, stdout=writefile)
 
-        with open('test.csv', 'r') as readfile:
-            reader = csv.DictReader(readfile)
-            for row in reader:
+        with open('bootstrap.json', 'r') as readfile:
+            data = json.load(readfile)
+            for row in data:
                 if row['level'] == 'township':
                     continue
                 process_row(row)

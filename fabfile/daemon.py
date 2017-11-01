@@ -70,23 +70,6 @@ def fetch_results():
 
     local('bash scripts/results.sh')
 
-    if not os.path.exists('scripts/times_run.json'):
-        with open('scripts/times_run.json', 'w') as writefile:
-            json.dump({
-                'times_run': 0
-            }, writefile)
-
-    with open('scripts/times_run.json') as readfile:
-        data = json.load(readfile)
-        data['times_run'] += 1
-        print(data['times_run'])
-
-    if data['times_run'] % 10 == 0:
-        local('python manage.py update_results')
-
-    with open('scripts/times_run.json', 'w') as writefile:
-        json.dump(data, writefile)
-
 
 def begin_test(run_once=False):
     """

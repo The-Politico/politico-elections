@@ -119,6 +119,7 @@ test.csv
 confs/rendered
 scripts/*.json
 master.json
+bootstrap.json
 data/
 output/**/*.json
 node_modules/

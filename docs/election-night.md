@@ -22,6 +22,8 @@ Once you have those commands run, you can run `fab production daemons.deploy`. T
 
 >TK: How to bootstrap the results pages themselves. This is not written yet.
 
+Once the race is over and AP has finished tabulating results, you can run `python manage.py update_results <election-date>` to update the database with the AP's tabulated results.
+
 ## Server
 
 Assuming we have a production server stood up (if not, consult the [server docs](./server.md)), then you can run some Fabric commands to achieve the same as above (NOTE: TYLER NEEDS TO WRITE THESE FABRIC COMMANDS).

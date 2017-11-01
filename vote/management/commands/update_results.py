@@ -1,28 +1,30 @@
 import json
+import server_config
+import subprocess
 import election.models as election
 import geography.models as geography
 import vote.models as vote
 
 from django.core.management.base import BaseCommand, CommandError
+from tqdm import tqdm
 
 
 class Command(BaseCommand):
     help = 'ingests master JSON file to update results models'
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            '--force',
-            action='store_true',
-            dest='force',
-            default=False,
-            help="force update to run"
-        )
+        parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
+        writefile = open('master.json', 'w')
+        elex_args = ['elex', 'results', options['election_date']]
+        elex_args.extend(server_config.ELEX_FLAGS)
+        subprocess.run(elex_args, stdout=writefile)
+
         with open('master.json') as f:
             data = json.load(f)
 
-        for result in data:
+        for result in tqdm(data):
             if result['is_ballot_measure']:
                 continue
 
@@ -40,11 +42,21 @@ class Command(BaseCommand):
                 ap_candidate_id=candidate_id
             )
 
-            vote.Votes.objects.update_or_create(
+            candidate_election = election.CandidateElection.objects.get(
                 election=ap_meta.election,
-                candidate=candidate,
-                division=ap_meta.election.division,
-                count=result['votecount'],
-                pct=result['votepct'],
-                winning=result['winner']
+                candidate=candidate
             )
+
+            kwargs = {
+                'candidate_election': candidate_election,
+                'division': ap_meta.election.division
+            }
+
+            if not ap_meta.override_ap_votes:
+                kwargs['count'] = result['votecount']
+                kwargs['pct'] = result['votepct']
+
+            if not ap_meta.override_ap_call:
+                kwargs['winning'] = result['winner']
+
+            vote.Votes.objects.update_or_create(**kwargs)
