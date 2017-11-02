@@ -2,20 +2,36 @@ from django.contrib.postgres.fields import JSONField
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from uuslug import slugify, uuslug
 
-from core.models import EffectiveDateBase, LabelBase, NameBase, SelfRelatedBase
+from core.constants import DIVISION_LEVEL_CODES
+from core.models import (EffectiveDateBase, LabelBase, NameBase,
+                         SelfRelatedBase, SlugBase, UIDBase)
 
 
-class DivisionLevel(NameBase, SelfRelatedBase):
+class DivisionLevel(UIDBase, SlugBase, NameBase, SelfRelatedBase):
     """
     Level of government or administration at which a division exists.
 
     For example, federal, state, district, county, precinct, municipal.
+
+    uuid
+    slug
+    name
     """
-    pass
+
+    def save(self, *args, **kwargs):
+        """
+        uid: {levelcode}
+        """
+        self.slug = slugify(self.name)
+        self.uid = DIVISION_LEVEL_CODES.get(self.slug, self.slug)
+        super(DivisionLevel, self).save(*args, **kwargs)
 
 
-class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
+class Division(
+    UIDBase, SlugBase, LabelBase, SelfRelatedBase, EffectiveDateBase
+):
     """
     A political or administrative geography.
 
@@ -46,6 +62,24 @@ class Division(LabelBase, SelfRelatedBase, EffectiveDateBase):
                   "The relationship between a congressional district and a "
                   "precinct is an example of an intersecting relationship."
     )
+
+    def save(self, *args, **kwargs):
+        """
+        uid: division:{parentuid}_{levelcode}-{code}
+        """
+        slug = '{}:{}'.format(self.level.uid, self.code)
+        if self.parent:
+            self.uid = '{}_{}'.format(self.parent.uid, slug)
+        else:
+            self.uid = slug
+        self.slug = uuslug(
+            self.name,
+            instance=self,
+            max_length=100,
+            separator='-',
+            start_no=2
+        )
+        super(Division, self).save(*args, **kwargs)
 
     def add_intersecting(self, division, intersection=None, symm=True):
         """
@@ -116,12 +150,12 @@ class IntersectRelationship(models.Model):
                   "division."
     )
 
+    class Meta:
+        # Don't allow duplicate relationships between divisions
+        unique_together = ('from_division', 'to_division')
+
     def clean(self):
         if self.intersection < 0.0 or self.intersection > 1.0:
             raise ValidationError(_(
                 'Intersection should be a decimal between 0 and 1.'
             ))
-
-    class Meta:
-        # Don't allow duplicate relationships between divisions
-        unique_together = ('from_division', 'to_division')

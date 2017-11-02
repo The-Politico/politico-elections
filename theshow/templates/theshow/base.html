@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {%block universal-meta%}
+      {% include "theshow/meta.html" %}
+    {%endblock%}
+
+    {%block page-meta%}
+    {%endblock%}
+    <meta charset="utf-8">
+    <title></title>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+      crossorigin="anonymous">
+    </script>
+    <script src="https://use.typekit.net/ijp3uro.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    {%block metatags%}
+    {%endblock%}
+
+    {%block api%}
+    {%endblock%}
+    {%block relative_head%}
+    {%endblock%}
+
+  </head>
+  <body>
+    {%block content%}
+    {%endblock%}
+    {%block preview_home%}
+      <small><a href="{%url 'preview'%}">links</a></small>
+    {%endblock%}
+    {%block relative_foot%}
+    {%endblock%}
+  </body>
+</html>

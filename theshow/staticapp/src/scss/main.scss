@@ -1,0 +1,17 @@
+@import 'fonts/stateface';
+
+h3{
+  color:green;
+  font-size: 34px;
+}
+
+purple{
+  color: purple;
+}
+green{
+  color: green;
+}
+
+
+$candidateResultsBar-container: '#candidateResultsBar';
+@import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';

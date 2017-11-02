@@ -1,0 +1,49 @@
+{% extends "theshow/base.html" %}
+
+{%block content%}
+<h1>Sample Pages</h1>
+<ul>
+  <li>
+    <a href="{%url 'cycle-page' year='2017' %}">/election-results/2017/</a>
+    <a href="{%url 'cycle-page-export' year='2017'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'fed-body-page' year='2017' body='senate' %}">/election-results/2017/senate/</a>
+    <a href="{%url 'fed-body-page-export' year='2017' body='senate'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'fed-exec-race-page' year='2017' office='president' %}">/election-results/2017/president/</a>
+    <a href="{%url 'fed-exec-race-page-export' year='2017' office='president'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-fed-page' year='2017' branch='president' state='texas'%}">/election-results/2017/president/texas/</a>
+    <a href="{%url 'state-fed-page-export' year='2017' branch='president' state='texas'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-page' year='2017' state='texas'%}">/election-results/2017/texas/</a>
+    <a href="{%url 'state-page-export' year='2017' state='texas'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-body-page' year='2017' state='texas' body='senate'%}">/election-results/2017/texas/senate/</a>
+    <a href="{%url 'state-body-page-export' year='2017' state='texas' body='senate'%}"><small>export</small></a>
+  </li>
+  <li>
+    <a href="{%url 'state-exec-race-page' year='2017' state='virginia' office='governor' date='2017-11-07'%}">/election-results/2017/virginia/governor/</a>
+    <a href="{%url 'state-exec-race-page-export' year='2017' state='virginia' office='governor' date='2017-11-07'%}"><small>export</small></a>
+  </li>
+</ul>
+<h1>API</h1>
+<ul>
+  <li>
+    <a href="/election-results/api/elections/">/election-results/api/elections/</a>
+  </li>
+  <li>
+    <a href="/geography/api/">/geography/api/</a>
+  </li>
+  <li>
+    <a href="/election/api/">/election/api/</a>
+  </li>
+</ul>
+{%endblock%}
+
+{%block preview_home%}{%endblock%}

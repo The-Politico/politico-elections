@@ -5,11 +5,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
 
-from core.models import EffectiveDateBase
+from core.models import EffectiveDateBase, UUIDBase
+
 from .division import Division, DivisionLevel
 
 
-class Geography(EffectiveDateBase):
+class Geography(UUIDBase, EffectiveDateBase):
     D3 = '''
         <div id="map{0}"></div>
         <script>
@@ -58,12 +59,12 @@ class Geography(EffectiveDateBase):
     )
     topojson = JSONField()
 
+    class Meta:
+        verbose_name_plural = "Geographies"
+
     def __str__(self):
         return '{} - {} map, {}'.format(
             self.division.label,
             self.division.level.name,
             self.simplification
         )
-
-    class Meta:
-        verbose_name_plural = "Geographies"

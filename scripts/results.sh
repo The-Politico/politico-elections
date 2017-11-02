@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # grab elex results for everything
-elex results 2017-11-07 --national-only --test -o json > master.json
+if [ $# -eq 0 ]
+  then
+    elex results 2017-11-07 --national-only --test -o json > master.json
+  else
+    elex results 2017-11-07 --national-only --test -o json -d $1 > master.json
+fi
 
 # cp output/elections/*.json output/results/
 
@@ -11,7 +16,7 @@ for file in ./output/elections/*.json ; do
     levels=`cat $file | jq '.levels'`
     path=`cat $file | jq -r '.filename'`
     fullpath="output/results/$path"
-    mkdir -p "$(dirname "$fullpath")"
+    mkdir -p "$(dirname "$fullpath/p")"
 
     # filter results
     cat master.json \
@@ -33,6 +38,16 @@ for file in ./output/elections/*.json ; do
         votepct: .votepct,
         winner: .winner
       }
-    ]' > $fullpath # gzip and copy to s3 after this
+    ]' > "$fullpath/results.json" # gzip and copy to s3 after this
+    last_updated="{\"date\":\"`date`\"}"
+    echo $last_updated > "$fullpath/last-updated.json"
   fi
 done
+
+# for local dev
+mkdir -p ./theshow/static/theshow/results/
+cp -r ./output/results/**/* ./theshow/static/theshow/results/
+
+# deploy to s3
+aws s3 cp ./output/results/ s3://com.politico.interactives.politico.com/elections/ --recursive --acl "public-read" --cache-control "max-age=5"
+

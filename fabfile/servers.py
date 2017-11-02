@@ -9,7 +9,7 @@ import logging
 import server_config
 
 from django.utils.crypto import get_random_string
-from fabric.api import local, put, settings, require, run, sudo, task
+from fabric.api import cd, local, put, settings, require, run, sudo, task
 from fabric.state import env
 from jinja2 import Template
 
@@ -20,6 +20,7 @@ logger.setLevel(server_config.LOG_LEVEL)
 """
 Setup
 """
+
 
 @task
 def setup():
@@ -52,7 +53,6 @@ def create_directories():
     sudo('mkdir -p /etc/uwsgi/sites')
     sudo('mkdir -p /run/uwsgi')
     sudo('chown ubuntu:www-data /run/uwsgi')
-    # run('mkdir -p /var/www/uploads/%(PROJECT_FILENAME)s' % server_config.__dict__)
 
 
 def create_virtualenv():
@@ -61,8 +61,10 @@ def create_virtualenv():
     """
     require('settings', provided_by=['production', 'staging'])
 
-    run('virtualenv -p %(SERVER_PYTHON)s %(SERVER_VIRTUALENV_PATH)s' % server_config.__dict__)
-    run('source %(SERVER_VIRTUALENV_PATH)s/bin/activate' % server_config.__dict__)
+    run('virtualenv -p %(SERVER_PYTHON)s %(SERVER_VIRTUALENV_PATH)s' %
+        server_config.__dict__)
+    run('source %(SERVER_VIRTUALENV_PATH)s/bin/activate' %
+        server_config.__dict__)
 
 
 def clone_repo():
@@ -71,10 +73,12 @@ def clone_repo():
     """
     require('settings', provided_by=['production', 'staging'])
 
-    run('git clone %(REPOSITORY_URL)s %(SERVER_REPOSITORY_PATH)s' % server_config.__dict__)
+    run('git clone %(REPOSITORY_URL)s %(SERVER_REPOSITORY_PATH)s' %
+        server_config.__dict__)
 
     if server_config.REPOSITORY_ALT_URL:
-        run('git remote add bitbucket %(REPOSITORY_ALT_URL)s' % server_config.__dict__)
+        run('git remote add bitbucket %(REPOSITORY_ALT_URL)s' %
+            server_config.__dict__)
 
 
 @task
@@ -86,7 +90,8 @@ def checkout_latest(remote='origin'):
     require('branch', provided_by=['stable', 'master', 'branch'])
 
     run('cd %s; git fetch %s' % (server_config.SERVER_REPOSITORY_PATH, remote))
-    run('cd %s; git checkout %s; git pull %s %s' % (server_config.SERVER_REPOSITORY_PATH, env.branch, remote, env.branch))
+    run('cd %s; git checkout %s; git pull %s %s' %
+        (server_config.SERVER_REPOSITORY_PATH, env.branch, remote, env.branch))
 
 
 @task
@@ -96,7 +101,12 @@ def install_requirements():
     """
     require('settings', provided_by=['production', 'staging'])
 
-    run('%(SERVER_VIRTUALENV_PATH)s/bin/pip install -U -r %(SERVER_REPOSITORY_PATH)s/requirements.txt' % server_config.__dict__)
+    run('%(SERVER_VIRTUALENV_PATH)s/bin/pip install -U -r'
+        '%(SERVER_REPOSITORY_PATH)s/requirements.txt' % server_config.__dict__)
+
+    with cd('%(SERVER_REPOSITORY_PATH)s/theshow/staticapp/' %
+            server_config.__dict__):
+        run('yarn')
 
 
 @task
@@ -115,10 +125,11 @@ def generate_secret_key():
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
     secret_key = get_random_string(50, chars)
 
-    export = 'export {0}_DJANGO_SECRET_KEY="{1}"'.format(server_config.PROJECT_FILENAME, secret_key)
+    export = 'export {0}_DJANGO_SECRET_KEY="{1}"'.format(
+        server_config.PROJECT_FILENAME, secret_key
+    )
 
     sudo('cat {0} >> /etc/environment'.format(export))
-
 
 
 @task
@@ -128,7 +139,8 @@ def install_crontab():
     """
     require('settings', provided_by=['production', 'staging'])
 
-    sudo('cp %(SERVER_REPOSITORY_PATH)s/cronjobs/* /etc/cron.d' % server_config.__dict__)
+    sudo('cp %(SERVER_REPOSITORY_PATH)s/cronjobs/* /etc/cron.d' %
+         server_config.__dict__)
 
 
 @task
@@ -151,6 +163,7 @@ def delete_project():
 Configuration
 """
 
+
 def _get_template_conf_path(service, extension):
     """
     Derive the path for a conf template file.
@@ -162,14 +175,18 @@ def _get_rendered_conf_path(service, extension):
     """
     Derive the rendered path for a conf file.
     """
-    return 'confs/rendered/%s.%s.%s' % (server_config.PROJECT_FILENAME, service, extension)
+    return 'confs/rendered/%s.%s.%s' % (
+        server_config.PROJECT_FILENAME, service, extension
+    )
 
 
 def _get_installed_conf_path(service, remote_path, extension):
     """
     Derive the installed path for a conf file.
     """
-    return '%s/%s.%s.%s' % (remote_path, server_config.PROJECT_FILENAME, service, extension)
+    return '%s/%s.%s.%s' % (
+        remote_path, server_config.PROJECT_FILENAME, service, extension
+    )
 
 
 def _get_installed_service_name(service):
@@ -198,7 +215,7 @@ def render_confs():
         template_path = _get_template_conf_path(service, extension)
         rendered_path = _get_rendered_conf_path(service, extension)
 
-        with open(template_path,  'r') as read_template:
+        with open(template_path, 'r') as read_template:
 
             with open(rendered_path, 'w') as write_template:
                 payload = Template(read_template.read())
@@ -218,7 +235,9 @@ def deploy_confs():
     with settings(warn_only=True):
         for service, remote_path, extension in server_config.SERVER_SERVICES:
             rendered_path = _get_rendered_conf_path(service, extension)
-            installed_path = _get_installed_conf_path(service, remote_path, extension)
+            installed_path = _get_installed_conf_path(
+                service, remote_path, extension
+            )
 
             a = local('md5 -q %s' % rendered_path, capture=True)
             b = run('md5sum %s' % installed_path).split()[0]
@@ -228,8 +247,11 @@ def deploy_confs():
                 put(rendered_path, installed_path, use_sudo=True)
 
                 if service == 'nginx':
-                    sudo('rm /etc/nginx/sites-enabled/%s.nginx.conf' % server_config.PROJECT_FILENAME)
-                    sudo('ln -s /etc/nginx/sites-available/%s.nginx.conf /etc/nginx/sites-enabled' % server_config.PROJECT_FILENAME)
+                    sudo('rm /etc/nginx/sites-enabled/%s.nginx.conf' %
+                         server_config.PROJECT_FILENAME)
+                    sudo('ln -s /etc/nginx/sites-available/%s.nginx.conf'
+                         '/etc/nginx/sites-enabled' %
+                         server_config.PROJECT_FILENAME)
                     sudo('service nginx restart')
                 elif service == 'uwsgi':
                     service_name = _get_installed_service_name(service)
@@ -239,7 +261,8 @@ def deploy_confs():
                     sudo('mkdir /run/uwsgi/')
                     sudo('touch %s' % server_config.UWSGI_SOCKET_PATH)
                     sudo('chmod 644 %s' % server_config.UWSGI_SOCKET_PATH)
-                    sudo('chown www-data:www-data %s' % server_config.UWSGI_SOCKET_PATH)
+                    sudo('chown www-data:www-data %s' %
+                         server_config.UWSGI_SOCKET_PATH)
             else:
                 logging.info('%s has not changed' % rendered_path)
 
@@ -254,7 +277,9 @@ def nuke_confs():
 
     for service, remote_path, extension in server_config.SERVER_SERVICES:
         with settings(warn_only=True):
-            installed_path = _get_installed_conf_path(service, remote_path, extension)
+            installed_path = _get_installed_conf_path(
+                service, remote_path, extension
+            )
 
             sudo('rm -f %s' % installed_path)
 
@@ -278,7 +303,6 @@ def start_service(service):
     sudo('service %s start' % service_name)
 
 
-
 @task
 def stop_service(service):
     """
@@ -287,7 +311,6 @@ def stop_service(service):
     require('settings', provided_by=['production', 'staging'])
     service_name = _get_installed_service_name(service)
     sudo('service %s stop' % service_name)
-
 
 
 @task
@@ -300,10 +323,6 @@ def restart_service(service):
     sudo('service %s restart' % service_name)
 
 
-"""
-Fabcasting
-"""
-
 @task
 def fabcast(command):
     """
@@ -312,4 +331,5 @@ def fabcast(command):
     """
     require('settings', provided_by=['production', 'staging'])
 
-    run('cd %s && bash run_on_server.sh fab %s $DEPLOYMENT_TARGET %s' % (server_config.SERVER_REPOSITORY_PATH, env.branch, command))
+    run('cd %s && bash run_on_server.sh fab %s $DEPLOYMENT_TARGET %s'
+        % (server_config.SERVER_REPOSITORY_PATH, env.branch, command))
