@@ -15,3 +15,6 @@ green{
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
+
+$resultCounty-container: '#resultsMap';
+@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
