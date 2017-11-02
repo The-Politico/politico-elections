@@ -35,7 +35,7 @@ class Candidate extends Model {
       overrideWinner: attr(),
       incumbent: attr(),
       uncontested: attr(),
-      image: attr(),
+      images: attr(),
       party: fk('Party'),
     };
   }

@@ -87,7 +87,7 @@ function addCandidates(elections, dispatch) {
         overrideWinner: e.override_winner,
         incumbent: e.incumbent,
         uncontested: e.uncontested,
-        image: e.image,
+        images: e.images,
       };
 
       dispatch(ormActions.createCandidate(candidateObj));
