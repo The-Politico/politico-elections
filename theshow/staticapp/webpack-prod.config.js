@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 
 
@@ -53,6 +54,7 @@ module.exports = {
       allChunks: true
     }),
     new OptimizeCssAssetsPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new Visualizer()
   ],
 };
