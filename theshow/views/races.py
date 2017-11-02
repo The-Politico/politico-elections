@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from election.models import ElectionCycle, ElectionDay, Race
 from entity.models import Jurisdiction, Office
 from geography.models import Division
+from theshow.models import PageContent
 
 from .base import BaseView
 
@@ -88,6 +89,14 @@ class StateExecutiveRacePage(BaseView):
             slug=self.kwargs.get('office'),
             division=state
         )
+        try:
+            page_content = PageContent.get_office_content(
+                PageContent, office, election_day
+            )
+            context['chatter'] = page_content.chatter
+        except:
+            page_content = None
+            context['chatter'] = None
         context['election_day'] = election_day
         context['year'] = self.kwargs.get('year')
         context['office'] = office

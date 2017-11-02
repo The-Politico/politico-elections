@@ -24,8 +24,9 @@ PROJECT_FILENAME = 'elections'
 # The name of the repository containing the source
 REPOSITORY_NAME = 'elections'
 GITHUB_USERNAME = 'The-Politico'
-REPOSITORY_URL = 'git@github.com:%s/%s.git' % (GITHUB_USERNAME, REPOSITORY_NAME)
-REPOSITORY_ALT_URL = None # 'git@bitbucket.org:nprapps/%s.git' % REPOSITORY_NAME'
+REPOSITORY_URL = 'git@github.com:%s/%s.git' % (
+    GITHUB_USERNAME, REPOSITORY_NAME
+)
 
 PRODUCTION_SERVERS = ['']
 STAGING_SERVERS = ['18.221.240.252']
@@ -45,6 +46,7 @@ SERVER_SERVICES = [
     ('app', '/etc/uwsgi/sites', 'ini'),
     ('uwsgi', '/etc/init', 'conf'),
     ('nginx', '/etc/nginx/sites-available', 'conf'),
+    ('deploy', 'etc/init', 'conf')
 ]
 
 # These variables will be set at runtime. See configure_targets() below
@@ -62,13 +64,15 @@ LOG_FORMAT = '%(levelname)s:%(name)s:%(asctime)s: %(message)s'
 """
 Utilities
 """
+
+
 def get_secrets():
     """
     A method for accessing our secrets.
     """
     secrets_dict = {}
 
-    for k,v in os.environ.items():
+    for k, v in os.environ.items():
         if k.startswith(PROJECT_FILENAME):
             k = k[len(PROJECT_FILENAME) + 1:]
             secrets_dict[k] = v
@@ -89,6 +93,7 @@ def configure_targets(deployment_target):
     global LOG_LEVEL
     global DAEMON_INTERVAL
     global ELEX_FLAGS
+    global CURRENT_ELECTION
 
     secrets = get_secrets()
 
@@ -99,7 +104,8 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.WARNING
         DEBUG = False
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test']
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        CURRENT_ELECTION = '2017-11-07'
     elif deployment_target == 'staging':
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
@@ -107,7 +113,8 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test']
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        CURRENT_ELECTION = '2017-11-07'
     else:
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
@@ -115,7 +122,8 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test']
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        CURRENT_ELECTION = '2017-11-07'
 
     DEPLOYMENT_TARGET = deployment_target
 

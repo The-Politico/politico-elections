@@ -15,6 +15,7 @@ export default(dbState, action) => {
     Candidate,
     Election,
     Result,
+    OverrideResult,
   } = session;
 
   switch (action.type) {
@@ -43,6 +44,9 @@ export default(dbState, action) => {
       Division
         .filter(d => d.code === action.fips)
         .update({ topojson: action.topojson });
+      break;
+    case types.CREATE_OVERRIDE_RESULT:
+      OverrideResult.upsert(action.overrideResult);
       break;
     default:
       break;

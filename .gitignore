@@ -119,7 +119,13 @@ test.csv
 confs/rendered
 scripts/*.json
 master.json
+bootstrap.json
 data/
 output/**/*.json
 node_modules/
 theshow/static/theshow/results
+theshow/static/theshow/css
+theshow/static/theshow/images
+theshow/static/theshow/js
+theshow/staticapp/stats.json
+theshow/staticapp/theshow/stats.html

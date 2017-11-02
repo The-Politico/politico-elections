@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from uuslug import slugify
 
 from election.models import Election, ElectionCycle
+from theshow.models import PageContent
 
 
 class Command(BaseCommand):
@@ -81,7 +82,9 @@ class Command(BaseCommand):
                 state
             )
 
-            self._write_to_json(state_federal_body_elections, config_key, levels, output_key)
+            self._write_to_json(
+                state_federal_body_elections, config_key, levels, output_key
+            )
 
     def serialize_state_body(self, state, body, elections, cycle):
         """
@@ -102,7 +105,9 @@ class Command(BaseCommand):
                 body
             )
 
-            self._write_to_json(state_body_elections, config_key, levels, output_key)
+            self._write_to_json(
+                state_body_elections, config_key, levels, output_key
+            )
 
     def serialize_state_federal_exec(self, state, office, elections, cycle):
         """
@@ -122,7 +127,9 @@ class Command(BaseCommand):
                 state
             )
 
-            self._write_to_json(state_office_elections, config_key, levels, output_key)
+            self._write_to_json(
+                state_office_elections, config_key, levels, output_key
+            )
 
     def serialize_state_exec(self, state, office, elections, cycle):
         """
@@ -140,7 +147,9 @@ class Command(BaseCommand):
             office
         )
 
-        self._write_to_json(state_exec_elections, config_key, levels, output_key)
+        self._write_to_json(
+            state_exec_elections, config_key, levels, output_key
+        )
 
     def _write_to_json(self, elections, config_key, levels, output_key):
         ids = []
@@ -157,7 +166,6 @@ class Command(BaseCommand):
 
         with open('output/elections/{0}.json'.format(config_key), 'w') as f:
             json.dump(output, f)
-
 
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)
@@ -202,7 +210,9 @@ class Command(BaseCommand):
             self.serialize_federal_body(body, elections, latest_cycle)
 
             for state in states:
-                self.serialize_state_federal_body(state, body, elections, latest_cycle)
+                self.serialize_state_federal_body(
+                    state, body, elections, latest_cycle
+                )
 
         for state in states:
             self.serialize_state(state, elections, latest_cycle)
@@ -211,10 +221,14 @@ class Command(BaseCommand):
                 self.serialize_state_body(state, body, elections, latest_cycle)
 
             for office in state_exec_offices:
-                self.serialize_state_exec(state, office, elections, latest_cycle)
+                self.serialize_state_exec(
+                    state, office, elections, latest_cycle
+                )
 
         for office in federal_exec_offices:
             self.serialize_federal_exec(office, elections, latest_cycle)
 
             for state in states:
-                self.serialize_state_exec(state, office, elections, latest_cycle)
+                self.serialize_state_exec(
+                    state, office, elections, latest_cycle
+                )

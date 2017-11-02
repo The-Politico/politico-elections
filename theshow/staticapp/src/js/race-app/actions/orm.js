@@ -40,3 +40,8 @@ export const updateGeo = (fips, topojson) => ({
   fips,
   topojson,
 });
+
+export const createOverrideResult = overrideResult => ({
+  type: types.CREATE_OVERRIDE_RESULT,
+  overrideResult,
+});

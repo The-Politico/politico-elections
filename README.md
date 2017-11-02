@@ -97,3 +97,115 @@ Finally, run the daemon that will get results every ten seconds
 ```bash
 $ fab staging daemon.deploy
 ```
+
+### Creating census data
+
+This app contains models and commands to create county-level census data files you can use in your dataviz.
+
+Before you begin, make sure you have these environment variables set:
+
+```
+export AWS_S3_PUBLISH_BUCKET="com.politico.interactives.politico.com"
+export AWS_ACCESS_KEY_ID="<YOUR ACCESS KEY>"
+export AWS_SECRET_ACCESS_KEY="<YOUR SECRET ACCESS KEY>"
+```
+
+##### Steps
+
+1. From the root of the `elections` project, startup the development server:
+
+  ```
+  $ python manage.py runserver
+  ```
+
+2. Login to the backend admin at `http://localhost:8000/admin`
+
+3. Under Demographic, click to add a new Census Table.
+
+4. Create the table you want using Census table and variable codes. (Use [Social Explorer](https://www.socialexplorer.com/explore/tables) to find the codes.) **Be sure to append an "E" to variable codes to get the census estimate, not the margin of error.** For example, `001E`.
+
+5. Once you've created your table, you're ready to run the census command that will create your tables on the server. Specify states by FIPS codes to create county-level Census data files by state:
+
+  ```
+  $ python manage.py runserver 51 34
+  ```
+6. You can find your new data at a URL specified with this pattern:
+
+  ```
+  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/{series code}/{table year}/{state fips}/{table code}.json
+  ```
+
+  For example:
+  ```
+  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/acs5/2015/34/B03002.json
+  ```
+
+  ### Creating geo data
+
+  If you don't already have geography models, create them with the `load_geography` management command:
+
+  ```
+  $ python manage.py load_geography
+  ```
+
+  Bake out state county-level topojson files using state FIPS codes and the `export_geography` management command:
+
+  ```
+  $ python manage.py export_geography 51 36
+  ```
+
+  JSON files are baked out to URLs with the following pattern:
+
+  `https://dy1ht16ivl5br.cloudfront.net/elections/data/geography/{year}/state/{state fips}/counties.json`
+
+  `year` is currently 2016.
+
+
+### Creating geo data
+
+Export topojson files with the `export_geography` command. Supply states by FIPS code.
+
+```
+$ python manage.py export_geography 34 51
+```
+
+### Baking out context
+
+Bake out context files for election dates with the `bake_context` command. Supply an election date to bake context for.
+
+```
+$ python manage.py bake_context 2017-11-07
+```
+
+### Colors
+
+Always use class names to target data-driven colors.
+
+Our convention for color class names is:
+
+```
+.{palette}-{length}-{index}-{property}
+```
+
+- **palette**
+
+    The name of the palette. For example, `gop` or `dem`.
+
+- **length**
+
+    If applicable, the length of the palette ramp. For example, `8` for an 8-color palette ramp.
+
+- **index**
+
+    If applicable, the index of the color within the palette ramp to use. For example, `1` for the first color in the palette ramp.
+
+- **property**
+
+  The property to target with the specified color. For example, `stroke` or `fill`. Concatenate multipart properties into camel-case, for example, `backgroundColor`.
+
+
+Some example of fully specified color classes:
+
+- `.gop-4-1-stroke`
+- `.gop-fill`
+- `.dem-backgroundColor`

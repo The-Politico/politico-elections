@@ -20,13 +20,21 @@ class Election extends Model {
    * @return {Object}           Serialized results.
    */
   serializeResults(divisions) {
+    const status = this.serializeStatus();
     const divisionResults = {};
 
     divisions.forEach((division) => {
       const obj = _.assign({}, division.serialize());
       obj.results = [];
 
-      const firstResult = division.resultSet.first();
+      let resultSet;
+      if (status.overrideApVotes) {
+        resultSet = division.overrideresultSet;
+      } else {
+        ({ resultSet } = division);
+      }
+
+      const firstResult = resultSet.first();
       if (!firstResult) {
         console.log('No results for division:', division.id);
         return;
@@ -35,11 +43,13 @@ class Election extends Model {
       obj.precinctsReportingPct = firstResult.precinctsReportingPct;
       obj.precinctsTotal = firstResult.precinctsTotal;
 
-      division.resultSet.toModelArray().forEach((result) => {
+      resultSet.toModelArray().forEach((result) => {
         const resultObj = {
           candidate: result.candidate.serialize(),
           voteCount: result.voteCount,
           votePct: result.votePct,
+          winner: status.overrideApCall ?
+            result.candidate.overrideWinner : result.winner,
         };
 
         // Aggregate aggregable candidates' vote totals
@@ -67,7 +77,7 @@ class Election extends Model {
 
     return {
       id: this.id,
-      status: this.serializeStatus(),
+      status,
       office: this.office.serialize(),
       divisions: divisionResults,
     };

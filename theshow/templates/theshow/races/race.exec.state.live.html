@@ -40,7 +40,9 @@
     </div>
 </header>
 
-<div id="app"></div>
+<div id="app">
+  <div class="chatter">{{ chatter }}</div>
+</div>
 {%endblock%}
 
 {%block relative_head%}
@@ -52,16 +54,19 @@
 {%endblock%}
 
 {%block api%}
+{% with "theshow/results/"|add:state.slug|add:"/"|add:race.office.slug|add:"/results.json" as results_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
       context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
       results: '{% static "theshow/results/2017/virginia/governor/data.json"%}',
-      geo: '{%static "theshow/geo/virginia.json"%}', // Change me
+      geo: '{% static "theshow/geo/virginia.json" %}', // Change me
+      results: '{% static results_json %}',
     },
     stateFips: '{{state.code}}',
   };
 </script>
+{% endwith %}
 {%endblock%}
 
 {%block relative_foot%}
