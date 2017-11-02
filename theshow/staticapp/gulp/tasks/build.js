@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const spawn = require('child_process').spawn;
 const webpack = require('webpack');
 const prodConfig = require('../../webpack-prod.config.js');
 const webpackStream = require('webpack-stream');
@@ -8,5 +9,14 @@ module.exports = (cb) =>
     .pipe(webpackStream(prodConfig, webpack))
     .pipe(gulp.dest('./../static/theshow/'))
     .on('end', () => {
-      process.exit();
+      const publish = spawn('python', ['../../manage.py', 'publish_statics'])
+      publish.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+      });
+      publish.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+      });
+      publish.on('close', (code, signal) => {
+        process.exit();
+      });
     });

@@ -19,6 +19,7 @@ class Defaults(object):
     CACHE_HEADER = str('max-age=300')
     ROOT_PATH = 'elections'
     ACL = 'public-read'
+    DOMAIN = 'www.politico.com/interactives'
 
 
 defaults = Defaults
@@ -34,5 +35,5 @@ class StorageService(S3Boto3Storage):
         'CacheControl': 'max-age=86400',
         'ACL': 'public-read',
     }
-    custom_domain = 'www.politico.com/interactives'
+    custom_domain = defaults.DOMAIN
     location = defaults.ROOT_PATH

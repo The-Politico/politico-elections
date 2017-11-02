@@ -124,3 +124,6 @@ data/
 output/**/*.json
 node_modules/
 theshow/static/theshow/results
+theshow/static/theshow/css
+theshow/static/theshow/images
+theshow/static/theshow/js
