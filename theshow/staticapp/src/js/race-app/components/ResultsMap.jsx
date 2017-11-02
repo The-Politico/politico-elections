@@ -41,8 +41,9 @@ class ResultsMap extends React.Component {
 
     const counties = db.Division
       .filter(d =>
-        d.level === 'county')
-      .toModelArray();
+        d.level === 'county' &&
+        d.code.substr(0,2) === window.appConfig.stateFips
+      ).toModelArray();
 
     return election.serializeResults(counties);
   }

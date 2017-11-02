@@ -54,7 +54,7 @@ class ResultsBar extends React.Component {
     const results = this.fetchData();
     console.log(results);
 
-    if (!results) {
+    if (!results || Object.keys(results.divisions).length < 1) {
       return
     };
 

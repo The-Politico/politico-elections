@@ -1532,11 +1532,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-<<<<<<< HEAD
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#5de4834403d4d64198a489d75626f5bd750fefc3"
-=======
   resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#a9b431b49aa37fa3f293be89661378b023176bc4"
->>>>>>> master
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -3765,11 +3761,7 @@ ieee754@^1.1.4:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
-<<<<<<< HEAD
 ignore@^3.2.0, ignore@^3.3.3:
-=======
-ignore@^3.3.3:
->>>>>>> master
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
@@ -5838,7 +5830,6 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-<<<<<<< HEAD
 readline2@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/readline2/-/readline2-1.0.1.tgz#41059608ffc154757b715d9989d199ffbf372e35"
@@ -5846,7 +5837,7 @@ readline2@^1.0.1:
     code-point-at "^1.0.0"
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
-=======
+
 recast@^0.11.17:
   version "0.11.23"
   resolved "https://registry.yarnpkg.com/recast/-/recast-0.11.23.tgz#451fd3004ab1e4df9b4e4b66376b2a21912462d3"
@@ -5855,7 +5846,6 @@ recast@^0.11.17:
     esprima "~3.1.0"
     private "~0.1.5"
     source-map "~0.5.0"
->>>>>>> master
 
 rechoir@^0.6.2:
   version "0.6.2"

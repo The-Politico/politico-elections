@@ -3,6 +3,7 @@ import * as ormActions from './orm';
 
 const headers = {
   headers: {
+    'Access-Control-Allow-Origin':'*',
     'Content-Type': 'application/json',
   },
 };
