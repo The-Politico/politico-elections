@@ -13,6 +13,7 @@ const TopResults = (props) => {
         <ResultsMap session={props.session} />
       </div>
       <div class="clear"></div>
+      <p class="text-align-center"> !!!!AD cube ad here!!!! </p>
     </div>
   );
 };

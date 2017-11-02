@@ -53,6 +53,43 @@
   }
 }
 
+header h3{
+  font-family: $tablet;
+  font-size: 20px;
+}
+
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
+
+#candidateResultsBar{
+   .g-candidateInfo{
+     vertical-align: top;
+   }
+
+   .g-mugshot .g-candidate-photo {
+    max-width: 90px;
+    border-radius: 5px;
+  }
+
+  .g-mugshot .g-candidate-name{
+    font-size: 22px;
+  }
+
+  .g-candidate-party{
+    padding: 2px 9px;
+  }
+
+  .g-vote-pct {
+    font-size: 62px;
+    line-height: 1;
+    text-align: left;
+  }
+
+  .g-bar{
+    margin-top: 0;
+  }
+  .g-winner-announced:before{
+    padding-top: 0;
+  }
+}
