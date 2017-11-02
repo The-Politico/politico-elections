@@ -50,6 +50,11 @@ class DivisionSerializer(serializers.ModelSerializer):
 
 
 class PersonSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+
+    def get_images(self, obj):
+        return {str(i.tag): i.image.url for i in obj.images.all()}
+
     class Meta:
         model = Person
         fields = (
@@ -57,6 +62,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'middle_name',
             'last_name',
             'suffix',
+            'images',
         )
 
 
@@ -72,7 +78,6 @@ class CandidateSerializer(FlattenMixin, serializers.ModelSerializer):
             'party',
             'ap_candidate_id',
             'incumbent',
-            'image',
             'uid',
         )
         flatten = (

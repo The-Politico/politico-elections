@@ -6,11 +6,12 @@
     color: red;
   }
 </style>
+<link rel="stylesheet" href="//{{domain}}/{{root_path}}/cdn/{{election_day}}/css/main-race-app.css">
 {%endblock%}
 
 {%block api%}
 <script type="text/javascript">
-  window.config = {
+  window.appConfig = {
     api: {
       context: './context.json',
       results: './results.json',
@@ -18,4 +19,7 @@
     stateFips: '{{state.code}}',
   }
 </script>
+{%endblock%}
+{%block relative_foot%}
+<script src="//{{domain}}/{{root_path}}/cdn/{{election_day}}/js/main-race-app.js"></script>
 {%endblock%}

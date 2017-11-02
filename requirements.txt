@@ -13,6 +13,7 @@ Django==1.11.6
 django-extensions==1.9.6
 django-filter==1.1.0
 django-postgres-copy==2.0.1
+django-storages==1.6.5
 django-uuslug==1.1.8
 djangorestframework==3.7.1
 docutils==0.14
@@ -30,10 +31,12 @@ lockfile==0.12.2
 Markdown==2.6.9
 MarkupSafe==1.0
 nltk==3.2.5
+olefile==0.44
 paramiko==2.3.1
 parso==0.1.0
 pexpect==4.2.1
 pickleshare==0.7.4
+Pillow==4.3.0
 prompt-toolkit==1.0.15
 psycopg2==2.7.3.1
 ptyprocess==0.5.2

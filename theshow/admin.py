@@ -17,4 +17,5 @@ class PageContentForm(forms.ModelForm):
 class PageContentAdmin(admin.ModelAdmin):
     form = PageContentForm
 
+
 admin.site.register(PageContent, PageContentAdmin)
