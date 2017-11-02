@@ -3,8 +3,7 @@ from django.db import models
 from core.models import LabelBase, UIDBase, UUIDBase
 from entity.models import Person
 
-from .election_meta import (BallotMeasure, CandidateElection, Election, Party,
-                            Race)
+from .election_meta import BallotMeasure, CandidateElection, Party, Race
 
 
 class Candidate(UIDBase):
@@ -14,7 +13,6 @@ class Candidate(UIDBase):
     ap_candidate_id = models.CharField(max_length=255)
     incumbent = models.BooleanField(default=False)
     gender = models.CharField(max_length=50, null=True, blank=True)
-    image = models.URLField(null=True, blank=True)
     top_of_ticket = models.ForeignKey(
         'self', null=True, blank=True, related_name='ticket')
 
