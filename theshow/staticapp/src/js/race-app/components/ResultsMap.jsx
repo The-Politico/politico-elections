@@ -61,9 +61,7 @@ class ResultsMap extends React.Component {
 
     if (!state.topojson) return;
 
-    console.log('Map data', results, state.topojson);
-
-    chart.create('#resultsMap', results.divisions.VA);
+    chart.create('#resultsMap', state.topojson, results, {});
   }
 
   // START HERE
