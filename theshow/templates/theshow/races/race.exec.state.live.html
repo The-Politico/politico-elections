@@ -56,15 +56,18 @@
 
 {%block api%}
 {% with "theshow/results/"|add:state.slug|add:"/"|add:race.office.slug|add:"/results.json" as results_json %}
+{% with "https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
       context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
       results: '{% static results_json %}',
+      geo: '{{ geo_json }}', // Change me
     },
     stateFips: '{{state.code}}',
   };
 </script>
+{% endwith %}
 {% endwith %}
 {%endblock%}
 

@@ -3,6 +3,7 @@ import * as ormActions from './orm';
 
 const headers = {
   headers: {
+    'Access-Control-Allow-Origin':'*',
     'Content-Type': 'application/json',
   },
 };
@@ -20,6 +21,7 @@ function addDivisions(division, dispatch) {
     codeComponents: parent.code_components,
     parent: null,
     postalCode: parent.postal_code,
+    topojson: null,
   };
 
   dispatch(ormActions.createDivision(parentObj));
@@ -33,9 +35,10 @@ function addDivisions(division, dispatch) {
       codeComponents: d.code_components,
       parent: parentObj.id,
       postalCode: d.postal_code,
+      topojson: null,
     };
 
-    dispatch(ormActions.createDivision(childObj));
+    return dispatch(ormActions.createDivision(childObj));
   });
 }
 
@@ -175,6 +178,28 @@ export const fetchResults = () =>
     .then(data =>
       Promise.all([
         addResults(data, dispatch),
-      ])).catch((error) => {
+      ]))
+    .catch((error) => {
       console.log('API ERROR', error);
     });
+
+function updateGeo(geoData, dispatch) {
+  const fips = window.appConfig.stateFips;
+  dispatch(ormActions.updateGeo(fips, geoData));
+}
+
+export const fetchGeo = () =>
+  dispatch => fetch(window.appConfig.api.geo, GET)
+    .then(response => response.json())
+    .then(data => Promise.all([
+      updateGeo(data, dispatch),
+    ])).catch((error) => {
+      console.log('API ERROR', error);
+    });
+
+export const fetchInitialData = () =>
+  dispatch => Promise.all([
+    dispatch(fetchContext()),
+    dispatch(fetchResults()),
+  ])
+    .then(() => dispatch(fetchGeo()));

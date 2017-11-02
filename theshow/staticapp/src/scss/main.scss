@@ -13,7 +13,6 @@
 @import 'elements';
 @import 'sections';
 @import 'card';
-@import 'key';
 @import 'refer';
 @import 'navigation';
 @import 'header';
@@ -55,12 +54,12 @@
 
 header h3{
   font-family: $tablet;
-  font-size: 20px;
 }
 
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
+
 
 #candidateResultsBar{
    .g-candidateInfo{
@@ -93,3 +92,6 @@ $candidateResultsBar-container: '#candidateResultsBar';
     padding-top: 0;
   }
 }
+
+$resultCounty-container: '#resultsMap';
+@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
