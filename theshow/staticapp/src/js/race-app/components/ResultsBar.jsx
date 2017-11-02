@@ -52,6 +52,7 @@ class ResultsBar extends React.Component {
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
     const results = this.fetchData();
+    console.log(results);
 
     if (!results) {
       return
