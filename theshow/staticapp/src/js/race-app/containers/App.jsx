@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Actions from '../actions/';
 import TopResults from './TopResults';
+import SwingChart from './SwingChart';
+import CensusMaps from './CensusMaps';
+import ScatterPlots from './ScatterPlots';
 import orm from '../../common/models';
 
 const App = (props) => {
@@ -10,6 +13,18 @@ const App = (props) => {
   return (
     <div>
       <TopResults
+        session={orm.session(props.db.orm)}
+        actions={actions}
+      />
+      <SwingChart
+        session={orm.session(props.db.orm)}
+        actions={actions}
+      />
+      <ScatterPlots
+        session={orm.session(props.db.orm)}
+        actions={actions}
+      />
+      <CensusMaps
         session={orm.session(props.db.orm)}
         actions={actions}
       />

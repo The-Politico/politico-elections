@@ -1,15 +1,56 @@
 @import 'fonts/stateface';
+@import 'bootstrap';
 
-h3{
-  color:green;
-  font-size: 34px;
+@import 'breakpoints';
+@import 'mixins';
+@import 'colors/base';
+@import 'colors/diverging';
+@import 'colors/qualitative';
+@import 'colors/sequential';
+@import 'fonts';
+@import 'icons';
+
+@import 'elements';
+@import 'sections';
+@import 'card';
+@import 'key';
+@import 'refer';
+@import 'navigation';
+@import 'header';
+@import 'footer';
+@import 'photos';
+@import 'buttons';
+@import 'ads';
+@import 'comments';
+@import 'share';
+@import 'credits';
+@import 'graphics';
+
+
+.section{
+  margin-bottom: 4rem;
 }
 
-purple{
-  color: purple;
+.content-extra-large{
+  max-width: 1080px;
 }
-green{
-  color: green;
+
+.content-extra-extra-large{
+  max-width: 1280px;
+  @include margin-auto;
+}
+
+@media(max-width: 780px){
+
+  .top-results.section{
+    max-width: 100%;
+
+  }
+
+  .section{
+    max-width: 400px;
+    @include margin-auto;
+  }
 }
 
 
