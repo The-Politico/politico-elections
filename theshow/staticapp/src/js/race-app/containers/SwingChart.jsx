@@ -6,8 +6,10 @@ import React from 'react';
 const SwingChart = (props) => {
   return (
     <div className="swing-chart row-fluid content-large section">
-        <h2>Swing Chart</h2>
-        <p>Swing Chart module here</p>
+    <h2>County-by-county shifts</h2>
+    <p class="sans">
+      Also robo here, <strong>TK counties swung from Dem. to GOP.</strong>, while <strong>TK counties swung from GOP to Dem</strong>.
+    </p>
         <figure>
         <img src="http://via.placeholder.com/650x500?text=Swing+Chart"/>
         </figure>
