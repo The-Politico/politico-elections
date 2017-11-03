@@ -10,14 +10,14 @@
 <meta property="og:url" content="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
 <link rel="canonical" href="https://www.politico.com/election-results/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
 <!-- Project title -->
-<meta property="twitter:title" content="Live {{year}} {{race.office.name}} Election Results: !!!!Candidate!!!! vs. !!!!Candidate!!!! Election Results" />
+<meta property="twitter:title" content="Live {{year}} {{race.office.name}} Election Results: {{ dem_candidate.person.last_name }} vs. {{ gop_candidate.person.last_name }}" />
 <meta property="og:title" content="Live {{year}} {{race.office.name}} Election Results" />
 <!-- Project description -->
 <meta property="twitter:description" content="See results, maps and live coverage." />
 <meta property="og:description" content="See results, maps and live coverage." />
 <meta name="description" content="See results, maps and live coverage." />
 <!-- Keywords -->
-<meta property="og:keywords" content="Live {{year}} {{race.office.name}} Election Results, !!!!Candidate(s)!!!!,  Election Results, {{race.office.name}}, Live election results" />
+<meta property="og:keywords" content="Live {{year}} {{race.office.name}} Election Results, {{ dem_candidate }}, {{ gop_candidate}}, Election Results, {{race.office.name}}, Live election results" />
 {%endblock%}
 
 
@@ -32,7 +32,7 @@
     </div>
     <h3>LIVE {{year}} Election Results</h3>
     <h1>
-     {{race.office.name}}:  Candidate v. Candidate
+     {{race.office.name}}:  {{ dem_candidate.person.last_name }} v. {{ gop_candidate.person.last_name }}
     </h1>
     <!-- <div class="info">
         <p>

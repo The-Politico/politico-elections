@@ -89,6 +89,13 @@ class StateExecutiveRacePage(BaseView):
             slug=self.kwargs.get('office'),
             division=state
         )
+        race = office.races.get(
+            cycle__name=self.kwargs.get('date').split('-')[0]
+        )
+        election = race.elections.get(election_day=election_day)
+        dem_candidate = election.candidates.get(party__slug='Dem')
+        gop_candidate = election.candidates.get(party__slug='GOP')
+
         try:
             page_content = PageContent.get_office_content(
                 PageContent, office, election_day
@@ -97,10 +104,13 @@ class StateExecutiveRacePage(BaseView):
         except:
             page_content = None
             context['chatter'] = None
+
         context['election_day'] = election_day
         context['year'] = self.kwargs.get('year')
         context['office'] = office
         context['state'] = state
+        context['dem_candidate'] = dem_candidate
+        context['gop_candidate'] = gop_candidate
         return context
 
 
