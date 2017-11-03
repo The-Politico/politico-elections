@@ -65,6 +65,9 @@ $candidateResultsBar-container: '#candidateResultsBar';
 $resultCounty-container: '#resultsMap';
 @import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
 
+$countySwing-container: '#county-swing';
+@import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
+
 //Top Results div
 .bar{
   width: 40%;

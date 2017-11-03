@@ -1,20 +1,18 @@
 import React from 'react';
 
-// import ResultsBar from '../components/ResultsBar';
+import SwingChart from '../components/SwingChart';
 
 
-const SwingChart = (props) => {
+const SwingChartContainer = (props) => {
   return (
     <div className="swing-chart row-fluid content-large section">
     <h2>County-by-county shifts</h2>
     <p class="sans">
       Also robo here, <strong>TK counties swung from Dem. to GOP.</strong>, while <strong>TK counties swung from GOP to Dem</strong>.
     </p>
-        <figure>
-        <img src="http://via.placeholder.com/650x500?text=Swing+Chart"/>
-        </figure>
+    <SwingChart session={props.session} />
     </div>
   );
 };
 
-export default SwingChart;
+export default SwingChartContainer;

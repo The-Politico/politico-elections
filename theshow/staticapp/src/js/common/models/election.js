@@ -1,5 +1,5 @@
 import { fk, many, oneToOne, attr, Model } from 'redux-orm';
-import _ from 'lodash';
+import { assign } from 'lodash';
 
 class Election extends Model {
   /**
@@ -7,7 +7,7 @@ class Election extends Model {
    * @return {Object}   Status object.
    */
   serializeStatus() {
-    return _.assign(
+    return assign(
       {},
       this.apMeta.serialize(),
     );

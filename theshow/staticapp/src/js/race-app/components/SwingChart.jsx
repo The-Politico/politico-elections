@@ -1,11 +1,11 @@
 import React from 'react';
-import resultCounty from 'politico-module-elections-results-county-map';
+import countySwing from 'politico-module-elections-county-arrow-swing-chart';
 import { debounce } from 'lodash';
 
 // Initialize the chart
-const chart = resultCounty();
+const chart = countySwing();
 
-class ResultsMap extends React.Component {
+class ResultsBar extends React.Component {
   /**
    * constructor lets us bind custom methods to our component class.
    */
@@ -51,28 +51,35 @@ class ResultsMap extends React.Component {
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
-    const db = this.props.session;
     const results = this.fetchData();
 
-    if (!results) return;
+    if (!results || Object.keys(results.divisions).length < 1) {
+      return
+    };
 
-    const state = db.Division
-      .filter(d => d.level === 'state')
-      .first();
-
-    if (!state.topojson) return;
-
-    chart.create('#resultsMap', state.topojson, results, {});
+    chart.create('#county-swing', results, 'https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/virginia/data.json', 
+    {
+      range: ['#114ca1', '#dc2700'],
+      legendHeight: 0,
+      legendPadding: 6,
+      linePadding: 3,
+      margin: {
+        top: 20,
+        right: 25,
+        bottom: 30,
+        left: 25,
+      },
+    });
   }
 
   // START HERE
   render() {
     return (
-      <div className="results-map">
-        <div id="resultsMap" />
+      <div className="results-bar">
+        <div id="county-swing" />
       </div>
     );
   }
 }
 
-export default ResultsMap;
+export default ResultsBar;

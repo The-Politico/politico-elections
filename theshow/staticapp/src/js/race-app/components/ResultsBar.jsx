@@ -1,6 +1,6 @@
 import React from 'react';
 import CandidateResultsBar from 'candidate-results-bar';
-import _ from 'lodash';
+import { debounce } from 'lodash';
 
 // Initialize the chart
 const chart = CandidateResultsBar();
@@ -21,7 +21,7 @@ class ResultsBar extends React.Component {
     this.drawChart();
 
     // Attach a resize func here!
-    window.onresize = _.debounce(() => {
+    window.onresize = debounce(() => {
       chart.resize();
     }, 400);
   }
