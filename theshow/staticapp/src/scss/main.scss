@@ -102,6 +102,9 @@ $demographicPlot-container: '.plot';
 .top-results.section{
   padding: 0 15px;
   margin-top: 2rem;
+  @media(max-width: 768px){
+    margin-top: .5rem;
+  }
 
   .bar{
     width: 40%;
@@ -111,7 +114,8 @@ $demographicPlot-container: '.plot';
         width: 45%;
       }
       @media(max-width: 600px){
-        width: 100%;
+        width: 80%;
+        margin: 0 0 0 10%;
       }
   }
   .map{
@@ -187,6 +191,10 @@ $demographicPlot-container: '.plot';
     font-size: 14px;
     margin: 0;
     display: block;
+    @media(max-width: 768px){
+      margin: 0 auto;
+      text-align: center;
+    }
   }
 
   p.new-results{
