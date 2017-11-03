@@ -9,24 +9,28 @@ const ScatterPlots = (props) => {
       data_key: 'white_alone',
       trendX: 'minority',
       title: 'Minority (nonwhite)',
+      accessor: d => ((d.total - d.white_alone) / d.total),
     },
     {
       variable: 'B15003',
       data_key: 'college_educated',
       trendX: 'educated',
       title: 'Education',
+      accessor: d => d.college_educated / d.total,
     },
     {
       variable: 'B19001',
       data_key: 'middle_class',
       trendX: 'middle class',
       title: 'Middle class',
+      accessor: d => d.middle_class / d.total,
     },
     {
       variable: 'B17020',
       data_key: 'impoverished',
       trendX: 'impoverished',
-      title: 'Below the poverty line'
+      title: 'Below the poverty line',
+      accessor: d => d.impoverished / d.total,
     },
   ];
   return (
@@ -44,6 +48,7 @@ const ScatterPlots = (props) => {
             key={index}
             variable={obj.variable}
             trendX={obj.trendX}
+            accessor={obj.accessor}
           />
         </div>)
       })}

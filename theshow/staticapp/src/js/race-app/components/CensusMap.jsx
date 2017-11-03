@@ -1,17 +1,17 @@
 import React from 'react';
-import demographicPlot from 'politico-module-elections-demographic-vote-trend-scatterplots';
+import usDemographic from 'politico-module-elections-demographic-county-map';
 import { debounce } from 'lodash';
+import * as d3 from 'd3';
 
-class ScatterPlot extends React.Component {
+class CensusMap extends React.Component {
   /**
    * constructor lets us bind custom methods to our component class.
    */
   constructor(props) {
-    const chart = demographicPlot();
+    const chart = usDemographic();
     super(props);
     // Bind our custom methods (using ES7 bind syntax "::").
     this.drawChart = ::this.drawChart;
-    this.fetchData = ::this.fetchData;
     this.chart = chart;
   }
 
@@ -31,45 +31,27 @@ class ScatterPlot extends React.Component {
     this.drawChart();
   }
 
-  // Gets data from our client database
-  fetchData() {
-    const db = this.props.session;
-
-    const election = db.Election.first();
-    if (!election) return null;
-
-    const counties = db.Division
-      .filter(d =>
-        d.level === 'county' &&
-        d.code.substr(0,2) === window.appConfig.stateFips
-      ).toModelArray();
-
-    return election.serializeResults(counties);
-  }
-
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
-    const results = this.fetchData();
+    const db = this.props.session;
 
-    if (!results || Object.keys(results.divisions).length < 1) {
-      return
-    };
+    const state = db.Division
+      .filter(d => d.level === 'state')
+      .first();
+
+    if (!state || !state.topojson) return;
 
     this.chart.create(
-      `#scatterplot-${this.props.data_key}`, 
-      results, 
+      `#demographic-map-${this.props.data_key}`,
+      state.topojson,
       `https://www.politico.com/interactives/elections/data/us-census/acs5/2015/${window.appConfig.stateFips}/${this.props.variable}.json`,
       {
-        dataKeys: {
-          y: 'Percent',
-          x: 'MarginOfError',
-          n: 'GeographicArea',
-          geoid: 'TargetGeoId2'
-        },
-        trendX: this.props.trendX,
+        range: ['#f7e9c9', '#f3ddac', '#edcd83', '#e7bc5a', '#c8951e'],
+        projection: d3.geoMercator,
+        scaleType: d3.scaleThreshold,
+        noData: '#e2e2e2',
         censusAccessor: this.props.accessor,
-        footnote: '',
       }
     );
   }
@@ -77,11 +59,11 @@ class ScatterPlot extends React.Component {
   // START HERE
   render() {
     return (
-      <div className="scatterplot-wrapper">
-        <div className="plot" id={`scatterplot-${this.props.data_key}`} />
+      <div className="demograhic-map-wrapper">
+        <div className="demographic-map" id={`demographic-map-${this.props.data_key}`} />
       </div>
     );
   }
 }
 
-export default ScatterPlot;
+export default CensusMap;

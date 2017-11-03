@@ -41,6 +41,7 @@
     "open": "^0.0.5",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "politico-module-elections-county-arrow-swing-chart": "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart",
+    "politico-module-elections-demographic-county-map": "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map",
     "politico-module-elections-demographic-vote-trend-scatterplots": "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots",
     "politico-module-elections-results-county-map": "git+ssh://git@github.com:The-Politico/module_elections-results-county-map",
     "postcss-loader": "^2.0.8",
