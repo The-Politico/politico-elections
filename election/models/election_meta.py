@@ -208,6 +208,16 @@ class Election(UIDBase):
 
         return [ce.candidate for ce in candidate_elections]
 
+    def get_candidates_by_party(self):
+        candidate_elections = CandidateElection.objects.filter(
+            election=self
+        )
+
+        return {
+            ce.candidate.party.slug: ce.candidate for ce
+            in candidate_elections
+        }
+
     def get_candidate_election(self, candidate):
         return CandidateElection.objects.get(
             candidate=candidate,
