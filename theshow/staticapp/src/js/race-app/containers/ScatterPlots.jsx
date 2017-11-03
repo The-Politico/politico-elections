@@ -11,25 +11,25 @@ const ScatterPlots = (props) => {
       We probably want some chatter to help orient you to these charts. Robo text saying, <strong>nonwhite voters skewed TK</strong>, voters with <strong>high levels of education tk</strong>.
     </p>
 
-      <div className="bar col-sm-3">
+      <div className="col-sm-3">
         <h3>Education</h3>
         <figure>
           <img src="http://via.placeholder.com/300x300?text=Scatter"/>
         </figure>
       </div>
-      <div className="bar col-sm-3">
+      <div className="col-sm-3">
           <h3>Minority (nonwhite)</h3>
           <figure>
             <img src="http://via.placeholder.com/300x300?text=Scatter"/>
           </figure>
       </div>
-      <div className="bar col-sm-3">
+      <div className="col-sm-3">
           <h3>Below the poverty line</h3>
           <figure>
             <img src="http://via.placeholder.com/300x300?text=Scatter"/>
           </figure>
       </div>
-      <div className="bar col-sm-3">
+      <div className="col-sm-3">
           <h3>Middle class</h3>
           <figure>
             <img src="http://via.placeholder.com/300x300?text=Scatter"/>

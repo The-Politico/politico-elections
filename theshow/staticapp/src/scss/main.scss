@@ -26,7 +26,8 @@
 @import 'graphics';
 
 $light-load: #FFEFB5;
-$dark-load: #fce490;
+$checking-load: #fce490;
+$new-restults-load: #629359;
 
 
 .section{
@@ -34,7 +35,7 @@ $dark-load: #fce490;
 }
 
 .content-extra-large{
-  max-width: 1080px;
+  max-width: 980px;
 }
 
 .content-extra-extra-large{
@@ -43,10 +44,8 @@ $dark-load: #fce490;
 }
 
 @media(max-width: 780px){
-
   .top-results.section{
     max-width: 100%;
-
   }
 
   .section{
@@ -55,9 +54,17 @@ $dark-load: #fce490;
   }
 }
 
-header h3{
-  font-family: $tablet;
+header {
+  h3{
+  font-family: $franklin;
+  font-size: 16px;
+  }
+  span.red{
+  color: $politico-red;
+  font-weight: 700;
+  }
 }
+
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
@@ -69,29 +76,34 @@ $countySwing-container: '#county-swing';
 @import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
 
 //Top Results div
-.bar{
-  width: 40%;
-  float:left;
+.top-results.section{
+  padding: 0 15px;
+  margin-top: 2rem;
 
-    @media(max-width: 960px){
-      width: 45%;
-    }
-    @media(max-width: 600px){
-      width: 100%;
-    }
-}
-.map{
-  width: 60%;
-  float:left;
-    @media(max-width: 600px){
-      width: 50%;
-      margin: 0 auto;
-    }
-    @media(max-width: 600px){
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px;
-    }
+  .bar{
+    width: 40%;
+    float:left;
+
+      @media(max-width: 960px){
+        width: 45%;
+      }
+      @media(max-width: 600px){
+        width: 100%;
+      }
+  }
+  .map{
+    width: 60%;
+    float:left;
+      @media(max-width: 600px){
+        width: 50%;
+        margin: 0 auto;
+      }
+      @media(max-width: 600px){
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+  }
 }
 
 
@@ -145,16 +157,17 @@ $countySwing-container: '#county-swing';
 .loading-bar{
   p{
     font-family: $franklin;
-    width: 158px;
-    height: 30px;
+    width: 170px;
+    height: 32px;
     padding: 5px 10px;
     background-color: $light-load;
-    font-size: 13px;
+    font-size: 14px;
     margin: 0;
+    display: block;
   }
 
   p.new-results{
-      background-color: $dark-load;
-      font-weight: 700;
+      background-color: $new-restults-load;
+      color: $white;
   }
 }
