@@ -1535,7 +1535,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#a4bc0460a0ff377186009b4758c12af3ecdfaafa"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#029ed90820c289e56eb6e53f9bad58a9b3f0f176"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -1582,12 +1582,12 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000757"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000757.tgz#fa23a383213d857f4a1e6a3bee17b32668504cbf"
+  version "1.0.30000758"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000758.tgz#a235627b1922e878b63164942c991b84de92c810"
 
 caniuse-lite@^1.0.30000748, caniuse-lite@^1.0.30000757:
-  version "1.0.30000757"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000757.tgz#81e3bc029728a032933501994ef79db1c21159e3"
+  version "1.0.30000758"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000758.tgz#e261140076651049cf6891ed4bc649b5c8c26c69"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1930,8 +1930,8 @@ cryptiles@3.x.x:
     boom "5.x.x"
 
 crypto-browserify@^3.11.0:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-3.11.1.tgz#948945efc6757a400d6e5e5af47194d10064279f"
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-3.12.0.tgz#396cf9f3137f03e4b8e532c58f698254e00f80ec"
   dependencies:
     browserify-cipher "^1.0.0"
     browserify-sign "^4.0.0"
@@ -1943,6 +1943,7 @@ crypto-browserify@^3.11.0:
     pbkdf2 "^3.0.3"
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
+    randomfill "^1.0.3"
 
 css-color-names@0.0.4:
   version "0.0.4"
@@ -2336,6 +2337,10 @@ date-now@^0.1.4:
 dateformat@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
+
+dateline@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/dateline/-/dateline-2.1.0.tgz#f49220fc53cd779de378bbc1a6005a4a6f2d9a40"
 
 debug@2.6.9, debug@^2.2.0, debug@^2.6.8:
   version "2.6.9"
@@ -3370,8 +3375,8 @@ global-prefix@^0.1.4:
     which "^1.2.12"
 
 globals@^10.0.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-10.2.0.tgz#69490789091fcaa7f7d512c668c8eb73894a4ef2"
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-10.3.0.tgz#716aba93657b56630b5a0e77de5ea8ac6215afaa"
 
 globals@^9.17.0, globals@^9.18.0:
   version "9.18.0"
@@ -5123,7 +5128,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#a85bafbfbed59fb9f9c77e076cf391714053d88d"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#612b7bc9df3fd0029a9b59c4359f128a32a2566c"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5169,7 +5174,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-county-map@git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#eafd3279cd2f4ded164b71fa6eb51b7a98a8229f"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#e6bf84b1d972db79e1e78904c3610db865f090a0"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5216,7 +5221,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-vote-trend-scatterplots@git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#c48c0f7804698eb275ab902394161e4dfba807de"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#505efd031270a3c335a57453abc4b78f3eff1d85"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5739,10 +5744,17 @@ randomatic@^1.1.3:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-randombytes@^2.0.0, randombytes@^2.0.1:
+randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.5.tgz#dc009a246b8d09a177b4b7a0ae77bc570f4b1b79"
   dependencies:
+    safe-buffer "^5.1.0"
+
+randomfill@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/randomfill/-/randomfill-1.0.3.tgz#b96b7df587f01dd91726c418f30553b1418e3d62"
+  dependencies:
+    randombytes "^2.0.5"
     safe-buffer "^5.1.0"
 
 range-parser@^1.0.3, range-parser@~1.2.0:
