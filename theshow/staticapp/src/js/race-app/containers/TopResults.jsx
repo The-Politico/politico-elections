@@ -8,7 +8,10 @@ const TopResults = (props) => {
     <div className="top-results row-fluid section">
     <div class="content-extra-large">
         <div className="loading-bar">
-          <p>Checking for results bar</p>
+          <p>Checking for new results</p>
+        </div>
+        <div className="loading-bar new-results">
+          <p class="new-results">New Results are in!</p>
         </div>
         <div className="bar">
           <ResultsBar session={props.session} />
