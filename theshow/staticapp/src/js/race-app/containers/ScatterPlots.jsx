@@ -6,9 +6,9 @@ import React from 'react';
 const ScatterPlots = (props) => {
   return (
     <div className="scatter-plots row-fluid section content-extra-extra-large">
-    <h2>How these groups voted</h2>
+    <h2>Where did different voting blocks land? </h2>
     <p class="sans">
-      We probably want some chatter to help orient you to these charts. Robo text saying, <strong>nonwhite voters skewed TK</strong>, voters with <strong>high levels of education tk</strong>.
+      <strong>Each dot respresents a county.</strong> The further left the dot the more Democratic the county voted, the futher right, the more Republican. The closer to the top of the chart the more the county identifies with the census group. The top line shows how strong of a predictor TK.
     </p>
 
       <div className="col-sm-3">
