@@ -80,7 +80,7 @@ class ResultsBar extends React.Component {
   render() {
     return (
       <div className="scatterplot-wrapper">
-        <div className="scatterplot" id={`scatterplot-${this.props.data_key}`} />
+        <div className="plot" id={`scatterplot-${this.props.data_key}`} />
       </div>
     );
   }

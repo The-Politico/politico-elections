@@ -76,7 +76,7 @@ $countySwing-container: '#county-swing';
 @import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
 
 
-$demographicPlot-container: '.scatterplot';
+$demographicPlot-container: '.plot';
 @import '../../node_modules/politico-module-elections-demographic-vote-trend-scatterplots/src/scss/_chart-styles';
 
 //Top Results div
@@ -174,4 +174,10 @@ $demographicPlot-container: '.scatterplot';
       background-color: $new-restults-load;
       color: $white;
   }
+}
+
+.scatterplot-wrapper {
+  position: relative;
+  max-width: 290px;
+  margin: 0 auto;
 }
