@@ -98,6 +98,10 @@ $countySwing-container: '#county-swing';
 $demographicPlot-container: '.plot';
 @import '../../node_modules/politico-module-elections-demographic-vote-trend-scatterplots/src/scss/_chart-styles';
 
+$usDemographic-container: '.demographic-map';
+
+@import '../../node_modules/politico-module-elections-demographic-county-map/src/scss/_chart-styles';
+
 //Top Results div
 .top-results.section{
   padding: 0 15px;

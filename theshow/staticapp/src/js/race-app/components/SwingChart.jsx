@@ -21,9 +21,9 @@ class ResultsBar extends React.Component {
     this.drawChart();
 
     // Attach a resize func here!
-    window.onresize = debounce(() => {
+    window.addEventListener('resize', debounce(() => {
       chart.resize();
-    }, 400);
+    }, 400));
   }
 
   // Called every time our component's props update,
