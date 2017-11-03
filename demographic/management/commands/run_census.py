@@ -151,6 +151,7 @@ class Command(BaseCommand):
                 year = estimate.variable.table.year
                 table = estimate.variable.table.code
                 label = estimate.variable.label.label
+                table_label = '{}{}'.format(table, label)
                 code = estimate.variable.code
                 if series not in data:
                     data[series] = {}
@@ -161,8 +162,8 @@ class Command(BaseCommand):
                 if fips not in data[series][year][table]:
                     data[series][year][table][fips] = {}
                 if label is not None:
-                    if label not in aggregated_labels:
-                        aggregated_labels.append(label)
+                    if table_label not in aggregated_labels:
+                        aggregated_labels.append(table_label)
                         data[series][year][table][fips][label] \
                             = self.aggregate_variable(estimate, fips)
                 else:

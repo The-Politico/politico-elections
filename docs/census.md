@@ -36,10 +36,18 @@ export AWS_SECRET_ACCESS_KEY="<YOUR SECRET ACCESS KEY>"
 6. You can find your new data at a URL specified with this pattern:
 
   ```
-  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/{series code}/{table year}/{state fips}/{table code}.json
+  https://www.politico.com/interactives/elections/data/us-census/{series code}/{table year}/{state fips}/{table code}.json
   ```
 
   For example:
   ```
-  https://dy1ht16ivl5br.cloudfront.net/elections/data/us-census/acs5/2015/34/B03002.json
+  https://www.politico.com/interactives/elections/data/us-census/acs5/2015/34/B03002.json
   ```
+
+
+### Current tables used in modules
+
+- `B03002` - Hispanic or Latino Origin by Race
+- `B19001` - Household Income in the Past 12 months
+- `B17020` - Poverty Status in the Past 12 Months By Age
+- `B15003` - Education Attainment for the Population 25 years and Over
