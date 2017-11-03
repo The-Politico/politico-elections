@@ -1535,7 +1535,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#a9b431b49aa37fa3f293be89661378b023176bc4"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#a4bc0460a0ff377186009b4758c12af3ecdfaafa"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5169,7 +5169,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-county-map@git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#bdba7f36b80acf66c8dd3d3a398765db39af7142"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#eafd3279cd2f4ded164b71fa6eb51b7a98a8229f"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5216,7 +5216,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-vote-trend-scatterplots@git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#1ada2f48aeed3a900710105449be4ccf64f9ed68"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#c48c0f7804698eb275ab902394161e4dfba807de"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5263,7 +5263,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-results-county-map@git+ssh://git@github.com:The-Politico/module_elections-results-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#5f96a2d864ba350ef2f9f27d91bc50d8c6d02e7d"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#e8e9bbb26f93d8e9c1ac67785ff91a388bcc1e42"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
