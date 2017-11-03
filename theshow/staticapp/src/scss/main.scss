@@ -25,13 +25,16 @@
 @import 'credits';
 @import 'graphics';
 
+$light-load: #FFEFB5;
+$dark-load: #FFE897;
+
 
 .section{
   margin-bottom: 4rem;
 }
 
 .content-extra-large{
-  max-width: 1160px;
+  max-width: 1000px;
 }
 
 .content-extra-extra-large{
@@ -56,14 +59,15 @@ header h3{
   font-family: $tablet;
 }
 
-
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
 
+$resultCounty-container: '#resultsMap';
+@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
 
-//Top Results
+//Top Results div
 .bar{
-  width: 30%;
+  width: 40%;
   float:left;
 
     @media(max-width: 960px){
@@ -74,7 +78,7 @@ $candidateResultsBar-container: '#candidateResultsBar';
     }
 }
 .map{
-  width: 70%;
+  width: 60%;
   float:left;
     @media(max-width: 600px){
       width: 50%;
@@ -88,8 +92,6 @@ $candidateResultsBar-container: '#candidateResultsBar';
 }
 
 
-
-
 // Results bar
 #candidateResultsBar{
    .g-candidateInfo{
@@ -100,17 +102,21 @@ $candidateResultsBar-container: '#candidateResultsBar';
      height: 20px;
    }
 
-   .g-mugshot .g-candidate-photo {
+   .g-mugshot{
+     margin: 30px 0 10px 0;
+
+    .g-candidate-photo {
     max-width: 70px;
     border-radius: 5px;
-  }
+    }
 
-  .g-mugshot .g-candidate-name{
+    .g-candidate-name{
     font-size: 22px;
-  }
+    }
 
-  .g-mugshot .g-candidate-party{
+    .g-candidate-party{
     font-size: 16px;
+    }
   }
 
   .g-candidate-party{
@@ -132,5 +138,14 @@ $candidateResultsBar-container: '#candidateResultsBar';
   }
 }
 
-$resultCounty-container: '#resultsMap';
-@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
+//Loading Results bar
+.loading-bar{
+  p{
+    font-family: $franklin;
+    max-width: 300px;
+    padding: 10px 20px;
+    background-color: $light-load;
+    font-size: 14px;
+
+  }
+}
