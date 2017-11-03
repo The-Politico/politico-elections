@@ -6,6 +6,9 @@ import ResultsMap from '../components/ResultsMap';
 const TopResults = (props) => {
   return (
     <div className="top-results row-fluid content-extra-large section">
+      <div className="loading-bar">
+        <p>Checking for results bar</p>
+      </div>
       <div className="bar">
         <ResultsBar session={props.session} />
       </div>
