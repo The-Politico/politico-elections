@@ -8,8 +8,11 @@ const TopResults = (props) => {
     <div className="top-results row-fluid section">
     <div class="content-extra-large">
         <div className="loading-bar">
-          <p>Checking for results bar</p>
+          <p>Checking for new results</p>
         </div>
+      {/*<div className="loading-bar new-results">
+          <p class="new-results"> We found new results!</p>
+      </div>*/}
         <div className="bar">
           <ResultsBar session={props.session} />
         </div>
@@ -18,11 +21,6 @@ const TopResults = (props) => {
         </div>
         <div class="clear"></div>
     </div>
-      <div class="content-group ad">
-          <p>Advertisement</p>
-          <div class="ad-slot flex horizontal" id="pol-06" ></div>
-      </div>
-
     </div>
   );
 };

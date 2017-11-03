@@ -26,7 +26,8 @@
 @import 'graphics';
 
 $light-load: #FFEFB5;
-$dark-load: #FFE897;
+$checking-load: #fce490;
+$new-restults-load: #629359;
 
 
 .section{
@@ -34,7 +35,7 @@ $dark-load: #FFE897;
 }
 
 .content-extra-large{
-  max-width: 1000px;
+  max-width: 980px;
 }
 
 .content-extra-extra-large{
@@ -43,10 +44,8 @@ $dark-load: #FFE897;
 }
 
 @media(max-width: 780px){
-
   .top-results.section{
     max-width: 100%;
-
   }
 
   .section{
@@ -55,9 +54,17 @@ $dark-load: #FFE897;
   }
 }
 
-header h3{
-  font-family: $tablet;
+header {
+  h3{
+  font-family: $franklin;
+  font-size: 16px;
+  }
+  span.red{
+  color: $politico-red;
+  font-weight: 700;
+  }
 }
+
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
@@ -73,29 +80,34 @@ $demographicPlot-container: '.scatterplot';
 @import '../../node_modules/politico-module-elections-demographic-vote-trend-scatterplots/src/scss/_chart-styles';
 
 //Top Results div
-.bar{
-  width: 40%;
-  float:left;
+.top-results.section{
+  padding: 0 15px;
+  margin-top: 2rem;
 
-    @media(max-width: 960px){
-      width: 45%;
-    }
-    @media(max-width: 600px){
-      width: 100%;
-    }
-}
-.map{
-  width: 60%;
-  float:left;
-    @media(max-width: 600px){
-      width: 50%;
-      margin: 0 auto;
-    }
-    @media(max-width: 600px){
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px;
-    }
+  .bar{
+    width: 40%;
+    float:left;
+
+      @media(max-width: 960px){
+        width: 45%;
+      }
+      @media(max-width: 600px){
+        width: 100%;
+      }
+  }
+  .map{
+    width: 60%;
+    float:left;
+      @media(max-width: 600px){
+        width: 50%;
+        margin: 0 auto;
+      }
+      @media(max-width: 600px){
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+  }
 }
 
 
@@ -110,7 +122,7 @@ $demographicPlot-container: '.scatterplot';
    }
 
    .g-mugshot{
-     margin: 30px 0 10px 0;
+     margin: 30px 20px 10px 0;
 
     .g-candidate-photo {
     max-width: 70px;
@@ -149,10 +161,17 @@ $demographicPlot-container: '.scatterplot';
 .loading-bar{
   p{
     font-family: $franklin;
-    max-width: 300px;
-    padding: 10px 20px;
+    width: 170px;
+    height: 32px;
+    padding: 5px 10px;
     background-color: $light-load;
     font-size: 14px;
+    margin: 0;
+    display: block;
+  }
 
+  p.new-results{
+      background-color: $new-restults-load;
+      color: $white;
   }
 }

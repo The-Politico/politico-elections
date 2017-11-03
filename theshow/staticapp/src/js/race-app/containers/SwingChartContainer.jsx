@@ -5,12 +5,18 @@ import SwingChart from '../components/SwingChart';
 
 const SwingChartContainer = (props) => {
   return (
-    <div className="swing-chart row-fluid content-large section">
-    <h2>County-by-county shifts</h2>
-    <p class="sans">
-      Also robo here, <strong>TK counties swung from Dem. to GOP.</strong>, while <strong>TK counties swung from GOP to Dem</strong>.
-    </p>
-    <SwingChart session={props.session} />
+    <div className="swing-chart row-fluid section">
+    <div class="content-large">
+      <h2>How did voters shift from 2016?</h2>
+      <p class="sans">
+      Placeholder text from Jon - that talks about what the blue and red lines mean - doubling down that this a shift.
+      </p>
+      <SwingChart session={props.session} />
+    </div>
+    <div class="content-group ad">
+        <p>Advertisement</p>
+        <div class="ad-slot flex horizontal" id="pol-06" ></div>
+    </div>
     </div>
   );
 };

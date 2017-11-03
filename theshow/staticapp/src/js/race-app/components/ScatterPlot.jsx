@@ -21,7 +21,7 @@ class ResultsBar extends React.Component {
 
     // Attach a resize func here!
     window.onresize = debounce(() => {
-      chart.resize();
+      this.chart.resize();
     }, 400);
   }
 
@@ -56,7 +56,7 @@ class ResultsBar extends React.Component {
       return
     };
 
-    console.log()
+    console.log(this.props)
 
     this.chart.create(
       `#scatterplot-${this.props.data_key}`, 
@@ -69,9 +69,9 @@ class ResultsBar extends React.Component {
           n: 'GeographicArea',
           geoid: 'TargetGeoId2'
         },
-        trendX: this.props.data_key,
-        censusAccessor: (d) => d.total - d[this.props.data_key],
-        footnote: '*Note: Jeremy is hungry'
+        trendX: this.props.trendX,
+        censusAccessor: (d) => d[this.props.data_key] / d.total,
+        footnote: '',
       }
     );
   }
