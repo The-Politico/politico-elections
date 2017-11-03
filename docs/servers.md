@@ -1,4 +1,6 @@
-## Bootstrapping a server
+![POLITICO](https://rawgithub.com/The-Politico/src/master/images/logo/badge.png)
+
+# Bootstrapping a server
 
 To bootstrap a new server, log into the AWS console and create a new EC2 server using the AMI for elections.
 
@@ -39,7 +41,7 @@ Check your site and see if it works! If you get an nginx error or it hangs, star
 
 ### Updating the server
 
-To update the server with changes in the repo, first ensure that all of your changes are pushed to Github. Then, run `fab staging master deploy_server`. 
+To update the server with changes in the repo, first ensure that all of your changes are pushed to Github. Then, run `fab staging master deploy_server`.
 
 ### Running commands on the server
 

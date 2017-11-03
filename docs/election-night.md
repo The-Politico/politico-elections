@@ -1,3 +1,5 @@
+![POLITICO](https://rawgithub.com/The-Politico/src/master/images/logo/badge.png)
+
 # Running results on an election night
 
 You can run our results deployment for an election night on either your local computer or on a server. This will walk through both.
@@ -36,7 +38,7 @@ export AP_API_KEY="YOURAPIKEYHERE"
 
 Also, make sure you are connected to the production database as demonstrated above and you have bootstrapped the current election date to the production database.
 
-Then, run `python manage.py prepare_races <election-date (YYYY-MM-DD)>`. You should see files created in `output/elections` after this. 
+Then, run `python manage.py prepare_races <election-date (YYYY-MM-DD)>`. You should see files created in `output/elections` after this.
 
 Once you have those files, you can run `fab production daemons.deploy`. This will begin deploying live results every 10 seconds to S3.
 

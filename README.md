@@ -53,4 +53,6 @@ See the `docs` directory in this repo for more documentation.
 - [Bootstrapping servers](docs/servers.md)
 - [Baking geographic data](docs/geography.md)
 - [Baking census data](docs/census.md)
+- [Frontend graphics modules](docs/graphics-modules.md)
 - [Color palette information](docs/colors.md)
+- [The models](docs/models.md)
