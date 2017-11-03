@@ -31,7 +31,7 @@
 }
 
 .content-extra-large{
-  max-width: 1080px;
+  max-width: 1200px;
 }
 
 .content-extra-extra-large{
@@ -61,13 +61,47 @@ $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
 
 
+//Top Results
+.bar{
+  width: 30%;
+  float:left;
+
+    @media(max-width: 960px){
+      width: 45%;
+    }
+    @media(max-width: 600px){
+      width: 100%;
+    }
+}
+.map{
+  width: 70%;
+  float:left;
+    @media(max-width: 600px){
+      width: 50%;
+      margin: 0 auto;
+    }
+    @media(max-width: 600px){
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+}
+
+
+
+
+// Results bar
 #candidateResultsBar{
    .g-candidateInfo{
      vertical-align: top;
    }
 
+   .g-bar{
+     height: 20px;
+   }
+
    .g-mugshot .g-candidate-photo {
-    max-width: 90px;
+    max-width: 70px;
     border-radius: 5px;
   }
 
@@ -75,12 +109,16 @@ $candidateResultsBar-container: '#candidateResultsBar';
     font-size: 22px;
   }
 
+  .g-mugshot .g-candidate-party{
+    font-size: 16px;
+  }
+
   .g-candidate-party{
     padding: 2px 9px;
   }
 
   .g-vote-pct {
-    font-size: 62px;
+    font-size: 45px;
     line-height: 1;
     text-align: left;
   }
@@ -90,6 +128,7 @@ $candidateResultsBar-container: '#candidateResultsBar';
   }
   .g-winner-announced:before{
     padding-top: 0;
+    font-size: 14px;
   }
 }
 
