@@ -176,20 +176,20 @@ $usDemographic-container: '.demographic-map';
 }
 
 .scatter-plots .col-sm-3{
-  @media(min-width: 1280px){
+  @media(min-width: 1100px){
     width: 25%;
   }
-  @media (min-width: 1279px){
+  @media (min-width: 1099px){
     width: 50%;
   }
+  // @media (min-width: 1279px){
+  //   width: 50%;
+  // }
 }
 
-// .scatter-plots.content-extra-extra-large{
-//   @media(min-width: 1280px){
-//     max-width: 1280px;
-//   }
-//   @media(min-width: 1280px) and (max-width: 1279px){
-//       width: 600px;
-//       margin: 0 auto;
-//   }
-// }
+.scatter-plots.content-extra-extra-large{
+  @media (min-width: 1099px){
+    max-width: 675px;
+  }
+
+}

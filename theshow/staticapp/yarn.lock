@@ -1535,7 +1535,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#26e5ed9f356901d721c950384545071134b17fa6"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#97bc19ea87cc6702bc4e0c37af2e069ee20fd493"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
