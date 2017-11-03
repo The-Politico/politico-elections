@@ -175,21 +175,21 @@ $usDemographic-container: '.demographic-map';
   margin: 0 auto;
 }
 
-.scatter-plots.col-sm-3{
-  @media(min-width: 1200px){
+.scatter-plots .col-sm-3{
+  @media(min-width: 1280px){
     width: 25%;
   }
-  @media(min-width: 20px){
+  @media (min-width: 1279px){
     width: 50%;
   }
 }
 
-.scatter-plots.content-extra-extra-large{
-  @media(min-width: 1200px){
-    width: 1280px;
-  }
-  @media(min-width: 20px){
-      width: 600px;
-      margin: 0 auto;
-  }
-}
+// .scatter-plots.content-extra-extra-large{
+//   @media(min-width: 1280px){
+//     max-width: 1280px;
+//   }
+//   @media(min-width: 1280px) and (max-width: 1279px){
+//       width: 600px;
+//       margin: 0 auto;
+//   }
+// }
