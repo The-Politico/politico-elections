@@ -1,4 +1,4 @@
-### Colors
+# Colors
 
 Always use class names to target data-driven colors.
 

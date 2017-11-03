@@ -46,7 +46,7 @@ Once the race is over and AP has finished tabulating results, you can run `pytho
 
 ## Server
 
-Assuming we have a production server stood up (if not, consult the [server docs](./server.md)), then you can run some Fabric commands to achieve the same as above (NOTE: TYLER NEEDS TO WRITE THESE FABRIC COMMANDS).
+Assuming we have a production server stood up (if not, consult the [server docs](./servers.md)), then you can run some Fabric commands to achieve the same as above (NOTE: TYLER NEEDS TO WRITE THESE FABRIC COMMANDS).
 
 Make sure that, in `server_config.py`, `CURRENT_ELECTION` is set to the election you want to operate on for the `production` deployment target.
 
