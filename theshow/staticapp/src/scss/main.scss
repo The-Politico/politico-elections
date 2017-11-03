@@ -94,6 +94,10 @@ $resultCounty-container: '#resultsMap';
 $countySwing-container: '#county-swing';
 @import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
 
+
+$demographicPlot-container: '.scatterplot';
+@import '../../node_modules/politico-module-elections-demographic-vote-trend-scatterplots/src/scss/_chart-styles';
+
 //Top Results div
 .top-results.section{
   padding: 0 15px;
