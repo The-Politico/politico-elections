@@ -89,12 +89,15 @@ class StateExecutiveRacePage(BaseView):
             slug=self.kwargs.get('office'),
             division=state
         )
-        race = office.races.get(
-            cycle__name=self.kwargs.get('date').split('-')[0]
-        )
+        race = office.races.get(cycle=election_day.cycle)
         election = race.elections.get(election_day=election_day)
-        dem_candidate = election.candidates.get(party__slug='Dem')
-        gop_candidate = election.candidates.get(party__slug='GOP')
+        candidates = election.get_candidates_by_party()
+        context['election_day'] = election_day
+        context['election'] = election
+        context['candidates'] = candidates
+        context['year'] = self.kwargs.get('year')
+        context['office'] = office
+        context['state'] = state
 
         try:
             page_content = PageContent.get_office_content(
@@ -105,12 +108,6 @@ class StateExecutiveRacePage(BaseView):
             page_content = None
             context['chatter'] = None
 
-        context['election_day'] = election_day
-        context['year'] = self.kwargs.get('year')
-        context['office'] = office
-        context['state'] = state
-        context['dem_candidate'] = dem_candidate
-        context['gop_candidate'] = gop_candidate
         return context
 
 
