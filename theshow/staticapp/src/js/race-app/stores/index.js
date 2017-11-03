@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import _ from 'lodash';
+import { assign } from 'lodash';
 import reducers from '../reducers/';
 import actions from '../actions/';
 
@@ -25,7 +25,7 @@ const chatter = document.querySelector('.chatter').textContent;
 store.dispatch(actions.storeChatter(chatter));
 
 store.subscribe(() => {
-  window.store = _.assign({}, store.getState());
+  window.store = assign({}, store.getState());
 });
 
 export default store;

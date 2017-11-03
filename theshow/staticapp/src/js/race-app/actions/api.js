@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 import * as ormActions from './orm';
 
 const headers = {
@@ -8,10 +8,10 @@ const headers = {
   },
 };
 
-const GET = _.assign({}, headers, { method: 'GET' });
+const GET = assign({}, headers, { method: 'GET' });
 
 function addDivisions(division, dispatch) {
-  const parent = _.assign({}, division);
+  const parent = assign({}, division);
   const parentObj = {
     id: parent.postal_code ? parent.postal_code : parent.code,
     code: parent.code,

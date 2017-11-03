@@ -6,6 +6,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+
 
 
 module.exports = {
@@ -31,7 +33,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        },
+        }
       },
       {
         test: /\.scss$/,
@@ -46,6 +48,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
+    new LodashModuleReplacementPlugin,
     new MinifyPlugin(),
     new ExtractTextPlugin({
       filename:  (getPath) => {

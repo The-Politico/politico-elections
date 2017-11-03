@@ -1,9 +1,9 @@
 import { fk, attr, Model } from 'redux-orm';
-import _ from 'lodash';
+import { assign } from 'lodash';
 
 class Candidate extends Model {
   serialize() {
-    return _.assign(
+    return assign(
       {},
       this.ref,
       { party: this.party.ref },
