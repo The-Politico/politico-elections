@@ -179,7 +179,7 @@ $usDemographic-container: '.demographic-map';
   @media(min-width: 1100px){
     width: 25%;
   }
-  @media (min-width: 1099px){
+  @media (min-width: 1px){
     width: 50%;
   }
   // @media (min-width: 1279px){
@@ -187,7 +187,7 @@ $usDemographic-container: '.demographic-map';
   // }
 }
 
-.scatter-plots.content-extra-extra-large{
+.scatter-plots.content-extra-extra-large .plot-container{
   @media (min-width: 1099px){
     max-width: 675px;
   }
