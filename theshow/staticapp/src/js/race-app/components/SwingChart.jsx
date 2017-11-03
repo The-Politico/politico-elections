@@ -53,11 +53,14 @@ class ResultsBar extends React.Component {
   drawChart() {
     const results = this.fetchData();
 
+    console.log('counties', results);
+
+
     if (!results || Object.keys(results.divisions).length < 1) {
       return
     };
 
-    chart.create('#county-swing', results, 'https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/virginia/data.json', 
+    chart.create('#county-swing', results, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`, 
     {
       range: ['#114ca1', '#dc2700'],
       legendHeight: 0,
