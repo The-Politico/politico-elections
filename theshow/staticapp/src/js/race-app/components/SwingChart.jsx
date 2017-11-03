@@ -53,9 +53,6 @@ class ResultsBar extends React.Component {
   drawChart() {
     const results = this.fetchData();
 
-    console.log('counties', results);
-
-
     if (!results || Object.keys(results.divisions).length < 1) {
       return
     };
@@ -78,7 +75,7 @@ class ResultsBar extends React.Component {
   // START HERE
   render() {
     return (
-      <div className="results-bar">
+      <div className="swing-chart">
         <div id="county-swing" />
       </div>
     );
