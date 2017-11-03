@@ -72,8 +72,12 @@ header {
   }
 }
 
-h3 {
-      font-size: 1.1rem;
+h2{
+  font-size: 1.48rem
+}
+
+h3{
+  font-size: 1.1rem;
 }
 
 //scatter plot div fix
@@ -140,52 +144,6 @@ $usDemographic-container: '.demographic-map';
 }
 
 
-// Results bar
-// #candidateResultsBar{
-//    .g-candidateInfo{
-//      vertical-align: top;
-//    }
-//
-//    .g-bar{
-//      height: 20px;
-//    }
-//
-//    .g-mugshot{
-//      margin: 30px 20px 10px 0;
-//
-//     .g-candidate-photo {
-//     max-width: 70px;
-//     border-radius: 5px;
-//     }
-//
-//     .g-candidate-name{
-//     font-size: 22px;
-//     }
-//
-//     .g-candidate-party{
-//     font-size: 16px;
-//     }
-//   }
-//
-//   .g-candidate-party{
-//     padding: 2px 9px;
-//   }
-//
-//   .g-vote-pct {
-//     font-size: 45px;
-//     line-height: 1;
-//     text-align: left;
-//   }
-//
-//   .g-bar{
-//     margin-top: 0;
-//   }
-//   .g-winner-announced:before{
-//     padding-top: 0;
-//     font-size: 14px;
-//   }
-// }
-
 //Loading Results bar
 .loading-bar{
   p{
@@ -209,8 +167,29 @@ $usDemographic-container: '.demographic-map';
   }
 }
 
+
+//Scatter Plots
 .scatterplot-wrapper {
   position: relative;
   max-width: 290px;
   margin: 0 auto;
+}
+
+.scatter-plots.col-sm-3{
+  @media(min-width: 1200px){
+    width: 25%;
+  }
+  @media(min-width: 20px){
+    width: 50%;
+  }
+}
+
+.scatter-plots.content-extra-extra-large{
+  @media(min-width: 1200px){
+    width: 1280px;
+  }
+  @media(min-width: 20px){
+      width: 600px;
+      margin: 0 auto;
+  }
 }

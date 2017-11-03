@@ -36,7 +36,7 @@ const ScatterPlots = (props) => {
   return (
     <div className="scatter-plots row-fluid section content-extra-extra-large">
     <h2>Where did different voting blocks land? </h2>
-    <p class="sans">
+    <p>
       <strong>Each dot respresents a county.</strong> The further left the dot the more Democratic the county voted, the futher right, the more Republican. The closer to the top of the chart the more the county identifies with the census group. The top line shows how strong of a predictor TK.
     </p>
       {censusVariables.map((obj, index) => {

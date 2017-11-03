@@ -8,7 +8,7 @@ const SwingChartContainer = (props) => {
     <div className="swing-chart row-fluid section">
     <div class="content-large">
       <h2>How did voters shift from 2016?</h2>
-      <p class="sans">
+      <p>
       Placeholder text from Jon - that talks about what the blue and red lines mean - doubling down that this a shift.
       </p>
       <SwingChart session={props.session} />
