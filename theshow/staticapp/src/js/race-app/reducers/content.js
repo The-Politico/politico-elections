@@ -1,8 +1,9 @@
+import { assign } from 'lodash';
 import * as types from '../constants/actions';
 
 export default(currentState, action) => {
   const initialState = {
-    chatter: '',
+    blocks: {},
   };
 
   if (typeof currentState === 'undefined') {
@@ -10,12 +11,12 @@ export default(currentState, action) => {
   }
 
   switch (action.type) {
-    case types.CREATE_CHATTER:
-      return Object.assign({}, currentState, {
-        chatter: action.chatter,
+    case types.CREATE_CONTENT_BLOCK:
+      return assign({}, currentState, {
+        blocks: action.block,
       });
     default:
       break;
   }
   return currentState;
-}
+};

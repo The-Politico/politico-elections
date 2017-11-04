@@ -1,9 +1,10 @@
 import { assign } from 'lodash';
 import * as ormActions from './orm';
+import createContentBlock from './content';
 
 const headers = {
   headers: {
-    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   },
 };
@@ -156,6 +157,8 @@ function addResults(results, dispatch) {
   });
 }
 
+const addContent = (content, dispatch) => dispatch(createContentBlock(content));
+
 export const fetchContext = () =>
   dispatch => fetch(window.appConfig.api.context, GET)
     .then(response => response.json())
@@ -168,6 +171,7 @@ export const fetchContext = () =>
         addCandidates(data.elections, dispatch),
         addElections(data.elections, dispatch),
         addOverrideResults(data.elections, dispatch),
+        addContent(data.content, dispatch),
       ])).catch((error) => {
       console.log('API ERROR', error);
     });

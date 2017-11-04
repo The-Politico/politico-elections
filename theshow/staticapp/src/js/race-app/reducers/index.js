@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import chatter from './chatter';
+import content from './content';
 import orm from './orm';
 
 export default combineReducers({
-  chatter,
+  content,
   orm,
 });

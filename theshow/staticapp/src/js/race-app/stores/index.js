@@ -21,9 +21,6 @@ setInterval(() => {
 //   store.dispatch(actions.fetchContext());
 // }, 10000);
 
-const chatter = document.querySelector('.chatter').textContent;
-store.dispatch(actions.storeChatter(chatter));
-
 store.subscribe(() => {
   window.store = assign({}, store.getState());
 });
