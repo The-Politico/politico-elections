@@ -167,6 +167,10 @@ $usDemographic-container: '.demographic-map';
   }
 }
 
+//bar
+#candidateResultsBar .g-other-vote-pct {
+float:right;
+}
 
 //Scatter Plots
 .scatterplot-wrapper {
@@ -191,5 +195,6 @@ $usDemographic-container: '.demographic-map';
   @media (min-width: 1099px){
     max-width: 675px;
   }
+
 
 }
