@@ -1,21 +1,54 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin
 
-from .models import PageContent
-from geography.models import Division
+from .models import PageContent, PageContentBlock, PageContentType
 
 
-class PageContentForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(PageContentForm, self).__init__(*args, **kwargs)
+class PostAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorWidget())
 
-        self.fields['division'].queryset = Division.objects.filter(
-            level__slug='state'
+    class Meta:
+        model = PageContentBlock
+        fields = (
+            'content_type',
+            'content',
         )
 
 
+class PageContentBlockInline(admin.StackedInline):
+    model = PageContentBlock
+    extra = 0
+    form = PostAdminForm
+
+
 class PageContentAdmin(admin.ModelAdmin):
-    form = PageContentForm
+    inlines = [
+        PageContentBlockInline
+    ]
+    list_filter = ('election_day', 'content_type',)
+    list_display = ('page_location', 'election_day',)
+    search_fields = ('page_location',)
+    actions = None
+    readonly_fields = (
+        'election_day',
+        'page_location',
+        'content_object',
+        'division',
+    )
+    fieldsets = (
+        (None, {
+            'fields': ('page_location',),
+        }),
+        ('Page Meta', {
+            'fields': (
+                'election_day',
+                'content_object',
+                'division',
+            ),
+        }),
+    )
 
 
 admin.site.register(PageContent, PageContentAdmin)
+admin.site.register(PageContentType)

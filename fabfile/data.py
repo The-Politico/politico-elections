@@ -13,11 +13,14 @@ def bootstrap_db():
     local('python manage.py load_fed')
     local('python manage.py loaddata person')
     local('python manage.py loaddata personimage')
-    local('python manage.py loaddata demographic')
+    # local('python manage.py loaddata demographic')
     local('python manage.py bootstrap {0}'.format(
         server_config.CURRENT_ELECTION
     ))
     local('python manage.py prepare_races {0}'.format(
+        server_config.CURRENT_ELECTION
+    ))
+    local('python manage.py bootstrap_content {0}'.format(
         server_config.CURRENT_ELECTION
     ))
     local('python manage.py createsuperuser')
@@ -33,6 +36,9 @@ def bootstrap_geodb():
     local('python manage.py load_fed')
     local('python manage.py loaddata demographic')
     local('python manage.py bootstrap {0}'.format(
+        server_config.CURRENT_ELECTION
+    ))
+    local('python manage.py bootstrap_content {0}'.format(
         server_config.CURRENT_ELECTION
     ))
     local('python manage.py createsuperuser')
