@@ -5,7 +5,7 @@ from django.contrib import admin
 from .models import PageContent, PageContentBlock, PageContentType
 
 
-class PostAdminForm(forms.ModelForm):
+class BlockAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
@@ -19,7 +19,7 @@ class PostAdminForm(forms.ModelForm):
 class PageContentBlockInline(admin.StackedInline):
     model = PageContentBlock
     extra = 0
-    form = PostAdminForm
+    form = BlockAdminForm
 
 
 class PageContentAdmin(admin.ModelAdmin):
