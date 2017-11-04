@@ -10,8 +10,10 @@ cffi==1.11.2
 cryptography==2.1.1
 decorator==4.1.2
 Django==1.11.6
+django-ckeditor==5.3.1
 django-extensions==1.9.6
 django-filter==1.1.0
+django-js-asset==0.1.1
 django-postgres-copy==2.0.1
 django-storages==1.6.5
 django-uuslug==1.1.8

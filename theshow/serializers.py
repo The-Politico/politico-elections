@@ -7,6 +7,8 @@ from entity.models import Body, Office
 from geography.models import Division
 from geography.serializers import DivisionSerializer
 
+from .models import PageContent
+
 
 class ElectionDaySerializer(serializers.ModelSerializer):
     states = serializers.SerializerMethodField()
@@ -70,6 +72,7 @@ class StateSerializer(serializers.ModelSerializer):
     division = serializers.SerializerMethodField()
     parties = serializers.SerializerMethodField()
     elections = serializers.SerializerMethodField()
+    content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
         return DivisionSerializer(obj).data
@@ -80,10 +83,16 @@ class StateSerializer(serializers.ModelSerializer):
     def get_elections(self, obj):
         return ElectionSerializer(obj.elections.all(), many=True).data
 
+    def get_content(self, obj):
+        election_day = ElectionDay.objects.get(
+            date=self.context['election_date'])
+        return PageContent.objects.division_content(election_day, obj)
+
     class Meta:
         model = Division
         fields = (
             'uid',
+            'content',
             'elections',
             'parties',
             'division',
@@ -115,6 +124,7 @@ class BodySerializer(serializers.ModelSerializer):
     division = serializers.SerializerMethodField()
     parties = serializers.SerializerMethodField()
     elections = serializers.SerializerMethodField()
+    content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
         return DivisionSerializer(obj.jurisdiction.division).data
@@ -131,10 +141,16 @@ class BodySerializer(serializers.ModelSerializer):
         )
         return ElectionSerializer(elections, many=True).data
 
+    def get_content(self, obj):
+        election_day = ElectionDay.objects.get(
+            date=self.context['election_date'])
+        return PageContent.objects.body_content(election_day, obj)
+
     class Meta:
         model = Body
         fields = (
             'uid',
+            'content',
             'elections',
             'parties',
             'division',
@@ -166,6 +182,7 @@ class OfficeSerializer(serializers.ModelSerializer):
     division = serializers.SerializerMethodField()
     parties = serializers.SerializerMethodField()
     elections = serializers.SerializerMethodField()
+    content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
         return DivisionSerializer(obj.division).data
@@ -182,10 +199,16 @@ class OfficeSerializer(serializers.ModelSerializer):
         )
         return ElectionSerializer(elections, many=True).data
 
+    def get_content(self, obj):
+        election_day = ElectionDay.objects.get(
+            date=self.context['election_date'])
+        return PageContent.objects.office_content(election_day, obj)
+
     class Meta:
         model = Office
         fields = (
             'uid',
+            'content',
             'elections',
             'parties',
             'division',

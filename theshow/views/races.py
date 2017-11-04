@@ -98,16 +98,9 @@ class StateExecutiveRacePage(BaseView):
         context['year'] = self.kwargs.get('year')
         context['office'] = office
         context['state'] = state
-
-        try:
-            page_content = PageContent.get_office_content(
-                PageContent, office, election_day
-            )
-            context['chatter'] = page_content.chatter
-        except:
-            page_content = None
-            context['chatter'] = None
-
+        context['content'] = PageContent.objects.office_content(
+            election_day, office
+        )
         return context
 
 
