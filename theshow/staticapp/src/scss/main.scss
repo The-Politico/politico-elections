@@ -31,12 +31,15 @@ $new-restults-load: #629359;
 
 body{
   font-family: $franklin;
+  padding-bottom: 4rem;
 }
 
 .section{
   margin-bottom: 4rem;
+  padding: 0 15px;
 
-  &.swing-chart{
+  &.swing-chart,
+  &.credits{
   margin-bottom: 0;
   }
 }
@@ -51,13 +54,8 @@ body{
 }
 
 @media(max-width: 780px){
-  .top-results.section{
+  .top-results.section, .section{
     max-width: 100%;
-  }
-
-  .section{
-    max-width: 400px;
-    @include margin-auto;
   }
 }
 
@@ -80,14 +78,7 @@ h3{
   font-size: 1.1rem;
 }
 
-//scatter plot div fix
-.scatter-plots{
-  @media(max-width:980px){
-    .col-sm-3{
-      width: 50%;
-    }
-  }
-}
+
 
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
@@ -122,9 +113,8 @@ $usDemographic-container: '.demographic-map';
         // width: 45%;
       }
       @media(max-width: 768px){
-        width: 80%;
-        margin: 0 0 0 10%;
-      }
+        width: 98%;
+        margin: 0 0 0 2%;      }
   }
   .map{
     width: 55%;
@@ -133,11 +123,9 @@ $usDemographic-container: '.demographic-map';
     border-left: solid 1px #e7e7e7;
     float:left;
       @media(max-width: 768px){
-        width: 80%;
-        margin: 0 auto 10%;
-        padding: 20px;
-        margin-left: 0;
-        padding-left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
         border-left: none;
       }
   }
@@ -180,21 +168,49 @@ float:right;
 }
 
 .scatter-plots .col-sm-3{
-  @media(min-width: 1100px){
     width: 25%;
-  }
-  @media (min-width: 1px){
+  @media (max-width: 1280px){
     width: 50%;
   }
-  // @media (min-width: 1279px){
-  //   width: 50%;
-  // }
+  @media (max-width: 600px){
+    width: 100%;
+    padding:0;
+  }
 }
 
-.scatter-plots.content-extra-extra-large .plot-container{
-  @media (min-width: 1099px){
-    max-width: 675px;
+.plot-container{
+    max-width: 100%;
+    margin: 0 auto;
+
+  @media (max-width: 1280px){
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+//More css for Jeremy's top results bar
+
+#candidateResultsBar .g-candidate-party {
+    padding: 2px 9px 3px;
   }
 
+@media(max-width:480px){
 
+#candidateResultsBar .g-mugshot {
+    margin: 30px 0 10px 0;
+}
+  #candidateResultsBar .g-mugshot .g-candidate-photo {
+  max-width: 65px;
+  }
+
+  #candidateResultsBar .g-mugshot .g-candidate-party {
+    font-size: 14px;
+  }
+  #candidateResultsBar .g-candidate-party {
+    padding: 2px 8px 3px;
+  }
+  #candidateResultsBar .g-mugshot .g-candidate-name {
+    font-size: 19px;
+    margin: -12px 10px;
+  }
 }
