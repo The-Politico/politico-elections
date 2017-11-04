@@ -104,7 +104,7 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.WARNING
         DEBUG = False
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
         CURRENT_ELECTION = '2017-11-07'
     elif deployment_target == 'staging':
         SERVERS = STAGING_SERVERS

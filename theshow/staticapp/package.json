@@ -22,6 +22,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
     "candidate-results-bar": "git+ssh://git@github.com:The-Politico/module_candidate-results-bar",
+    "dateline": "^2.1.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",

@@ -31,6 +31,11 @@ class Command(BaseCommand):
             key = os.path.join(self.base_key, 'js', filename)
             self.upload(file, key, 'text/javascript')
 
+        for file in glob('theshow/static/theshow/images/*'):
+            filename = file.split('/')[-1]
+            key = os.path.join(self.base_key, 'images', filename)
+            self.upload(file, key, 'image/jpeg')
+
         for file in glob('theshow/static/theshow/css/*'):
             filename = file.split('/')[-1]
             key = os.path.join(self.base_key, 'css', filename)
