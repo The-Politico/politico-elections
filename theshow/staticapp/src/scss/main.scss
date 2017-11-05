@@ -81,7 +81,7 @@ header {
   max-width: 500px;
   text-align: center;
   position: relative;
-  margin: 30px auto 0px;
+  margin: 30px auto 20px;
 }
 
 
@@ -157,7 +157,7 @@ $usDemographic-container: '.demographic-map';
     width: 60%;
     margin-left: 4%;
     padding-left: 3%;
-    border-left: solid 1px #e7e7e7;
+    // border-left: solid 1px #e7e7e7;
     float: left;
       @media(max-width: 768px){
         width: 100%;
