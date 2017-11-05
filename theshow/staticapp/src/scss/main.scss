@@ -40,14 +40,16 @@ body{
   margin-bottom: 4rem;
   padding: 0 15px;
 
-  &.swing-chart,
+  &.swing-chart{
+    margin-bottom: 2rem;
+  }
   &.credits{
   margin-bottom: 0;
   }
 }
 
 .content-extra-large{
-  max-width: 980px;
+  max-width: 900px;
 }
 
 .content-extra-extra-large{
@@ -115,15 +117,15 @@ $usDemographic-container: '.demographic-map';
         // width: 45%;
       }
       @media(max-width: 768px){
-        width: 98%;
-        margin: 0 0 0 2%;      }
+        width: 100%;
+        margin: 0;      }
   }
   .map{
-    width: 55%;
-    margin-left: 5%;
-    padding-left: 4%;
+    width: 60%;
+    margin-left: 4%;
+    padding-left: 3%;
     border-left: solid 1px #e7e7e7;
-    float:left;
+    float: left;
       @media(max-width: 768px){
         width: 100%;
         margin: 0;
@@ -157,16 +159,17 @@ $usDemographic-container: '.demographic-map';
   }
 }
 
-//bar
-#candidateResultsBar .g-other-vote-pct {
-float:right;
-}
+
 
 //Scatter Plots
 .scatterplot-wrapper {
   position: relative;
   max-width: 290px;
   margin: 0 auto;
+}
+
+.plot {
+    margin: 5px 20px 20px;
 }
 
 .scatter-plots .col-sm-3{
@@ -187,12 +190,26 @@ float:right;
     margin: 0 auto;
 
   @media (max-width: 1280px){
-    max-width: 700px;
+    max-width: 640px;
     margin: 0 auto;
   }
 }
 
+// Censusmaps
+.demographic-map .legend .key-container .key span{
+  font-family: $franklin;
+}
+
+.census-map{
+  margin-bottom: 2em;
+
+}
+
 //More css for Jeremy's top results bar
+//bar
+#candidateResultsBar .g-other-vote-pct {
+float:right;
+}
 
 #candidateResultsBar .g-candidate-party {
     padding: 2px 9px 3px;
@@ -204,7 +221,7 @@ float:right;
         &:first-of-type{
           margin-top: 20px;
         }
-    }
+      }
     #candidateResultsBar .g-mugshot .g-candidate-photo {
     max-width: 65px;
     }

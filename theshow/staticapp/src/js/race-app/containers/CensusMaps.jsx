@@ -35,7 +35,7 @@ const CensusMaps = (props) => {
     <div className="census-maps content-extra-large row-fluid section">
       <h2>Who lives where?</h2>
       {censusVariables.map((obj, index) => {
-        return (<div className="col-sm-6">
+        return (<div className="col-sm-6 census-map">
           <h3>{obj.title}</h3>
           <CensusMap
             session={props.session}
