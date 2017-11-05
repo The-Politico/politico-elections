@@ -77,8 +77,39 @@ header {
   }
 }
 
-h2{
-  font-size: 1.48rem
+  .section-header-wrap {
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  margin: 30px auto 0px;
+}
+
+
+h2.section-title{
+  position: relative;
+  margin: 9px 0 20px;
+  letter-spacing: -.5px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  font-size: 25px;
+  display: inline-block;
+  min-width: 160px;
+  vertical-align: middle;
+  background-color: #fff;
+  padding: 0 15px;
+}
+
+.header-line{
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    background-color: #555;
+    vertical-align: middle;
+    position: absolute;
+    top: 25px;
+    left: 0;
 }
 
 h3{

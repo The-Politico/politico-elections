@@ -35,9 +35,7 @@ const ScatterPlots = (props) => {
   ];
   return (
     <div className="scatter-plots row-fluid section content-extra-extra-large">
-    <h2>Where did different voting blocks land? </h2>
-    {/*<p>
-      <strong>Each dot */}
+    <div class="section-header-wrap"><div class="header-line"></div><h2 class="section-title">Voting block trends</h2></div>
     <div class="plot-container">
       {censusVariables.map((obj, index) => {
         return (<div className="col-sm-3">
