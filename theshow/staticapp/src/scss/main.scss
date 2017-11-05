@@ -40,7 +40,7 @@ h2, h3{
 }
 
 .section{
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   padding: 0 15px;
   @media(max-width: 600px){
     margin-bottom: 4rem;
@@ -199,6 +199,7 @@ $usDemographic-container: '.demographic-map';
   position: relative;
   max-width: 290px;
   margin: 0 auto;
+  padding-bottom: 30px;
 }
 
 .plot-container{
@@ -229,15 +230,23 @@ $usDemographic-container: '.demographic-map';
 
 
 
+
 // Censusmaps
 .demographic-map .legend .key-container .key span{
   font-family: $franklin;
 }
 
 .census-map{
-  max-width: 420px;
-  margin: 0 auto 3em;
+  max-width: 480px;
+  margin: 0 auto 2em;
+  padding: 0 20px;
 
+}
+@media(max-width: 600px){
+  .census-map{
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 40px;
+  }
 }
 
 //More css for Jeremy's top results bar
