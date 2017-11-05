@@ -80,7 +80,7 @@ header {
   }
 }
 
-  .section-header-wrap {
+.section-header-wrap {
   max-width: 500px;
   text-align: center;
   position: relative;
@@ -118,7 +118,6 @@ h3{
 }
 
 
-
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
 
@@ -138,8 +137,9 @@ $usDemographic-container: '.demographic-map';
 
 //Top Results div
 .top-results.section{
-  padding: 0 15px;
-  margin-top: 2rem;
+    padding: 0 15px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 
   @media(max-width: 950px){
     margin-top: .5rem;
