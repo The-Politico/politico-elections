@@ -35,6 +35,9 @@ body{
   font-family: $franklin;
   padding-bottom: 4rem;
 }
+h2, h3{
+    letter-spacing: -.5px;
+}
 
 .section{
   margin-bottom: 5rem;
@@ -88,17 +91,15 @@ header {
 h2.section-title{
   position: relative;
   margin: 9px 0 20px;
-  letter-spacing: -.5px;
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 300;
   font-size: 25px;
   display: inline-block;
-  min-width: 160px;
   vertical-align: middle;
   background-color: #fff;
   padding: 0 15px;
+  min-width: 160px;
 }
 
 .header-line{
