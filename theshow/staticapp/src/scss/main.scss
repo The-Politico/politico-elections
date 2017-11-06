@@ -258,32 +258,32 @@ $usDemographic-container: '.demographic-map';
 
 // More css for Jeremy's top results bar
 // bar
-#candidateResultsBar .g-other-vote-pct {
-float:right;
-}
-
-#candidateResultsBar .g-candidate-party {
-    padding: 2px 9px 3px;
-  }
-
-@media(max-width:1080px){
-    #candidateResultsBar .g-mugshot {
-        margin: 10px 0 10px 0;
-        &:first-of-type{
-          margin-top: 20px;
-        }
-      }
-    #candidateResultsBar .g-mugshot .g-candidate-photo {
-    max-width: 65px;
-    }
-    #candidateResultsBar .g-mugshot .g-candidate-party {
-      font-size: 14px;
-    }
-    #candidateResultsBar .g-candidate-party {
-      padding: 2px 8px 3px;
-    }
-    #candidateResultsBar .g-mugshot .g-candidate-name {
-      font-size: 19px;
-      margin: -12px 10px;
-    }
-}
+// #candidateResultsBar .g-other-vote-pct {
+// float:right;
+// }
+//
+// #candidateResultsBar .g-candidate-party {
+//     padding: 2px 9px 3px;
+//   }
+//
+// @media(max-width:1080px){
+//     #candidateResultsBar .g-mugshot {
+//         margin: 10px 0 10px 0;
+//         &:first-of-type{
+//           margin-top: 20px;
+//         }
+//       }
+//     #candidateResultsBar .g-mugshot .g-candidate-photo {
+//     max-width: 65px;
+//     }
+//     #candidateResultsBar .g-mugshot .g-candidate-party {
+//       font-size: 14px;
+//     }
+//     #candidateResultsBar .g-candidate-party {
+//       padding: 2px 8px 3px;
+//     }
+//     #candidateResultsBar .g-mugshot .g-candidate-name {
+//       font-size: 19px;
+//       margin: -12px 10px;
+//     }
+// }
