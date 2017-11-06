@@ -1,6 +1,6 @@
 import React from 'react';
 import CandidateResultsBar from 'candidate-results-bar';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 // Initialize the chart
 const chart = CandidateResultsBar();

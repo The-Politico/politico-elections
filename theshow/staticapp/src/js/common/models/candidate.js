@@ -1,5 +1,5 @@
 import { fk, attr, Model } from 'redux-orm';
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 
 class Candidate extends Model {
   serialize() {

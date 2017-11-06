@@ -1,6 +1,6 @@
 import React from 'react';
 import resultCounty from 'politico-module-elections-results-county-map';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 // Initialize the chart
 const chart = resultCounty();

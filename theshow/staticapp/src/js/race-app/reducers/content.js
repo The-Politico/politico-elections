@@ -1,4 +1,4 @@
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import * as types from '../constants/actions';
 
 export default(currentState, action) => {

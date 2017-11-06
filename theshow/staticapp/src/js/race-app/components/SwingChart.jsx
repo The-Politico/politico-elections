@@ -1,6 +1,6 @@
 import React from 'react';
 import countySwing from 'politico-module-elections-county-arrow-swing-chart';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 // Initialize the chart
 const chart = countySwing();

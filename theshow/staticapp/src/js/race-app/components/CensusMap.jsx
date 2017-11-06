@@ -1,6 +1,6 @@
 import React from 'react';
 import usDemographic from 'politico-module-elections-demographic-county-map';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import * as d3 from 'd3';
 
 class CensusMap extends React.Component {

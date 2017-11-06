@@ -1,5 +1,6 @@
 import { fk, many, oneToOne, attr, Model } from 'redux-orm';
-import { assign, find } from 'lodash';
+import assign from 'lodash/assign';
+import find from 'lodash/find';
 
 class Election extends Model {
   /**

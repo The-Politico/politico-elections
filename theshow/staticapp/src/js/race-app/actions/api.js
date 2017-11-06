@@ -1,4 +1,4 @@
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import * as ormActions from './orm';
 import createContentBlock from './content';
 

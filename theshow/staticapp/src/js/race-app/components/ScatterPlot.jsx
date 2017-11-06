@@ -1,6 +1,6 @@
 import React from 'react';
 import demographicPlot from 'politico-module-elections-demographic-vote-trend-scatterplots';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 class ScatterPlot extends React.Component {
   /**
