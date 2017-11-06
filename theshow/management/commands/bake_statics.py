@@ -1,4 +1,5 @@
 import os
+import subprocess
 from glob import glob
 
 from django.core.management.base import BaseCommand
@@ -33,8 +34,12 @@ class Command(BaseCommand):
             })
 
     def handle(self, *args, **options):
-        print('Publishing statics')
-        print(self.bucket)
+        print('> Publishing statics')
+
+        print('> >> Upgrading dependencies')
+        subprocess.run(['yarn', 'upgrade'], cwd='theshow/staticapp/')
+        print('> >> Building statics')
+        subprocess.run(['gulp', 'build'], cwd='theshow/staticapp/')
 
         hash = options['hash']
 
@@ -50,7 +55,6 @@ class Command(BaseCommand):
                 '{}-{}{}'.format(filename, hash, ext)
             )
             self.upload(file, key, 'text/javascript')
-            print('Uploaded {0}'.format(key))
 
         for file in glob('theshow/static/theshow/css/*'):
             filename, ext = os.path.splitext(file.split('/')[-1])
@@ -60,10 +64,8 @@ class Command(BaseCommand):
                 '{}-{}{}'.format(filename, hash, ext)
             )
             self.upload(file, key, 'text/css')
-            print('Uploaded {0}'.format(key))
 
         for file in glob('theshow/static/theshow/images/*'):
             filename = file.split('/')[-1]
             key = os.path.join(base_key, 'images', filename)
             self.upload(file, key, 'image/jpeg')
-            print('Uploaded {0}'.format(key))

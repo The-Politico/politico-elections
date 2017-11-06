@@ -1,6 +1,6 @@
 import React from 'react';
 import CountdownFetch from 'politico-countdown-fetch';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import refreshRates from '../constants/api';
 
 // Initialize the chart

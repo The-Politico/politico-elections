@@ -1538,7 +1538,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#530a17b04f154d0d4c8c9fefec4f249b8ea7b465"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#ac3c964d5023cc8506c68bcf4a22cd01f7198d1c"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5290,7 +5290,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#ce87cee86f7649a050c252e410ab01b423877f57"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#02324752b47d0c8e743be913a8719aa57403a47d"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5336,7 +5336,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-county-map@git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#a317b28a7ba032fc23c3f18d4046aaa6e25cb173"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#911aa29bea50e6e2635149a093f96a1c46dc3d26"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5383,7 +5383,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-vote-trend-scatterplots@git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#0b32212a7cc9864c30c698affdf8186ce9df3a5d"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#c415e515fe2aada8f36670fe4a3b3638a9baf7b6"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5430,7 +5430,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-results-county-map@git+ssh://git@github.com:The-Politico/module_elections-results-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#a51aa12a3b7286eacd9b00a031f1b6fac62f0231"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#b7d7a672debab458280fb0ba59825aa68ec30b92"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -6963,8 +6963,8 @@ ua-parser-js@^0.7.9:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
 uglify-js@3.1.x:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.7.tgz#13379168b7fcf132ed977254a7802e0a294b1ffb"
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.8.tgz#780d08b4f6782fe36ea5484d952362eddaf1d7b8"
   dependencies:
     commander "~2.11.0"
     source-map "~0.6.1"

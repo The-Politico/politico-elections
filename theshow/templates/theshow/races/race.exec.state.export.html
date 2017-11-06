@@ -6,7 +6,7 @@
     color: red;
   }
 </style>
-<link rel="stylesheet" href="//{{domain}}/{{root_path}}/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
+<link rel="stylesheet" href="https://s3.us-east-2.amazonaws.com/politico-staging/elections/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
 {%endblock%}
 
 {%block api%}
@@ -20,12 +20,12 @@
       geo: '{{ geo_json }}',
     },
     stateFips: '{{state.code}}',
-    statePostal: '{{ state.postal_code }}',
+    statePostal: '{{ state.code_components.postal }}',
     stateSlug: '{{ state.slug }}',
   }
 </script>
 {% endwith %}
 {%endblock%}
 {%block relative_foot%}
-<script src="//{{domain}}/{{root_path}}/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
+<script src="https://s3.us-east-2.amazonaws.com/politico-staging/elections/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
 {%endblock%}

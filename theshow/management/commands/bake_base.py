@@ -66,7 +66,7 @@ class BaseBakeCommand(object):
         pass
 
     def handle(self, *args, **options):
-        print('Baking!')
+        print('> Baking!')
 
         election_day = ElectionDay.objects.get(date=options['election'])
 

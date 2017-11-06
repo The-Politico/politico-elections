@@ -67,7 +67,7 @@
       geo: '{{ geo_json }}',
     },
     stateFips: '{{state.code}}',
-    statePostal: '{{ state.postal_code }}',
+    statePostal: '{{ state.code_components.postal }}',
     stateSlug: '{{ state.slug }}',
   };
 </script>
