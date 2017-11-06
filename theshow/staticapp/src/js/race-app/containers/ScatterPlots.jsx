@@ -41,13 +41,12 @@ const ScatterPlots = (props) => {
       </div>
       <div className="chatter">
         <p>
-        These charts use county-level data from the U.S. Census Bureau
-        to estimate how strong was the relationship between different demographic
-        groups and each party in this election.
-        The sliding scale tells you how strong the relationship was, while the
-        scatterplots show
-        which party benefitted most from that group&rsquo;s support. Each dot is
-        a county.
+        Which voting blocks track closest with a party line? These charts use
+        county-level data from the U.S. Census Bureau to estimate the strength
+        of the relationship between each party and key demographic groups. The
+        sliding scale tells you how strong the relationship was in this
+        election, while the scatterplots show which party benefited most from
+        that group’s support. Each dot is a county.
         </p>
       </div>
       <div className="plot-container">
@@ -64,6 +63,27 @@ const ScatterPlots = (props) => {
             />
           </div>
         ))}
+        <div>
+          <small className="footnote">
+            These charts show the relationship between the percent of the population in
+            each county who identify
+            with a demographic characteristic (minority, college-educated, etc.) and
+            the split of that county&rsquo;s vote
+            between the Democratic and Republican candidate (Rep. 45% - Dem. 40% = Rep. +5).
+            The relationship with party vote shows the value of the&nbsp;
+            <a
+              href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"
+              target="_blank"
+            >
+              Pearson correlation coefficient
+            </a>, which is a statistic that measures the strength of the correlation
+            between that demographic
+            value and the vote split. We take the absolute value of
+            that number (always between -1 and 1) to show how strong the relationship is,
+            regardless of whether it&rsquo;s positive or negative. Our demographic data
+            comes from the latest U.S. Census American Community Survey.
+          </small>
+        </div>
         <div className="clear" />
       </div>
     </div>

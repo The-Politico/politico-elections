@@ -38,9 +38,8 @@ const CensusMaps = (props) => {
         <h2 className="section-title">Who lives where?</h2>
       </div>
       <div className="chatter">
-        <p>These maps use U.S. Census Bureau data to show where
-        in the state each of several key demographic groups is most
-        concentrated.
+        <p>These maps use census data to show where key demographic groups
+        are concentrated in the state.
         </p>
       </div>
       {censusVariables.map((obj, index) => (
