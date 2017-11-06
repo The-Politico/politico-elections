@@ -21,7 +21,7 @@ class CensusMap extends React.Component {
 
     // Attach a resize func here!
     window.addEventListener('resize', debounce(() => {
-      chart.resize();
+      this.chart.resize();
     }, 400));
   }
 
@@ -52,7 +52,7 @@ class CensusMap extends React.Component {
         scaleType: d3.scaleThreshold,
         noData: '#e2e2e2',
         censusAccessor: this.props.accessor,
-      }
+      },
     );
   }
 

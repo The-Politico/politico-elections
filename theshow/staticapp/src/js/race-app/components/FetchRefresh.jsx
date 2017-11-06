@@ -1,6 +1,7 @@
 import React from 'react';
 import CountdownFetch from 'politico-countdown-fetch';
 import { debounce } from 'lodash';
+import refreshRates from '../constants/api';
 
 // Initialize the chart
 const chart = CountdownFetch();
@@ -38,6 +39,7 @@ class ResultsMap extends React.Component {
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
     chart.create('#fetch-refresh-widget-component', {
+      refreshTime: refreshRates.results / 1000,
       width: 160,
       height: 30,
       originOffset: -15,

@@ -21,7 +21,7 @@ class ScatterPlot extends React.Component {
 
     // Attach a resize func here!
     window.addEventListener('resize', debounce(() => {
-      chart.resize();
+      this.chart.resize();
     }, 400));
   }
 
@@ -41,8 +41,8 @@ class ScatterPlot extends React.Component {
     const counties = db.Division
       .filter(d =>
         d.level === 'county' &&
-        d.code.substr(0,2) === window.appConfig.stateFips
-      ).toModelArray();
+        d.code.substr(0, 2) === window.appConfig.stateFips)
+      .toModelArray();
 
     return election.serializeResults(counties);
   }
@@ -52,25 +52,23 @@ class ScatterPlot extends React.Component {
   drawChart() {
     const results = this.fetchData();
 
-    if (!results || Object.keys(results.divisions).length < 1) {
-      return
-    };
+    if (!results || Object.keys(results.divisions).length < 1) return;
 
     this.chart.create(
-      `#scatterplot-${this.props.data_key}`, 
-      results, 
+      `#scatterplot-${this.props.data_key}`,
+      results,
       `https://www.politico.com/interactives/elections/data/us-census/acs5/2015/${window.appConfig.stateFips}/${this.props.variable}.json`,
       {
         dataKeys: {
           y: 'Percent',
           x: 'MarginOfError',
           n: 'GeographicArea',
-          geoid: 'TargetGeoId2'
+          geoid: 'TargetGeoId2',
         },
         trendX: this.props.trendX,
         censusAccessor: this.props.accessor,
         footnote: '',
-      }
+      },
     );
   }
 

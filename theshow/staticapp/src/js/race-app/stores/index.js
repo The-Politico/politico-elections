@@ -13,6 +13,10 @@ const store = createStore(reducers, compose(
 
 store.dispatch(actions.fetchInitialData());
 
+/**
+ * Set intervals to refresh context and results.
+ * Fetched with a last modified timestamp.
+ */
 setInterval(() => {
   const { resultsModified } = store.getState().fetch;
   store.dispatch(actions.fetchResults(resultsModified));
@@ -23,15 +27,19 @@ setInterval(() => {
   store.dispatch(actions.fetchContext(contextModified));
 }, refreshRates.context);
 
-
-let compareResultsState = null;
-let compareContextState = null;
+/**
+ * We want to compare results and context updates.
+ * Whenever either change, update the last modified
+ * timestamp and notify user new results were received.
+ */
+let previousResultsState = null;
+let previousContextState = null;
 
 function compareResults(state) {
   const datetime = new Date().toUTCString();
   const resultsState = cloneDeep(state.orm.Result.itemsById);
-  if (!isEqual(compareResultsState, resultsState)) {
-    compareResultsState = resultsState;
+  if (!isEqual(previousResultsState, resultsState)) {
+    previousResultsState = resultsState;
     store.dispatch(actions.setResultsModifiedTime(datetime));
     store.dispatch(actions.notifyNewResults());
   }
@@ -40,15 +48,22 @@ function compareResults(state) {
 function compareContext(state) {
   const datetime = new Date().toUTCString();
   const contextState = cloneDeep(state);
-  // Don't compare with results or fetch
+  // Don't compare with results or fetch props
   delete contextState.orm.Result;
   delete contextState.fetch;
-  if (!isEqual(compareContextState, contextState)) {
-    compareContextState = contextState;
+  if (!isEqual(previousContextState, contextState)) {
+    previousContextState = contextState;
     store.dispatch(actions.setContextModifiedTime(datetime));
   }
 }
 
+/**
+ * Subscribe to store changes, but we don't want to fire
+ * expensive comparison operations unless we've just
+ * finished loading new results or context.
+ *
+ * See actions/api.js for when we fire these compare actions.
+ */
 store.subscribe(() => {
   const state = store.getState();
   if (state.lastAction === COMPARE_RESULTS) compareResults(state);

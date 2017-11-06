@@ -46,6 +46,11 @@ export const createOverrideResult = overrideResult => ({
   overrideResult,
 });
 
+/**
+ * compareResults and compareContext are used to signal
+ * when in an update process we should compare results
+ * or context data to determine if we have new data.
+ */
 export const compareResults = () => ({
   type: types.COMPARE_RESULTS,
 });
