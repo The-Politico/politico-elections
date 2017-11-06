@@ -13,19 +13,19 @@ from .bake_base import BaseBakeCommand
 class Command(BaseBakeCommand, BaseCommand):
     help = 'Bakes out context for an election.'
 
-    def bake_federal_page(self, election_day):
+    def bake_federal_page(self, election_day, options):
         """ TK. """
         pass
 
-    def bake_state_pages(self, election_day):
+    def bake_state_pages(self, election_day, options):
         """ TK. """
         pass
 
-    def bake_federal_executive_race_page(self, election_day):
+    def bake_federal_executive_race_page(self, election_day, options):
         """ TK. """
         pass
 
-    def bake_state_executive_race_pages(self, election_day):
+    def bake_state_executive_race_pages(self, election_day, options):
         elections = self.fetch_state_executive_race_elex(election_day)
         print('> State executive races:')
         for election in tqdm(elections):
@@ -43,8 +43,8 @@ class Command(BaseBakeCommand, BaseCommand):
             )
             self.bake(key, serialized_data, 'application/json')
 
-    def bake_federal_body_pages(self, election_day):
+    def bake_federal_body_pages(self, election_day, options):
         pass
 
-    def bake_state_body_pages(self, election_day):
+    def bake_state_body_pages(self, election_day, options):
         pass

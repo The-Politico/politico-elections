@@ -6,7 +6,7 @@
     color: red;
   }
 </style>
-<link rel="stylesheet" href="//{{domain}}/{{root_path}}/cdn/{{election_day}}/css/main-race-app.css">
+<link rel="stylesheet" href="//{{domain}}/{{root_path}}/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
 {%endblock%}
 
 {%block api%}
@@ -27,5 +27,5 @@
 {% endwith %}
 {%endblock%}
 {%block relative_foot%}
-<script src="//{{domain}}/{{root_path}}/cdn/{{election_day}}/js/main-race-app.js"></script>
+<script src="//{{domain}}/{{root_path}}/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
 {%endblock%}
