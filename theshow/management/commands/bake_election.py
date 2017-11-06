@@ -13,16 +13,25 @@ from .bake_base import BaseBakeCommand
 class Command(BaseBakeCommand, BaseCommand):
     help = 'Bakes pages for an election.'
 
-    def bake_federal_page(self, election_day):
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+
+        parser.add_argument(
+            '--hash',
+            required=True,
+            help="Hash to suffix static files with."
+        )
+
+    def bake_federal_page(self, election_day, options):
         pass
 
-    def bake_state_pages(self, election_day):
+    def bake_state_pages(self, election_day, options):
         pass
 
-    def bake_federal_executive_race_page(self, election_day):
+    def bake_federal_executive_race_page(self, election_day, options):
         pass
 
-    def bake_state_executive_race_pages(self, election_day):
+    def bake_state_executive_race_pages(self, election_day, options):
         elections = self.fetch_state_executive_race_elex(election_day)
         print('> State executive races:')
         for election in tqdm(elections):
@@ -31,6 +40,7 @@ class Command(BaseBakeCommand, BaseCommand):
                 state_slug=election.division.slug,
                 office_slug=election.race.office.slug,
             )
+            context['hash'] = options['hash']
             template_string = render_to_string(
                 StateExecutiveRacePageExport.template_name,
                 context

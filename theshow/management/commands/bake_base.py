@@ -19,9 +19,9 @@ class BaseBakeCommand(object):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'elections',
-            nargs='+',
-            help="Election dates to bake out."
+            '--election',
+            required=True,
+            help="Election date to bake out."
         )
 
     def bake(self, key, data, content_type):
@@ -37,21 +37,21 @@ class BaseBakeCommand(object):
         """ TK. """
         return []
 
-    def bake_federal_page(self, election_day):
+    def bake_federal_page(self, election_day, options):
         pass
 
     def fetch_state_elex(self, election_day):
         """ TK. """
         return []
 
-    def bake_state_pages(self, election_day):
+    def bake_state_pages(self, election_day, options):
         pass
 
     def fetch_federal_executive_race_elex(self, election_day):
         """ TK. """
         return []
 
-    def bake_federal_executive_race_page(self, election_day):
+    def bake_federal_executive_race_page(self, election_day, options):
         pass
 
     def fetch_state_executive_race_elex(self, election_day):
@@ -62,24 +62,21 @@ class BaseBakeCommand(object):
             election.division.level == self.STATE_LEVEL
         ]
 
-    def bake_state_executive_race_pages(self, election_day):
+    def bake_state_executive_race_pages(self, election_day, options):
         pass
 
     def handle(self, *args, **options):
         print('Baking!')
 
-        elections = options['elections']
+        election_day = ElectionDay.objects.get(date=options['election'])
 
-        for election in elections:
-            election_day = ElectionDay.objects.get(date=election)
+        self.bake_federal_page(election_day, options)
+        self.bake_state_pages(election_day, options)
 
-            self.bake_federal_page(election_day)
-            self.bake_state_pages(election_day)
+        self.bake_federal_executive_race_page(election_day, options)
+        self.bake_state_executive_race_pages(election_day, options)
 
-            self.bake_federal_executive_race_page(election_day)
-            self.bake_state_executive_race_pages(election_day)
-
-            self.bake_federal_body_pages(election_day)
-            self.bake_state_body_pages(election_day)
+        self.bake_federal_body_pages(election_day, options)
+        self.bake_state_body_pages(election_day, options)
 
         print('Done.')
