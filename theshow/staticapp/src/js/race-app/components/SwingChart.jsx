@@ -61,14 +61,14 @@ class ResultsBar extends React.Component {
     {
       range: ['#2b6abd', '#fd5639'],
       legendHeight: 0,
-      legendPadding: 4,
+      legendPadding: 15,
       linePadding: 3,
       minimumToShow: 10,
       margin: {
         top: 20,
-        right: 25,
+        right: 35,
         bottom: 30,
-        left: 25,
+        left: 35,
       },
       tooltip: {
         active: false,

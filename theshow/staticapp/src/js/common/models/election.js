@@ -74,8 +74,6 @@ class Election extends Model {
       divisionResults[division.id] = obj;
     });
 
-    console.log(divisionResults);
-
     return {
       id: this.id,
       status,
