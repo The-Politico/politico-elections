@@ -5295,7 +5295,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#bfba7ad6ade31827268b24d633fbfc31f78121c0"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#d3c444260c677e68884c8a7428b5cffcd0dca6d1"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5341,7 +5341,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-county-map@git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#8e1df47f564a83d39512a4436571ea39f1fdf326"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#6fa22615f5d81fb0452325245e5ad144af87e290"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5388,7 +5388,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-vote-trend-scatterplots@git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#57fd80e7c02708b0aeeb1a8ae84a20f76e3d8c51"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#1f6b109f03512f37609fa0bc9ff16a0e96631242"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5435,7 +5435,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-results-county-map@git+ssh://git@github.com:The-Politico/module_elections-results-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#41d20b544c08f9d86d9e77adedd0642be7cf44f6"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#bb494a3744148a75601312beada93b4a20a83bb7"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
