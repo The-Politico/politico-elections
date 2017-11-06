@@ -1,5 +1,6 @@
 import assign from 'lodash/assign';
 import * as ormActions from './orm';
+import * as fetchActions from './fetch';
 import createContentBlock from './content';
 
 const headers = {
@@ -159,14 +160,27 @@ function addResults(results, dispatch) {
 
 const addContent = (content, dispatch) => dispatch(createContentBlock(content));
 
+let compareContext = null;
+
 export const fetchContext = modifiedTime =>
   dispatch => fetch(
     window.appConfig.api.context,
     assign({}, GET, { 'If-Modified-Since': modifiedTime }),
   )
     .then(response => response.json())
-    .then(data =>
-      Promise.all([
+    // Checks if we can skip an upsert.
+    .then((data) => {
+      const context = JSON.stringify(data);
+      // If context is same, bug out.
+      if (context === compareContext) return null;
+      // If not, reset Modified Time and return new data.
+      compareContext = context;
+      dispatch(fetchActions.setContextModifiedTime(new Date().toUTCString()));
+      return data;
+    })
+    .then((data) => {
+      if (!data) return null;
+      return Promise.all([
         addDivisions(data.division, dispatch),
         addOffices(data.elections, dispatch),
         addApMetas(data.elections, dispatch),
@@ -175,11 +189,13 @@ export const fetchContext = modifiedTime =>
         addElections(data.elections, dispatch),
         addOverrideResults(data.elections, dispatch),
         addContent(data.content, dispatch),
-      ]))
-    .then(() => dispatch(ormActions.compareContext()))
+      ]);
+    })
     .catch((error) => {
       console.log('API ERROR', error);
     });
+
+let compareResults = null;
 
 export const fetchResults = modifiedTime =>
   dispatch => fetch(
@@ -187,11 +203,21 @@ export const fetchResults = modifiedTime =>
     assign({}, GET, { 'If-Modified-Since': modifiedTime }),
   )
     .then(response => response.json())
-    .then(data =>
-      Promise.all([
-        addResults(data, dispatch),
-      ]))
-    .then(() => dispatch(ormActions.compareResults()))
+    // Checks if we can skip an upsert.
+    .then((data) => {
+      const results = JSON.stringify(data);
+      // If results are same, bug out.
+      if (results === compareResults) return null;
+      // If not, reset Modified Time and return new data.
+      compareResults = results;
+      dispatch(fetchActions.setResultsModifiedTime(new Date().toUTCString()));
+      dispatch(fetchActions.notifyNewResults());
+      return data;
+    })
+    .then((data) => {
+      if (!data) return null;
+      return addResults(data, dispatch);
+    })
     .catch((error) => {
       console.log('API ERROR', error);
     });
