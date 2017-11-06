@@ -18,6 +18,7 @@ const App = (props) => {
         fetch={props.db.fetch}
       />
       <SwingChartContainer
+        content={props.db.content}
         session={orm.session(props.db.orm)}
         actions={actions}
       />

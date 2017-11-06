@@ -39,7 +39,7 @@ let previousContextState = null;
 
 function compareResults(state) {
   const datetime = new Date().toUTCString();
-  const resultsState = cloneDeep(state.orm.Result.itemsById);
+  const resultsState = state.orm.Result.itemsById;
   if (!isEqual(previousResultsState, resultsState)) {
     previousResultsState = resultsState;
     store.dispatch(actions.setResultsModifiedTime(datetime));
@@ -49,7 +49,7 @@ function compareResults(state) {
 
 function compareContext(state) {
   const datetime = new Date().toUTCString();
-  const contextState = cloneDeep(state);
+  const contextState = state;
   // Don't compare with results or fetch props
   delete contextState.orm.Result;
   delete contextState.fetch;
@@ -68,8 +68,14 @@ function compareContext(state) {
  */
 store.subscribe(() => {
   const state = store.getState();
-  if (state.lastAction === COMPARE_RESULTS) compareResults(state);
-  if (state.lastAction === COMPARE_CONTEXT) compareContext(state);
+  if (
+    state.lastAction !== COMPARE_RESULTS &&
+    state.lastAction !== COMPARE_CONTEXT
+  ) return;
+
+  const cloneState = cloneDeep(store.getState());
+  if (state.lastAction === COMPARE_RESULTS) compareResults(cloneState);
+  if (state.lastAction === COMPARE_CONTEXT) compareContext(cloneState);
 });
 
 
