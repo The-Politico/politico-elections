@@ -59,10 +59,10 @@ class Election extends Model {
             d => d.candidate === 'other',
           );
           if (other) {
-            obj.results.pop(other);
+            const otherIndex = obj.results.indexOf(other);
             other.voteCount += resultObj.voteCount;
             other.votePct += resultObj.votePct;
-            obj.results.push(other);
+            obj.results[otherIndex] = other;
           } else {
             resultObj.candidate = 'other';
             obj.results.push(resultObj);
@@ -73,6 +73,8 @@ class Election extends Model {
       });
       divisionResults[division.id] = obj;
     });
+
+    console.log(divisionResults);
 
     return {
       id: this.id,
