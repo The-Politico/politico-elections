@@ -1,9 +1,9 @@
 import React from 'react';
-import resultCounty from 'politico-module-elections-results-county-map';
+import CountdownFetch from 'politico-countdown-fetch';
 import { debounce } from 'lodash';
 
 // Initialize the chart
-const chart = resultCounty();
+const chart = CountdownFetch();
 
 class ResultsMap extends React.Component {
   /**
@@ -13,7 +13,7 @@ class ResultsMap extends React.Component {
     super(props);
     // Bind our custom methods (using ES7 bind syntax "::").
     this.drawChart = ::this.drawChart;
-    this.fetchData = ::this.fetchData;
+    this.newResults = ::this.newResults;
   }
 
   // Called first time our component is mounted, i.e., just once.
@@ -30,46 +30,31 @@ class ResultsMap extends React.Component {
   // i.e., whenever our data updates.
   componentDidUpdate() {
     this.drawChart();
+    if (this.props.fetch.notifyNew) this.newResults();
   }
 
-  // Gets data from our client database
-  fetchData() {
-    const db = this.props.session;
-
-    const election = db.Election.first();
-    if (!election) return null;
-
-    const counties = db.Division
-      .filter(d =>
-        d.level === 'county' &&
-        d.code.substr(0, 2) === window.appConfig.stateFips)
-      .toModelArray();
-
-    return election.serializeResults(counties);
-  }
-
+  /* eslint-disable class-methods-use-this */
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
-    const db = this.props.session;
-    const results = this.fetchData();
-
-    if (!results) return;
-
-    const state = db.Division
-      .filter(d => d.level === 'state')
-      .first();
-
-    if (!state.topojson) return;
-
-    chart.create('#resultsMap', state.topojson, results, {});
+    chart.create('#fetch-refresh-widget-component', {
+      width: 160,
+      height: 30,
+      originOffset: -15,
+    });
   }
+
+  newResults() {
+    chart.succeed();
+    this.props.actions.resetNotifyResults();
+  }
+  /* eslint-enable class-methods-use-this */
 
   // START HERE
   render() {
     return (
-      <div className="results-map">
-        <div id="resultsMap" />
+      <div>
+        <div id="fetch-refresh-widget-component" />
       </div>
     );
   }

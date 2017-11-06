@@ -15,6 +15,7 @@ const App = (props) => {
       <TopResults
         session={orm.session(props.db.orm)}
         actions={actions}
+        fetch={props.db.fetch}
       />
       <SwingChartContainer
         session={orm.session(props.db.orm)}

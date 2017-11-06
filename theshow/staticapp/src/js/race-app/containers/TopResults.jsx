@@ -2,27 +2,23 @@ import React from 'react';
 
 import ResultsBar from '../components/ResultsBar';
 import ResultsMap from '../components/ResultsMap';
+import FetchRefresh from '../components/FetchRefresh';
 
-const TopResults = (props) => {
-  return (
-    <div className="top-results row-fluid section">
-    <div class="content-extra-large">
-        <div className="loading-bar">
-          <p>Checking for new results</p>
-        </div>
-      {/*<div className="loading-bar new-results">
-          <p class="new-results"> We found new results!</p>
-      </div>*/}
-        <div className="bar">
-          <ResultsBar session={props.session} />
-        </div>
-        <div className="map">
-          <ResultsMap session={props.session} />
-        </div>
-        <div class="clear"></div>
+const TopResults = props => (
+  <div className="top-results row-fluid section">
+    <div className="content-extra-large">
+      <div className="loading-bar">
+        <FetchRefresh fetch={props.fetch} actions={props.actions} />
+      </div>
+      <div className="bar">
+        <ResultsBar session={props.session} />
+      </div>
+      <div className="map">
+        <ResultsMap session={props.session} />
+      </div>
+      <div className="clear" />
     </div>
-    </div>
-  );
-};
+  </div>
+);
 
 export default TopResults;

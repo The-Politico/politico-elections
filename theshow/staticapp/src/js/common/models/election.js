@@ -35,10 +35,8 @@ class Election extends Model {
       }
 
       const firstResult = resultSet.first();
-      if (!firstResult) {
-        console.log('No results for division:', division.id);
-        return;
-      }
+      if (!firstResult) return;
+
       obj.precinctsReporting = firstResult.precinctsReporting;
       obj.precinctsReportingPct = firstResult.precinctsReportingPct;
       obj.precinctsTotal = firstResult.precinctsTotal;

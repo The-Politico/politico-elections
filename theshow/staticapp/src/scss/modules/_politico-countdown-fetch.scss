@@ -1,0 +1,9 @@
+$CountdownFetch-container: '#fetch-refresh-widget-component';
+
+@import '../../../node_modules/politico-countdown-fetch/src/scss/_chart-styles';
+
+#{$CountdownFetch-container}{
+  .fetch-refresh-widget{
+    margin-bottom: 20px;
+  }
+}

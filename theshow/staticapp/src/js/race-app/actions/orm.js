@@ -45,3 +45,11 @@ export const createOverrideResult = overrideResult => ({
   type: types.CREATE_OVERRIDE_RESULT,
   overrideResult,
 });
+
+export const compareResults = () => ({
+  type: types.COMPARE_RESULTS,
+});
+
+export const compareContext = () => ({
+  type: types.COMPARE_CONTEXT,
+});
