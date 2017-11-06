@@ -182,6 +182,12 @@ $usDemographic-container: '.demographic-map';
   }
 }
 
+@media (max-width: 1080px){
+  #candidateResultsBar .g-mugshot:first-of-type {
+      margin-top: 9px;
+  }
+}
+
 
 //Loading Results bar
 .loading-bar{
@@ -204,6 +210,14 @@ $usDemographic-container: '.demographic-map';
       background-color: $new-restults-load;
       color: $white;
   }
+}
+
+//Precincts Reporting
+.precincts-reporting-topline{
+  font-family: "franklin-gothic-urw", "Arial Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  margin-top: 10px;
+  color: #8b8b8b;
 }
 
 
@@ -246,8 +260,8 @@ $usDemographic-container: '.demographic-map';
 //chatter
 .chatter{
   p{
-    margin: 0 auto 2rem;
-    max-width: 500px;
+    margin: 10px auto 2rem;
+    max-width: 710px;
   }
 }
 
