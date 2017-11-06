@@ -1,5 +1,5 @@
 import { fk, many, oneToOne, attr, Model } from 'redux-orm';
-import _ from 'lodash';
+import { assign, find } from 'lodash';
 
 class Election extends Model {
   /**
@@ -7,7 +7,7 @@ class Election extends Model {
    * @return {Object}   Status object.
    */
   serializeStatus() {
-    return _.assign(
+    return assign(
       {},
       this.apMeta.serialize(),
     );
@@ -24,7 +24,7 @@ class Election extends Model {
     const divisionResults = {};
 
     divisions.forEach((division) => {
-      const obj = _.assign({}, division.serialize());
+      const obj = assign({}, division.serialize());
       obj.results = [];
 
       let resultSet;
@@ -35,10 +35,8 @@ class Election extends Model {
       }
 
       const firstResult = resultSet.first();
-      if (!firstResult) {
-        console.log('No results for division:', division.id);
-        return;
-      }
+      if (!firstResult) return;
+
       obj.precinctsReporting = firstResult.precinctsReporting;
       obj.precinctsReportingPct = firstResult.precinctsReportingPct;
       obj.precinctsTotal = firstResult.precinctsTotal;
@@ -55,7 +53,7 @@ class Election extends Model {
         // Aggregate aggregable candidates' vote totals
         // and percents by division
         if (result.candidate.aggregable) {
-          const other = _.find(
+          const other = find(
             obj.results,
             d => d.candidate === 'other',
           );

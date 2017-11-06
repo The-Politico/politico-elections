@@ -26,12 +26,70 @@
 
   </head>
   <body>
+    {%block nav%}
+      <nav title="navigation">
+          <div id="global-header">
+              <div id="global-branding">
+                 <a class="navbar-brand" href="https://www.politico.com/" title="POLITICO" target="_top">
+                   <span class="icon icon-politico "></span>
+                   <span class="icon-text">POLITICO</span>
+                 </a>
+              </div>
+              <nav id="nav-micro" role="navigation">
+                <ul class="micro-list">
+                  <li class="subnav">
+                      <a href="https://www.politico.com/magazine/" target="_top">Magazine
+                  </a></li>
+                  <li class="subnav">
+                      <a href="https://www.politicopro.com" target="_top"><span aria-hidden="true" class="icon icon-pro-small-bold"></span>
+                      <span class="icon-text">POLITICO PRO</span>
+                  </a></li>
+                </ul>
+              </nav>
+          </div>
+      </nav>
+    {%endblock%}
+
     {%block content%}
     {%endblock%}
-    {%block preview_home%}
-      <small><a href="{%url 'preview'%}">links</a></small>
+
+    {%block credits%}
+    <div class="credits  section sans small content-fit">
+      Built with care by <span class="byline"><a href="https://twitter.com/tylrfishr">Tyler Fisher</a></span>, <span class="byline"><a href="https://twitter.com/sfrostenson">Sarah Frostenson</a></span>,
+      <span class="byline"><a href="https://twitter.com/Jeremy_CF_Lin">Jeremy C.F. Lin</a></span>, <span class="byline"><a href="https://twitter.com/JonRMcClure">Jon McClure</a></span> and
+      <span class="byline"><a href="https://twitter.com/mazet">Lily Mihalik</a>.</span>
+      <br/>
+    </div>
     {%endblock%}
+
     {%block relative_foot%}
     {%endblock%}
+
+    {%block footer%}
+         <footer>
+           <div id="global-footer">
+             <div class="footer-branding">
+               <a class="navbar-brand" href="http://www.politico.com/" title="POLITICO" target="_top">
+                 <span class="icon icon-politico"></span>
+               </a>
+             </div>
+               <div class="footer-legal">
+                    <div class="copyright"> © 2017 POLITICO LLC</div>
+                    <ul class="legal-links">
+                      <li><a href="https://www.politico.com/terms-of-service" target="_top">Terms of Service</a></li>
+                      <li><a href="https://www.politico.com/privacy-policy" target="_top">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+           </div>
+         </footer>
+     {%endblock%}
+
+     <script>
+      // Responsive ads script
+      !function(a){var b=function(){var a=document.createElement("p");a.style.width="100%",a.style.height="200px";var b=document.createElement("div");b.style.position="absolute",b.style.top="0px",b.style.left="0px",b.style.visibility="hidden",b.style.width="200px",b.style.height="150px",b.style.overflow="hidden",b.appendChild(a),document.body.appendChild(b);var c=a.offsetWidth;b.style.overflow="scroll";var d=a.offsetWidth;return c===d&&(d=b.clientWidth),document.body.removeChild(b),c-d},c=function(){"undefined"!=typeof googletag&&googletag.cmd.push(function(){googletag.pubads().refresh()})},d=function(){var a="alpha";return i>=748&&i<990?a="beta":i>=990&&i<l?a="gamma":i>=l&&i<1028?a="delta":i>=1028&&(a="epsilon"),"epsilon"!=a&&"delta"!=a&&(jQuery(".global-utility-bar .reveal-toggle .reveal").removeClass("is-active"),jQuery(".utility-bar-bottom").removeClass("is-active"),jQuery(".dynamic-ad-wrapper .ad-slot").remove(),jQuery(".global-utility-bar .dynamic-ad-wrapper").html("")),a},e={currentAdThreshold:""},f=function(){var a=d();e.currentAdThreshold!==a&&(e.currentAdThreshold=a,c())},g=function(){e.currentAdThreshold=d()};a(window).on("resize",function(){i=document.documentElement.clientWidth+h,f()});var h=b(),i=document.documentElement.clientWidth+h,l=1012;g()}(jQuery);
+      </script>
+
   </body>
 </html>

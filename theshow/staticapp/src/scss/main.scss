@@ -1,15 +1,120 @@
 @import 'fonts/stateface';
+@import 'bootstrap';
+
+@import 'breakpoints';
+@import 'mixins';
+@import 'colors/base';
+@import 'colors/diverging';
+@import 'colors/qualitative';
+@import 'colors/sequential';
+@import 'fonts';
+@import 'icons';
+
+@import 'elements';
+@import 'sections';
+@import 'card';
+@import 'refer';
+@import 'navigation';
+@import 'header';
+@import 'footer';
+@import 'photos';
+@import 'buttons';
+@import 'ads';
+@import 'comments';
+@import 'share';
+@import 'credits';
+@import 'graphics';
+
+$light-load: #FFEFB5;
+$checking-load: #fce490;
+$new-restults-load: #629359;
+.content-group.ad:first-of-type{
+  padding-top:10px;
+}
+body{
+  font-family: $franklin;
+  padding-bottom: 4rem;
+}
+h2, h3{
+    letter-spacing: -.5px;
+}
+
+.section{
+  margin-bottom: 4rem;
+  padding: 0 15px;
+  @media(max-width: 600px){
+    margin-bottom: 4rem;
+  }
+
+  &.swing-chart{
+    margin-bottom: 3rem;
+  }
+  &.credits{
+  margin-bottom: 0;
+  }
+}
+
+.content-extra-large{
+  max-width: 960px;
+}
+
+.content-extra-extra-large{
+  max-width: 1280px;
+  @include margin-auto;
+}
+
+@media(max-width: 780px){
+  .top-results.section, .section{
+    max-width: 100%;
+  }
+}
+
+header {
+  h3{
+  font-family: $proxima;
+  font-size: 16px;
+  }
+  span.red{
+  color: $politico-red;
+  font-weight: 700;
+  }
+}
+
+.section-header-wrap {
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  margin: 30px auto 20px;
+}
+
+
+h2.section-title{
+  position: relative;
+  margin: 9px 0 20px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #fff;
+  padding: 0 15px;
+  min-width: 160px;
+}
+
+.header-line{
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    background-color: #555;
+    vertical-align: middle;
+    position: absolute;
+    top: 25px;
+    left: 0;
+}
 
 h3{
-  color:green;
-  font-size: 34px;
-}
-
-purple{
-  color: purple;
-}
-green{
-  color: green;
+  font-size: 1.1rem;
 }
 
 
@@ -18,3 +123,160 @@ $candidateResultsBar-container: '#candidateResultsBar';
 
 $resultCounty-container: '#resultsMap';
 @import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
+
+$countySwing-container: '#county-swing';
+@import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
+
+
+$demographicPlot-container: '.plot';
+@import '../../node_modules/politico-module-elections-demographic-vote-trend-scatterplots/src/scss/_chart-styles';
+
+$usDemographic-container: '.demographic-map';
+
+@import '../../node_modules/politico-module-elections-demographic-county-map/src/scss/_chart-styles';
+
+//Top Results div
+.top-results.section{
+    padding: 0 15px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+
+  @media(max-width: 950px){
+    margin-top: .5rem;
+  }
+
+  .bar{
+    width: 35%;
+    float:left;
+
+      @media(max-width: 768px){
+        width: 100%;
+        margin: 0;
+      }
+  }
+  .map{
+    width: 60%;
+    margin-left: 4%;
+    padding-left: 3%;
+    // border-left: solid 1px #e7e7e7;
+    float: left;
+      @media(max-width: 768px){
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-left: none;
+      }
+  }
+}
+
+
+//Loading Results bar
+.loading-bar{
+  p{
+    font-family: $franklin;
+    width: 170px;
+    height: 32px;
+    padding: 5px 10px;
+    background-color: $light-load;
+    font-size: 14px;
+    margin: 0;
+    display: block;
+    @media(max-width: 768px){
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  p.new-results{
+      background-color: $new-restults-load;
+      color: $white;
+  }
+}
+
+
+//Scatter Plots
+.scatterplot-wrapper {
+  position: relative;
+  max-width: 290px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+.plot-container{
+    max-width: 100%;
+    margin: 20px auto 0;
+
+  @media (max-width: 1280px){
+    max-width: 640px;
+  }
+}
+
+.plot {
+    margin: 5px 20px 20px;
+}
+
+.scatter-plots .col-sm-3{
+    width: 25%;
+  @media (max-width: 1280px){
+    width: 50%;
+    float: left;
+  }
+  @media (max-width: 640px){
+    width: 100%;
+    padding:0 0 20px;
+    float: 0;
+  }
+}
+
+
+
+
+// Censusmaps
+.demographic-map .legend .key-container .key span{
+  font-family: $franklin;
+}
+
+.census-map{
+  max-width: 480px;
+  margin: 0 auto 2em;
+  padding: 0 20px;
+
+}
+@media(max-width: 600px){
+  .census-map{
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 40px;
+  }
+}
+
+//More css for Jeremy's top results bar
+//bar
+#candidateResultsBar .g-other-vote-pct {
+float:right;
+}
+
+#candidateResultsBar .g-candidate-party {
+    padding: 2px 9px 3px;
+  }
+
+@media(max-width:980px){
+    #candidateResultsBar .g-mugshot {
+        margin: 10px 0 10px 0;
+        &:first-of-type{
+          margin-top: 20px;
+        }
+      }
+    #candidateResultsBar .g-mugshot .g-candidate-photo {
+    max-width: 65px;
+    }
+    #candidateResultsBar .g-mugshot .g-candidate-party {
+      font-size: 14px;
+    }
+    #candidateResultsBar .g-candidate-party {
+      padding: 2px 8px 3px;
+    }
+    #candidateResultsBar .g-mugshot .g-candidate-name {
+      font-size: 19px;
+      margin: -12px 10px;
+    }
+}

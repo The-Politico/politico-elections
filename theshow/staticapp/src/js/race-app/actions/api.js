@@ -1,17 +1,18 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 import * as ormActions from './orm';
+import createContentBlock from './content';
 
 const headers = {
   headers: {
-    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   },
 };
 
-const GET = _.assign({}, headers, { method: 'GET' });
+const GET = assign({}, headers, { method: 'GET' });
 
 function addDivisions(division, dispatch) {
-  const parent = _.assign({}, division);
+  const parent = assign({}, division);
   const parentObj = {
     id: parent.postal_code ? parent.postal_code : parent.code,
     code: parent.code,
@@ -156,8 +157,13 @@ function addResults(results, dispatch) {
   });
 }
 
-export const fetchContext = () =>
-  dispatch => fetch(window.appConfig.api.context, GET)
+const addContent = (content, dispatch) => dispatch(createContentBlock(content));
+
+export const fetchContext = modifiedTime =>
+  dispatch => fetch(
+    window.appConfig.api.context,
+    assign({}, GET, { 'If-Modified-Since': modifiedTime }),
+  )
     .then(response => response.json())
     .then(data =>
       Promise.all([
@@ -168,17 +174,24 @@ export const fetchContext = () =>
         addCandidates(data.elections, dispatch),
         addElections(data.elections, dispatch),
         addOverrideResults(data.elections, dispatch),
-      ])).catch((error) => {
+        addContent(data.content, dispatch),
+      ]))
+    .then(() => dispatch(ormActions.compareContext()))
+    .catch((error) => {
       console.log('API ERROR', error);
     });
 
-export const fetchResults = () =>
-  dispatch => fetch(window.appConfig.api.results, GET)
+export const fetchResults = modifiedTime =>
+  dispatch => fetch(
+    window.appConfig.api.results,
+    assign({}, GET, { 'If-Modified-Since': modifiedTime }),
+  )
     .then(response => response.json())
     .then(data =>
       Promise.all([
         addResults(data, dispatch),
       ]))
+    .then(() => dispatch(ormActions.compareResults()))
     .catch((error) => {
       console.log('API ERROR', error);
     });

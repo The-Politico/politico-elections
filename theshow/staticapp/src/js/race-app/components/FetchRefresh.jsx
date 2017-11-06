@@ -1,11 +1,12 @@
 import React from 'react';
-import CandidateResultsBar from 'candidate-results-bar';
+import CountdownFetch from 'politico-countdown-fetch';
 import { debounce } from 'lodash';
+import refreshRates from '../constants/api';
 
 // Initialize the chart
-const chart = CandidateResultsBar();
+const chart = CountdownFetch();
 
-class ResultsBar extends React.Component {
+class ResultsMap extends React.Component {
   /**
    * constructor lets us bind custom methods to our component class.
    */
@@ -13,7 +14,7 @@ class ResultsBar extends React.Component {
     super(props);
     // Bind our custom methods (using ES7 bind syntax "::").
     this.drawChart = ::this.drawChart;
-    this.fetchData = ::this.fetchData;
+    this.newResults = ::this.newResults;
   }
 
   // Called first time our component is mounted, i.e., just once.
@@ -30,46 +31,35 @@ class ResultsBar extends React.Component {
   // i.e., whenever our data updates.
   componentDidUpdate() {
     this.drawChart();
+    if (this.props.fetch.notifyNew) this.newResults();
   }
 
-  // Gets data from our client database
-  fetchData() {
-    const db = this.props.session;
-
-    const election = db.Election.first();
-    if (!election) return null;
-
-    const state = db.Division
-      .filter(d =>
-        d.level === 'state' &&
-        d.code === window.appConfig.stateFips)
-      .toModelArray();
-
-    return election.serializeResults(state);
-  }
-
+  /* eslint-disable class-methods-use-this */
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
-    const results = this.fetchData();
-
-    if (!results || Object.keys(results.divisions).length < 1) {
-      return
-    };
-
-    chart.create('#candidateResultsBar', results, {
-      statePostal: Object.keys(results.divisions)[0]
+    chart.create('#fetch-refresh-widget-component', {
+      refreshTime: refreshRates.results / 1000,
+      width: 160,
+      height: 30,
+      originOffset: -15,
     });
   }
+
+  newResults() {
+    chart.succeed();
+    this.props.actions.resetNotifyResults();
+  }
+  /* eslint-enable class-methods-use-this */
 
   // START HERE
   render() {
     return (
-      <div className="results-bar">
-        <div id="candidateResultsBar" />
+      <div>
+        <div id="fetch-refresh-widget-component" />
       </div>
     );
   }
 }
 
-export default ResultsBar;
+export default ResultsMap;

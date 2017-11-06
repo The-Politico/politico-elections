@@ -1,19 +1,18 @@
 import React from 'react';
-import CandidateResultsBar from 'candidate-results-bar';
+import demographicPlot from 'politico-module-elections-demographic-vote-trend-scatterplots';
 import { debounce } from 'lodash';
 
-// Initialize the chart
-const chart = CandidateResultsBar();
-
-class ResultsBar extends React.Component {
+class ScatterPlot extends React.Component {
   /**
    * constructor lets us bind custom methods to our component class.
    */
   constructor(props) {
+    const chart = demographicPlot();
     super(props);
     // Bind our custom methods (using ES7 bind syntax "::").
     this.drawChart = ::this.drawChart;
     this.fetchData = ::this.fetchData;
+    this.chart = chart;
   }
 
   // Called first time our component is mounted, i.e., just once.
@@ -22,7 +21,7 @@ class ResultsBar extends React.Component {
 
     // Attach a resize func here!
     window.addEventListener('resize', debounce(() => {
-      chart.resize();
+      this.chart.resize();
     }, 400));
   }
 
@@ -39,13 +38,13 @@ class ResultsBar extends React.Component {
     const election = db.Election.first();
     if (!election) return null;
 
-    const state = db.Division
+    const counties = db.Division
       .filter(d =>
-        d.level === 'state' &&
-        d.code === window.appConfig.stateFips)
+        d.level === 'county' &&
+        d.code.substr(0, 2) === window.appConfig.stateFips)
       .toModelArray();
 
-    return election.serializeResults(state);
+    return election.serializeResults(counties);
   }
 
   // Calls our chart's create function.
@@ -53,23 +52,34 @@ class ResultsBar extends React.Component {
   drawChart() {
     const results = this.fetchData();
 
-    if (!results || Object.keys(results.divisions).length < 1) {
-      return
-    };
+    if (!results || Object.keys(results.divisions).length < 1) return;
 
-    chart.create('#candidateResultsBar', results, {
-      statePostal: Object.keys(results.divisions)[0]
-    });
+    this.chart.create(
+      `#scatterplot-${this.props.data_key}`,
+      results,
+      `https://www.politico.com/interactives/elections/data/us-census/acs5/2015/${window.appConfig.stateFips}/${this.props.variable}.json`,
+      {
+        dataKeys: {
+          y: 'Percent',
+          x: 'MarginOfError',
+          n: 'GeographicArea',
+          geoid: 'TargetGeoId2',
+        },
+        trendX: this.props.trendX,
+        censusAccessor: this.props.accessor,
+        footnote: '',
+      },
+    );
   }
 
   // START HERE
   render() {
     return (
-      <div className="results-bar">
-        <div id="candidateResultsBar" />
+      <div className="scatterplot-wrapper">
+        <div className="plot" id={`scatterplot-${this.props.data_key}`} />
       </div>
     );
   }
 }
 
-export default ResultsBar;
+export default ScatterPlot;

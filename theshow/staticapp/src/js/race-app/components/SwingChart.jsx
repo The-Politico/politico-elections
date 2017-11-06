@@ -1,9 +1,9 @@
 import React from 'react';
-import CandidateResultsBar from 'candidate-results-bar';
+import countySwing from 'politico-module-elections-county-arrow-swing-chart';
 import { debounce } from 'lodash';
 
 // Initialize the chart
-const chart = CandidateResultsBar();
+const chart = countySwing();
 
 class ResultsBar extends React.Component {
   /**
@@ -39,13 +39,13 @@ class ResultsBar extends React.Component {
     const election = db.Election.first();
     if (!election) return null;
 
-    const state = db.Division
+    const counties = db.Division
       .filter(d =>
-        d.level === 'state' &&
-        d.code === window.appConfig.stateFips)
-      .toModelArray();
+        d.level === 'county' &&
+        d.code.substr(0,2) === window.appConfig.stateFips
+      ).toModelArray();
 
-    return election.serializeResults(state);
+    return election.serializeResults(counties);
   }
 
   // Calls our chart's create function.
@@ -57,16 +57,26 @@ class ResultsBar extends React.Component {
       return
     };
 
-    chart.create('#candidateResultsBar', results, {
-      statePostal: Object.keys(results.divisions)[0]
+    chart.create('#county-swing', results, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`, 
+    {
+      range: ['#114ca1', '#dc2700'],
+      legendHeight: 0,
+      legendPadding: 6,
+      linePadding: 3,
+      margin: {
+        top: 20,
+        right: 25,
+        bottom: 30,
+        left: 25,
+      },
     });
   }
 
   // START HERE
   render() {
     return (
-      <div className="results-bar">
-        <div id="candidateResultsBar" />
+      <div className="swing-chart">
+        <div id="county-swing" />
       </div>
     );
   }

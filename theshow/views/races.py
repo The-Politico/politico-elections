@@ -117,7 +117,7 @@ class StateExecutiveRacePage(BaseView):
             **kwargs
         )
         return self.build_context(
-            election_date=self.kwargs.get('date'),
+            election_datestring=self.kwargs.get('date'),
             state_slug=self.kwargs.get('state'),
             office_slug=self.kwargs.get('office'),
             context=context

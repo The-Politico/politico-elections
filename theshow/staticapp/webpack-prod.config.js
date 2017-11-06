@@ -8,6 +8,7 @@ const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 
 
+
 module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx', '.json'],
@@ -31,7 +32,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        },
+        }
       },
       {
         test: /\.scss$/,

@@ -1,19 +1,18 @@
 import React from 'react';
-import resultCounty from 'politico-module-elections-results-county-map';
+import usDemographic from 'politico-module-elections-demographic-county-map';
 import { debounce } from 'lodash';
+import * as d3 from 'd3';
 
-// Initialize the chart
-const chart = resultCounty();
-
-class ResultsMap extends React.Component {
+class CensusMap extends React.Component {
   /**
    * constructor lets us bind custom methods to our component class.
    */
   constructor(props) {
+    const chart = usDemographic();
     super(props);
     // Bind our custom methods (using ES7 bind syntax "::").
     this.drawChart = ::this.drawChart;
-    this.fetchData = ::this.fetchData;
+    this.chart = chart;
   }
 
   // Called first time our component is mounted, i.e., just once.
@@ -22,7 +21,7 @@ class ResultsMap extends React.Component {
 
     // Attach a resize func here!
     window.addEventListener('resize', debounce(() => {
-      chart.resize();
+      this.chart.resize();
     }, 400));
   }
 
@@ -32,47 +31,39 @@ class ResultsMap extends React.Component {
     this.drawChart();
   }
 
-  // Gets data from our client database
-  fetchData() {
-    const db = this.props.session;
-
-    const election = db.Election.first();
-    if (!election) return null;
-
-    const counties = db.Division
-      .filter(d =>
-        d.level === 'county' &&
-        d.code.substr(0, 2) === window.appConfig.stateFips)
-      .toModelArray();
-
-    return election.serializeResults(counties);
-  }
-
   // Calls our chart's create function.
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
     const db = this.props.session;
-    const results = this.fetchData();
-
-    if (!results) return;
 
     const state = db.Division
       .filter(d => d.level === 'state')
       .first();
 
-    if (!state.topojson) return;
+    if (!state || !state.topojson) return;
 
-    chart.create('#resultsMap', state.topojson, results, {});
+    this.chart.create(
+      `#demographic-map-${this.props.data_key}`,
+      state.topojson,
+      `https://www.politico.com/interactives/elections/data/us-census/acs5/2015/${window.appConfig.stateFips}/${this.props.variable}.json`,
+      {
+        range: ['#f7e9c9', '#f3ddac', '#edcd83', '#e7bc5a', '#c8951e'],
+        projection: d3.geoMercator,
+        scaleType: d3.scaleThreshold,
+        noData: '#e2e2e2',
+        censusAccessor: this.props.accessor,
+      },
+    );
   }
 
   // START HERE
   render() {
     return (
-      <div className="results-map">
-        <div id="resultsMap" />
+      <div className="demograhic-map-wrapper">
+        <div className="demographic-map" id={`demographic-map-${this.props.data_key}`} />
       </div>
     );
   }
 }
 
-export default ResultsMap;
+export default CensusMap;
