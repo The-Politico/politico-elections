@@ -58,8 +58,8 @@ class Command(BaseBakeCommand, BaseCommand):
                 content_type='text/html'
             )
 
-    def bake_federal_body_pages(self, election_day):
+    def bake_federal_body_pages(self, election_day, options):
         pass
 
-    def bake_state_body_pages(self, election_day):
+    def bake_state_body_pages(self, election_day, options):
         pass
