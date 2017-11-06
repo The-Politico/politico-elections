@@ -57,18 +57,26 @@ class ResultsBar extends React.Component {
       return
     };
 
-    chart.create('#county-swing', results, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`, 
+    chart.create('#county-swing', results, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`,
     {
-      range: ['#114ca1', '#dc2700'],
+      range: ['#2b6abd', '#fd5639'],
       legendHeight: 0,
-      legendPadding: 6,
+      legendPadding: 4,
       linePadding: 3,
+      minimumToShow: 10,
       margin: {
         top: 20,
         right: 25,
         bottom: 30,
         left: 25,
       },
+      tooltip: {
+        active: false,
+        xStyle: null,
+        yStyle: null,
+        fips: null,
+        datum: null,
+    },
     });
   }
 
