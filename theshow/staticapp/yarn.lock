@@ -1538,7 +1538,7 @@ camelcase@^4.1.0:
 
 "candidate-results-bar@git+ssh://git@github.com:The-Politico/module_candidate-results-bar":
   version "1.0.2"
-  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#530a17b04f154d0d4c8c9fefec4f249b8ea7b465"
+  resolved "git+ssh://git@github.com:The-Politico/module_candidate-results-bar#9a33e8b6e5bc7f47cb4269361e7479faccb73046"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -2228,13 +2228,7 @@ d3-svg-legend@^2.24.1:
     d3-selection "1.0.2"
     d3-transition "1.0.3"
 
-d3-time-format@2:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.1.0.tgz#a1d9540a1dc498817d44066b121b19a4a83e3531"
-  dependencies:
-    d3-time "1"
-
-d3-time-format@2.0.5:
+d3-time-format@2, d3-time-format@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.0.5.tgz#9d7780204f7c9119c9170b1a56db4de9a8af972e"
   dependencies:
@@ -5290,7 +5284,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#ce87cee86f7649a050c252e410ab01b423877f57"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#3579d69918804f49ee88db33182e707d5016aefc"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5336,7 +5330,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-county-map@git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#a317b28a7ba032fc23c3f18d4046aaa6e25cb173"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-county-map#86d2e911bdc1991b2a6abd01e98ee2606b5ef584"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -5430,7 +5424,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-results-county-map@git+ssh://git@github.com:The-Politico/module_elections-results-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#a51aa12a3b7286eacd9b00a031f1b6fac62f0231"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#c2e0e44224aaf27ba478ec932468217e0a2cc8a1"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -6621,11 +6615,7 @@ standalone-react-addons-pure-render-mixin@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/standalone-react-addons-pure-render-mixin/-/standalone-react-addons-pure-render-mixin-0.1.1.tgz#3c7409f4c79c40de9ac72c616cf679a994f37551"
 
-"statuses@>= 1.3.1 < 2":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
-
-statuses@~1.3.1:
+"statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
 

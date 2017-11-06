@@ -27,7 +27,7 @@ class Command(BaseBakeCommand, BaseCommand):
 
     def bake_state_executive_race_pages(self, election_day, options):
         elections = self.fetch_state_executive_race_elex(election_day)
-        print('> State executive races:')
+        print('> >> State executive races:')
         for election in tqdm(elections):
             serialized_data = JSONRenderer().render(
                 OfficeSerializer(election.race.office, context={

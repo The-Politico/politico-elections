@@ -33,7 +33,7 @@ class Command(BaseBakeCommand, BaseCommand):
 
     def bake_state_executive_race_pages(self, election_day, options):
         elections = self.fetch_state_executive_race_elex(election_day)
-        print('> State executive races:')
+        print('> >> State executive races:')
         for election in tqdm(elections):
             context = StateExecutiveRacePageExport.build_context(
                 election_datestring=election.election_day.__str__(),
