@@ -68,6 +68,7 @@ class ScatterPlot extends React.Component {
         trendX: this.props.trendX,
         censusAccessor: this.props.accessor,
         footnote: '',
+        outerWidth: 260,
       },
     );
   }

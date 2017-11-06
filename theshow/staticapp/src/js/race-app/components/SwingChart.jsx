@@ -63,7 +63,7 @@ class ResultsBar extends React.Component {
       legendHeight: 0,
       legendPadding: 15,
       linePadding: 3,
-      minimumToShow: 10,
+      minimumToShow: 0,
       margin: {
         top: 20,
         right: 35,

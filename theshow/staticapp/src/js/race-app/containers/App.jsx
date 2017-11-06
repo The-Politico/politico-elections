@@ -11,15 +11,15 @@ import orm from '../../common/models';
 
 const App = (props) => {
   const actions = bindActionCreators(Actions, props.dispatch);
-  const hasVotes = checkResultStatus(props.db);
+  const countiesWithVotes = checkResultStatus(props.db);
 
-  const beforeVotesChatter = hasVotes ? null : (
+  const beforeVotesChatter = countiesWithVotes ? null : (
     <div>
       <p>Check back soon!</p>
     </div>
   );
 
-  const voteDependentModules = hasVotes ? (
+  const voteDependentModules = countiesWithVotes ? (
     <div>
       <SwingChartContainer
           content={props.db.content}
@@ -58,12 +58,25 @@ function checkResultStatus(initDb) {
   const election = db.Election.first();
   if (!election) return false;
   
-  const state = [db.Division.withId(window.appConfig.statePostal)];
-  const data = election.serializeResults(state);
-  const results = data.divisions[window.appConfig.statePostal].results;
-  const voteTotal = results.reduce((a, b) => a + b.voteCount, 0);
-  return voteTotal > 0;
+  const counties = db.Division
+    .filter(d =>
+      d.level === 'county' &&
+      d.code.substr(0,2) === window.appConfig.stateFips
+    ).toModelArray();
 
+  const results = election.serializeResults(counties);
+  const threshold = Math.floor(Object.keys(results.divisions).length / 10);
+  let countiesWithVotes = 0;
+
+  Object.keys(results.divisions).forEach((division) => {
+    const resultSet = results.divisions[division];
+    const voteTotal = resultSet.results.reduce((a, b) => a + b.voteCount, 0);
+    if (voteTotal > 0) {
+      countiesWithVotes += 1;
+    }
+  });
+
+  return countiesWithVotes >= threshold;
 }
 
 

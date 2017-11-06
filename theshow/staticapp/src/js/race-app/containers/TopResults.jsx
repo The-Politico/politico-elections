@@ -5,10 +5,7 @@ import ResultsMap from '../components/ResultsMap';
 import FetchRefresh from '../components/FetchRefresh';
 
 const TopResults = (props) => {
-  const db = props.session;
-  const stateResults = getStateResults(db);
-
-  const precinctsReportingPct = stateResults ? stateResults.divisions[window.appConfig.statePostal].precinctsReportingPct : 0;
+  const precinctsReportingPct = getPrecinctsReporting(props);
 
   return (
     <div className="top-results row-fluid section">
@@ -42,6 +39,15 @@ function getStateResults(db) {
     .toModelArray();
 
   return election.serializeResults(state);
+}
+
+function getPrecinctsReporting(props) {
+  const db = props.session;
+  const stateResults = getStateResults(db);
+
+  if (!stateResults) return 0;
+  if (Object.keys(stateResults.divisions).length === 0) return 0;
+  return stateResults.divisions[window.appConfig.statePostal].precinctsReportingPct;
 }
 
 export default TopResults;
