@@ -70,6 +70,7 @@ class ResultsBar extends React.Component {
         bottom: 30,
         left: 35,
       },
+      rangeMax: 20,
       tooltip: {
         active: false,
         xStyle: null,
