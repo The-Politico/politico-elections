@@ -35,23 +35,36 @@ const ScatterPlots = (props) => {
   ];
   return (
     <div className="scatter-plots row-fluid section content-extra-extra-large">
-    <div class="section-header-wrap"><div class="header-line"></div><h2 class="section-title">Voting block trends</h2></div>
-    <div class="plot-container">
-      {censusVariables.map((obj, index) => {
-        return (<div className="col-sm-3">
-          <h3>{obj.title}</h3>
-          <ScatterPlot
-            session={props.session}
-            data_key={obj.data_key}
-            key={index}
-            variable={obj.variable}
-            trendX={obj.trendX}
-            accessor={obj.accessor}
-          />
-        </div>)
-      })}
-
-      <div class="clear"></div>
+      <div className="section-header-wrap">
+        <div className="header-line" />
+        <h2 className="section-title">Voting block trends</h2>
+      </div>
+      <div className="chatter">
+        <p>
+        These charts use county-level data from the U.S. Census Bureau
+        to estimate how strong was the relationship between different demographic
+        groups and each party in this election.
+        The sliding scale tells you how strong the relationship was, while the
+        scatterplots show
+        which party benefitted most from that group&rsquo;s support. Each dot is
+        a county.
+        </p>
+      </div>
+      <div className="plot-container">
+        {censusVariables.map((obj, index) => (
+          <div className="col-sm-3">
+            <h3>{obj.title}</h3>
+            <ScatterPlot
+              session={props.session}
+              data_key={obj.data_key}
+              key={index}
+              variable={obj.variable}
+              trendX={obj.trendX}
+              accessor={obj.accessor}
+            />
+          </div>
+        ))}
+        <div className="clear" />
       </div>
     </div>
   );
