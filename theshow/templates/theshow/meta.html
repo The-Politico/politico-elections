@@ -12,14 +12,18 @@ var utag_data = {
  "free_paid_content":"free",
  "site_section":"elections",
  "ad_unit_section":"elections",
- "page_type":"interactives",
+ "page_type":"election results",
  "content_author":"Tyler Fisher|Sarah Frostenson"|"Jeremy C.F. Lin|Jon McClure|Lily Mihalik ",
  "content_byline":"By Tyler Fisher, Sarah Frostenson, Jeremy C.F. Lin, Jon McClure and Lily Mihalik ",
  "site_domain":"www.politico.com",
  "internal_site_id":"politico",
- "page_name":"Live 2017 Election Results | {{race.office.name}}: {{ candidates.GOP }} vs. {{ candidates.Dem }}",
+ "page_name":"{{state}} Election Results {{year}}: {{race.office.slug|capfirst}} Live Map by County, Real-Time Voting Updates",
 };
 </script>
+
+<!-- title and description -->
+<title>{{state}} Election Results {{year}}: {{race.office.slug|capfirst}} Live Map by County, Real-Time Voting Updates</title>
+<meta name="description" content="POLITICO's Live {{year}} {{state}} Election Results and Maps by County and District. Includes {{year}} Races for {{race.office.slug|capfirst}} and demographic charts and trends">
 
 <!-- icons -->
 <link rel="shortcut icon" type="image/x-icon" href="https://static.politico.com/cf/05/ee684a274496b04fa20ba2978da1/politico.png">
