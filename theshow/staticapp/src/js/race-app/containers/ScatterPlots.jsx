@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ScatterPlot from '../components/ScatterPlot';
+import NerdBox from '../../common/components/CollapsibleNerdBox';
 
 const ScatterPlots = (props) => {
   const censusVariables = [
@@ -63,31 +64,27 @@ const ScatterPlots = (props) => {
             />
           </div>
         ))}
-        <div>
-          <small className="footnote">
-            *These charts show the relationship between the percentage of the population in
-            each county that identifies
-            with a demographic characteristic (minority, college-educated, etc.) and
-            the split of that county&rsquo;s vote
-            between the Democratic and Republican candidate (GOP 45% - Dem. 40% = GOP +5).
-            The relationship with party vote shows the value of the&nbsp;
-            <a
-              href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"
-              target="_blank"
-            >
-              Pearson correlation coefficient
-            </a>, which is a statistic that measures the correlation
-            between that demographic
-            value and the vote split. We take the absolute value of
-            that number -- which is always between -1 and 1 and strongest at both ends --
-            to show how strong the relationship is,
-            regardless of whether it&rsquo;s positive or negative. Our demographic data
-            come from the latest U.S. Census American Community Survey. We use total
-            population estimates as a proxy for the voting-age population that actually
-            turns out on Election Day, so, political strategists, take these stats
-            with a pinch of salt. 😊 🇺🇸
-          </small>
-        </div>
+        <NerdBox
+          note="
+          *These charts show the relationship between the percentage of the population in
+          each county that identifies
+          with a demographic characteristic (minority, college-educated, etc.) and
+          the split of that county&rsquo;s vote
+          between the Democratic and Republican candidate (GOP 45% - Dem. 40% = GOP +5).
+          The relationship with party vote shows the value of the&nbsp;
+          [Pearson correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient),
+          which is a statistic that measures the correlation
+          between that demographic
+          value and the vote split. We take the absolute value of
+          that number -- which is always between -1 and 1 and strongest at both ends --
+          to show how strong the relationship is,
+          regardless of whether it&rsquo;s positive or negative. Our demographic data
+          come from the latest U.S. Census American Community Survey. We use total
+          population estimates as a proxy for the voting-age population that actually
+          turns out on Election Day, so, political strategists, take these stats
+          with a pinch of salt. 😊 🇺🇸
+          "
+        />
         <div className="clear" />
       </div>
     </div>

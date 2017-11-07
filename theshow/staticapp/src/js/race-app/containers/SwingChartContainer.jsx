@@ -2,6 +2,8 @@ import React from 'react';
 
 import SwingChart from '../components/SwingChart';
 
+import NerdBox from '../../common/components/CollapsibleNerdBox';
+
 
 const SwingChartContainer = props => (
   <div className="swing-chart row-fluid section">
@@ -20,11 +22,13 @@ const SwingChartContainer = props => (
       </div>
       <SwingChart session={props.session} />
       <div>
-        <small className="footnote">
+        <NerdBox
+          note="
           *Vote percents represent the vote split between only Democrats and Republicans
           and don&rsquo;t include third party votes. So, for example, Dem. votes /
           (Dem. votes + GOP votes) = Dem. percent.
-        </small>
+          "
+        />
       </div>
     </div>
     <div className="content-group ad">
