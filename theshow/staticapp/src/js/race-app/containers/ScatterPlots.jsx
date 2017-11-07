@@ -15,14 +15,22 @@ const ScatterPlots = (props) => {
       variable: 'B15003',
       data_key: 'college_educated',
       trendX: 'educated',
+<<<<<<< HEAD
       title: 'College educated population',
+=======
+      title: 'College-educated people',
+>>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => d.college_educated / d.total,
     },
     {
       variable: 'B19001',
       data_key: 'middle_class',
       trendX: 'middle class',
+<<<<<<< HEAD
       title: 'Middle class population',
+=======
+      title: 'Middle-class people',
+>>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => d.middle_class / d.total,
     },
     {
@@ -37,15 +45,15 @@ const ScatterPlots = (props) => {
     <div className="scatter-plots row-fluid section content-extra-extra-large">
       <div className="section-header-wrap">
         <div className="header-line" />
-        <h2 className="section-title">Voting block trends</h2>
+        <h2 className="section-title">Voting bloc trends</h2>
       </div>
       <div className="chatter">
         <p>
-        Which voting blocks track closest with a party line? These charts use
+        Which voting blocs track closest with a party line? These charts use
         county-level data from the U.S. Census Bureau to estimate how effectively
         each party pulls votes from key demographic groups. The
         sliding scale tells you how strong the relationship was in this
-        election, while the scatterplots show which party benefited most from
+        election, while the scatter-plot charts show which party benefited most from
         that group’s support. Each dot is a county that will update as votes come in.
         </p>
       </div>
@@ -65,11 +73,11 @@ const ScatterPlots = (props) => {
         ))}
         <div>
           <small className="footnote">
-            *These charts show the relationship between the percent of the population in
-            each county who identify
+            *These charts show the relationship between the percentage of the population in
+            each county that identifies
             with a demographic characteristic (minority, college-educated, etc.) and
             the split of that county&rsquo;s vote
-            between the Democratic and Republican candidate (Rep. 45% - Dem. 40% = Rep. +5).
+            between the Democratic and Republican candidate (GOP 45% - Dem. 40% = GOP +5).
             The relationship with party vote shows the value of the&nbsp;
             <a
               href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient"
@@ -82,9 +90,9 @@ const ScatterPlots = (props) => {
             that number -- which is always between -1 and 1 and strongest at both ends --
             to show how strong the relationship is,
             regardless of whether it&rsquo;s positive or negative. Our demographic data
-            comes from the latest U.S. Census American Community Survey. We use total
+            come from the latest U.S. Census American Community Survey. We use total
             population estimates as a proxy for the voting-age population that actually
-            turns out on election day, so, political strategists, take these stats
+            turns out on Election Day, so, political strategists, take these stats
             with a pinch of salt. 😊 🇺🇸
           </small>
         </div>
