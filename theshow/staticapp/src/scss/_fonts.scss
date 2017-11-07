@@ -26,3 +26,11 @@ $franklin: 'franklin-gothic-urw', 'Arial Narrow', 'Helvetica Neue', Helvetica, A
   font-family: $franklin;
   font-weight: 700;
 }
+
+.footnote{
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+  color: #666;
+  font-size: 12px;
+}
