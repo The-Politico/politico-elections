@@ -1,0 +1,55 @@
+.collapsible-nerd-box{
+  max-width: 710px;
+  margin: 0 auto;
+
+  .footnote{
+    font-family: $franklin;
+    background-color: #f5f5f5;
+    margin-top: 10px;
+    p{
+      padding: 20px;
+    }
+  }
+
+
+  button.active.focus, button.active:focus, button.focus, button:active.focus, button:active:focus, button:focus {
+      outline: 0;
+  }
+
+  button {
+    font-family: $franklin;
+    border: 0;
+    width: 150px;
+    font-size: 14px;
+    position: relative;
+    text-align: left;
+    border-radius: 4px;
+    padding: 5px 2px 5px 8px;
+
+    &.hover{
+       background-color: #d2d2d2;
+    }
+
+    &.closed{
+      background-color: #E7E7E7;
+      color:#686868;
+    }
+    &.open{
+      color: #fefefe;
+      background-color:#848484;
+    }
+    span{
+      position: absolute;
+      right: 10px;
+      font-weight: bold;
+    }
+  }
+  .footnote p{
+    font-family: $franklin;
+    font-size: 14px;
+    line-height: 18px;
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 10px;
+  }
+}
