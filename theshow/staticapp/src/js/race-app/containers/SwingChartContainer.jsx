@@ -11,11 +11,21 @@ const SwingChartContainer = props => (
         <h2 className="section-title">Vote shift from 2016</h2>
       </div>
       <div className="chatter">
-        <p>Did voters shift left or right? This chart shows how both candidates
-        compare to the vote in the 2016 presidential election by county.
+        <p>
+        Is it a Trump bump or the Trump hump? As the vote comes in, we&rsquo;re
+        watching how the candidates&rsquo; vote share shifts from the split between
+        major parties in the 2016 presidential election. Watch for the bars for
+        each county to update as results come in.
         </p>
       </div>
       <SwingChart session={props.session} />
+      <div>
+        <small className="footnote">
+          *Vote percents represent the vote split between Democrats and Republicans, only,
+          and don&rsquo;t include third party votes. So, for example, Dem. votes /
+          (Dem. votes + Rep. votes) = Dem. percent.
+        </small>
+      </div>
     </div>
     <div className="content-group ad">
       <p>Advertisement</p>
