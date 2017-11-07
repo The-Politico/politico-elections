@@ -6,17 +6,17 @@
     color: red;
   }
 </style>
-<link rel="stylesheet" href="https://s3.us-east-2.amazonaws.com/politico-staging/elections/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
+<link rel="stylesheet" href="https://www.politico.com/interactives/elections/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
 {%endblock%}
 
 {%block api%}
-{% with "https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
+{% with "https://www.politico.com/interactives/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
-      context: './context.json',
-      results: './results.json',
-      lastUpdated: './last-updated.json',
+      context: 'https://dy1ht16ivl5br.cloudfront.net/elections/{{ year }}//{{ state.slug }}/{{ office.slug }}/context.json',
+      results: 'https://dy1ht16ivl5br.cloudfront.net/elections/{{ year }}/{{ state.slug }}/{{ office.slug }}/results.json',
+      lastUpdated: 'https://dy1ht16ivl5br.cloudfront.net/elections/{{ year }}/{{ state.slug }}/{{ office.slug }}/last-updated.json',
       geo: '{{ geo_json }}',
     },
     stateFips: '{{state.code}}',
@@ -27,5 +27,5 @@
 {% endwith %}
 {%endblock%}
 {%block relative_foot%}
-<script src="https://s3.us-east-2.amazonaws.com/politico-staging/elections/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
+<script src="https://www.politico.com/interactives/elections/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
 {%endblock%}
