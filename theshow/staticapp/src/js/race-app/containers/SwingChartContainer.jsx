@@ -18,7 +18,7 @@ const SwingChartContainer = props => (
         how the candidates&rsquo; vote share differs from the 2016 presidential election.
         We&rsquo;re using the head-to-head vote split in this chart to show what
         Republicans or Democrats have
-        gained or lost against each other, removing any third parties from the equation.
+        gained or lost, removing any third parties from the equation.
         Watch for the bars for each county to update as results come in.
         </p>
       </div>
