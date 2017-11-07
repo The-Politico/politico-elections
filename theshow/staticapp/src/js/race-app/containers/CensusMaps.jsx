@@ -26,7 +26,7 @@ const CensusMaps = (props) => {
     {
       variable: 'B17020',
       data_key: 'impoverished',
-      title: 'Percent of people below the poverty line',
+      title: 'Percent of population below the poverty line',
       accessor: d => (d.impoverished / d.total) * 100,
     },
   ];
