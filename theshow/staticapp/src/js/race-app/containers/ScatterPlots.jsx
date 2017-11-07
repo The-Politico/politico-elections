@@ -66,7 +66,7 @@ const ScatterPlots = (props) => {
         ))}
         <NerdBox
           note="
-          *These charts show the relationship between the percentage of the population in
+          These charts show the relationship between the percentage of the population in
           each county that identifies
           with a demographic characteristic (minority, college-educated, etc.) and
           the split of that county&rsquo;s vote

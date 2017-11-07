@@ -38,10 +38,6 @@ body{
 }
 
 
-h2, h3{
-    letter-spacing: -.5px;
-}
-
 .section{
   margin-bottom: 4rem;
   padding: 0 15px;
@@ -284,4 +280,10 @@ $usDemographic-container: '.demographic-map';
     border-bottom: 1px solid #efefef;
     padding-bottom: 40px;
   }
+}
+
+//Button
+button{
+  border-radius: 4px;
+  padding: 5px 2px 5px 8px;
 }

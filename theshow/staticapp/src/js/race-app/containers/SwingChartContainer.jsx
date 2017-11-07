@@ -24,7 +24,7 @@ const SwingChartContainer = props => (
       <div>
         <NerdBox
           note="
-          *Vote percents represent the vote split between only Democrats and Republicans
+          Vote percents represent the vote split between only Democrats and Republicans
           and don&rsquo;t include third party votes. So, for example, Dem. votes /
           (Dem. votes + GOP votes) = Dem. percent.
           "
