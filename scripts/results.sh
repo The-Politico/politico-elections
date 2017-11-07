@@ -19,28 +19,30 @@ for file in ./output/elections/*.json ; do
     mkdir -p "$(dirname "$fullpath/p")"
 
     # filter results
-    cat master.json \
-    | jq -c --argjson elections "$elections" --argjson levels "$levels" '[
-      .[] |
-      select(.raceid as $id | $elections|index($id)) |
-      select(.level as $level | $levels|index($level)) |
-      {
-        fipscode: .fipscode,
-        level: .level,
-        polid: .polid,
-        polnum: .polnum,
-        precinctsreporting: .precinctsreporting,
-        precinctsreportingpct: .precinctsreportingpct,
-        precinctstotal: .precinctstotal,
-        raceid: .raceid,
-        statepostal: .statepostal,
-        votecount: .votecount,
-        votepct: .votepct,
-        winner: .winner
-      }
-    ]' > "$fullpath/results.json" # gzip and copy to s3 after this
-    last_updated="{\"date\":\"`date`\"}"
-    echo $last_updated > "$fullpath/last-updated.json"
+    if [ -s master.json ] ; then
+      cat master.json \
+      | jq -c --argjson elections "$elections" --argjson levels "$levels" '[
+        .[] |
+        select(.raceid as $id | $elections|index($id)) |
+        select(.level as $level | $levels|index($level)) |
+        {
+          fipscode: .fipscode,
+          level: .level,
+          polid: .polid,
+          polnum: .polnum,
+          precinctsreporting: .precinctsreporting,
+          precinctsreportingpct: .precinctsreportingpct,
+          precinctstotal: .precinctstotal,
+          raceid: .raceid,
+          statepostal: .statepostal,
+          votecount: .votecount,
+          votepct: .votepct,
+          winner: .winner
+        }
+      ]' > "$fullpath/results.json" # gzip and copy to s3 after this
+      last_updated="{\"date\":\"`date`\"}"
+      echo $last_updated > "$fullpath/last-updated.json"
+    fi
   fi
 done
 
