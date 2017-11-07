@@ -8,31 +8,19 @@ const CensusMaps = (props) => {
     {
       variable: 'B03002',
       data_key: 'white_alone',
-<<<<<<< HEAD
-      title: 'Percent of minority (nonwhite) population',
-=======
       title: 'Percent of people who are minority (nonwhite)',
->>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => ((d.total - d.white_alone) / d.total) * 100,
     },
     {
       variable: 'B15003',
       data_key: 'college_educated',
-<<<<<<< HEAD
-      title: 'Percent of college educated population',
-=======
       title: 'Percent of people who are college educated',
->>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => (d.college_educated / d.total) * 100,
     },
     {
       variable: 'B19001',
       data_key: 'middle_class',
-<<<<<<< HEAD
-      title: 'Percent of middle class population',
-=======
       title: 'Percent of people who are middle class',
->>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => (d.middle_class / d.total) * 100,
     },
     {

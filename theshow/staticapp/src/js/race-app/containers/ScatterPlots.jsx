@@ -15,22 +15,14 @@ const ScatterPlots = (props) => {
       variable: 'B15003',
       data_key: 'college_educated',
       trendX: 'educated',
-<<<<<<< HEAD
       title: 'College educated population',
-=======
-      title: 'College-educated people',
->>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => d.college_educated / d.total,
     },
     {
       variable: 'B19001',
       data_key: 'middle_class',
       trendX: 'middle class',
-<<<<<<< HEAD
       title: 'Middle class population',
-=======
-      title: 'Middle-class people',
->>>>>>> 9432877924c5415530b2b306a436055c24e8e199
       accessor: d => d.middle_class / d.total,
     },
     {
