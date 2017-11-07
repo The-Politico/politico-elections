@@ -32,6 +32,7 @@ class Person(UIDBase, SlugBase, NameBase):
             separator='-',
             start_no=2
         )
-        self.uid = 'person:{}'.format(self.slug)
+        if not self.uid:
+            self.uid = 'person:{}'.format(self.slug)
 
         super(Person, self).save(*args, **kwargs)
