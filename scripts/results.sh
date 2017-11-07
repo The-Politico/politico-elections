@@ -3,9 +3,9 @@
 # grab elex results for everything
 if [ $# -eq 0 ]
   then
-    elex results 2017-11-07 --national-only --test -o json > master.json
+    elex results 2017-11-07 --national-only -o json > master.json
   else
-    elex results 2017-11-07 --national-only --test -o json -d $1 > master.json
+    elex results 2017-11-07 --national-only -o json -d $1 > master.json
 fi
 
 # cp output/elections/*.json output/results/
