@@ -12,18 +12,18 @@ const SwingChartContainer = props => (
       </div>
       <div className="chatter">
         <p>
-        Is it a Trump bump or the Trump hump? As the vote comes in, we&rsquo;re
-        watching how the candidates&rsquo; vote share shifts from the split between
-        major parties in the 2016 presidential election. Watch for the bars for
-        each county to update as results come in.
+        Is it a Trump bump or the Trump slump? As the votes come in, we&rsquo;re watching
+        how each candidate&rsquo;s vote share differs from what the two major parties
+        received in the 2016 presidential election. Watch for the bars for each
+        county to update as results come in.
         </p>
       </div>
       <SwingChart session={props.session} />
       <div>
         <small className="footnote">
-          *Vote percents represent the vote split between Democrats and Republicans, only,
+          *Vote percents represent the vote split between only Democrats and Republicans
           and don&rsquo;t include third party votes. So, for example, Dem. votes /
-          (Dem. votes + Rep. votes) = Dem. percent.
+          (Dem. votes + GOP votes) = Dem. percent.
         </small>
       </div>
     </div>
