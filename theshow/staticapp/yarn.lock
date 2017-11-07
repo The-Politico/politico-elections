@@ -2246,13 +2246,7 @@ d3-svg-legend@^2.24.1:
     d3-selection "1.0.2"
     d3-transition "1.0.3"
 
-d3-time-format@2:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.1.0.tgz#a1d9540a1dc498817d44066b121b19a4a83e3531"
-  dependencies:
-    d3-time "1"
-
-d3-time-format@2.0.5:
+d3-time-format@2, d3-time-format@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.0.5.tgz#9d7780204f7c9119c9170b1a56db4de9a8af972e"
   dependencies:
@@ -5316,7 +5310,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#c15108f517bedf663569a2f76f0a690db1b62591"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#d0e427411cae349aed0fe7afef346bb014c3334b"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -6676,11 +6670,7 @@ standalone-react-addons-pure-render-mixin@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/standalone-react-addons-pure-render-mixin/-/standalone-react-addons-pure-render-mixin-0.1.1.tgz#3c7409f4c79c40de9ac72c616cf679a994f37551"
 
-"statuses@>= 1.3.1 < 2":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
-
-statuses@~1.3.1:
+"statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
 

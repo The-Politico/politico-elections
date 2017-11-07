@@ -15,16 +15,18 @@ const SwingChartContainer = props => (
       <div className="chatter">
         <p>
         Is it a Trump bump or the Trump slump? As the votes come in, we&rsquo;re watching
-        how each candidate&rsquo;s vote share differs from what the two major parties
-        received in the 2016 presidential election. Watch for the bars for each
-        county to update as results come in.
+        how the candidates&rsquo; vote share differs from the 2016 presidential election.
+        We&rsquo;re using the head-to-head vote split in this chart to show what
+        Republicans or Democrats have
+        gained or lost against each other, removing any third parties from the equation.
+        Watch for the bars for each county to update as results come in.
         </p>
       </div>
       <SwingChart session={props.session} />
       <div>
         <NerdBox
           note="
-          Vote percents represent the vote split between only Democrats and Republicans
+          Vote percents represent the head-to-head vote split between only Democrats and Republicans
           and don&rsquo;t include third party votes. So, for example, Dem. votes /
           (Dem. votes + GOP votes) = Dem. percent.
           "
