@@ -113,7 +113,7 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
         CURRENT_ELECTION = '2017-11-07'
     else:
         SERVERS = []
@@ -122,7 +122,7 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
         CURRENT_ELECTION = '2017-11-07'
 
     DEPLOYMENT_TARGET = deployment_target
