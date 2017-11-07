@@ -53,7 +53,7 @@ const ScatterPlots = (props) => {
       <div className="plot-container">
         {censusVariables.map((obj, index) => (
           <div className="col-sm-3">
-            <h3>{obj.title}</h3>
+            <h3 class="scatter">{obj.title}</h3>
             <ScatterPlot
               session={props.session}
               data_key={obj.data_key}

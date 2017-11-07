@@ -11,7 +11,7 @@ class NerdBox extends React.Component {
   }
   render(props, state) {
     const buttonText = state.open ?
-      'Thanks, got it!' : 'How we made it.';
+      'Thanks, got it!' : 'How we made this';
     const buttonSymbol = state.open ? '-' : '+';
     return (
       <div className="collapsible-nerd-box">

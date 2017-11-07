@@ -5409,7 +5409,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-demographic-vote-trend-scatterplots@git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#976b0cc7bf87683129855bce2336d710c11e8caf"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-demographic-vote-trend-scatterplots#4be3edfb4ddc47398bc40c14758b5b33c5152085"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
