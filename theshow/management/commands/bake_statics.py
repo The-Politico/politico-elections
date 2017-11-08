@@ -36,8 +36,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('> Publishing statics')
 
-        print('> >> Upgrading dependencies')
-        subprocess.run(['yarn', 'upgrade'], cwd='theshow/staticapp/')
+        # print('> >> Upgrading dependencies')
+        # subprocess.run(['yarn', 'upgrade'], cwd='theshow/staticapp/')
         print('> >> Building statics')
         subprocess.run(['gulp', 'build'], cwd='theshow/staticapp/')
 

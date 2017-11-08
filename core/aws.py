@@ -16,7 +16,7 @@ def get_bucket():
 
 
 class Defaults(object):
-    CACHE_HEADER = str('max-age=300')
+    CACHE_HEADER = str('max-age=5')
     ROOT_PATH = 'elections'
     ACL = 'public-read'
     DOMAIN = 'www.politico.com/interactives'
