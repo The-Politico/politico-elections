@@ -1,4 +1,4 @@
 {
-    "presets": [ "es2015", "stage-0", "react", "airbnb"],
+    "presets": ["es2015", "stage-0", "react", "airbnb"],
     "plugins": ["transform-es2015-template-literals"]
 }

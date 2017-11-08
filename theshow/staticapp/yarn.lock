@@ -5310,7 +5310,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#d0e427411cae349aed0fe7afef346bb014c3334b"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#68ba89afa2f620892d04082d66836adb094038f0"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
