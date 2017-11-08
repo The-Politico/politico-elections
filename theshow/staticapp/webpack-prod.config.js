@@ -3,7 +3,6 @@ const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 
@@ -29,15 +28,9 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {    
-            "presets": ["es2015", "stage-0", "react", "airbnb"],
-            "plugins": ["transform-es2015-template-literals"]
-          }
-        },
-
+        }
       },
       {
         test: /\.scss$/,
@@ -52,9 +45,11 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new MinifyPlugin(),
+    new webpack.ProvidePlugin({
+      fetch: 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
+    }),
     new ExtractTextPlugin({
-      filename:  (getPath) => {
+      filename: (getPath) => {
         return getPath('css/[name].css').replace('css/js', 'css');
       },
       allChunks: true
