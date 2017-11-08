@@ -1,4 +1,12 @@
-{
-    "presets": ["es2015", "stage-0", "react", "airbnb"],
-    "plugins": ["transform-es2015-template-literals"]
+{   
+    "env": {
+        "production": {
+            "presets": ["es2015", "stage-0", "react", "airbnb", "minify"],
+            "plugins": ["transform-es2015-template-literals"]
+        },
+        "development": {
+            "presets": ["es2015", "stage-0", "react", "airbnb"],
+            "plugins": ["transform-es2015-template-literals"]
+        }
+    }
 }
