@@ -4,14 +4,19 @@ import boto3
 from storages.backends.s3boto3 import S3Boto3Storage
 
 
-def get_bucket():
+def get_bucket(production=False):
     session = boto3.session.Session(
         region_name='us-east-1',
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
         aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
     )
     s3 = session.resource('s3')
-    bucket = s3.Bucket(os.getenv('AWS_S3_PUBLISH_BUCKET'))
+
+    if production:
+        bucket = s3.Bucket(os.getenv('AWS_S3_PRODUCTION_BUCKET'))
+    else:
+        bucket = s3.Bucket(os.getenv('AWS_S3_STAGING_BUCKET'))
+
     return bucket
 
 
@@ -19,7 +24,14 @@ class Defaults(object):
     CACHE_HEADER = str('max-age=5')
     ROOT_PATH = 'elections'
     ACL = 'public-read'
-    DOMAIN = 'www.politico.com/interactives'
+    DOMAIN = {
+        'production': 'www.politico.com/interactives',
+        'staging': 's3.amazonaws.com/com-staging.politico.interactives.politico.com'  # noqa
+    }
+    DATA_DOMAIN = {
+        'production': 's3.amazonaws.com/com.politico.interactives.politico.com',  # noqa
+        'staging': 's3.amazonaws.com/com-staging.politico.interactives.politico.com'  # noqa
+    }
 
 
 defaults = Defaults

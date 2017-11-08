@@ -41,7 +41,12 @@ class Command(BaseBakeCommand, BaseCommand):
                 election.race.office.slug.lower(),
                 'context.json'
             )
-            self.bake(key, serialized_data, 'application/json')
+            self.bake(
+                key,
+                serialized_data,
+                'application/json',
+                production=options['production']
+            )
 
     def bake_federal_body_pages(self, election_day, options):
         pass

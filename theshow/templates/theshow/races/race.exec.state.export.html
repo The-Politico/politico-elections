@@ -6,17 +6,17 @@
     color: red;
   }
 </style>
-<link rel="stylesheet" href="https://www.politico.com/interactives/elections/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
+<link rel="stylesheet" href="//{{domain}}/{{root_path}}/cdn/{{election_day}}/css/main-race-app-{{hash}}.css">
 {%endblock%}
 
 {%block api%}
-{% with "https://www.politico.com/interactives/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
+{% with "//s3.amazonaws.com/com.politico.interactives.politico.com/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
-      context: 'https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/{{ year }}/{{ state.slug }}/{{ office.slug }}/context.json',
-      results: 'https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/{{ year }}/{{ state.slug }}/{{ office.slug }}/results.json',
-      lastUpdated: 'https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/{{ year }}/{{ state.slug }}/{{ office.slug }}/last-updated.json',
+      context: '//{{data_domain}}/{{root_path}}/{{ year }}/{{ state.slug }}/{{ office.slug }}/context.json',
+      results: '//{{data_domain}}/{{root_path}}/{{ year }}/{{ state.slug }}/{{ office.slug }}/results.json',
+      lastUpdated: '//{{data_domain}}/{{root_path}}/{{ year }}/{{ state.slug }}/{{ office.slug }}/last-updated.json',
       geo: '{{ geo_json }}',
     },
     stateFips: '{{state.code}}',
@@ -27,5 +27,5 @@
 {% endwith %}
 {%endblock%}
 {%block relative_foot%}
-<script src="https://www.politico.com/interactives/elections/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
+<script src="//{{domain}}/{{root_path}}/cdn/{{election_day}}/js/main-race-app-{{hash}}.js"></script>
 {%endblock%}

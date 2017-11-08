@@ -9,7 +9,6 @@ from core.aws import defaults, get_bucket
 
 class Command(BaseCommand):
     help = 'Bakes JavaScript and CSS for election date'
-    bucket = get_bucket()
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -24,6 +23,13 @@ class Command(BaseCommand):
             help="Hash to suffix static files with."
         )
 
+        parser.add_argument(
+            '--production',
+            default=False,
+            action='store_true',
+            help="Publish to production"
+        )
+
     def upload(self, file, key, content_type):
         print(key)
         with open(file, 'rb') as f:
@@ -35,11 +41,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('> Publishing statics')
+        self.bucket = get_bucket(options['production'])
 
-        # print('> >> Upgrading dependencies')
-        # subprocess.run(['yarn', 'upgrade'], cwd='theshow/staticapp/')
-        # print('> >> Building statics')
-        # subprocess.run(['gulp', 'build'], cwd='theshow/staticapp/')
+        print('> >> Upgrading dependencies')
+        subprocess.run(['yarn', 'upgrade'], cwd='theshow/staticapp/')
+        print('> >> Building statics')
+        subprocess.run(['gulp', 'build'], cwd='theshow/staticapp/')
 
         hash = options['hash']
 

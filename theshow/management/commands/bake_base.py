@@ -13,7 +13,6 @@ class BaseBakeCommand(object):
     bake_ methods are overwritten in a child to render correct
     content string and key to bake.
     """
-    bucket = get_bucket()
 
     STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
 
@@ -24,8 +23,17 @@ class BaseBakeCommand(object):
             help="Election date to bake out."
         )
 
-    def bake(self, key, data, content_type):
-        self.bucket.put_object(
+        parser.add_argument(
+            '--production',
+            action='store_true',
+            default=False,
+            help="Publish to production"
+        )
+
+    def bake(self, key, data, content_type, production=False):
+        bucket = get_bucket(production)
+
+        bucket.put_object(
             Key=key,
             ACL=defaults.ACL,
             Body=data,

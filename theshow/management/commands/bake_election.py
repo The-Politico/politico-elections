@@ -40,7 +40,15 @@ class Command(BaseBakeCommand, BaseCommand):
                 state_slug=election.division.slug,
                 office_slug=election.race.office.slug,
             )
+            print(options['hash'])
             context['hash'] = options['hash']
+            context['domain'] = defaults.DOMAIN[
+                'production' if options['production'] else 'staging'
+            ]
+            context['root_path'] = defaults.ROOT_PATH
+            context['data_domain'] = defaults.DATA_DOMAIN[
+                'production' if options['production'] else 'staging'
+            ]
             template_string = render_to_string(
                 StateExecutiveRacePageExport.template_name,
                 context
@@ -55,7 +63,8 @@ class Command(BaseBakeCommand, BaseCommand):
             self.bake(
                 key,
                 template_string,
-                content_type='text/html'
+                content_type='text/html',
+                production=options['production']
             )
 
     def bake_federal_body_pages(self, election_day, options):
