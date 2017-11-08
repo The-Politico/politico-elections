@@ -34,6 +34,10 @@ const App = (props) => {
         session={orm.session(props.db.orm)}
         actions={actions}
       />
+      <p className="correction">
+        CORRECTION: An earlier version of the Vote Shift from 2016 chart
+        miscalculated the size of the swing between 2016 and 2017 races.
+      </p>
     </div>
     ) : null;
 
@@ -57,7 +61,7 @@ function checkResultStatus(initDb) {
   const db = orm.session(initDb.orm);
   const election = db.Election.first();
   if (!election) return false;
-  
+
   const counties = db.Division
     .filter(d =>
       d.level === 'county' &&
