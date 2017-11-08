@@ -5,8 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
-
-
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -27,9 +26,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
+        exclude: '/node_modules/',  
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                "env", 
+                {
+                  "targets": {
+                    "browsers": ["last 2 versions"]
+                  },
+                  "debug": true,
+                  "modules": false,
+                }
+              ],
+              "react",
+              "stage-0",
+              "airbnb",
+            ]
+          }
         }
       },
       {
@@ -56,6 +73,7 @@ module.exports = {
     }),
     new OptimizeCssAssetsPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new UglifyJSPlugin(),
     new Visualizer()
   ],
 };
