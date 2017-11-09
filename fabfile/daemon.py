@@ -68,7 +68,7 @@ def fetch_results():
     if not os.path.exists('output'):
         os.makedirs('output')
 
-    local('bash scripts/results.sh')
+    local('bash scripts/results.sh -t {0}'.format(server_config.S3_BUCKET))
 
 
 def begin_test(run_once=False):
@@ -90,7 +90,9 @@ def begin_test(run_once=False):
             )
             file = '{0}/{1}'.format(test_dir, local(cmd, capture=True))
             print(file, i)
-            local('bash scripts/results.sh {0}'.format(file))
+            local('bash scripts/results.sh -f {0} -t {1}'.format(
+                file, server_config.S3_BUCKET
+            ))
             i += 10
 
         if run_once:

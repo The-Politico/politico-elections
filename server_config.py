@@ -88,6 +88,7 @@ def configure_targets(deployment_target):
     global SERVERS
     global SERVER_BASE_URL
     global SERVER_LOG_PATH
+    global S3_BUCKET
     global DEBUG
     global DEPLOYMENT_TARGET
     global LOG_LEVEL
@@ -101,6 +102,7 @@ def configure_targets(deployment_target):
         SERVERS = PRODUCTION_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         SERVER_LOG_PATH = '/var/log/%s' % PROJECT_FILENAME
+        S3_BUCKET = 'com.politico.interactives.politico.com'
         LOG_LEVEL = logging.WARNING
         DEBUG = False
         DAEMON_INTERVAL = 10
@@ -110,6 +112,7 @@ def configure_targets(deployment_target):
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         SERVER_LOG_PATH = '/var/log/%s' % PROJECT_FILENAME
+        S3_BUCKET = 'com-staging.politico.interactives.politico.com'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
@@ -119,6 +122,7 @@ def configure_targets(deployment_target):
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
         SERVER_LOG_PATH = '/tmp'
+        S3_BUCKET = None
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
