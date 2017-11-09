@@ -15,4 +15,6 @@ Models
 
 To make our results as fast as possible, we prefer to do the bare minimum processing on raw AP API election night results. Instead, we let the client resolve the relationships between slim results and the context of any campaigns.
 
-To make that matching reliable, we use front-end models to...
+To make that matching reliable, we use front-end models...
+
+TK.

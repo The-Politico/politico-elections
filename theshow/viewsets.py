@@ -51,6 +51,7 @@ class StateMixin(object):
         return Division.objects.filter(uid__in=division_ids)
 
     def get_serializer_context(self):
+        """Adds ``election_day`` to serializer context."""
         context = super(StateMixin, self).get_serializer_context()
         context['election_date'] = self.kwargs['date']
         return context
@@ -83,6 +84,7 @@ class BodyMixin(object):
         return Body.objects.filter(uid__in=body_ids)
 
     def get_serializer_context(self):
+        """Adds ``election_day`` to serializer context."""
         context = super(BodyMixin, self).get_serializer_context()
         context['election_date'] = self.kwargs['date']
         return context
@@ -116,6 +118,7 @@ class OfficeMixin(object):
         return Office.objects.filter(uid__in=office_ids)
 
     def get_serializer_context(self):
+        """Adds ``election_day`` to serializer context."""
         context = super(OfficeMixin, self).get_serializer_context()
         context['election_date'] = self.kwargs['date']
         return context

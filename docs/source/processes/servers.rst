@@ -8,7 +8,7 @@ To bootstrap a new server, log into the AWS console and create a new EC2 server 
 Once the server is bootstrapped and has an IP address, use the pem file in the `Private Eye repo <https://github.com/The-Politico/private-eye>`_ to login to the server as such:
 
 ::
-  
+
   ssh ubuntu@ip-address-of-server -i path/to/private-eye/politico-east.pem
 
 

@@ -39,6 +39,7 @@ class DivisionSerializer(serializers.ModelSerializer):
     level = serializers.SerializerMethodField()
 
     def get_level(self, obj):
+        """DivisionLevel slug"""
         return obj.level.slug
 
     class Meta:
@@ -53,7 +54,7 @@ class PersonSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
-        """Return object of images serialized by tag name."""
+        """Object of images serialized by tag name."""
         return {str(i.tag): i.image.url for i in obj.images.all()}
 
     class Meta:
@@ -71,7 +72,7 @@ class CandidateSerializer(FlattenMixin, serializers.ModelSerializer):
     party = serializers.SerializerMethodField()
 
     def get_party(self, obj):
-        """Just party AP code."""
+        """Party AP code."""
         return obj.party.ap_code
 
     class Meta:
@@ -91,6 +92,7 @@ class CandidateElectionSerializer(FlattenMixin, serializers.ModelSerializer):
     override_winner = serializers.SerializerMethodField()
 
     def get_override_winner(self, obj):
+        """Winner marked in backend."""
         vote = obj.votes.filter(division=obj.election.division).first()
         return vote.winning
 
@@ -140,6 +142,10 @@ class ElectionSerializer(FlattenMixin, serializers.ModelSerializer):
     override_votes = serializers.SerializerMethodField()
 
     def get_override_votes(self, obj):
+        """
+        Votes entered into backend.
+        Only used if ``override_ap_votes = True``.
+        """
         if obj.meta.override_ap_votes:
             all_votes = None
             for ce in obj.candidate_elections.all():
@@ -151,20 +157,28 @@ class ElectionSerializer(FlattenMixin, serializers.ModelSerializer):
         return False
 
     def get_candidates(self, obj):
+        """
+        CandidateElections.
+        """
         return CandidateElectionSerializer(
             obj.candidate_elections.all(),
             many=True
         ).data
 
     def get_primary_party(self, obj):
+        """
+        If primary, party AP code.
+        """
         if obj.party:
             return obj.party.ap_code
         return None
 
     def get_office(self, obj):
+        """Office candidates are running for."""
         return OfficeSerializer(obj.race.office).data
 
     def get_date(self, obj):
+        """Election date."""
         return obj.election_day.date
 
     class Meta:

@@ -1,7 +1,7 @@
 Styles
 ======
 
-Style guide for elections.
+Style guides for elections.
 
 .. toctree::
     :maxdepth: 2

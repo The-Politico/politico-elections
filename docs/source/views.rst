@@ -48,6 +48,8 @@ For example, a parent template may reference a script on the server like this:
 
   <!-- page.export.html -->
 
+  {% extends "page.html" %}
+
   {%block foot%}
   <script src="http://politico.com/election-results/cdn/{{election_day}}/js/app.js"></script>
   {%endblock%}
@@ -57,26 +59,3 @@ Static context builders
 '''''''''''''''''''''''
 
 To support exporting views in a management command, the parent view class has a static :code:`build_context` method that can return a context object. That context object should be enough to render a template with the :code:`django.template.loader.render_to_string` method when baking to AWS.
-
-Published URL structure
-'''''''''''''''''''''''
-
-- **Home**
-
-  - :code:`/election-results/2018/`
-
-- **President**
-
-  - :code:`/election-results/2018/president/`
-  - :code:`/election-results/2018/president/texas/`
-
-- **U.S. House and Senate**
-
-  - :code:`/election-results/2018/senate/`
-  - :code:`/election-results/2018/senate/texas/`
-
-- **State races**
-
-  - :code:`/election-results/2018/florida/`
-  - :code:`/election-results/2018/florida/governor/`
-  - :code:`/election-results/2018/florida/senate/`

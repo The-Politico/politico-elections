@@ -8,12 +8,14 @@ Welcome to politico-elections' documentation!
    :maxdepth: 2
 
    Why this? <why>
+   Page structure <pages>
    Models <models>
-   Styles <styles>
-   Graphics modules <modules>
+   Serialization <serialization>
    Views <views>
    Management commands <commands>
    The Front End <frontend>
+   Styles <styles>
+   Graphics modules <modules>
    Process notes <processes>
 
 

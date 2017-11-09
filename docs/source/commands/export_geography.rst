@@ -7,4 +7,4 @@ export_geography
 
   JSON files are baked out to URLs with the following pattern:
 
-  ``../elections/data/geography/{year}/state/{state fips}/counties.json``
+  ``/election-results/data/geography/{year}/state/{state fips}/counties.json``
