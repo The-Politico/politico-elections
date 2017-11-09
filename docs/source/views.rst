@@ -1,7 +1,18 @@
 Page views
 ==========
 
-Page view are constructed to support both a live preview and a .
+Page view are constructed to support both a live preview and an export view that will be rendered to S3 when publishing an election.
+
+View classes
+''''''''''''
+
+.. toctree::
+    :maxdepth: 2
+
+    Cycle pages <views/cycles>
+    State pages <views/states>
+    Body pages <views/bodies>
+    Race pages <views/races>
 
 
 Export Inheritance
@@ -42,13 +53,30 @@ For example, a parent template may reference a script on the server like this:
   {%endblock%}
 
 
-View classes
-------------
+Static context builders
+'''''''''''''''''''''''
 
-.. toctree::
-    :maxdepth: 2
+To support exporting views in a management command, the parent view class has a static :code:`build_context` method that can return a context object. That context object should be enough to render a template with the :code:`django.template.loader.render_to_string` method when baking to AWS.
 
-    Cycle pages <views/cycles>
-    State pages <views/states>
-    Body pages <views/bodies>
-    Race pages <views/races>
+Published URL structure
+'''''''''''''''''''''''
+
+- **Home**
+
+  - :code:`/election-results/2018/`
+
+- **President**
+
+  - :code:`/election-results/2018/president/`
+  - :code:`/election-results/2018/president/texas/`
+
+- **U.S. House and Senate**
+
+  - :code:`/election-results/2018/senate/`
+  - :code:`/election-results/2018/senate/texas/`
+
+- **State races**
+
+  - :code:`/election-results/2018/florida/`
+  - :code:`/election-results/2018/florida/governor/`
+  - :code:`/election-results/2018/florida/senate/`
