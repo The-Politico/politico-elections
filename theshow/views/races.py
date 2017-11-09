@@ -17,6 +17,9 @@ from .base import BaseView
 
 
 class FederalExecutiveRacePage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/race/{YEAR}/{OFFICE}/`
+    """
     model = Race
     context_object_name = 'race'
     template_name = 'theshow/races/race.exec.fed.live.html'
@@ -53,10 +56,16 @@ class FederalExecutiveRacePage(BaseView):
 
 
 class FederalExecutiveRacePageExport(FederalExecutiveRacePage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{OFFICE}/`
+    """
     template_name = 'theshow/races/race.exec.fed.export.html'
 
 
 class StateExecutiveRacePage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/race/{YEAR}/{STATE}/{OFFICE}/{ELECTION DAY}/`
+    """
     model = Race
     context_object_name = 'race'
     template_name = 'theshow/races/race.exec.state.live.html'
@@ -69,8 +78,8 @@ class StateExecutiveRacePage(BaseView):
         context={}
     ):
         """
-        We build context through a staticmethod so that we can call it
-        separately from a HttpRequest when baking to AWS.
+        Build context through a staticmethod so that we can call it
+        without an HTTPRequest when baking to AWS.
         """
         state = Division.objects.get(slug=state_slug)
         election_day = ElectionDay.objects.get(date=election_datestring)
@@ -125,4 +134,7 @@ class StateExecutiveRacePage(BaseView):
 
 
 class StateExecutiveRacePageExport(StateExecutiveRacePage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{STATE}/{OFFICE}/`
+    """
     template_name = 'theshow/races/race.exec.state.export.html'

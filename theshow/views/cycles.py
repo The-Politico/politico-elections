@@ -13,6 +13,9 @@ from .base import BaseView
 
 
 class CyclePage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/cycle/{YEAR}/`
+    """
     model = ElectionCycle
     context_object_name = 'cycle'
     template_name = 'theshow/cycles/cycle.live.html'
@@ -27,4 +30,7 @@ class CyclePage(BaseView):
 
 
 class CyclePageExport(CyclePage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/`
+    """
     template_name = 'theshow/cycles/cycle.export.html'

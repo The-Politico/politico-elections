@@ -53,6 +53,7 @@ class PersonSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_images(self, obj):
+        """Return object of images serialized by tag name."""
         return {str(i.tag): i.image.url for i in obj.images.all()}
 
     class Meta:
@@ -70,6 +71,7 @@ class CandidateSerializer(FlattenMixin, serializers.ModelSerializer):
     party = serializers.SerializerMethodField()
 
     def get_party(self, obj):
+        """Just party AP code."""
         return obj.party.ap_code
 
     class Meta:

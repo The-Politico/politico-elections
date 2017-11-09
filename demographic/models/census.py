@@ -5,7 +5,7 @@ from geography.models import Division
 
 class CensusTable(models.Model):
     """
-    Data series descriptives.
+    A census series.
     """
     SERIES_CHOICES = (
         ('acs1', 'American Community Survey 1-year data profiles'),
@@ -26,7 +26,8 @@ class CensusTable(models.Model):
 
 class CensusLabel(models.Model):
     """
-    Custom labels for census variables. Allows reaggregation of variables.
+    Custom labels for census variables that allow us to
+    aggregate variables.
     """
     AGGREGATION_CHOICES = (
         ('s', 'Sum'),

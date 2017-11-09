@@ -64,9 +64,8 @@ class PageContentManager(models.Manager):
 
 class PageContent(UUIDBase):
     """
-    Attaches to several models representing pages:
-
-    Body, Office, Division
+    Content that can attach to several models representing pages:
+    Body, Office & Division.
     """
     allowed_types = models.Q(app_label='geography', model='division') | \
         models.Q(app_label='entity', model='office') | \
@@ -130,6 +129,9 @@ class PageContentType(PrimaryKeySlugBase, NameBase):
 
 
 class PageContentBlock(UUIDBase, AuditTrackBase):
+    """
+    A block of content for an individual page.
+    """
     page = models.ForeignKey(PageContent, related_name='blocks')
     content_type = models.ForeignKey(PageContentType, related_name='+')
     content = models.TextField()

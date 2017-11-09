@@ -5,6 +5,7 @@ from core.models import NameBase, SlugBase, UIDBase
 
 
 class Person(UIDBase, SlugBase, NameBase):
+    """A real human being.🎵 """
     first_name = models.CharField(max_length=255, null=True, blank=True)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255)
@@ -12,7 +13,7 @@ class Person(UIDBase, SlugBase, NameBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: person:{slug}
+        **uid**: :code:`person:{slug}`
         """
 
         full_name = '{0}{1}{2}'.format(

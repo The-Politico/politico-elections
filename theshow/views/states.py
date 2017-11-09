@@ -20,6 +20,9 @@ from .base import BaseView
 
 
 class StatePage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/state/{YEAR}/{STATE}/`
+    """
     model = Division
     context_object_name = 'state'
     template_name = 'theshow/states/state.live.html'
@@ -38,10 +41,18 @@ class StatePage(BaseView):
 
 
 class StatePageExport(StatePage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{STATE}/`
+    """
     template_name = 'theshow/states/state.export.html'
 
 
 class StateFedPage(StatePage):
+    """
+    **Preview URL**: :code:`/election-results/state/{YEAR}/{BRANCH}/{STATE}/`
+
+    (:code:`BRANCH` is either a congressional body or the office of the presidency.)
+    """
     template_name = 'theshow/states/state.fed.live.html'
 
     def get_context_data(self, **kwargs):
@@ -65,4 +76,9 @@ class StateFedPage(StatePage):
 
 
 class StateFedPageExport(StateFedPage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{BRANCH}/{STATE}/`
+
+    (:code:`BRANCH` is either a congressional body or the office of the presidency.)
+    """
     template_name = 'theshow/states/state.fed.export.html'
