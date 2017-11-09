@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # parse args
-while getopts t:f: option
+while getopts t:f:d: option
 do
   case "${option}"
     in
     t) TARGET=${OPTARG};;
-    f) FILE=${FILE};;
+    f) FILE=${OPTARG};;
+    d) DATE=${OPTARG};;
   esac
 done
 
@@ -14,9 +15,9 @@ done
 # grab elex results for everything
 if [ $FILE ]
   then
-    elex results 2017-11-07 --national-only -o json -d ${FILE} > master.json
+    elex results ${DATE} --national-only -o json -d ${FILE} > master.json
   else
-    elex results 2017-11-07 --national-only -o json > master.json
+    elex results ${DATE} --national-only -o json > master.json
 fi
 
 # cp output/elections/*.json output/results/
