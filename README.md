@@ -7,4 +7,4 @@ A full-stack Django and (P)React/Redux-based framework for collecting, managing,
 See the docs on [readthedocs](http://politico-elections.readthedocs.io/en/latest/).
 
 
-<img src="https://media2.giphy.com/media/3oEdv78D4Vj4sFidwc/giphy.gif" width="400"> 
+<img src="https://media3.giphy.com/media/zCNFcXsVRGhi/giphy.gif" width="400"> 
