@@ -1,5 +1,5 @@
 Running results on election night
-==============
+=================================
 
 You can run our results deployment for an election night on either your local computer or on a server. This will walk through both.
 

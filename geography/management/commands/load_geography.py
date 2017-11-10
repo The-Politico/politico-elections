@@ -16,7 +16,7 @@ from tqdm import tqdm
 from core.constants import DIVISION_LEVELS
 from geography.models import Division, DivisionLevel, Geography
 
-census = Census(os.getenv('CENSUS_API_KEY'))
+census = Census(os.getenv('CENSUS_API_KEY', None))
 
 COUNTIES = census.sf1.get('NAME', geo={'for': 'county:*'})
 COUNTY_LOOKUP = {}
@@ -28,43 +28,44 @@ for c in COUNTIES:
 SHP_BASE = 'https://www2.census.gov/geo/tiger/GENZ{}/shp/'
 DATA_DIRECTORY = './data/geo/'
 
-NATIONAL_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['country']
-)
-STATE_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['state'],
-    parent=NATIONAL_LEVEL
-)
-COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['county'],
-    parent=STATE_LEVEL
-)
-
-# Other fixtures
-DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['district'],
-    parent=STATE_LEVEL
-)
-DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['township'],
-    parent=COUNTY_LEVEL
-)
-DivisionLevel.objects.get_or_create(
-    name=DIVISION_LEVELS['precinct'],
-    parent=COUNTY_LEVEL
-)
-
-NATION, created = Division.objects.get_or_create(
-    code='00',
-    name='United States of America',
-    label='United States of America',
-    level=NATIONAL_LEVEL,
-)
-
 
 class Command(BaseCommand):
     help = 'Downloads and loads geo data for states and counties from \
     U.S. Census Bureau simplified cartographic boundary files.'
+
+    def get_required_fixtures(self):
+        self.NATIONAL_LEVEL, created = DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['country']
+        )
+        self.STATE_LEVEL, created = DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['state'],
+            parent=self.NATIONAL_LEVEL
+        )
+        self.COUNTY_LEVEL, created = DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['county'],
+            parent=self.STATE_LEVEL
+        )
+
+        # Other fixtures
+        DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['district'],
+            parent=self.STATE_LEVEL
+        )
+        DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['township'],
+            parent=self.COUNTY_LEVEL
+        )
+        DivisionLevel.objects.get_or_create(
+            name=DIVISION_LEVELS['precinct'],
+            parent=self.COUNTY_LEVEL
+        )
+
+        self.NATION, created = Division.objects.get_or_create(
+            code='00',
+            name='United States of America',
+            label='United States of America',
+            level=self.NATIONAL_LEVEL,
+        )
 
     def download_shp_data(self, geo):
         SHP_SLUG = 'cb_{}_us_{}_500k'.format(self.YEAR, geo.lower())
@@ -185,8 +186,8 @@ class Command(BaseCommand):
             }
             features.append(geodata)
         Geography.objects.update_or_create(
-            division=NATION,
-            subdivision_level=STATE_LEVEL,
+            division=self.NATION,
+            subdivision_level=self.STATE_LEVEL,
             simplification=self.THRESHOLDS['nation'],
             defaults={
                 'topojson': self.toposimplify(
@@ -197,8 +198,8 @@ class Command(BaseCommand):
         )
 
         geo, created = Geography.objects.update_or_create(
-            division=NATION,
-            subdivision_level=COUNTY_LEVEL,
+            division=self.NATION,
+            subdivision_level=self.COUNTY_LEVEL,
             simplification=self.THRESHOLDS['nation'],
             defaults={
                 'topojson': self.get_county_shp('00'),
@@ -233,7 +234,7 @@ class Command(BaseCommand):
                 continue
             state_obj, created = Division.objects.update_or_create(
                 code=state['STATEFP'],
-                level=STATE_LEVEL,
+                level=self.STATE_LEVEL,
                 parent=nation_obj,
                 defaults={
                     'name': state['NAME'],
@@ -256,7 +257,7 @@ class Command(BaseCommand):
             }
             geojson, created = Geography.objects.update_or_create(
                 division=state_obj,
-                subdivision_level=STATE_LEVEL,
+                subdivision_level=self.STATE_LEVEL,
                 simplification=self.THRESHOLDS['state'],
                 defaults={
                     'topojson': self.toposimplify(
@@ -267,7 +268,7 @@ class Command(BaseCommand):
             )
             geojson, created = Geography.objects.update_or_create(
                 division=state_obj,
-                subdivision_level=COUNTY_LEVEL,
+                subdivision_level=self.COUNTY_LEVEL,
                 simplification=self.THRESHOLDS['county'],
                 defaults={
                     'topojson': self.get_county_shp(state['STATEFP']),
@@ -285,10 +286,10 @@ class Command(BaseCommand):
                 continue
             state = Division.objects.get(
                 code=county['state'],
-                level=STATE_LEVEL
+                level=self.STATE_LEVEL
             )
             Division.objects.update_or_create(
-                level=COUNTY_LEVEL,
+                level=self.COUNTY_LEVEL,
                 code='{}{}'.format(
                     county['state'],
                     county['county']
@@ -364,6 +365,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        self.get_required_fixtures()
         self.YEAR = options['year']
         self.THRESHOLDS = {
             'nation': str(options['nationThreshold']),

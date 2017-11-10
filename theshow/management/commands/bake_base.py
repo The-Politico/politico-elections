@@ -14,7 +14,9 @@ class BaseBakeCommand(object):
     content string and key to bake.
     """
 
-    STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
+    def get_required_fixtures(self):
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -75,7 +77,7 @@ class BaseBakeCommand(object):
 
     def handle(self, *args, **options):
         print('> Baking!')
-
+        self.get_required_fixtures()
         election_day = ElectionDay.objects.get(date=options['election'])
 
         self.bake_federal_page(election_day, options)

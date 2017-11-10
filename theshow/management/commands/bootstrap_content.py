@@ -7,12 +7,15 @@ from election.models import ElectionDay
 from geography.models import Division, DivisionLevel
 from theshow.models import PageContent
 
-NATIONAL_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['country'])
-STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
-
 
 class Command(BaseCommand):
     help = 'Creates page content items for an election day.'
+
+    def get_required_fixtures(self):
+        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['country'])
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -50,7 +53,7 @@ class Command(BaseCommand):
         Create state page content exclusively for the U.S. president.
         """
         content_type = ContentType.objects.get_for_model(election.race.office)
-        for division in Division.objects.filter(level=STATE_LEVEL):
+        for division in Division.objects.filter(level=self.STATE_LEVEL):
             PageContent.objects.get_or_create(
                 content_type=content_type,
                 object_id=election.race.office.pk,
@@ -72,7 +75,7 @@ class Command(BaseCommand):
             election_day=election.election_day,
             division=division
         )
-        if division.level == NATIONAL_LEVEL:
+        if division.level == self.NATIONAL_LEVEL:
             self.create_federal_executive_state_pages_content(election)
 
     def route_election(self, election):
@@ -86,7 +89,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('Bootstrapping page content')
-
+        self.get_required_fixtures()
         election_dates = options['elections']
 
         for election_date in election_dates:

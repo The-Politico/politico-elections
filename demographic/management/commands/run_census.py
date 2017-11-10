@@ -13,8 +13,6 @@ from geography.models import Division, DivisionLevel
 
 census = Census(os.getenv('CENSUS_API_KEY'))
 
-STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
-COUNTY_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['county'])
 
 OUTPUT_PATH = os.path.join(
     defaults.ROOT_PATH,
@@ -24,6 +22,12 @@ OUTPUT_PATH = os.path.join(
 
 class Command(BaseCommand):
     help = 'Gathers census data from the Census API and outputs JSON to S3.'
+
+    def get_required_fixtures(self):
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
+        self.COUNTY_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['county'])
 
     @staticmethod
     def get_series(series):
@@ -58,7 +62,7 @@ class Command(BaseCommand):
             division = Division.objects.get(code='{}{}'.format(
                 datum['state'],
                 datum['county']
-            ), level=COUNTY_LEVEL)
+            ), level=self.COUNTY_LEVEL)
             CensusEstimate.objects.update_or_create(
                 division=division,
                 variable=variable,
@@ -75,7 +79,7 @@ class Command(BaseCommand):
         """
         Calls API for all counties in a state and a given estimate.
         """
-        state = Division.objects.get(level=STATE_LEVEL, code=state)
+        state = Division.objects.get(level=self.STATE_LEVEL, code=state)
         county_data = api.get(
             ('NAME', estimate),
             {
@@ -142,7 +146,7 @@ class Command(BaseCommand):
         """
         data = {}
         for division in tqdm(
-            Division.objects.filter(level=COUNTY_LEVEL, parent=parent)
+            Division.objects.filter(level=self.COUNTY_LEVEL, parent=parent)
         ):
             fips = division.code
             aggregated_labels = []  # Keep track of already agg'ed variables
@@ -194,7 +198,7 @@ class Command(BaseCommand):
     def export_by_state(self, states):
         bucket = get_bucket()
         for fips in states:
-            state = Division.objects.get(level=STATE_LEVEL, code=fips)
+            state = Division.objects.get(level=self.STATE_LEVEL, code=fips)
             print('>> Exporting: {}'.format(state.code))
             state_data = self.aggregate_counties(state)
             self.export_state_files(bucket, state, state_data)
@@ -215,6 +219,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        self.get_required_fixtures()
         states = options['states']
         if options['export'] is False:
             self.fetch_census_data(states)
