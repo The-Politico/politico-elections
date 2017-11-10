@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from election.models import (Candidate, Election, CandidateElection,
-                             ElectionCycle, ElectionDay, ElectionType,
-                             Party, Race)
+from election.models import (Candidate, CandidateElection, Election,
+                             ElectionCycle, ElectionDay, ElectionType, Party,
+                             Race)
 
 
 class CandidateElectionInline(admin.StackedInline):
@@ -13,6 +13,7 @@ class ElectionAdmin(admin.ModelAdmin):
     inlines = [
         CandidateElectionInline
     ]
+
 
 admin.site.register(Race)
 admin.site.register(Party)

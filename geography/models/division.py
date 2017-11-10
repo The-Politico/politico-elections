@@ -14,15 +14,11 @@ class DivisionLevel(UIDBase, SlugBase, NameBase, SelfRelatedBase):
     Level of government or administration at which a division exists.
 
     For example, federal, state, district, county, precinct, municipal.
-
-    uuid
-    slug
-    name
     """
 
     def save(self, *args, **kwargs):
         """
-        uid: {levelcode}
+        **uid**: :code:`{levelcode}`
         """
         self.slug = slugify(self.name)
         self.uid = DIVISION_LEVEL_CODES.get(self.slug, self.slug)
@@ -65,7 +61,7 @@ class Division(
 
     def save(self, *args, **kwargs):
         """
-        uid: division:{parentuid}_{levelcode}-{code}
+        **uid**: :code:`division:{parentuid}_{levelcode}-{code}`
         """
         slug = '{}:{}'.format(self.level.uid, self.code)
         if self.parent:
@@ -99,6 +95,7 @@ class Division(
         return relationship
 
     def remove_intersecting(self, division, symm=True):
+        """Removes paired relationships between intersecting divisions"""
         IntersectRelationship.objects.filter(
             from_division=self,
             to_division=division
@@ -107,12 +104,14 @@ class Division(
             division.remove_intersecting(self, False)
 
     def set_intersection(self, division, intersection):
+        """Set intersection percentage of intersecting divisions."""
         IntersectRelationship.objects.filter(
             from_division=self,
             to_division=division
         ).update(intersection=intersection)
 
     def get_intersection(self, division):
+        """Get intersection percentage of intersecting divisions."""
         try:
             return IntersectRelationship.objects.get(
                 from_division=self,

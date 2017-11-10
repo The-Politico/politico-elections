@@ -8,25 +8,18 @@ from geography.models import Division
 
 class Jurisdiction(UIDBase, SlugBase, NameBase, SelfRelatedBase):
     """
-    A Jurisdiction represents a logical unit of governance, comprising of
+    A Jurisdiction represents a logical unit of governance, comprised of
     a collection of legislative bodies, administrative offices or public
     services.
 
     For example: the United States Federal Government, the Government
     of the District of Columbia, Columbia Missouri City Government, etc.
-
-    uuid
-    slug
-    name
-    label
-    short_label
-    parent
     """
     division = models.ForeignKey(Division, null=True)
 
     def save(self, *args, **kwargs):
         """
-        uid: {division.uid}_jurisdiction:{slug}
+        **uid**: :code:`{division.uid}_jurisdiction:{slug}`
         """
         stripped_name = ' '.join(
             w for w in self.name.split()
@@ -54,15 +47,12 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
     For example: the U.S. Senate, Florida House of Representatives, Columbia
     City Council, etc.
 
-    name = 'Senate'
-    label = 'U.S. Senate'
+    .. note::
+        Duplicate slugs are allowed on this model to accomodate states, for
+        example:
 
-    * NOTE: Duplicate slugs are allowed on this model to accomodate states:
-    slug = senate
-    - florida/senate/
-    - michigan/senate/
-
-    UUID
+        - florida/senate/
+        - michigan/senate/
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
 
@@ -76,7 +66,7 @@ class Body(UIDBase, LabelBase, SelfRelatedBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {jurisdiction.uid}_body:{slug}
+        **uid**: :code:`{jurisdiction.uid}_body:{slug}`
         """
         stripped_name = ' '.join(
             w for w in self.name.split()
@@ -102,18 +92,18 @@ class Office(UIDBase, LabelBase):
     An office represents a post, seat or position occuppied by an individual
     as a result of an election.
 
-    For example: Senator, Governor, President, Representative
+    For example: Senator, Governor, President, Representative.
 
     In the case of executive positions, like governor or president, the office
     is tied directlty to a jurisdiction. Otherwise, the office ties to a body
     tied to a jurisdiction.
 
-    * NOTE: Duplicate slugs are allowed on this model to accomodate states:
-    slug = seat-2
-    - florida/house/seat-2/
-    - michigan/house/seat-2/
+    .. note::
+        Duplicate slugs are allowed on this model to accomodate states, for
+        example:
 
-    UUID
+        - florida/house/seat-2/
+        - michigan/house/seat-2/
     """
     slug = models.SlugField(blank=True, max_length=255, editable=True)
 
@@ -127,11 +117,12 @@ class Office(UIDBase, LabelBase):
         return self.label
 
     def is_executive(self):
+        """Is this an executive office?"""
         return self.body is None
 
     def save(self, *args, **kwargs):
         """
-        uid: {body.uid | jurisdiction.uid}_office:{slug}
+        **uid**: :code:`{body.uid | jurisdiction.uid}_office:{slug}`
         """
         stripped_name = ' '.join(
             w for w in self.name.split()

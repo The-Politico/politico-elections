@@ -7,9 +7,7 @@ from geography.models import Division
 
 
 class BaseResult(UUIDBase):
-    """
-    UUID
-    """
+    """Abstract result class."""
     division = models.ForeignKey(Division)
     count = models.PositiveIntegerField()
     pct = models.DecimalField(decimal_places=3, max_digits=5)
@@ -20,6 +18,7 @@ class BaseResult(UUIDBase):
 
 
 class Votes(BaseResult):
+    """Popular vote results."""
     candidate_election = models.ForeignKey(
         CandidateElection, null=True, blank=True, related_name="votes"
     )
@@ -38,6 +37,7 @@ class Votes(BaseResult):
 
 
 class ElectoralVotes(BaseResult):
+    """Electoral votes."""
     candidate_election = models.ForeignKey(
         CandidateElection,
         null=True,
@@ -51,6 +51,7 @@ class ElectoralVotes(BaseResult):
 
 
 class Delegates(BaseResult):
+    """Pledged delegates."""
     candidate_election = models.ForeignKey(
         CandidateElection, null=True, blank=True, related_name="delegates"
     )
@@ -62,7 +63,7 @@ class Delegates(BaseResult):
 
 class APElectionMeta(UUIDBase):
     """
-    UUID
+    Election information corresponding to AP election night.
     """
     election = models.OneToOneField(
         Election,

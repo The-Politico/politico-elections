@@ -22,6 +22,10 @@ def person_image_path(instance, filename):
 
 
 class PersonImage(UUIDBase, AuditTrackBase):
+    """
+    Image attached to a person, which can be serialized
+    by a tag.
+    """
     person = models.ForeignKey(Person, related_name='images')
     tag = models.SlugField(
         help_text="Used to serialize images. "

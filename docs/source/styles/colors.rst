@@ -1,14 +1,13 @@
-![POLITICO](https://rawgithub.com/The-Politico/src/master/images/logo/badge.png)
-
-# Colors
+Colors
+======
 
 Always use class names to target data-driven colors.
 
 Our convention for color class names is:
 
-```
-.{palette}-{length}-{index}-{property}
-```
+::
+
+  .{palette}-{length}-{index}-{property}
 
 - **palette**
 
@@ -29,6 +28,6 @@ Our convention for color class names is:
 
 Some example of fully specified color classes:
 
-- `.gop-4-1-stroke`
-- `.gop-fill`
-- `.dem-backgroundColor`
+- ``.gop-4-1-stroke``
+- ``.gop-fill``
+- ``.dem-backgroundColor``

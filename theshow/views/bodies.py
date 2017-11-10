@@ -14,6 +14,9 @@ from .base import BaseView
 
 
 class FederalBodyPage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/body/{YEAR}/{BODY}/`
+    """
     model = Body
     context_object_name = 'body'
     template_name = 'theshow/bodies/body.fed.live.html'
@@ -37,10 +40,16 @@ class FederalBodyPage(BaseView):
 
 
 class FederalBodyPageExport(FederalBodyPage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{BODY}/`
+    """
     template_name = 'theshow/bodies/body.fed.export.html'
 
 
 class StateBodyPage(BaseView):
+    """
+    **Preview URL**: :code:`/election-results/body/{YEAR}/{STATE}/{BODY}/`
+    """
     model = Body
     context_object_name = 'body'
     template_name = 'theshow/bodies/body.state.live.html'
@@ -66,4 +75,7 @@ class StateBodyPage(BaseView):
 
 
 class StateBodyPageExport(StateBodyPage):
+    """
+    **Publish URL**: :code:`/election-results/{YEAR}/{STATE}/{BODY}/`
+    """
     template_name = 'theshow/bodies/body.state.export.html'

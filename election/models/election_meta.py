@@ -9,7 +9,7 @@ from geography.models import Division
 class ElectionCycle(UIDBase, SlugBase, NameBase):
     def save(self, *args, **kwargs):
         """
-        uid: cycle:{year}
+        **uid**: :code:`cycle:{year}`
         """
         self.slug = slugify(self.name)
         self.uid = 'cycle:{}'.format(self.slug)
@@ -18,13 +18,7 @@ class ElectionCycle(UIDBase, SlugBase, NameBase):
 
 class ElectionType(UIDBase, LabelBase):
     """
-    e.g. "General", "Primary"
-
-    uuid
-    slug
-    name
-    label
-    short_label
+    e.g., "General", "Primary"
     """
     ap_code = models.CharField(max_length=1)
     is_general = models.BooleanField(default=False)
@@ -36,7 +30,7 @@ class ElectionType(UIDBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: electiontype:{name}
+        **uid**: :code:`electiontype:{name}`
         """
         self.uid = 'electiontype:{}'.format(slugify(self.name))
         super(ElectionType, self).save(*args, **kwargs)
@@ -44,15 +38,7 @@ class ElectionType(UIDBase, LabelBase):
 
 class Party(UIDBase, SlugBase, LabelBase):
     """
-    label = "Republican"
-    ap_code = "gop"
-    short_label = "GOP"
-
-    uuid
-    slug
-    name
-    label
-    short_label
+    A political party.
     """
     ap_code = models.CharField(max_length=3, unique=True)
     aggregate_candidates = models.BooleanField(default=True)
@@ -67,7 +53,7 @@ class Party(UIDBase, SlugBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: party:{apcode}
+        **uid**: :code:`party:{apcode}`
         """
         self.uid = 'party:{}'.format(slugify(self.ap_code))
         self.slug = self.name
@@ -76,7 +62,7 @@ class Party(UIDBase, SlugBase, LabelBase):
 
 class ElectionDay(UIDBase, SlugBase):
     """
-    election_date = 2018-11-08
+    A day on which one or many elections can be held.
     """
     date = models.DateField(unique=True)
     cycle = models.ForeignKey(ElectionCycle, related_name='elections_days')
@@ -86,7 +72,7 @@ class ElectionDay(UIDBase, SlugBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {cycle.uid}_date:{date}
+        **uid**: :code:`{cycle.uid}_date:{date}`
         """
         self.uid = '{}_date:{}'.format(
             self.cycle.uid,
@@ -97,8 +83,7 @@ class ElectionDay(UIDBase, SlugBase):
 
 
 class BallotMeasure(UIDBase, LabelBase):
-    """
-    """
+    """A ballot measure."""
     question = models.TextField()
     division = models.ForeignKey(Division, related_name='ballot_measures')
     number = models.CharField(max_length=3)
@@ -107,7 +92,7 @@ class BallotMeasure(UIDBase, LabelBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: division_cycle_ballotmeasure:{number}
+        **uid**: :code:`division_cycle_ballotmeasure:{number}`
         """
         self.uid = '{}_{}_ballotmeasure:{}'.format(
             self.division.uid,
@@ -118,13 +103,16 @@ class BallotMeasure(UIDBase, LabelBase):
 
 
 class Race(UIDBase, SlugBase, LabelBase):
+    """
+    A race for an office comprised of one or many elections.
+    """
     office = models.ForeignKey(Office, related_name='races')
     cycle = models.ForeignKey(ElectionCycle, related_name='races')
     special = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         """
-        uid: {office.uid}_{cycle.uid}_race
+        **uid**: :code:`{office.uid}_{cycle.uid}_race`
         """
         self.uid = '{}_{}_race'.format(
             self.office.uid,
@@ -151,6 +139,9 @@ class Race(UIDBase, SlugBase, LabelBase):
 
 
 class Election(UIDBase):
+    """
+    A specific contest in a race held on a specific day.
+    """
     election_type = models.ForeignKey(ElectionType, related_name='elections')
     candidates = models.ManyToManyField(
         'Candidate', through='CandidateElection')
@@ -173,7 +164,7 @@ class Election(UIDBase):
 
     def save(self, *args, **kwargs):
         """
-        uid: {race.uid}_election:{election_day}-{party}
+        **uid**: :code:`{race.uid}_election:{election_day}-{party}`
         """
         if self.party:
             self.uid = '{}_election:{}-{}'.format(
@@ -191,6 +182,7 @@ class Election(UIDBase):
     def update_or_create_candidate(
         self, candidate, aggregable=True, uncontested=False
     ):
+        """Create a CandidateElection."""
         candidate_election, c = CandidateElection.objects.update_or_create(
             candidate=candidate,
             election=self,
@@ -203,12 +195,14 @@ class Election(UIDBase):
         return candidate_election
 
     def delete_candidate(self, candidate):
+        """Delete a CandidateElection."""
         CandidateElection.objects.filter(
             candidate=candidate,
             election=self
         ).delete()
 
     def get_candidates(self):
+        """Get all CandidateElections for this election."""
         candidate_elections = CandidateElection.objects.filter(
             election=self
         )
@@ -216,6 +210,10 @@ class Election(UIDBase):
         return [ce.candidate for ce in candidate_elections]
 
     def get_candidates_by_party(self):
+        """
+        Get CandidateElections serialized into an object with
+        party-slug keys.
+        """
         candidate_elections = CandidateElection.objects.filter(
             election=self
         )
@@ -226,12 +224,17 @@ class Election(UIDBase):
         }
 
     def get_candidate_election(self, candidate):
+        """Get CandidateElection for a Candidate in this election."""
         return CandidateElection.objects.get(
             candidate=candidate,
             election=self
         )
 
     def get_candidate_votes(self, candidate):
+        """
+        Get all votes attached to a CandidateElection for a Candidate in
+        this election.
+        """
         candidate_election = CandidateElection.objects.get(
             candidate=candidate,
             election=self
@@ -240,6 +243,9 @@ class Election(UIDBase):
         return candidate_election.votes.all()
 
     def get_votes(self):
+        """
+        Get all votes for this election.
+        """
         candidate_elections = CandidateElection.objects.filter(
             election=self
         )
@@ -251,6 +257,9 @@ class Election(UIDBase):
         return votes
 
     def get_candidate_electoral_votes(self, candidate):
+        """
+        Get all electoral votes for a candidate in this election.
+        """
         candidate_election = CandidateElection.objects.get(
             candidate=candidate,
             election=self
@@ -259,6 +268,9 @@ class Election(UIDBase):
         return candidate_election.electoral_votes.all()
 
     def get_electoral_votes(self):
+        """
+        Get all electoral votes for all candidates in this election.
+        """
         candidate_elections = CandidateElection.objects.filter(
             election=self
         )
@@ -270,6 +282,9 @@ class Election(UIDBase):
         return electoral_votes
 
     def get_candidate_delegates(self, candidate):
+        """
+        Get all pledged delegates for a candidate in this election.
+        """
         candidate_election = CandidateElection.objects.get(
             candidate=candidate,
             election=self
@@ -278,6 +293,9 @@ class Election(UIDBase):
         return candidate_election.delegates.all()
 
     def get_delegates(self):
+        """
+        Get all pledged delegates for any candidate in this election.
+        """
         candidate_elections = CandidateElection.objects.filter(
             election=self
         )
@@ -290,6 +308,11 @@ class Election(UIDBase):
 
 
 class CandidateElection(UUIDBase):
+    """
+    A CandidateEection represents the abstract relationship between a candidate
+    and an election and carries properties like whether the candidate is
+    uncontested or whether we aggregate their vote totals.
+    """
     candidate = models.ForeignKey(
         'Candidate',
         on_delete=models.CASCADE,

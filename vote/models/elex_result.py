@@ -3,10 +3,12 @@ from postgres_copy import CopyManager
 
 
 class ResultRun(models.Model):
+    """A time we hit the AP election API."""
     run_time = models.DateTimeField(auto_now=True)
 
 
 class ElexResult(models.Model):
+    """Bulk store of AP election API response."""
     elexid = models.CharField(max_length=80)
     raceid = models.CharField(max_length=5, null=True)
     racetype = models.TextField(null=True)

@@ -11,6 +11,9 @@ from .division import Division, DivisionLevel
 
 
 class Geography(UUIDBase, EffectiveDateBase):
+    """
+    The spatial representation (in GeoJSON) of a Division.
+    """
     D3 = '''
         <div id="map{0}"></div>
         <script>

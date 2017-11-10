@@ -16,6 +16,7 @@ class ElectionDaySerializer(serializers.ModelSerializer):
     executive_offices = serializers.SerializerMethodField()
 
     def get_states(self, obj):
+        """States holding an election on election day."""
         return reverse(
             'state-election-list',
             request=self.context['request'],
@@ -23,6 +24,7 @@ class ElectionDaySerializer(serializers.ModelSerializer):
         )
 
     def get_bodies(self, obj):
+        """Bodies with offices up for election on election day."""
         return reverse(
             'body-election-list',
             request=self.context['request'],
@@ -30,6 +32,7 @@ class ElectionDaySerializer(serializers.ModelSerializer):
         )
 
     def get_executive_offices(self, obj):
+        """Executive offices up for election on election day."""
         return reverse(
             'office-election-list',
             request=self.context['request'],
@@ -75,15 +78,19 @@ class StateSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
+        """Division."""
         return DivisionSerializer(obj).data
 
     def get_parties(self, obj):
+        """All parties."""
         return PartySerializer(Party.objects.all(), many=True).data
 
     def get_elections(self, obj):
+        """All elections in division."""
         return ElectionSerializer(obj.elections.all(), many=True).data
 
     def get_content(self, obj):
+        """All content for a state's page on an election day."""
         election_day = ElectionDay.objects.get(
             date=self.context['election_date'])
         return PageContent.objects.division_content(election_day, obj)
@@ -127,12 +134,15 @@ class BodySerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
+        """Division."""
         return DivisionSerializer(obj.jurisdiction.division).data
 
     def get_parties(self, obj):
+        """All parties."""
         return PartySerializer(Party.objects.all(), many=True).data
 
     def get_elections(self, obj):
+        """All elections held on an election day."""
         election_day = ElectionDay.objects.get(
             date=self.context['election_date'])
         elections = Election.objects.filter(
@@ -142,6 +152,7 @@ class BodySerializer(serializers.ModelSerializer):
         return ElectionSerializer(elections, many=True).data
 
     def get_content(self, obj):
+        """All content for body's page on an election day."""
         election_day = ElectionDay.objects.get(
             date=self.context['election_date'])
         return PageContent.objects.body_content(election_day, obj)
@@ -185,12 +196,15 @@ class OfficeSerializer(serializers.ModelSerializer):
     content = serializers.SerializerMethodField()
 
     def get_division(self, obj):
+        """Division."""
         return DivisionSerializer(obj.division).data
 
     def get_parties(self, obj):
+        """All parties."""
         return PartySerializer(Party.objects.all(), many=True).data
 
     def get_elections(self, obj):
+        """All elections on an election day."""
         election_day = ElectionDay.objects.get(
             date=self.context['election_date'])
         elections = Election.objects.filter(
@@ -200,6 +214,7 @@ class OfficeSerializer(serializers.ModelSerializer):
         return ElectionSerializer(elections, many=True).data
 
     def get_content(self, obj):
+        """All content for office's page on an election day."""
         election_day = ElectionDay.objects.get(
             date=self.context['election_date'])
         return PageContent.objects.office_content(election_day, obj)
