@@ -94,7 +94,7 @@ if 'DATABASE_URL' in os.environ and not DEBUG:
 else:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': 'database',
     }
 
 # Password validation
