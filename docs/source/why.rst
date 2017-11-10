@@ -16,7 +16,7 @@ Once we gather this information, all we have to do for results is gather data fr
 Relational election data
 ''''''''''''''''''''''''
 
-This system contains a fully relational model for election data. We borrowed a lot of inspiration from the fine folks making OpenCivicData, but we also account for modeling vote totals. This model will end up becoming a part of a larger campaign database that will include FEC data and campaign staff information, so the highly relational model is important to us.
+This system contains a fully relational model for election data. We borrowed a lot of inspiration from the fine folks making `OpenCivicData <https://opencivicdata.readthedocs.io/en/latest/>`_, but we also account for modeling vote totals. This model will end up becoming a part of a larger campaign database that will include FEC data and campaign staff information, so the highly relational model is important to us.
 
 See :ref:`models`.
 
@@ -32,16 +32,16 @@ What's in it
 The backend
 '''''''''''
 
-- `Django`_ as the overarching backend framework
-- `PostgreSQL`_ as the database of choice
-- `Django REST Framework`_ to serialize our models to JSON
-- `Elex`_ to process AP election results
-- `Fabric`_ to handle server management and data processing
+- `Django <https://www.djangoproject.com/>`_ as the overarching backend framework
+- `PostgreSQL <https://www.postgresql.org/>`_ as the database of choice
+- `Django REST Framework <http://www.django-rest-framework.org/>`_ to serialize our models to JSON
+- `Elex <https://elex.readthedocs.io/en/stable/>`_ to process AP election results
+- `Fabric <http://www.fabfile.org/>`_ to handle server management and data processing
 
 And lots more...
 
 The frontend
 ''''''''''''
 
-- `redux-orm` to take serialized JSON and build the relationships between live results and contextual data
-- `Preact` to manage front-end views
+- `redux orm <https://github.com/tommikaikkonen/redux-orm>`_ to take serialized JSON and build the relationships between live results and contextual data
+- `Preact <https://preactjs.com/>`_ to manage front-end views
