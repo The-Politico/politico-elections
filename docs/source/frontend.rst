@@ -34,6 +34,51 @@ See `redux-orm <https://github.com/tommikaikkonen/redux-orm>`_ for details on in
 
 Each model contains a ``serialize()`` method except Election, which contains a ``serializeResults(divisions)`` method that serializes results for an election in the given division(s) and handles all AP overrides. Most dataviz components consume the serialized results returned from an Election model.
 
+Serialized results
+------------------
+
+Election's serialize results method returns a data structure that all of our dataviz components use. 
+
+.. code-block:: javascript
+  :caption: **serialized results**
+
+  {
+    id: <Election UID>,
+    status: { 
+        called: <APMeta called>,
+        tabulated: <APMeta tabulated>,
+        overrideApCall: <APMeta override AP call>,
+        overrideApVotes: <APMeta override AP votes>,
+    },
+    office: { /* ... */ },
+    divisions: {
+      <Division ID>: {
+        code: <Division code>,
+        codeComponents: { /* ... */ },
+        id: <Division ID>,
+        label: <Division label>,
+        level: <Division level>,
+        parent: <Division parent>,
+        postalCode: <Division postal code>,
+        precinctsReporting: precinctsReporting,
+        precinctsReportingPct: precinctsReportingPct,
+        precinctsTotal: precinctsTotal,
+        results: [
+          {
+            candidate: { /* ... */ }
+            voteCount: voteCount,
+            votePct: votePct,
+            winner: winner,
+          },
+          /* ... */
+        ],
+        shortLabel: <Division short label>
+        topojson: { /* ... */}
+      }
+    }
+  }
+
+
 Static files
 ------------
 
