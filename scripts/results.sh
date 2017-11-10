@@ -1,11 +1,23 @@
 #!/bin/bash
 
+# parse args
+while getopts t:f:d: option
+do
+  case "${option}"
+    in
+    t) TARGET=${OPTARG};;
+    f) FILE=${OPTARG};;
+    d) DATE=${OPTARG};;
+  esac
+done
+
+
 # grab elex results for everything
-if [ $# -eq 0 ]
+if [ $FILE ]
   then
-    elex results 2017-11-07 --national-only -o json > master.json
+    elex results ${DATE} --national-only -o json -d ${FILE} > master.json
   else
-    elex results 2017-11-07 --national-only -o json -d $1 > master.json
+    elex results ${DATE} --national-only -o json > master.json
 fi
 
 # cp output/elections/*.json output/results/
@@ -51,4 +63,4 @@ mkdir -p ./theshow/static/theshow/results/
 cp -r ./output/results/**/* ./theshow/static/theshow/results/
 
 # deploy to s3
-aws s3 cp ./output/results/ s3://com-staging.politico.interactives.politico.com/elections/ --recursive --acl "public-read" --cache-control "max-age=5"
+aws s3 cp ./output/results/ s3://${TARGET}/elections/ --recursive --acl "public-read" --cache-control "max-age=5"

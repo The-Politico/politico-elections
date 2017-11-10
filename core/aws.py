@@ -47,5 +47,5 @@ class StorageService(S3Boto3Storage):
         'CacheControl': 'max-age=86400',
         'ACL': 'public-read',
     }
-    custom_domain = defaults.DOMAIN
+    custom_domain = defaults.DOMAIN['production']
     location = defaults.ROOT_PATH
