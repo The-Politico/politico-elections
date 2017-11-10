@@ -27,6 +27,12 @@ class ElectionType(UIDBase, LabelBase):
     short_label
     """
     ap_code = models.CharField(max_length=1)
+    is_general = models.BooleanField(default=False)
+    primary_type = models.CharField(max_length=50, null=True, blank=True)
+    number_of_winners = models.PositiveSmallIntegerField(default=1)
+    winning_threshold = models.DecimalField(
+        decimal_places=3, max_digits=5, null=True, blank=True
+    )
 
     def save(self, *args, **kwargs):
         """
@@ -114,6 +120,7 @@ class BallotMeasure(UIDBase, LabelBase):
 class Race(UIDBase, SlugBase, LabelBase):
     office = models.ForeignKey(Office, related_name='races')
     cycle = models.ForeignKey(ElectionCycle, related_name='races')
+    special = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         """
