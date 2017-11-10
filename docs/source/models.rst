@@ -13,7 +13,7 @@ Core models
     Entity <models/entity>
     Election <models/election>
     Vote <models/vote>
-    Record identifies <models/record>
+    Record identifier <models/record>
 
 
 Display models
