@@ -9,6 +9,7 @@ Welcome to politico-elections' documentation!
 
    Why this? <why>
    Page structure <pages>
+   Data structure <data>
    Models <models>
    Serialization <serialization>
    Views <views>

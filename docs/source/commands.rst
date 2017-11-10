@@ -1,7 +1,7 @@
 Management commands
 ===================
 
-Management commands do things in this app.
+Management commands do things.
 
 Bootstrap data
 --------------

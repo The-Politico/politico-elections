@@ -1,6 +1,6 @@
 .. _models-demographic:
 
-Demographic
+demographic models
 ===========
 
 Demographic models are used to create serialized data from the U.S. Census Bureau.

@@ -1,7 +1,7 @@
 Page views
 ==========
 
-Page view are constructed to support both a live preview and an export view that will be rendered to S3 when publishing an election.
+Page views are constructed to support both a live preview and an export view that will be rendered to S3 when publishing an election.
 
 View classes
 ''''''''''''
@@ -58,4 +58,4 @@ For example, a parent template may reference a script on the server like this:
 Static context builders
 '''''''''''''''''''''''
 
-To support exporting views in a management command, the parent view class has a static :code:`build_context` method that can return a context object. That context object should be enough to render a template with the :code:`django.template.loader.render_to_string` method when baking to AWS.
+To support exporting views in a management command, the parent view class has a static :code:`build_context` method that can return a context object. That context object should be enough to render the child template with the ``django.template.loader.render_to_string`` method when baking to AWS.

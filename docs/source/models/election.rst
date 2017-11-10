@@ -1,5 +1,7 @@
-election
-========
+.. _models-election:
+
+election models
+===============
 
 .. autoclass:: election.models.Candidate
   :members:

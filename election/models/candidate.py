@@ -8,7 +8,7 @@ from .election_meta import BallotMeasure, CandidateElection, Party, Race
 
 class Candidate(UIDBase):
     """
-    A person who runs for an office.
+    A person who runs in a race for an office.
     """
     race = models.ForeignKey(Race, related_name='candidates')
     person = models.ForeignKey(Person, related_name='candidacies')

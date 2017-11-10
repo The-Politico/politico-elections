@@ -1,5 +1,6 @@
-geography
+geography models
 =========
+
 
 .. autoclass:: geography.models.Division
   :members:

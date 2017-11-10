@@ -1,4 +1,4 @@
-Vote
+Vote models
 ====
 
 .. autoclass:: vote.models.Votes

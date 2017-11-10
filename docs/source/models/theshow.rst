@@ -1,4 +1,4 @@
-The Show
+The Show models
 ========
 
 .. autoclass:: theshow.models.PageContent

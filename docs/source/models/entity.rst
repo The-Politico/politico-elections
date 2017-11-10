@@ -1,5 +1,5 @@
-entity
-======
+entity models
+=========
 
 .. autoclass:: entity.models.Person
   :members:

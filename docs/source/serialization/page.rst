@@ -1,7 +1,7 @@
 Page serialization
 ==================
 
-Pages are serialized using ``ModelSerializer`` and filtering the queryset by an election day.
+Page serialization matches our :ref:`page-structure`. Pages endpoints are always parameterized using an election day.
 
 
 Cycle pages
