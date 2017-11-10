@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import dj_database_url
+
 import server_config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -84,37 +86,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'elections.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('ELECTIONS_POSTGRES_NAME', 'elections'),
-        'USER': os.environ.get('ELECTIONS_POSTGRES_USER', None),
-        'PASSWORD': os.environ.get('ELECTIONS_POSTGRES_PASSWORD', None),
-        'HOST': os.environ.get('ELECTIONS_POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('ELECTIONS_POSTGRES_PORT', 5432)
+DATABASES = {}
+if 'DATABASE_URL' in os.environ and not DEBUG:
+    DATABASES['default'] = dj_database_url.config()
+else:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # noqa
     },
 ]
 
