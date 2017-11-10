@@ -41,7 +41,7 @@ class Candidate(UIDBase):
         )
 
     def get_elections(self):
-        """Get all CandidateElections."""
+        """Get all elections a candidate is in."""
         candidate_elections = CandidateElection.objects.filter(
             candidate=self
         )

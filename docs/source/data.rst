@@ -6,7 +6,7 @@ Data to build pages is represented by two types: election **results** from the A
 Results
 -------
 
-To make our results as fast as possible, we do the bare minimum processing on election night results from the AP API. The structure contains the bare minimum keys needed to marry results to the wider context provided by our app. This data is baked out as ``./results.json`` when publishing.
+To process our results as fast as possible, we do the bare minimum data manipulation on election night results from the AP API. The structure contains just the basic keys needed to marry results to the wider context provided by our app. This data is baked out as ``./results.json`` when publishing.
 
 .. code-block:: javascript
   :caption: **results.json**

@@ -10,3 +10,5 @@ Graphics Modules
 
 
 `Demographic vote trend scatterplots <https://github.com/The-Politico/module_elections-demographic-vote-trend-scatterplots>`_
+
+`Demographic county maps <https://github.com/The-Politico/module_elections-demographic-county-map>`_

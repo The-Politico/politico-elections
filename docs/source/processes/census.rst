@@ -17,7 +17,7 @@ Before you begin, make sure you have these environment variables set:
 Steps
 -----
 
-1. From the root of the `elections` project, startup the development server:
+1. From the root of the `elections` project, start the development server:
 
   ::
 
@@ -33,7 +33,7 @@ Steps
 
   ::
 
-    $ python manage.py runserver 51 34
+    $ python manage.py run_census 51 34
 
 6. You can find your new data at a URL specified with this pattern:
 

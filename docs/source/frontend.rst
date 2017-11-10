@@ -37,7 +37,7 @@ Each model contains a ``serialize()`` method except Election, which contains a `
 Static files
 ------------
 
-Static files are shared across page types. We bake them out to static paths we can reference absolutely in our baked pages suffixed with a random hash.
+JS, CSS and images are shared across page types. We bake them out to static paths we can reference absolutely in our baked pages suffixed with a random hash.
 
 ::
 
