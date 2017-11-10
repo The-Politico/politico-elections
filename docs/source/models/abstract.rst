@@ -1,5 +1,5 @@
 Abstract models
-========
+===============
 
 Abstract models are used to fill in common fields on other models.
 

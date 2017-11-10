@@ -1,5 +1,5 @@
 Vote models
-====
+===========
 
 .. autoclass:: vote.models.Votes
   :members:

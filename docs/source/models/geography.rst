@@ -1,5 +1,5 @@
 geography models
-=========
+================
 
 
 .. autoclass:: geography.models.Division

@@ -85,7 +85,7 @@ Serializers
   :members:
 
 Viewsets
-`````````
+````````
 
 .. autoclass:: theshow.viewsets.OfficeMixin
   :members:

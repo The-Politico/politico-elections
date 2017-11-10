@@ -13,7 +13,7 @@ Stack
 .. _front-end-models:
 
 Front-end Models
-------
+----------------
 
 We let the client resolve the relationships between our slim results data and the context of any campaigns, passing only the keys needed to deserialize ``results.json`` and ``context.json``.
 

@@ -4,7 +4,7 @@ Running results on election night
 You can run our results deployment for an election night on either your local computer or on a server. This will walk through both.
 
 Local computer
-''''''''''''
+''''''''''''''
 
 To run results on your local computer, first ensure you are connected to the production database. You can do this by putting the correct postgres environment variables in your :code:`.env` file. The environment variables are:
 
@@ -24,7 +24,7 @@ Once you are connected to the production database, you can bootstrap the AP data
   Do **not** run the Fabric command that would wipe the production database.
 
 Context
-~~~~~~~~
+~~~~~~~
 
 For results pages, we bake out most things like candidate names, election labels and geography labels to the page in a JSON file for each page. You can bake out that information with the following management command:
 
@@ -56,7 +56,7 @@ Once you have those files, you can run :code:`fab production daemons.deploy`. Th
 Once the race is over and AP has finished tabulating results, you can run :code:`python manage.py update_results (YYYY-MM-DD)` to update the database with the AP's tabulated results.
 
 Server
-'''''
+''''''
 
 Assuming we have a production server stood up (if not, consult the [server docs](./servers.md)), then you can run some Fabric commands to achieve the same as above (NOTE: TYLER NEEDS TO WRITE THESE FABRIC COMMANDS).
 

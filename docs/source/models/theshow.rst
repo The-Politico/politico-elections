@@ -1,5 +1,5 @@
 The Show models
-========
+===============
 
 .. autoclass:: theshow.models.PageContent
   :members:

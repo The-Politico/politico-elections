@@ -1,7 +1,7 @@
 .. _commands-export-geography:
 
 export_geography
-==============
+================
 
 .. djcommand:: geography.management.commands.export_geography
 

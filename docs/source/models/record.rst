@@ -1,4 +1,4 @@
 Record identifier
 =================
 
-TK.
+Conventions for creating our ``UID`` field TK.
