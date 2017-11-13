@@ -1,8 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import assign from 'lodash/assign';
-import cloneDeep from 'lodash/cloneDeep';
-import isEqual from 'lodash/isEqual';
 import reducers from '../reducers/';
 import actions from '../actions/';
 import refreshRates from '../constants/api';
