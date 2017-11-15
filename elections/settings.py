@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'elections.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 DATABASES = {}
-if 'DATABASE_URL' in os.environ and not DEBUG:
+if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config()
 else:
     DATABASES['default'] = {
