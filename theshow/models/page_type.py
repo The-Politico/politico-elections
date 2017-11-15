@@ -47,7 +47,7 @@ class PageType(UUIDBase):
 
     def page_location_template(self):
         """
-        Returns the published URL template for page type.
+        Returns the published URL template for a page type.
         """
         cycle = self.election_day.cycle.name
         model_class = self.model_type.model_class()
