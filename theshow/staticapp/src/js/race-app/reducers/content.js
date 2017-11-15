@@ -3,7 +3,8 @@ import * as types from '../constants/actions';
 
 export default(currentState, action) => {
   const initialState = {
-    blocks: {},
+    pageBlocks: {},
+    pageTypeBlocks: {},
   };
 
   if (typeof currentState === 'undefined') {
@@ -11,9 +12,13 @@ export default(currentState, action) => {
   }
 
   switch (action.type) {
-    case types.CREATE_CONTENT_BLOCK:
+    case types.CREATE_PAGE_CONTENT_BLOCK:
       return assign({}, currentState, {
-        blocks: action.block,
+        pageBlocks: action.block,
+      });
+    case types.CREATE_PAGE_TYPE_CONTENT_BLOCK:
+      return assign({}, currentState, {
+        pageTypeBlocks: action.block,
       });
     default:
       break;

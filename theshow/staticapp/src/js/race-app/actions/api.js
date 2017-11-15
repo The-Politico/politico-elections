@@ -1,7 +1,7 @@
 import assign from 'lodash/assign';
 import * as ormActions from './orm';
 import * as fetchActions from './fetch';
-import createContentBlock from './content';
+import {createPageTypeContentBlock, createPageContentBlock} from './content';
 
 const headers = {
   headers: {
@@ -158,7 +158,10 @@ function addResults(results, dispatch) {
   });
 }
 
-const addContent = (content, dispatch) => dispatch(createContentBlock(content));
+const addPageContent = (content, dispatch) =>
+  dispatch(createPageContentBlock(content));
+const addPageTypeContent = (content, dispatch) =>
+  dispatch(createPageTypeContentBlock(content));
 
 let compareContext = null;
 
@@ -188,7 +191,8 @@ export const fetchContext = modifiedTime =>
         addCandidates(data.elections, dispatch),
         addElections(data.elections, dispatch),
         addOverrideResults(data.elections, dispatch),
-        addContent(data.content, dispatch),
+        addPageContent(data.content.page, dispatch),
+        addPageTypeContent(data.content.page_type, dispatch),
       ]);
     })
     .catch((error) => {

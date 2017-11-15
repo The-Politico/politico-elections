@@ -1,8 +1,11 @@
 import * as types from '../constants/actions';
 
-const createContentBlock = block => ({
-  type: types.CREATE_CONTENT_BLOCK,
+export const createPageContentBlock = block => ({
+  type: types.CREATE_PAGE_CONTENT_BLOCK,
   block,
 });
 
-export default createContentBlock;
+export const createPageTypeContentBlock = block => ({
+  type: types.CREATE_PAGE_TYPE_CONTENT_BLOCK,
+  block,
+});
