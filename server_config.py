@@ -116,8 +116,8 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '-o', 'json']
-        CURRENT_ELECTION = '2017-11-07'
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        CURRENT_ELECTION = '2017-12-12'
     else:
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
@@ -126,8 +126,8 @@ def configure_targets(deployment_target):
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '-o', 'json']
-        CURRENT_ELECTION = '2017-11-07'
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        CURRENT_ELECTION = '2017-12-12'
 
     DEPLOYMENT_TARGET = deployment_target
 

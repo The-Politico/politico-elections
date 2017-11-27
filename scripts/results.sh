@@ -15,9 +15,9 @@ done
 # grab elex results for everything
 if [ $FILE ]
   then
-    elex results ${DATE} --national-only -o json -d ${FILE} > master.json
+    elex results ${DATE} --test --national-only -o json -d ${FILE} > master.json
   else
-    elex results ${DATE} --national-only -o json > master.json
+    elex results ${DATE} --test --national-only -o json > master.json
 fi
 
 # cp output/elections/*.json output/results/

@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 
 from django.core.management.base import BaseCommand, CommandError
 from uuslug import slugify
@@ -171,6 +173,16 @@ class Command(BaseCommand):
         parser.add_argument('election_date', type=str)
 
     def handle(self, *args, **options):
+        folder = 'output/elections'
+        for f in os.listdir(folder):
+            f_path = os.path.join(folder, f)
+
+            try:
+                if os.path.isfile(f_path):
+                    os.unlink(f_path)
+            except Exception as e:
+                print(e)
+
         cycle_year = options['election_date'].split('-')[0]
 
         latest_cycle = ElectionCycle.objects.get(name=cycle_year).name
