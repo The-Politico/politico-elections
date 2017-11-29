@@ -32,6 +32,10 @@ Here is a non-exhaustive sample of the pages we build for.
   - :code:`/election-results/2020/texas/senate/`
   - :code:`/election-results/2020/texas/house/`
 
+- **Special elections**
+
+  - :code:`/election-results/2017/alabama/special-election/dec-12/`
+
 We can deconstruct those into page types that correspond to our models: **ElectionCycle**, **Office**, **Body** and **Division**.
 
 - Election cycle page

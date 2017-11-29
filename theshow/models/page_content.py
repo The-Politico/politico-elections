@@ -110,6 +110,7 @@ class PageContent(UUIDBase, SelfRelatedBase):
     content_object = GenericForeignKey('content_type', 'object_id')
     election_day = models.ForeignKey(ElectionDay)
     division = models.ForeignKey(Division, null=True, blank=True)
+    special_election = models.BooleanField(default=False)
     objects = PageContentManager()
 
     class Meta:
@@ -132,8 +133,18 @@ class PageContent(UUIDBase, SelfRelatedBase):
             return self.content_object.page_location_template()
         elif self.content_type.model_class() == Division:
             if self.content_object.level.name == DIVISION_LEVELS['state']:
-                path = self.content_object.slug
+                if self.special_election:
+                    # /{state}/special-election/{month-day}/
+                    path = os.path.join(
+                        self.content_object.slug,
+                        'special-election',
+                        self.election_day.special_election_datestring()
+                    )
+                else:
+                    # /{state}/
+                    path = self.content_object.slug
             else:
+                # /  National
                 path = ''
         # Offices and Bodies
         else:

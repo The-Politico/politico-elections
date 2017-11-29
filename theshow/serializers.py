@@ -14,9 +14,10 @@ class ElectionDaySerializer(serializers.ModelSerializer):
     states = serializers.SerializerMethodField()
     bodies = serializers.SerializerMethodField()
     executive_offices = serializers.SerializerMethodField()
+    special_elections = serializers.SerializerMethodField()
 
     def get_states(self, obj):
-        """States holding an election on election day."""
+        """States holding a non-special election on election day."""
         return reverse(
             'state-election-list',
             request=self.context['request'],
@@ -39,6 +40,14 @@ class ElectionDaySerializer(serializers.ModelSerializer):
             kwargs={'date': obj.date}
         )
 
+    def get_special_elections(self, obj):
+        """States holding a special election on election day."""
+        return reverse(
+            'special-election-list',
+            request=self.context['request'],
+            kwargs={'date': obj.date}
+        )
+
     class Meta:
         model = ElectionDay
         fields = (
@@ -47,6 +56,7 @@ class ElectionDaySerializer(serializers.ModelSerializer):
             'states',
             'bodies',
             'executive_offices',
+            'special_elections',
         )
 
 
@@ -106,6 +116,21 @@ class StateSerializer(serializers.ModelSerializer):
         )
 
 
+class SpecialElectionListSerializer(StateListSerializer):
+    def get_url(self, obj):
+        return reverse(
+            'special-election-detail',
+            request=self.context['request'],
+            kwargs={
+                'pk': obj.pk,
+                'date': self.context['election_date']
+            })
+
+
+class SpecialElectionSerializer(StateSerializer):
+    pass
+
+
 class BodyListSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
 
@@ -147,6 +172,7 @@ class BodySerializer(serializers.ModelSerializer):
             date=self.context['election_date'])
         elections = Election.objects.filter(
             race__office__body=obj,
+            race__special=False,
             election_day=election_day
         )
         return ElectionSerializer(elections, many=True).data

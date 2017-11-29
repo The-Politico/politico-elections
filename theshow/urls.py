@@ -1,17 +1,19 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 
 from .views import (CyclePage, CyclePageExport, FederalBodyPage,
                     FederalBodyPageExport, FederalExecutiveRacePage,
-                    FederalExecutiveRacePageExport, LinkPreview, StateBodyPage,
-                    StateBodyPageExport, StateExecutiveRacePage,
+                    FederalExecutiveRacePageExport, LinkPreview,
+                    SpecialElectionPage, SpecialElectionPageExport,
+                    StateBodyPage, StateBodyPageExport, StateExecutiveRacePage,
                     StateExecutiveRacePageExport, StateFedPage,
                     StateFedPageExport, StatePage, StatePageExport)
 from .viewsets import (BodyDetail, BodyList, ElectionDayDetail,
-                       ElectionDayList, OfficeDetail, OfficeList, StateDetail,
-                       StateList)
+                       ElectionDayList, OfficeDetail, OfficeList,
+                       SpecialDetail, SpecialList, StateDetail, StateList)
 
 urlpatterns = [
-    url(r'^$',
+    url(
+        r'^$',
         LinkPreview.as_view(),
         name='preview'
     ),
@@ -36,12 +38,30 @@ urlpatterns = [
         name='state-page-export'
     ),
     url(
+        r'^special/(?P<year>\d{4})/(?P<state>[\w-]+)/special-election/'
+        r'(?P<month>\w{3})-(?P<day>\d{2})/$',
+        SpecialElectionPage.as_view(),
+        name='special-election-page'
+    ),
+    url(
+        r'^special/(?P<year>\d{4})/(?P<state>[\w-]+)/special-election/'
+        r'(?P<month>\w{3})-(?P<day>\d{2})/export/$',
+        SpecialElectionPageExport.as_view(),
+        name='special-election-page-export'
+    ),
+    url(
+        r'^state/(?P<year>\d{4})/(?P<state>[\w-]+)/export/$',
+        StatePageExport.as_view(),
+        name='state-page-export'
+    ),
+    url(
         r'^state/(?P<year>\d{4})/(?P<branch>[\w-]+)/(?P<state>[\w-]+)/$',
         StateFedPage.as_view(),
         name='state-fed-page'
     ),
     url(
-        r'^state/(?P<year>\d{4})/(?P<branch>[\w-]+)/(?P<state>[\w-]+)/export/$', # noqa
+        r'^state/(?P<year>\d{4})/(?P<branch>[\w-]+)/'
+        r'(?P<state>[\w-]+)/export/$',
         StateFedPageExport.as_view(),
         name='state-fed-page-export'
     ),
@@ -111,6 +131,17 @@ urlpatterns = [
         name='state-election-detail',
     ),
     url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/special-elections/$',
+        SpecialList.as_view(),
+        name='special-election-list',
+    ),
+    url(
+        r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})'
+        r'/special-elections/(?P<pk>.+)/$',
+        SpecialDetail.as_view(),
+        name='special-election-detail',
+    ),
+    url(
         r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/bodies/$',
         BodyList.as_view(),
         name='body-election-list',
@@ -127,7 +158,7 @@ urlpatterns = [
     ),
     url(
         r'^api/elections/(?P<date>\d{4}-\d{2}-\d{2})/'
-        'executive-offices/(?P<pk>.+)/$',
+        r'executive-offices/(?P<pk>.+)/$',
         OfficeDetail.as_view(),
         name='office-election-detail',
     ),

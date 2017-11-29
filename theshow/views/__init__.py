@@ -20,4 +20,8 @@ from .races import ( # noqa
     StateExecutiveRacePage,
     StateExecutiveRacePageExport,
 )
+from .specials import ( # noqa
+    SpecialElectionPage,
+    SpecialElectionPageExport,
+)
 from .base import LinkPreview # noqa

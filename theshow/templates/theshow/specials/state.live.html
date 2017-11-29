@@ -1,31 +1,27 @@
 {%extends "theshow/base.html"%}
 {%load staticfiles%}
 
-{%block universal-meta%}
-  {% include "theshow/meta.html" %}
-{%endblock%}
-
+{%block universal-meta%}{%endblock%}
 
 {%block title%}
-<title>{{state}} Election Results {{year}}: {{race.office.slug|capfirst}} Live Map by County, Real-Time Voting Updates</title>
 {%endblock%}
 
 {%block page-meta%}
 <!-- Site URL -->
-<meta property="og:url" content="https://www.politico.com/interactives/elections/{year}}/{{state.slug}}/{{race.office.slug}}/" />
-<link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
+<meta property="og:url" content="https://www.politico.com/interactives/elections/{year}}/{{state.slug}}/" />
+<link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/" />
 <!-- Site URL -->
-<meta property="og:url" content="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
-<link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/{{race.office.slug}}/" />
+<meta property="og:url" content="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/" />
+<link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/" />
 <!-- Project title -->
-<meta property="twitter:title" content="Live {{year}} {{race.office.name}} Election Results: {{ candidates.GOP }} vs. {{ candidates.Dem }}" />
-<meta property="og:title" content="Live {{year}} {{race.office.name}} Election Results" />
+<meta property="twitter:title" content="" />
+<meta property="og:title" content="" />
 <!-- Project description -->
 <meta property="twitter:description" content="See results, maps and live coverage." />
 <meta property="og:description" content="See results, maps and live coverage." />
 <meta name="description" content="See results, maps and live coverage." />
 <!-- Keywords -->
-<meta property="og:keywords" content="Live {{year}} {{race.office.name}} Election Results, {{ candidates.GOP }}, {{ candidates.Dem }}, Election Results, {{race.office.name}}, Live election results" />
+<meta property="og:keywords" content="" />
 {%endblock%}
 
 
@@ -44,7 +40,7 @@
        <a class="icon icon-mail" target="_blank"></a>
     </div>
     <h1>
-    {{year}} {{race.office.name}} election results: {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}
+    {{year}} election results: {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}
     </h1>
     <h3 class="live-results">LIVE Results last updated: <span class="red"></span></h3>
 
@@ -63,13 +59,13 @@
 {%endblock%}
 
 {%block api%}
-{% with "theshow/results/"|add:state.slug|add:"/"|add:race.office.slug|add:"/results.json" as results_json %}
-{% with "theshow/results/"|add:state.slug|add:"/"|add:race.office.slug|add:"/last-updated.json" as last_updated_json %}
+{% with "theshow/results/"|add:state.slug|add:"/"|add:"/results.json" as results_json %}
+{% with "theshow/results/"|add:state.slug|add:"/"|add:"/last-updated.json" as last_updated_json %}
 {% with "https://s3.amazonaws.com/com.politico.interactives.politico.com/elections/data/geography/2016/state/"|add:state.code|add:"/counties.json" as geo_json %}
 <script type="text/javascript">
   window.appConfig = {
     api: {
-      context: '{% url "office-election-detail" date=election_day.date pk=office.pk%}',
+      context: '',
       results: '{% static results_json %}',
       lastUpdated: '{% static last_updated_json %}',
       geo: '{{ geo_json }}',
