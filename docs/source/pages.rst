@@ -5,9 +5,9 @@ Page structure
 
 Most of this project is organized around the structure of the pages it's built to produce.
 
-We produce pages that aggregate elections for legislative bodies and states and individual pages of election results for executive offices, i.e., the president and state governors.
+We produce pages that aggregate elections for offices in legislative bodies, individual pages of election results for executive offices, i.e., the president and state governors, and pages that show all races in a particular state.
 
-Here is a non-exhaustive sample of the pages we build for.
+Here is a non-exhaustive sample of the pages we build for:
 
 - **Home**
 
@@ -46,5 +46,10 @@ We can deconstruct those into page types that correspond to our models: **Electi
 - State page (all races)
 - State executive office page (governor)
 - State legislative body page (state house or senate)
+
+.. note::
+
+  Special Elections are a bit of a special case that we host at the state level regardless of the office(s) contested.
+
 
 See :ref:`models-election`.

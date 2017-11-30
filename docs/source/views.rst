@@ -13,6 +13,7 @@ View classes
     State pages <views/states>
     Body pages <views/bodies>
     Race pages <views/races>
+    Special election pages <views/specials>
 
 
 Export Inheritance
@@ -41,7 +42,7 @@ For example, a parent template may reference a script on the server like this:
 
 .. code-block:: python
 
-  class RacePageExport(ClassView):
+  class RacePageExport(RacePage):
     template = 'page.export.html'
 
 .. code-block:: jinja

@@ -1,9 +1,9 @@
 .. _commands-export-geography:
 
-export_geography
-================
+bake_geography
+==============
 
-.. djcommand:: geography.management.commands.export_geography
+.. djcommand:: bakery.management.commands.bake_geography
 
 .. note::
 

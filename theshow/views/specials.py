@@ -23,7 +23,7 @@ month_codes = {
 
 class SpecialElectionPage(BaseView):
     """
-    **Preview URL**: :code:`/election-results/special-election/{YEAR}/{STATE}/{MMM}-{DD}/`
+    **Preview URL**: :code:`/election-results/special/{YEAR}/{STATE}/special-election/{MMM}-{DD}/`
     """
     model = Division
     context_object_name = 'state'
@@ -73,6 +73,6 @@ class SpecialElectionPage(BaseView):
 
 class SpecialElectionPageExport(SpecialElectionPage):
     """
-    **Publish URL**: :code:`/election-results/special-election/{YEAR}/{STATE}/{MMM}-{DD}/`
+    **Publish URL**: :code:`/election-results/{YEAR}/{STATE}/special-election/{MMM}-{DD}/`
     """
     template_name = 'theshow/specials/state.export.html'
