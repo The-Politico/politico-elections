@@ -23,7 +23,8 @@ OUTPUT_PATH = os.path.join(
 class Command(BaseCommand):
     help = 'Gathers census data from the Census API and outputs JSON to S3.'
 
-    def get_required_fixtures(self):
+    def __init__(self, *args, **kwargs):
+        super(Command, self).__init__(*args, **kwargs)
         self.STATE_LEVEL = DivisionLevel.objects.get(
             name=DIVISION_LEVELS['state'])
         self.COUNTY_LEVEL = DivisionLevel.objects.get(
@@ -45,8 +46,7 @@ class Command(BaseCommand):
         else:
             return None
 
-    @staticmethod
-    def write_estimate(table, variable, code, datum):
+    def write_estimate(self, table, variable, code, datum):
         """
         Creates new estimate from a census series.
 
@@ -219,7 +219,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        self.get_required_fixtures()
         states = options['states']
         if options['export'] is False:
             self.fetch_census_data(states)

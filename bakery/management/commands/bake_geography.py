@@ -28,7 +28,7 @@ class Command(BaseCommand):
         print('Exporting geographies')
 
         states = options['states']
-        bucket = get_bucket()
+        bucket = get_bucket(production=True)
 
         STATE_LEVEL = DivisionLevel.objects.get(name=DIVISION_LEVELS['state'])
         COUNTY_LEVEL = DivisionLevel.objects.get(
