@@ -1,11 +1,12 @@
-import simplejson as json
+from decimal import Decimal
+from subprocess import check_output
+
 import requests
+import simplejson as json
+from django.core.management.base import BaseCommand
 
 from core.aws import defaults, get_bucket
-from decimal import Decimal
-from django.core.management.base import BaseCommand, CommandError
 from geography.models import Division
-from subprocess import check_output
 
 
 class Command(BaseCommand):
@@ -21,7 +22,8 @@ class Command(BaseCommand):
     }
 
     help = 'scrapes VA SOS'
-    base_url = 'http://results.elections.virginia.gov/vaelections/2017%20November%20General/Json/'
+    base_url = 'http://results.elections.virginia.gov/vaelections/'
+    '2017%20November%20General/Json/'
 
     def handle(self, *args, **options):
         va = Division.objects.get(code='51')

@@ -1,14 +1,14 @@
 from django.core.management.base import BaseCommand
 
+from bakery.methods.pages import BakePagesMethods
 from core.aws import defaults, get_bucket
 from core.constants import DIVISION_LEVELS
 from election.models import ElectionDay
 from geography.models import DivisionLevel
-from theshow.utils.bake.context import BakeContextMethods
 
 
-class Command(BakeContextMethods, BaseCommand):
-    help = 'Bakes out context for an election.'
+class Command(BakePagesMethods, BaseCommand):
+    help = 'Bakes pages for an election.'
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
@@ -23,17 +23,22 @@ class Command(BakeContextMethods, BaseCommand):
             required=True,
             help="Election date to bake out."
         )
-
         parser.add_argument(
             '--production',
             action='store_true',
             default=False,
             help="Publish to production"
         )
+        parser.add_argument(
+            '--hash',
+            required=True,
+            help="Hash to suffix static files with."
+        )
 
     def bake(self, key, data, content_type, production=False):
         # bucket = get_bucket(production)
         print('BAKING {}'.format(key))
+        # print(data)
         # bucket.put_object(
         #     Key=key,
         #     ACL=defaults.ACL,
@@ -43,7 +48,7 @@ class Command(BakeContextMethods, BaseCommand):
         # )
 
     def handle(self, *args, **options):
-        print('> Baking Context JSON!')
+        print('> Baking Election pages!')
         self.ELECTION_DAY = ElectionDay.objects.get(
             date=options['election']
         )

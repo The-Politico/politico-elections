@@ -34,7 +34,7 @@ class Command(BaseCommand):
             '--production'
         )
         call_command(
-            'bake_election',
+            'bake_pages',
             '--election={}'.format(election),
             '--hash={}'.format(self.hash),
             '--production'

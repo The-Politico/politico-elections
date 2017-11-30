@@ -6,7 +6,7 @@ from geography.models import Division
 
 class Command(BaseCommand):
     help = 'Loads basic structure of the federal governement. Must be run \
-    *AFTER* load_geo.'
+    *AFTER* bootstrap_geography.'
 
     def handle(self, *args, **options):
         print('Loading the fed')

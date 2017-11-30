@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
+from bootstrap.methods.content import BootstrapContentMethods
 from core.constants import DIVISION_LEVELS
 from election.models import ElectionDay
 from entity.models import Jurisdiction
 from geography.models import DivisionLevel
-from theshow.utils.bootstrap.content import BootstrapContentMethods
 
 
 class Command(BaseCommand, BootstrapContentMethods):

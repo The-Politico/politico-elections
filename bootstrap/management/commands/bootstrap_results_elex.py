@@ -10,14 +10,16 @@ from theshow.models import PageContent
 
 
 class Command(BaseCommand):
-    help = 'finds race ids necessary for pages'
+    help = 'Creates config files used by our bash process to bake out'
+    'election results.'
 
     def serialize_cycle(self, cycle):
         """
         /election-results/cycle/
         """
         elections = Election.objects.filter(
-            race__cycle__name=cycle
+            race__cycle__name=cycle,
+            race__special=False,
         )
         levels = ['national', 'state']
         config_key = cycle
@@ -31,7 +33,8 @@ class Command(BaseCommand):
         /election-results/cycle/house/
         """
         body_elections = elections.filter(
-            race__office__body__slug=body
+            race__office__body__slug=body,
+            race__special=False,
         )
         levels = ['state']
         config_key = body
@@ -44,7 +47,8 @@ class Command(BaseCommand):
         /election-results/cycle/president/
         """
         office_elections = elections.filter(
-            race__office__slug=office
+            race__office__slug=office,
+            race__special=False,
         )
         levels = ['national', 'state']
         config_key = office
@@ -57,11 +61,30 @@ class Command(BaseCommand):
         /election-results/cycle/state/
         """
         state_elections = elections.filter(
-            division__slug=state
+            division__slug=state,
+            race__special=False,
         )
         levels = ['state', 'county']
         config_key = state
         output_key = '{0}/{1}'.format(cycle, state)
+
+        self._write_to_json(state_elections, config_key, levels, output_key)
+
+    def serialize_special(self, state, elections, cycle):
+        """
+        /election-results/cycle/state/special-election/MMM-DD
+        """
+        state_elections = elections.filter(
+            division__slug=state,
+            race__special=True,
+        )
+        levels = ['state', 'county']
+        config_key = state
+        output_key = '{0}/{1}/special-election/{2}'.format(
+            cycle,
+            state,
+            state_elections.first().election_day.special_election_datestring()
+        )
 
         self._write_to_json(state_elections, config_key, levels, output_key)
 
@@ -72,7 +95,8 @@ class Command(BaseCommand):
         """
         state_federal_body_elections = elections.filter(
             division__slug=state,
-            race__office__body__slug=body
+            race__office__body__slug=body,
+            race__special=False,
         )
 
         if len(state_federal_body_elections) > 0:
@@ -95,7 +119,8 @@ class Command(BaseCommand):
         """
         state_body_elections = elections.filter(
             division__slug=state,
-            race__office__body__slug=body
+            race__office__body__slug=body,
+            race__special=False,
         )
 
         if len(state_body_elections) > 0:
@@ -117,7 +142,8 @@ class Command(BaseCommand):
         """
         state_office_elections = elections.filter(
             division__slug=state,
-            race__office__slug=office
+            race__office__slug=office,
+            race__special=False,
         )
 
         if len(state_office_elections) > 0:
@@ -139,7 +165,8 @@ class Command(BaseCommand):
         """
         state_exec_elections = elections.filter(
             division__slug=state,
-            race__office__slug=office
+            race__office__slug=office,
+            race__special=False,
         )
         levels = ['state', 'county']
         config_key = '{0}-{1}'.format(state, office)
@@ -228,6 +255,7 @@ class Command(BaseCommand):
 
         for state in states:
             self.serialize_state(state, elections, latest_cycle)
+            self.serialize_special(state, elections, latest_cycle)
 
             for body in state_bodies:
                 self.serialize_state_body(state, body, elections, latest_cycle)

@@ -13,7 +13,7 @@ class EmptyHandler(object):
         pass
 
 
-class BakeElectionMethods(
+class BakePagesMethods(
     StateExecutiveOffice,
     SpecialElection,
     EmptyHandler,

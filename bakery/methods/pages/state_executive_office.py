@@ -3,8 +3,8 @@ import os
 from django.template.loader import render_to_string
 from tqdm import tqdm
 
+from bakery.methods.fetch import FetchMethods
 from core.aws import defaults
-from theshow.utils.bake.fetch import FetchMethods
 from theshow.views import StateExecutiveRacePageExport
 
 

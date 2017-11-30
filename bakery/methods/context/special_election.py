@@ -3,9 +3,9 @@ import os
 from rest_framework.renderers import JSONRenderer
 from tqdm import tqdm
 
+from bakery.methods.fetch import FetchMethods
 from core.aws import defaults
 from theshow.serializers import SpecialElectionSerializer
-from theshow.utils.bake.fetch import FetchMethods
 
 
 class SpecialElection(FetchMethods):

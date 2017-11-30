@@ -65,7 +65,7 @@
 <script type="text/javascript">
   window.appConfig = {
     api: {
-      context: '',
+      context: '{% url "special-election-detail" date=election_day.date pk=state.pk %}',
       results: '{% static results_json %}',
       lastUpdated: '{% static last_updated_json %}',
       geo: '{{ geo_json }}',
