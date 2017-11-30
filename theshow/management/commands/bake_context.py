@@ -1,55 +1,50 @@
-import os
-
 from django.core.management.base import BaseCommand
-from rest_framework.renderers import JSONRenderer
-from tqdm import tqdm
 
-from core.aws import defaults
-from theshow.serializers import OfficeSerializer
+from core.aws import defaults, get_bucket
+from core.constants import DIVISION_LEVELS
+from election.models import ElectionDay
+from geography.models import DivisionLevel
+from theshow.utils.bake.context import BakeContextMethods
 
-from .bake_base import BaseBakeCommand
 
-
-class Command(BaseBakeCommand, BaseCommand):
+class Command(BakeContextMethods, BaseCommand):
     help = 'Bakes out context for an election.'
 
-    def bake_federal_page(self, election_day, options):
-        """ TK. """
-        pass
+    def __init__(self, *args, **kwargs):
+        super(Command, self).__init__(*args, **kwargs)
+        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['country'])
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
 
-    def bake_state_pages(self, election_day, options):
-        """ TK. """
-        pass
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--election',
+            required=True,
+            help="Election date to bake out."
+        )
 
-    def bake_federal_executive_race_page(self, election_day, options):
-        """ TK. """
-        pass
+        parser.add_argument(
+            '--production',
+            action='store_true',
+            default=False,
+            help="Publish to production"
+        )
 
-    def bake_state_executive_race_pages(self, election_day, options):
-        elections = self.fetch_state_executive_race_elex(election_day)
-        print('> >> State executive races:')
-        for election in tqdm(elections):
-            serialized_data = JSONRenderer().render(
-                OfficeSerializer(election.race.office, context={
-                    'election_date': election_day.date
-                }).data
-            )
-            key = os.path.join(
-                defaults.ROOT_PATH,
-                election_day.cycle.slug,
-                election.division.slug,
-                election.race.office.slug.lower(),
-                'context.json'
-            )
-            self.bake(
-                key,
-                serialized_data,
-                'application/json',
-                production=options['production']
-            )
+    def bake(self, key, data, content_type, production=False):
+        # bucket = get_bucket(production)
+        print('BAKING {}'.format(key))
+        # bucket.put_object(
+        #     Key=key,
+        #     ACL=defaults.ACL,
+        #     Body=data,
+        #     CacheControl=defaults.CACHE_HEADER,
+        #     ContentType=content_type
+        # )
 
-    def bake_federal_body_pages(self, election_day, options):
-        pass
-
-    def bake_state_body_pages(self, election_day, options):
-        pass
+    def handle(self, *args, **options):
+        print('> Baking Context JSON!')
+        self.ELECTION_DAY = ElectionDay.objects.get(
+            date=options['election']
+        )
+        super(Command, self).handle(*args, **options)

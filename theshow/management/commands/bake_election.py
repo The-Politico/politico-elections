@@ -1,74 +1,55 @@
-import os
-
 from django.core.management.base import BaseCommand
-from django.template.loader import render_to_string
-from tqdm import tqdm
 
-from core.aws import defaults
-from theshow.views import StateExecutiveRacePageExport
+from core.aws import defaults, get_bucket
+from core.constants import DIVISION_LEVELS
+from election.models import ElectionDay
+from geography.models import DivisionLevel
+from theshow.utils.bake.election import BakeElectionMethods
 
-from .bake_base import BaseBakeCommand
 
-
-class Command(BaseBakeCommand, BaseCommand):
+class Command(BakeElectionMethods, BaseCommand):
     help = 'Bakes pages for an election.'
 
-    def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+    def __init__(self, *args, **kwargs):
+        super(Command, self).__init__(*args, **kwargs)
+        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['country'])
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--election',
+            required=True,
+            help="Election date to bake out."
+        )
+        parser.add_argument(
+            '--production',
+            action='store_true',
+            default=False,
+            help="Publish to production"
+        )
         parser.add_argument(
             '--hash',
             required=True,
             help="Hash to suffix static files with."
         )
 
-    def bake_federal_page(self, election_day, options):
-        pass
+    def bake(self, key, data, content_type, production=False):
+        # bucket = get_bucket(production)
+        print('BAKING {}'.format(key))
+        # print(data)
+        # bucket.put_object(
+        #     Key=key,
+        #     ACL=defaults.ACL,
+        #     Body=data,
+        #     CacheControl=defaults.CACHE_HEADER,
+        #     ContentType=content_type
+        # )
 
-    def bake_state_pages(self, election_day, options):
-        pass
-
-    def bake_federal_executive_race_page(self, election_day, options):
-        pass
-
-    def bake_state_executive_race_pages(self, election_day, options):
-        elections = self.fetch_state_executive_race_elex(election_day)
-        print('> >> State executive races:')
-        for election in tqdm(elections):
-            context = StateExecutiveRacePageExport.build_context(
-                election_datestring=election.election_day.__str__(),
-                state_slug=election.division.slug,
-                office_slug=election.race.office.slug,
-            )
-            print(options['hash'])
-            context['hash'] = options['hash']
-            context['domain'] = defaults.DOMAIN[
-                'production' if options['production'] else 'staging'
-            ]
-            context['root_path'] = defaults.ROOT_PATH
-            context['data_domain'] = defaults.DATA_DOMAIN[
-                'production' if options['production'] else 'staging'
-            ]
-            template_string = render_to_string(
-                StateExecutiveRacePageExport.template_name,
-                context
-            )
-            key = os.path.join(
-                defaults.ROOT_PATH,
-                election_day.cycle.slug,
-                election.division.slug,
-                election.race.office.slug.lower(),
-                'index.html'
-            )
-            self.bake(
-                key,
-                template_string,
-                content_type='text/html',
-                production=options['production']
-            )
-
-    def bake_federal_body_pages(self, election_day, options):
-        pass
-
-    def bake_state_body_pages(self, election_day, options):
-        pass
+    def handle(self, *args, **options):
+        print('> Baking Election pages!')
+        self.ELECTION_DAY = ElectionDay.objects.get(
+            date=options['election']
+        )
+        super(Command, self).handle(*args, **options)

@@ -1,4 +1,11 @@
-from .federal_executive_state import create_federal_executive_state_pages_content
-from .executive_office import create_executive_office_page_content
-from .legislative_office import create_legislative_office_page_content
-from .special_election import create_special_election_page_content
+from .executive_office import ExecutiveOffice
+from .legislative_office import LegislativeOffice
+from .special_election import SpecialElection
+
+
+class BootstrapContentMethods(
+    ExecutiveOffice,
+    LegislativeOffice,
+    SpecialElection
+):
+    pass

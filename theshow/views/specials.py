@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 
 from election.models import ElectionDay
 from geography.models import Division, DivisionLevel
+from theshow.models import PageContent
 
 from .base import BaseView
 
@@ -28,6 +29,29 @@ class SpecialElectionPage(BaseView):
     context_object_name = 'state'
     template_name = 'theshow/specials/state.live.html'
 
+    @staticmethod
+    def build_context(
+        election_datestring,  # Format YYYY-MM-DD
+        state_slug,
+        context={}
+    ):
+        """
+        Build context through a staticmethod so that we can call it
+        without an HTTPRequest when baking to AWS.
+
+        cf. utils.bake.election.special_election
+        """
+        state = Division.objects.get(slug=state_slug)
+        election_day = ElectionDay.objects.get(date=election_datestring)
+        cycle = election_day.cycle
+        context['year'] = cycle.name
+        context['election_day'] = election_day
+        context['content'] = PageContent.objects.division_content(
+            election_day, state
+        )
+        context['state'] = state
+        return context
+
     def get_queryset(self):
         level = DivisionLevel.objects.get(name='state')
         return self.model.objects.filter(level=level)
@@ -38,13 +62,12 @@ class SpecialElectionPage(BaseView):
     def get_context_data(self, **kwargs):
         context = super(SpecialElectionPage, self).get_context_data(**kwargs)
         context['year'] = self.kwargs.get('year')
-        context['election_date'] = get_object_or_404(
+        context['election_day'] = get_object_or_404(
             ElectionDay,
             date__year=self.kwargs.get('year'),
             date__month=month_codes.get(self.kwargs.get('month')),
             date__day=self.kwargs.get('day')
         )
-        context['race'] = None
         return context
 
 
