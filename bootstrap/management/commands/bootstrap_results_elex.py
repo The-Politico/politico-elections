@@ -10,8 +10,10 @@ from theshow.models import PageContent
 
 
 class Command(BaseCommand):
-    help = 'Creates config files used by our bash process to bake out'
-    'election results.'
+    help = (
+        'Creates config files used by our bash process to bake out '
+        'election results from Elex and the AP.'
+    )
 
     def serialize_cycle(self, cycle):
         """

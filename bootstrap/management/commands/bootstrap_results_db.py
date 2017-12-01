@@ -1,16 +1,19 @@
 import json
-import server_config
 import subprocess
-import election.models as election
-import geography.models as geography
-import vote.models as vote
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from tqdm import tqdm
+
+import election.models as election
+import server_config
+import vote.models as vote
 
 
 class Command(BaseCommand):
-    help = 'ingests master JSON file to update results models'
+    help = (
+        'Ingests master results JSON file from Elex and updates the results '
+        'models in Django.'
+    )
 
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)

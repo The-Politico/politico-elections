@@ -21,7 +21,11 @@ OUTPUT_PATH = os.path.join(
 
 
 class Command(BaseCommand):
-    help = 'Gathers census data from the Census API and outputs JSON to S3.'
+    help = (
+        'After modeling your desired census tables and estimates in Django, '
+        'this command will bootstrap estimates from the Census API and then '
+        'create and upload state-level JSON files to S3.'
+    )
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)

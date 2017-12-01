@@ -9,7 +9,10 @@ from geography.models import DivisionLevel
 
 
 class Command(BaseCommand, BootstrapContentMethods):
-    help = 'Creates page content items  for an election day. More TK.'
+    help = (
+        'Bootstraps page content items for pages for all elections on an '
+        'election day. Must be run AFTER bootstrap_election command.'
+    )
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)

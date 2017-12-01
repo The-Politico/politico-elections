@@ -7,8 +7,10 @@ from geography.models import Division, DivisionLevel
 
 
 class Command(BaseCommand):
-    help = 'Loads federal and state jurisdictions. Must be run *AFTER* \
-    load_geo.'
+    help = (
+        'Loads federal and state jurisdictions. Must be run AFTER the'
+        'bootstrap_geography command.'
+    )
 
     def handle(self, *args, **options):
         print('Loading jurisdictions')

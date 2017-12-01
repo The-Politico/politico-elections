@@ -332,7 +332,9 @@ def process_row(row):
 
 
 class Command(BaseCommand):
-    help = 'populates models for a particular election date'
+    help = (
+        'Bootstraps election meta models for all elections on an election date.'
+    )
 
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)

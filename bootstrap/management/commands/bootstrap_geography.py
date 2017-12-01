@@ -30,8 +30,10 @@ DATA_DIRECTORY = './data/geo/'
 
 
 class Command(BaseCommand):
-    help = 'Downloads and loads geo data for states and counties from \
-    U.S. Census Bureau simplified cartographic boundary files.'
+    help = (
+        'Downloads and bootstraps geographic data for states and counties '
+        'from the U.S. Census Bureau simplified cartographic boundary files'
+    )
 
     def get_required_fixtures(self):
         self.NATIONAL_LEVEL, created = DivisionLevel.objects.get_or_create(
