@@ -59,7 +59,8 @@ def lookup_fips(name, counties, state):
 
 class Command(BaseCommand):
     help = (
-        'Bootstraps previous election results.'
+        'This is some ugly code that bootstraps previous presidential '
+        'election results from some junky data at openelections.'
     )
 
     def add_arguments(self, parser):

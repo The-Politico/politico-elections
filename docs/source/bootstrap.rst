@@ -48,3 +48,8 @@ If bootstrapping from scratch, they should be run in the order below.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoattribute:: bootstrap.management.commands.bootstrap_results_elex.Command.help
+
+:doc:`bootstrap/bootstrap_historical_election`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoattribute:: bootstrap.management.commands.bootstrap_historical_election.Command.help
