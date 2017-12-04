@@ -25,7 +25,6 @@ function getLastUpdated() {
     const date = new Date(data.date);
     const APDate = Dateline(date);
     const dateStr = `${APDate.getAPDate()}, ${APDate.getAPTime({ includeMinutes: true })} EST`;
-
     lastUpdated.textContent = dateStr;
   });
 }

@@ -5,16 +5,19 @@ import ResultsMap from '../components/ResultsMap';
 import FetchRefresh from '../components/FetchRefresh';
 
 const TopResults = (props) => {
-  const precinctsReportingPct = getPrecinctsReporting(props);
+  const status = getStatus(props);
+  const loadingBar = status.tabulated ? null : (
+      <FetchRefresh fetch={props.fetch} actions={props.actions} />
+  );
 
   return (
     <div className="top-results row-fluid section">
       <div className="content-extra-large">
         <div className="loading-bar">
-          <FetchRefresh fetch={props.fetch} actions={props.actions} />
+          {loadingBar}
         </div>
         <div className="precincts-reporting-topline">
-          <span>Precincts reporting: {(precinctsReportingPct * 100).toFixed(1)}%</span>
+          <span>Precincts reporting: {(status.precinctsReportingPct * 100).toFixed(1)}%</span>
         </div>
         <div className="bar">
           <ResultsBar session={props.session} />
@@ -41,13 +44,16 @@ function getStateResults(db) {
   return election.serializeResults(state);
 }
 
-function getPrecinctsReporting(props) {
+function getStatus(props) {
   const db = props.session;
   const stateResults = getStateResults(db);
 
-  if (!stateResults) return 0;
-  if (Object.keys(stateResults.divisions).length === 0) return 0;
-  return stateResults.divisions[window.appConfig.statePostal].precinctsReportingPct;
+  if (!stateResults) return { precinctsReportingPct: 0, tabulated: false };
+  if (Object.keys(stateResults.divisions).length === 0) return { precinctsReportingPct: 0, tabulated: false };
+  return {
+    precinctsReportingPct: stateResults.divisions[window.appConfig.statePostal].precinctsReportingPct,
+    tabulated: stateResults.status.tabulated
+  };
 }
 
 export default TopResults;
