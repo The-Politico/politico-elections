@@ -3,8 +3,11 @@ import * as types from '../constants/actions';
 
 export default(currentState, action) => {
   const initialState = {
-    pageBlocks: {},
-    pageTypeBlocks: {},
+    page: {},
+    pageType: {},
+    mapAnnotation: {
+      cities: [],
+    },
   };
 
   if (typeof currentState === 'undefined') {
@@ -14,12 +17,17 @@ export default(currentState, action) => {
   switch (action.type) {
     case types.CREATE_PAGE_CONTENT_BLOCK:
       return assign({}, currentState, {
-        pageBlocks: action.block,
+        page: action.block,
       });
     case types.CREATE_PAGE_TYPE_CONTENT_BLOCK:
       return assign({}, currentState, {
-        pageTypeBlocks: action.block,
+        pageType: action.block,
       });
+    case types.CREATE_MAP_ANNOTATION:
+      const mapAnnotation = assign({}, currentState.mapAnnotation, action.mapAnnotation);
+      return assign({}, currentState, {
+        mapAnnotation,
+      })
     default:
       break;
   }

@@ -86,6 +86,7 @@ class StateSerializer(serializers.ModelSerializer):
     parties = serializers.SerializerMethodField()
     elections = serializers.SerializerMethodField()
     content = serializers.SerializerMethodField()
+    cities = serializers.SerializerMethodField()
 
     def get_division(self, obj):
         """Division."""
@@ -105,6 +106,40 @@ class StateSerializer(serializers.ModelSerializer):
             date=self.context['election_date'])
         return PageContent.objects.division_content(election_day, obj)
 
+    def get_cities(self, obj):
+        # TODO: make this a modeled thing
+        return [
+            {
+                'name': 'Birmingham',
+                'capital': False,
+                'mobile': True,
+                'lat': 348243589,
+                'lon': 30824
+            },
+            {
+                'name': 'Montgomery',
+                'capital': True,
+                'mobile': True,
+                'lat': 348243589,
+                'lon': 30824
+            },
+            {
+                'name': 'Huntsville',
+                'capital': False,
+                'mobile': False,
+                'lat': 3456,
+                'lon': 123456
+            },
+            {
+                'name': 'Mobile',
+                'capital': False,
+                'mobile': False,
+                'lat': 3456,
+                'lon': 21345
+            }
+
+        ]
+
     class Meta:
         model = Division
         fields = (
@@ -113,6 +148,7 @@ class StateSerializer(serializers.ModelSerializer):
             'elections',
             'parties',
             'division',
+            'cities',
         )
 
 

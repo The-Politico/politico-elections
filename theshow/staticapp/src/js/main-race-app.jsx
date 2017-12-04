@@ -22,7 +22,6 @@ const lastUpdated = document.querySelector('.live-results span.red');
 
 function getLastUpdated() {
   fetch(window.appConfig.api.lastUpdated).then(response => response.json()).then((data) => {
-    console.log('Last updated at ', data);
     const date = new Date(data.date);
     const APDate = Dateline(date);
     const dateStr = `${APDate.getAPDate()}, ${APDate.getAPTime({ includeMinutes: true })} EST`;
