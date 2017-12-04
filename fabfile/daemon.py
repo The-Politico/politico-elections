@@ -60,6 +60,7 @@ def fetch_results():
         test_path = '/tmp/ap-elex-recordings/{0}/national'.format(
             server_config.CURRENT_ELECTION
         )
+        os.environ['ELEX_RECORDING'] = 'flat'
         os.environ['ELEX_RECORDING_DIR'] = test_path
 
         if not os.path.exists(test_path):

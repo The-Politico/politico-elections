@@ -95,6 +95,7 @@ def configure_targets(deployment_target):
     global DAEMON_INTERVAL
     global ELEX_FLAGS
     global CURRENT_ELECTION
+    global TEST_INTERVAL
 
     secrets = get_secrets()
 
@@ -112,7 +113,7 @@ def configure_targets(deployment_target):
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         SERVER_LOG_PATH = '/var/log/%s' % PROJECT_FILENAME
-        S3_BUCKET = 'com-staging.politico.interactives.politico.com'
+        S3_BUCKET = 'staging.interactives.politico.com'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
         DAEMON_INTERVAL = 10
