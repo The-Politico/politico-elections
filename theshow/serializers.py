@@ -113,29 +113,29 @@ class StateSerializer(serializers.ModelSerializer):
                 'name': 'Birmingham',
                 'capital': False,
                 'mobile': True,
-                'lat': 348243589,
-                'lon': 30824
+                'lat': 33.5207,
+                'lon': -86.8025
             },
             {
                 'name': 'Montgomery',
                 'capital': True,
                 'mobile': True,
-                'lat': 348243589,
-                'lon': 30824
+                'lat': 32.3668,
+                'lon': -86.3000
             },
             {
                 'name': 'Huntsville',
                 'capital': False,
                 'mobile': False,
-                'lat': 3456,
-                'lon': 123456
+                'lat': 34.7304,
+                'lon': -86.5861
             },
             {
                 'name': 'Mobile',
                 'capital': False,
                 'mobile': False,
-                'lat': 3456,
-                'lon': 21345
+                'lat': 30.6954,
+                'lon': -88.0399
             }
 
         ]
