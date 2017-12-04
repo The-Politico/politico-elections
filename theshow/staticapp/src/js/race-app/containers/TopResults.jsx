@@ -14,7 +14,7 @@ const TopResults = (props) => {
           <FetchRefresh fetch={props.fetch} actions={props.actions} />
         </div>
         <div className="precincts-reporting-topline">
-          <span>Precincts reporting: {precinctsReportingPct * 100}%</span>
+          <span>Precincts reporting: {(precinctsReportingPct * 100).toFixed(1)}%</span>
         </div>
         <div className="bar">
           <ResultsBar session={props.session} />
