@@ -26,11 +26,11 @@ class Defaults(object):
     ACL = 'public-read'
     DOMAIN = {
         'production': 'www.politico.com/interactives',
-        'staging': 's3.amazonaws.com/com-staging.politico.interactives.politico.com'  # noqa
+        'staging': 's3.amazonaws.com/staging.interactives.politico.com'  # noqa
     }
     DATA_DOMAIN = {
         'production': 's3.amazonaws.com/com.politico.interactives.politico.com',  # noqa
-        'staging': 's3.amazonaws.com/com-staging.politico.interactives.politico.com'  # noqa
+        'staging': 's3.amazonaws.com/staging.interactives.politico.com'  # noqa
     }
 
 

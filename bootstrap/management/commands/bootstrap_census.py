@@ -200,7 +200,7 @@ class Command(BaseCommand):
                     )
 
     def export_by_state(self, states):
-        bucket = get_bucket()
+        bucket = get_bucket(self.production)
         for fips in states:
             state = Division.objects.get(level=self.STATE_LEVEL, code=fips)
             print('>> Exporting: {}'.format(state.code))
@@ -221,8 +221,15 @@ class Command(BaseCommand):
             help="Export existing estimates for states only. "
             "Don't fetch estimates from Census API."
         )
+        parser.add_argument(
+            '--production',
+            action='store_true',
+            default=False,
+            help="Publish to production"
+        )
 
     def handle(self, *args, **options):
+        self.production = options['production']
         states = options['states']
         if options['export'] is False:
             self.fetch_census_data(states)
