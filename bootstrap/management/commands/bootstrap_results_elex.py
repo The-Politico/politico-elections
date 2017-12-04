@@ -23,6 +23,10 @@ class Command(BaseCommand):
             race__cycle__name=cycle,
             race__special=False,
         )
+
+        if elections.count() == 0:
+            return
+
         levels = ['national', 'state']
         config_key = cycle
         output_key = '{0}'.format(cycle)
@@ -38,6 +42,10 @@ class Command(BaseCommand):
             race__office__body__slug=body,
             race__special=False,
         )
+
+        if body_elections.count() == 0:
+            return
+
         levels = ['state']
         config_key = body
         output_key = '{0}/{1}'.format(cycle, body)
@@ -52,6 +60,10 @@ class Command(BaseCommand):
             race__office__slug=office,
             race__special=False,
         )
+
+        if office_elections.count() == 0:
+            return
+
         levels = ['national', 'state']
         config_key = office
         output_key = '{0}/{1}'.format(cycle, office)
@@ -66,6 +78,10 @@ class Command(BaseCommand):
             division__slug=state,
             race__special=False,
         )
+
+        if state_elections.count() == 0:
+            return
+
         levels = ['state', 'county']
         config_key = state
         output_key = '{0}/{1}'.format(cycle, state)
@@ -80,6 +96,10 @@ class Command(BaseCommand):
             division__slug=state,
             race__special=True,
         )
+
+        if state_elections.count() == 0:
+            return
+
         levels = ['state', 'county']
         config_key = state
         output_key = '{0}/{1}/special-election/{2}'.format(
@@ -100,6 +120,9 @@ class Command(BaseCommand):
             race__office__body__slug=body,
             race__special=False,
         )
+
+        if state_federal_body_elections.count() == 0:
+            return
 
         if len(state_federal_body_elections) > 0:
             levels = ['state', 'county']
@@ -125,6 +148,9 @@ class Command(BaseCommand):
             race__special=False,
         )
 
+        if state_body_elections.count() == 0:
+            return
+
         if len(state_body_elections) > 0:
             levels = ['state', 'county']
             config_key = '{0}-state-{1}'.format(state, body)
@@ -148,6 +174,9 @@ class Command(BaseCommand):
             race__special=False,
         )
 
+        if state_office_elections.count() == 0:
+            return
+
         if len(state_office_elections) > 0:
             levels = ['state', 'county']
             config_key = '{0}-{1}'.format(office, state)
@@ -170,6 +199,10 @@ class Command(BaseCommand):
             race__office__slug=office,
             race__special=False,
         )
+
+        if state_exec_elections.count() == 0:
+            return
+
         levels = ['state', 'county']
         config_key = '{0}-{1}'.format(state, office)
         output_key = '{0}/{1}/{2}'.format(
