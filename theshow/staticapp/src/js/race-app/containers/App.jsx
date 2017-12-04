@@ -34,10 +34,6 @@ const App = (props) => {
         session={orm.session(props.db.orm)}
         actions={actions}
       />
-      <p className="correction">
-        CORRECTION: An earlier version of the Vote Shift from 2016 chart
-        miscalculated the size of the swing between 2016 and 2017 races.
-      </p>
     </div>
     ) : null;
 
