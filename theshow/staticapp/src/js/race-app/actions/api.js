@@ -1,7 +1,7 @@
 import assign from 'lodash/assign';
 import * as ormActions from './orm';
 import * as fetchActions from './fetch';
-import {createPageTypeContentBlock, createPageContentBlock} from './content';
+import {createPageTypeContentBlock, createPageContentBlock, createMapAnnotation} from './content';
 
 const headers = {
   headers: {
@@ -163,6 +163,9 @@ const addPageContent = (content, dispatch) =>
 const addPageTypeContent = (content, dispatch) =>
   dispatch(createPageTypeContentBlock(content));
 
+const addMapAnnotation = (cities, dispatch) =>
+  dispatch(createMapAnnotation({ cities }));
+
 let compareContext = null;
 
 export const fetchContext = modifiedTime =>
@@ -193,6 +196,7 @@ export const fetchContext = modifiedTime =>
         addOverrideResults(data.elections, dispatch),
         addPageContent(data.content.page, dispatch),
         addPageTypeContent(data.content.page_type, dispatch),
+        addMapAnnotation(data.cities, dispatch),
       ]);
     })
     .catch((error) => {

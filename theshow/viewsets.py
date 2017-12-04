@@ -8,7 +8,8 @@ from geography.models import Division, DivisionLevel
 
 from .serializers import (BodyListSerializer, BodySerializer,
                           ElectionDaySerializer, OfficeListSerializer,
-                          OfficeSerializer, StateListSerializer,
+                          OfficeSerializer, SpecialElectionListSerializer,
+                          SpecialElectionSerializer, StateListSerializer,
                           StateSerializer)
 
 try:
@@ -36,7 +37,8 @@ class ElectionDayDetail(generics.RetrieveAPIView):
 class StateMixin(object):
     def get_queryset(self):
         """
-        Returns a queryset of all states holding an election on a date.
+        Returns a queryset of all states holding a non-special election on
+        a date.
         """
         try:
             date = ElectionDay.objects.get(date=self.kwargs['date'])
@@ -46,7 +48,8 @@ class StateMixin(object):
             )
         division_ids = []
         for election in date.elections.all():
-            if election.division.level == STATE_LEVEL:
+            if election.division.level == STATE_LEVEL and \
+                    not election.race.special:
                 division_ids.append(election.division.uid)
         return Division.objects.filter(uid__in=division_ids)
 
@@ -63,6 +66,39 @@ class StateList(StateMixin, generics.ListAPIView):
 
 class StateDetail(StateMixin, generics.RetrieveAPIView):
     serializer_class = StateSerializer
+
+
+class SpecialMixin(object):
+    def get_queryset(self):
+        """
+        Returns a queryset of all states holding a special election on a date.
+        """
+        try:
+            date = ElectionDay.objects.get(date=self.kwargs['date'])
+        except:
+            raise APIException(
+                'No elections on {}.'.format(self.kwargs['date'])
+            )
+        division_ids = []
+        for election in date.elections.all():
+            if election.division.level == STATE_LEVEL and \
+                    election.race.special:
+                division_ids.append(election.division.uid)
+        return Division.objects.filter(uid__in=division_ids)
+
+    def get_serializer_context(self):
+        """Adds ``election_day`` to serializer context."""
+        context = super(SpecialMixin, self).get_serializer_context()
+        context['election_date'] = self.kwargs['date']
+        return context
+
+
+class SpecialList(SpecialMixin, generics.ListAPIView):
+    serializer_class = SpecialElectionListSerializer
+
+
+class SpecialDetail(SpecialMixin, generics.RetrieveAPIView):
+    serializer_class = SpecialElectionSerializer
 
 
 class BodyMixin(object):

@@ -1,6 +1,14 @@
 {%extends "theshow/base.html"%}
 {%load staticfiles%}
 
+{%block universal-meta%}
+  {% include "theshow/meta.html" %}
+{%endblock%}
+
+
+{%block title%}
+<title>{{state}} Election Results {{year}}: {{race.office.slug|capfirst}} Live Map by County, Real-Time Voting Updates</title>
+{%endblock%}
 
 {%block page-meta%}
 <!-- Site URL -->

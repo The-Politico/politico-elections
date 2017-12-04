@@ -9,3 +9,8 @@ export const createPageTypeContentBlock = block => ({
   type: types.CREATE_PAGE_TYPE_CONTENT_BLOCK,
   block,
 });
+
+export const createMapAnnotation = mapAnnotation => ({
+  type: types.CREATE_MAP_ANNOTATION,
+  mapAnnotation,
+});

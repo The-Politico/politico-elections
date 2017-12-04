@@ -13,7 +13,8 @@ Welcome to politico-elections' documentation!
    Models <models>
    Serialization <serialization>
    Views <views>
-   Management commands <commands>
+   Bootstrapping data <bootstrap>
+   Baking data <bakery>
    The Front End <frontend>
    Styles <styles>
    Graphics modules <modules>

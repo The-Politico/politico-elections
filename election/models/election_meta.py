@@ -81,6 +81,12 @@ class ElectionDay(UIDBase, SlugBase):
         self.slug = '{}'.format(self.date)
         super(ElectionDay, self).save(*args, **kwargs)
 
+    def special_election_datestring(self):
+        """
+        Formatted date string used in URL for special elections.
+        """
+        return self.date.strftime('%b-%d').lower()
+
 
 class BallotMeasure(UIDBase, LabelBase):
     """A ballot measure."""

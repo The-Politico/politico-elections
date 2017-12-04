@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     'geography',
     'vote',
     'theshow',
+    'scrapers',
+    'bakery',
+    'bootstrap',
 ]
 
 MIDDLEWARE = [

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {%block universal-meta%}
-      {% include "theshow/meta.html" %}
-    {%endblock%}
+    {%block universal-meta%}{%endblock%}
 
-    {%block page-meta%}
-    {%endblock%}
+    {%block page-meta%}{%endblock%}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8">
-    <title>{{state}} Election Results {{year}}: {{race.office.slug|capfirst}} Live Map by County, Real-Time Voting Updates</title>
+    {%block title%}
+    <title>Election Results {{year}}: Live Map by County, Real-Time Voting Updates</title>
+    {%endblock%}
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
