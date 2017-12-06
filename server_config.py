@@ -116,7 +116,7 @@ def configure_targets(deployment_target):
         S3_BUCKET = 'staging.interactives.politico.com'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
-        DAEMON_INTERVAL = 10
+        DAEMON_INTERVAL = 30
         ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
         CURRENT_ELECTION = '2017-12-12'
     else:
@@ -126,7 +126,7 @@ def configure_targets(deployment_target):
         S3_BUCKET = None
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
-        DAEMON_INTERVAL = 10
+        DAEMON_INTERVAL = 30
         ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
         CURRENT_ELECTION = '2017-12-12'
 
