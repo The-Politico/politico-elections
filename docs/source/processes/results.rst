@@ -17,10 +17,8 @@ Next, check :code:`server_config.py` and ensure the correct global variables are
 
 You will want to pay special attention to the following:
 
-::
-  
-  ELEX_FLAGS: An array of the flags that elex will run. Consult [the elex docs](http://elex.readthedocs.io/en/stable/cli.html).
-  CURRENT_ELECTION: The election date we care about
+- :code:`ELEX_FLAGS`: An array of the flags that elex will run. Consult [the elex docs](http://elex.readthedocs.io/en/stable/cli.html).
+- :code:`CURRENT_ELECTION`: The election date we care about
 
 Finally, go into :code:`scripts/results.sh` and make sure the elex command matches the elex flags in your server config (we don't have a good way of matching these yet).
 
