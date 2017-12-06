@@ -60,7 +60,13 @@ def migrate_db():
 
 
 @task
-def prepare_races():
+def prepare_election_day():
+    local('python manage.py bootstrap_election {0}'.format(
+        server_config.CURRENT_ELECTION
+    ))
     local('python manage.py bootstrap_results_elex {0}'.format(
+        server_config.CURRENT_ELECTION
+    ))
+    local('python manage.py bootstrap_content {0}'.format(
         server_config.CURRENT_ELECTION
     ))
