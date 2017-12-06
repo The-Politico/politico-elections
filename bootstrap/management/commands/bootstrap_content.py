@@ -14,15 +14,6 @@ class Command(BaseCommand, BootstrapContentMethods):
         'election day. Must be run AFTER bootstrap_election command.'
     )
 
-    def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
-        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['country'])
-        self.STATE_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['state'])
-        self.FEDERAL_JURISDICTION = Jurisdiction.objects.get(
-            division__level=self.NATIONAL_LEVEL)
-
     def add_arguments(self, parser):
         parser.add_argument(
             'elections',
@@ -42,6 +33,12 @@ class Command(BaseCommand, BootstrapContentMethods):
             self.bootstrap_executive_office(election)
 
     def handle(self, *args, **options):
+        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['country'])
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
+        self.FEDERAL_JURISDICTION = Jurisdiction.objects.get(
+            division__level=self.NATIONAL_LEVEL)
         print('Bootstrapping page content')
         election_dates = options['elections']
 

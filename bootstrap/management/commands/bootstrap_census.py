@@ -27,13 +27,6 @@ class Command(BaseCommand):
         'create and upload state-level JSON files to S3.'
     )
 
-    def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
-        self.STATE_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['state'])
-        self.COUNTY_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['county'])
-
     @staticmethod
     def get_series(series):
         """
@@ -75,7 +68,7 @@ class Command(BaseCommand):
                 }
             )
         except:
-            print ('ERROR: {}, {}'.format(datum['NAME'], datum['state']))
+            print('ERROR: {}, {}'.format(datum['NAME'], datum['state']))
 
     def get_county_estimates_by_state(
         self, api, table, variable, estimate, state
@@ -229,6 +222,10 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
+        self.COUNTY_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['county'])
         self.production = options['production']
         states = options['states']
         if options['export'] is False:
