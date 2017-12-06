@@ -9,6 +9,7 @@ Local computer
 To run results on your local computer, first ensure you are connected to the correct database and have your AP API key. You can do this by putting the correct environment variables in your :code:`.env` file. The environment variables are:
 
 ::
+  
   export AP_API_KEY="YOURAPIKEYHERE"
   export DATABASE_URL="postgresql://username:password@url:port/elections"
 
