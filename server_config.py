@@ -86,16 +86,13 @@ def configure_targets(deployment_target):
     overriden for rendering before deployment.
     """
     global SERVERS
-    global SERVER_BASE_URL
     global SERVER_LOG_PATH
     global S3_BUCKET
     global DEBUG
     global DEPLOYMENT_TARGET
     global LOG_LEVEL
-    global DAEMON_INTERVAL
-    global ELEX_FLAGS
     global CURRENT_ELECTION
-    global TEST_INTERVAL
+    global ELEX_FLAGS
 
     secrets = get_secrets()
 
@@ -106,9 +103,11 @@ def configure_targets(deployment_target):
         S3_BUCKET = 'com.politico.interactives.politico.com'
         LOG_LEVEL = logging.WARNING
         DEBUG = False
-        DAEMON_INTERVAL = 10
-        ELEX_FLAGS = ['--national-only', '-o', 'json']
+
+        # elex config
         CURRENT_ELECTION = '2017-11-07'
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
+
     elif deployment_target == 'staging':
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
@@ -116,19 +115,21 @@ def configure_targets(deployment_target):
         S3_BUCKET = 'staging.interactives.politico.com'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
-        DAEMON_INTERVAL = 30
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+
+        # elex config
         CURRENT_ELECTION = '2017-12-12'
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+
     else:
         SERVERS = []
-        SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
         SERVER_LOG_PATH = '/tmp'
         S3_BUCKET = None
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
-        DAEMON_INTERVAL = 30
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+
+        # elex config
         CURRENT_ELECTION = '2017-12-12'
+        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
 
     DEPLOYMENT_TARGET = deployment_target
 

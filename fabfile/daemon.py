@@ -8,6 +8,8 @@ from fabric.state import env
 from glob import glob
 from time import sleep, time
 
+DAEMON_INTERVAL = 30
+
 
 @task
 def deploy(run_once=False):
@@ -43,7 +45,7 @@ def main(run_once=False):
     while True:
         now = time()
 
-        if (now - results_start) > server_config.DAEMON_INTERVAL:
+        if (now - results_start) > DAEMON_INTERVAL:
             results_start = now
             fetch_results()
 

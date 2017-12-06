@@ -6,22 +6,32 @@ You can run our results deployment for an election night on either your local co
 Local computer
 ''''''''''''''
 
-To run results on your local computer, first ensure you are connected to the production database. You can do this by putting the correct postgres environment variables in your :code:`.env` file. The environment variables are:
+To run results on your local computer, first ensure you are connected to the correct database and have your AP API key. You can do this by putting the correct environment variables in your :code:`.env` file. The environment variables are:
 
 ::
-
-  export ELECTIONS_POSTGRES_NAME="name_of_production_db"
-  export ELECTIONS_POSTGRES_USER="production_user"
-  export ELECTIONS_POSTGRES_PASSWORD="production_password"
-  export ELECTIONS_POSTGRES_HOST="production_host"
-  export ELECTIONS_POSTGRES_PORT="production_port"
+  export AP_API_KEY="YOURAPIKEYHERE"
+  export DATABASE_URL="postgresql://username:password@url:port/elections"
 
 
-Once you are connected to the production database, you can bootstrap the AP data. Do that by running :code:`python manage.py bootstrap <election-date>`.
+Next, check :code:`server_config.py` and ensure the correct global variables are set. These are set per deployment target (production, staging and local). For election nights, make sure they are correct for production. For testing, make sure they are correct for staging and local. 
+
+You will want to pay special attention to the following:
+
+- :code:`ELEX_FLAGS`: An array of the flags that elex will run. Consult the `elex docs <http://elex.readthedocs.io/en/stable/cli.html>`_.
+- :code:`CURRENT_ELECTION`: The election date we care about
+
+Finally, go into :code:`scripts/results.sh` and make sure the elex command matches the elex flags in your server config (we don't have a good way of matching these yet).
+
+
+With these variables set, you can bootstrap the AP data. Do that by running :code:`fab data.prepare_races`.
 
 .. warning::
 
   Do **not** run the Fabric command that would wipe the production database.
+
+.. note::
+    
+  For special elections, you will need to go into your Django admin and set the Election :code:`special` boolean to :code:`True`. Then, run :code:`python manage.py bootstrap_results_elex <election-date (YYYY-MM-DD)>` and :code:`python manage.py bootstrap_content <election-date (YYYY-MM-DD)>`.
 
 Context
 ~~~~~~~
@@ -30,7 +40,7 @@ For results pages, we bake out most things like candidate names, election labels
 
 ::
 
-  python manage.py bake_context <election-date (YYYY-MM-DD)>
+  python manage.py bake_election <election-date (YYYY-MM-DD)>
 
 
 If we are getting results for a new state, you will also need to bake out the geography for those pages. Consult the [geography docs](./geography.md) for how to do that.
@@ -42,30 +52,23 @@ You can publish live results from your personal computer. First, make sure you h
 
 ::
 
-  export AP_API_KEY="YOURAPIKEYHERE"
+  
 
 
 Also, make sure you are connected to the production database as demonstrated above and you have bootstrapped the current election date to the production database.
 
-Then, run :code:`python manage.py prepare_races <election-date (YYYY-MM-DD)>`. You should see files created in :code:`output/elections` after this.
+Then, you can run :code:`fab production daemon.deploy`. This will begin deploying live results to S3.
 
-Once you have those files, you can run :code:`fab production daemons.deploy`. This will begin deploying live results every 10 seconds to S3.
+Once the race is over and AP has finished tabulating results, you can run :code:`python manage.py bootstrap_results_db (YYYY-MM-DD)` to update the database with the AP's tabulated results.
 
->TK: How to bootstrap the results pages themselves. This is not written yet.
+Replaying Tests
+~~~~~~~~~~~~~~~
 
-Once the race is over and AP has finished tabulating results, you can run :code:`python manage.py update_results (YYYY-MM-DD)` to update the database with the AP's tabulated results.
+The results daemon process will record results automatically. Currently, they are recorded to :code:`/tmp/ap-elex-recordings/<election-date>/national/`. You can check that folder to ensure recording is working if you run `fab staging daemon.deploy` during a live AP test.
+
+To replay a test, run `fab staging daemon.test`, which will loop through the files in this folder and serve them locally and to your deployment target.
 
 Server
 ''''''
 
-Assuming we have a production server stood up (if not, consult the [server docs](./servers.md)), then you can run some Fabric commands to achieve the same as above (NOTE: TYLER NEEDS TO WRITE THESE FABRIC COMMANDS).
-
-Make sure that, in :code:`server_config.py`, :code:`CURRENT_ELECTION` is set to the election you want to operate on for the :code:`production` deployment target.
-
-They will be something like:
-
-1. :code:`fab production master servers.fabcast:data.bootstrap_elections`
-2. :code:`fab production master servers.fabcast:data.prepare_elections`
-3. :code:`fab production master servers.start_service:deploy`
-
-This will get the AP data bootstrapped in the production database and start the deploy daemon on the server. To see the output of the deploy daemon, you can ssh onto the server and run :code:`sudo tail -f /var/log/elections/deploy.log`.
+TKTK
