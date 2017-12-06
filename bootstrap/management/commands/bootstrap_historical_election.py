@@ -8,7 +8,6 @@ from functools import reduce
 from io import StringIO
 from itertools import groupby
 
-import agate
 import requests
 import us
 from census import Census
