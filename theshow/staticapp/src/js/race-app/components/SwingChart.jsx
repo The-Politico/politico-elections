@@ -52,17 +52,26 @@ class ResultsBar extends React.Component {
   // (Must be able to be called multiple times, i.e., idempotent charts!)
   drawChart() {
     const results = this.fetchData();
+    const db = this.props.session;
 
     if (!results || Object.keys(results.divisions).length < 1) {
       return
     };
 
-    chart.create('#county-swing', results, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`,
+    const state = db.Division
+      .filter(d => d.level === 'state')
+      .first();
+
+    if (!state || !state.topojson) return;
+
+    chart.create('#county-swing', results, state.topojson, `https://www.politico.com/interactives/elections/cdn/historical-results/2016-11-08/president/${window.appConfig.stateSlug}/data.json`,
     {
       range: ['#2b6abd', '#fd5639'],
       legendHeight: 0,
       legendPadding: 15,
       linePadding: 3,
+      mapWidth: 100,
+      mapHeight: 100,
       minimumToShow: 0,
       margin: {
         top: 20,
@@ -77,6 +86,7 @@ class ResultsBar extends React.Component {
         yStyle: null,
         fips: null,
         datum: null,
+        voteShare: 0,
     },
     });
   }
