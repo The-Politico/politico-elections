@@ -52,7 +52,7 @@ class Command(BaseCommand):
             '--hash={}'.format(self.hash),
         )
         call_command(
-            'bake_election',
+            'bake_pages',
             '--election={}'.format(election),
             '--hash={}'.format(self.hash),
         )

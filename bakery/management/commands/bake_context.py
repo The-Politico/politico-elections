@@ -10,13 +10,6 @@ from geography.models import DivisionLevel
 class Command(BakeContextMethods, BaseCommand):
     help = 'Bakes out context for an election.'
 
-    def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
-        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['country'])
-        self.STATE_LEVEL = DivisionLevel.objects.get(
-            name=DIVISION_LEVELS['state'])
-
     def add_arguments(self, parser):
         parser.add_argument(
             '--election',
@@ -32,18 +25,21 @@ class Command(BakeContextMethods, BaseCommand):
         )
 
     def bake(self, key, data, content_type, production=False):
-        # bucket = get_bucket(production)
-        print('BAKING {}'.format(key))
-        # bucket.put_object(
-        #     Key=key,
-        #     ACL=defaults.ACL,
-        #     Body=data,
-        #     CacheControl=defaults.CACHE_HEADER,
-        #     ContentType=content_type
-        # )
+        bucket = get_bucket(production)
+        bucket.put_object(
+            Key=key,
+            ACL=defaults.ACL,
+            Body=data,
+            CacheControl=defaults.CACHE_HEADER,
+            ContentType=content_type
+        )
 
     def handle(self, *args, **options):
         print('> Baking Context JSON!')
+        self.NATIONAL_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['country'])
+        self.STATE_LEVEL = DivisionLevel.objects.get(
+            name=DIVISION_LEVELS['state'])
         self.ELECTION_DAY = ElectionDay.objects.get(
             date=options['election']
         )
