@@ -43,12 +43,21 @@ class SpecialElectionPage(BaseView):
         """
         state = Division.objects.get(slug=state_slug)
         election_day = ElectionDay.objects.get(date=election_datestring)
+        # TODO: This should have a more sophisticated hierarchy
+        election = election_day.elections.first()
+        candidates = election.get_candidates_by_party()
         cycle = election_day.cycle
+
         context['year'] = cycle.name
         context['election_day'] = election_day
+        context['election'] = election
+        context['candidates'] = candidates
+        context['race'] = election.race
+        context['office'] = election.race.office
         context['content'] = PageContent.objects.division_content(
             election_day, state
         )
+        # Redundant with get_object
         context['state'] = state
         return context
 
@@ -62,13 +71,17 @@ class SpecialElectionPage(BaseView):
     def get_context_data(self, **kwargs):
         context = super(SpecialElectionPage, self).get_context_data(**kwargs)
         context['year'] = self.kwargs.get('year')
-        context['election_day'] = get_object_or_404(
+        election_day = get_object_or_404(
             ElectionDay,
             date__year=self.kwargs.get('year'),
             date__month=month_codes.get(self.kwargs.get('month')),
             date__day=self.kwargs.get('day')
         )
-        return context
+        return self.build_context(
+            election_datestring=election_day.__str__(),
+            state_slug=self.kwargs.get('state'),
+            context=context,
+        )
 
 
 class SpecialElectionPageExport(SpecialElectionPage):
