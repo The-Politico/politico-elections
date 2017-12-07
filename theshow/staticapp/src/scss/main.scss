@@ -289,6 +289,11 @@ h3.scatter{
   margin: 0 auto 2em;
   padding: 0 20px;
 
+  h3{
+    max-width: 200px;
+    margin-bottom: 5px;
+  }
+
 }
 @media(max-width: 780px){
   .census-map{
