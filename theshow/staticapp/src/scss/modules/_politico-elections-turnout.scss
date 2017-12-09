@@ -1,0 +1,47 @@
+$turnoutPct-container: '#turnout-chart';
+@import '../../node_modules/politico-elections-turnout/src/scss/_chart-styles';
+
+#{$turnoutPct-container} {
+  margin: 0 auto 20px;
+
+  .dem-yaxis-label .dem,
+  .gop-yaxis-label .rep{
+    @media(min-width: 480px){
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+}
+
+.turnout-chart{
+  .float-box{
+    @include clearfix;
+    margin-bottom: 40px;
+    .float-left{
+      &.left{
+        text-align: center;
+        img{
+          width: 300px;
+        }
+      }
+      p {
+        font-family: $proxima;
+        font-size: 16px;
+      }
+      @media (min-width: 800px) {
+        float:left;
+        &.right{
+          width: calc(100% - 300px);
+          padding-left: 20px;
+        }
+        &.left{
+          width: 300px;
+        }
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

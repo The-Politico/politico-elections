@@ -7,6 +7,7 @@ import Chatter from './Chatter';
 import SwingChartContainer from './SwingChartContainer';
 import CensusMaps from './CensusMaps';
 import ScatterPlots from './ScatterPlots';
+import TurnoutChart from './TurnoutTrend';
 import orm from '../../common/models';
 
 const App = (props) => {
@@ -22,10 +23,15 @@ const App = (props) => {
   const voteDependentModules = countiesWithVotes ? (
     <div>
       <SwingChartContainer
-          content={props.db.content}
-          session={orm.session(props.db.orm)}
-          actions={actions}
-        />
+        content={props.db.content}
+        session={orm.session(props.db.orm)}
+        actions={actions}
+      />
+      <TurnoutChart
+        content={props.db.content}
+        session={orm.session(props.db.orm)}
+        actions={actions}
+      />
       <ScatterPlots
         session={orm.session(props.db.orm)}
         actions={actions}
@@ -35,7 +41,7 @@ const App = (props) => {
         actions={actions}
       />
     </div>
-    ) : null;
+  ) : null;
 
   return (
     <div>

@@ -1,14 +1,15 @@
 import json
 import os
-import server_config
 import sys
-
-from fabric.api import execute, local, require, settings, task
-from fabric.state import env
 from glob import glob
 from time import sleep, time
 
-DAEMON_INTERVAL = 30
+from fabric.api import execute, local, require, settings, task
+from fabric.state import env
+
+import server_config
+
+DAEMON_INTERVAL = 15
 
 
 @task
@@ -85,7 +86,7 @@ def begin_test(run_once=False):
     while True:
         now = time()
 
-        if (now - results_start) > server_config.DAEMON_INTERVAL:
+        if (now - results_start) > DAEMON_INTERVAL:
             results_start = now
             test_dir = '/tmp/ap-elex-recordings/{0}/national'.format(
                 server_config.CURRENT_ELECTION

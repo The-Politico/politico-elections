@@ -63,4 +63,4 @@ mkdir -p ./theshow/static/theshow/results/
 cp -r ./output/results/**/* ./theshow/static/theshow/results/
 
 # deploy to s3
-# aws s3 cp ./output/results/ s3://${TARGET}/elections/ --recursive --acl "public-read" --cache-control "max-age=5"
+aws s3 cp ./output/results/ s3://${TARGET}/elections/ --recursive --acl "public-read" --cache-control "max-age=5"

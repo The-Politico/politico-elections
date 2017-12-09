@@ -6,8 +6,8 @@ import FetchRefresh from '../components/FetchRefresh';
 
 const TopResults = (props) => {
   const status = getStatus(props);
-  const loadingBar = status.tabulated ? null : (
-      <FetchRefresh fetch={props.fetch} actions={props.actions} />
+  const loadingBar = status.tabulated || status.precinctsReportingPct === 1 ? null : (
+    <FetchRefresh fetch={props.fetch} actions={props.actions} />
   );
 
   return (
