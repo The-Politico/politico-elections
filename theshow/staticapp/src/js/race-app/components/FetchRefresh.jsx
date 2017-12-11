@@ -56,7 +56,7 @@ class ResultsMap extends React.Component {
   render() {
     return (
       <div>
-        <div id="fetch-refresh-widget-component" />
+        <div id="fetch-refresh-widget-component" hidden={this.props.hidden} />
       </div>
     );
   }
