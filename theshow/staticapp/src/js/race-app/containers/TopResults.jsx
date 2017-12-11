@@ -6,21 +6,22 @@ import FetchRefresh from '../components/FetchRefresh';
 
 const TopResults = (props) => {
   const status = getStatus(props);
-  const loadingBar = status.tabulated || status.precinctsReportingPct === 1 ? null : (
-    <FetchRefresh fetch={props.fetch} actions={props.actions} />
-  );
+  const doneWithResults = status.tabulated || status.precinctsReportingPct === 1;
 
   return (
     <div className="top-results row-fluid section">
       <div className="content-extra-large">
         <div className="loading-bar">
-          {loadingBar}
+          <FetchRefresh fetch={props.fetch} actions={props.actions} hidden={doneWithResults} />
         </div>
-        <div className="precincts-reporting-topline">
+        <div className="precincts-reporting-topline" hidden={doneWithResults}>
           <span>Precincts reporting: {(status.precinctsReportingPct * 100).toFixed(1)}%</span>
         </div>
         <div className="bar">
           <ResultsBar session={props.session} />
+          <div className="precincts-reporting-topline" hidden={!doneWithResults}>
+            <span>Precincts reporting: {(status.precinctsReportingPct * 100).toFixed(1)}%</span>
+          </div>
         </div>
         <div className="map">
           <ResultsMap session={props.session} />
