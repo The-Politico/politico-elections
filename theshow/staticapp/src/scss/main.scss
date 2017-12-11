@@ -37,7 +37,12 @@ body{
   padding-bottom: 4rem;
 }
 
-
+.too-few-results p{
+  font-size: 28px;
+  margin: 40px auto 100px;
+  max-width: 100%;
+  font-style: italic;
+}
 .section{
   margin-bottom: 4rem;
   padding: 0 15px;

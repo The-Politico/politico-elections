@@ -12,15 +12,9 @@ import orm from '../../common/models';
 
 const App = (props) => {
   const actions = bindActionCreators(Actions, props.dispatch);
-  const countiesWithVotes = checkResultStatus(props.db);
+  const resultsStatus = checkResultStatus(props.db);
 
-  const beforeVotesChatter = countiesWithVotes ? null : (
-    <div>
-      <p>Check back soon!</p>
-    </div>
-  );
-
-  const voteDependentModules = countiesWithVotes ? (
+  const voteDependentModules = !resultsStatus.aboveVotesTreshold ? (
     <div>
       <SwingChartContainer
         content={props.db.content}
@@ -31,6 +25,7 @@ const App = (props) => {
         content={props.db.content}
         session={orm.session(props.db.orm)}
         actions={actions}
+        hidden={!resultsStatus.aboveCompleteThreshold}
       />
       <ScatterPlots
         session={orm.session(props.db.orm)}
@@ -41,7 +36,11 @@ const App = (props) => {
         actions={actions}
       />
     </div>
-  ) : null;
+  ) : (
+    <div className="content-extra-large too-few-results">
+      <p>Check back soon for more results, maps and live analysis!</p>
+    </div>
+  );
 
   return (
     <div>
@@ -59,7 +58,7 @@ const App = (props) => {
 };
 
 
-function checkResultStatus(initDb) {
+const checkResultStatus = (initDb) => {
   const db = orm.session(initDb.orm);
   const election = db.Election.first();
   if (!election) return false;
@@ -67,23 +66,31 @@ function checkResultStatus(initDb) {
   const counties = db.Division
     .filter(d =>
       d.level === 'county' &&
-      d.code.substr(0,2) === window.appConfig.stateFips
-    ).toModelArray();
+      d.code.substr(0, 2) === window.appConfig.stateFips)
+    .toModelArray();
 
   const results = election.serializeResults(counties);
-  const threshold = Math.floor(Object.keys(results.divisions).length / 10);
+
+  const votesThreshold = Math.floor(Object.keys(results.divisions).length / 10);
+  const completeThreshold = votesThreshold;
+
   let countiesWithVotes = 0;
+  let completeCounties = 0;
 
   Object.keys(results.divisions).forEach((division) => {
     const resultSet = results.divisions[division];
     const voteTotal = resultSet.results.reduce((a, b) => a + b.voteCount, 0);
-    if (voteTotal > 0) {
-      countiesWithVotes += 1;
-    }
+    if (voteTotal > 0) countiesWithVotes += 1;
+    if (resultSet.precinctsReportingPct === 1) completeCounties += 1;
   });
 
-  return countiesWithVotes >= threshold;
-}
+  return {
+    countiesWithVotes,
+    completeCounties,
+    aboveVotesTreshold: countiesWithVotes >= votesThreshold,
+    aboveCompleteThreshold: completeCounties >= completeThreshold,
+  };
+};
 
 
 const mapStateToProps = state => ({

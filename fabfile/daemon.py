@@ -9,7 +9,7 @@ from fabric.state import env
 
 import server_config
 
-DAEMON_INTERVAL = 15
+DAEMON_INTERVAL = 10
 
 
 @task

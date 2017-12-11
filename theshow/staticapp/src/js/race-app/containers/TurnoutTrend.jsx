@@ -4,7 +4,7 @@ import TurnoutChart from '../components/TurnoutChart';
 import NerdBox from '../../common/components/CollapsibleNerdBox';
 
 
-const TurnoutChartContainer = props => (
+const TurnoutChartContainer = props => props.hidden ? null : (
   <div className="turnout-chart row-fluid section">
     <div className="content-large">
       <div className="section-header-wrap">
@@ -25,16 +25,21 @@ const TurnoutChartContainer = props => (
           </div>
           <div className="float-left right">
             <p>
-            This chart measures turnout as the change in the number of votes cast between the 2016 general election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They show a stronger relationship between a change in turnout and a shift in the vote that benefits one party.
+            This chart measures the change in the number of votes cast between the 2016 presidential election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They are areas where a change in turnout overwhelming benefited one party.
             </p>
           </div>
         </div>
       </div>
       <TurnoutChart session={props.session} />
+      <div className="footnote">
+        <small>
+          All numbers represent the change from the 2016 presidential election.
+        </small>
+      </div>
       <div>
         <NerdBox
           note="
-          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Obviously, large changes in the number of registered voters in a county between 2016 and now may mask a change in turnout when using raw counts.
+          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county between 2016 and now may also mask a change in turnout when using raw counts.
           "
         />
       </div>

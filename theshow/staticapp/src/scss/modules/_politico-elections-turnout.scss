@@ -15,6 +15,12 @@ $turnoutPct-container: '#turnout-chart';
 }
 
 .turnout-chart{
+  .footnote{
+    margin: -45px auto 20px;
+    max-width: 650px;
+    padding-left: 25px;
+    font-size: 12px;
+  }
   .float-box{
     @include clearfix;
     margin-bottom: 40px;
