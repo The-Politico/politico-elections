@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {%block universal-meta%}{%endblock%}
+    {% include "theshow/meta.html" %}
+    {%block universal-meta%}
+    {%endblock%}
+
 
     {%block page-meta%}{%endblock%}
 
@@ -19,8 +22,6 @@
     </script>
     <script src="https://use.typekit.net/ijp3uro.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    {%block metatags%}
-    {%endblock%}
 
     {%block api%}
     {%endblock%}
