@@ -105,7 +105,7 @@ def configure_targets(deployment_target):
         DEBUG = False
 
         # elex config
-        CURRENT_ELECTION = '2017-11-07'
+        CURRENT_ELECTION = '2017-12-12'
         ELEX_FLAGS = ['--national-only', '-o', 'json']
 
     elif deployment_target == 'staging':
