@@ -18,15 +18,15 @@ const TurnoutChartContainer = props => props.hidden ? null : (
         <div className="clearfix float-box">
           <h4>How to read this chart</h4>
           <div className="float-left left">
+            <p>
+            This chart measures the change in the number of votes cast between the 2016 presidential election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They are areas where a change in turnout overwhelming benefited one party.
+            </p>
+          </div>
+          <div className="float-left right">
             <img
               alt="How to read these charts"
               src="https://www.politico.com/interactives/elections/cdn/images/2017-12-12/turnout-chart-hint.jpg"
             />
-          </div>
-          <div className="float-left right">
-            <p>
-            This chart measures the change in the number of votes cast between the 2016 presidential election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They are areas where a change in turnout overwhelming benefited one party.
-            </p>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@ const TurnoutChartContainer = props => props.hidden ? null : (
       <div>
         <NerdBox
           note="
-          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county between 2016 and now may also mask a change in turnout when using raw counts.
+          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county can make that change in the raw vote a less effective measure of turnout. The chart is also designed to highlight outliers, counties that have different.
           "
         />
       </div>

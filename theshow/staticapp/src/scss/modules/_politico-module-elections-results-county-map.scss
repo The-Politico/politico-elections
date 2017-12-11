@@ -1,0 +1,10 @@
+$resultCounty-container: '#resultsMap';
+@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
+
+
+
+.top-results.section .map{
+  @media (max-width: 768px){
+    margin-top: 40px;
+  }
+}

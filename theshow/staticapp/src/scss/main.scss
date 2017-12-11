@@ -138,8 +138,6 @@ h3{
 $candidateResultsBar-container: '#candidateResultsBar';
 @import '../../node_modules/candidate-results-bar/src/scss/_chart-styles';
 
-$resultCounty-container: '#resultsMap';
-@import '../../node_modules/politico-module-elections-results-county-map/src/scss/_chart-styles';
 
 $countySwing-container: '#county-swing';
 @import '../../node_modules/politico-module-elections-county-arrow-swing-chart/src/scss/_chart-styles';
@@ -184,7 +182,7 @@ $usDemographic-container: '.demographic-map';
     float: left;
       @media(max-width: 768px){
         width: 100%;
-        margin: 0;
+        margin: 40px 0 0;
         padding: 0;
         border-left: none;
       }

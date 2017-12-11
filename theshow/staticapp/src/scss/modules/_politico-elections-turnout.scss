@@ -23,29 +23,33 @@ $turnoutPct-container: '#turnout-chart';
   }
   .float-box{
     @include clearfix;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    h4{
+      text-align: left;
+    }
+    p {
+      font-family: $proxima;
+      font-size: 17px;
+      line-height: 23px;
+
+    }
     .float-left{
-      &.left{
+      &.right{
         text-align: center;
         img{
           width: 300px;
+          margin-top: -25px;
         }
       }
-      p {
-        font-family: $proxima;
-        font-size: 16px;
-      }
-      @media (min-width: 800px) {
+
+      @media (min-width: 700px) {
         float:left;
-        &.right{
-          width: calc(100% - 300px);
-          padding-left: 20px;
-        }
         &.left{
-          width: 300px;
+          width: calc(100% - 300px);
+          padding-right: 70px;
         }
-        p {
-          font-size: 18px;
+        &.right{
+          width: 300px;
         }
       }
     }
