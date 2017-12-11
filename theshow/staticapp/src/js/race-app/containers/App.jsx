@@ -14,7 +14,7 @@ const App = (props) => {
   const actions = bindActionCreators(Actions, props.dispatch);
   const resultsStatus = checkResultStatus(props.db);
 
-  const voteDependentModules = !resultsStatus.aboveVotesTreshold ? (
+  const voteDependentModules = resultsStatus.aboveVotesTreshold ? (
     <div>
       <SwingChartContainer
         content={props.db.content}
