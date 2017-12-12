@@ -5864,7 +5864,7 @@ pluralize@^7.0.0:
 
 "politico-elections-turnout@git+ssh://git@github.com/The-Politico/module_elections-turnout.git":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#d723c24cd278f4079091096bc76006f95cf1dbad"
+  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#6b9f13c3f5e6fac9b25f8e5aa61bf25ab2daf42a"
   dependencies:
     autoprefixer "^7.2.1"
     babel-core "^6.26.0"
@@ -5911,7 +5911,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#7b18c1e46f45e724a8f81875594f5391f6fc0163"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#1d287f3d68a611b89b69235ba862f8a96821f522"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -6052,7 +6052,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-results-county-map@git+ssh://git@github.com:The-Politico/module_elections-results-county-map":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#770f5a25e734e2c8d2fde03cc752c1dd3e4c10e7"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-results-county-map#ff44e15b61104c30d19eda03000ae7bebe357653"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"
@@ -6397,8 +6397,8 @@ preact-transition-group@^1.1.0:
   resolved "https://registry.yarnpkg.com/preact-transition-group/-/preact-transition-group-1.1.1.tgz#f0a49327ea515ece34ea2be864c4a7d29e5d6e10"
 
 preact@^8.2.5:
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.6.tgz#0028b426ef98fcca741a3c617ff5b813b9a947c7"
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.7.tgz#316249fb678cd5e93e7cee63cea7bfb62dbd6814"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
