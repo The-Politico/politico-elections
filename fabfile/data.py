@@ -1,4 +1,4 @@
-from fabric.api import local, task
+from fabric.api import local, shell_env, task
 
 import server_config
 

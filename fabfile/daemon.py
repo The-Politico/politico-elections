@@ -17,7 +17,7 @@ def deploy(run_once=False):
     """
     Gets results data and deploys to s3
     """
-    require('settings', provided_by=['production', 'staging'])
+    require('settings', provided_by=['production', 'staging', 'local'])
     try:
         with settings(warn_only=True):
             main(run_once)

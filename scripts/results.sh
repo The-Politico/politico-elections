@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # parse args
-while getopts t:f:d: option
+while getopts t:f:d:s: option
 do
   case "${option}"
     in
     t) TARGET=${OPTARG};;
     f) FILE=${OPTARG};;
     d) DATE=${OPTARG};;
+    s) TEST=${OPTARG};;
   esac
 done
 
@@ -15,9 +16,9 @@ done
 # grab elex results for everything
 if [ $FILE ]
   then
-    elex results ${DATE} --test --national-only -o json -d ${FILE} > master.json
+    elex results ${DATE} --national-only -o json -d ${FILE} > master.json
   else
-    elex results ${DATE} --test --national-only -o json > master.json
+    elex results ${DATE} ${TEST} --national-only -o json > master.json
 fi
 
 # cp output/elections/*.json output/results/
@@ -63,4 +64,6 @@ mkdir -p ./theshow/static/theshow/results/
 cp -r ./output/results/**/* ./theshow/static/theshow/results/
 
 # deploy to s3
-aws s3 cp ./output/results/ s3://${TARGET}/elections/ --recursive --acl "public-read" --cache-control "max-age=5"
+if [ $TARGET ] ; then
+  aws s3 cp ./output/results/ s3://${TARGET}/elections/ --recursive --acl "public-read" --cache-control "max-age=5"
+fi

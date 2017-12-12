@@ -1,10 +1,11 @@
+import os
 import server_config
 
 from fabric.api import local, settings, task
 from fabric.state import env
 
 # Other fabfiles
-from . import daemon, data, servers
+from . import bake, bootstrap, daemon, data, servers
 
 """
 Base configuration
@@ -13,6 +14,7 @@ env.user = server_config.SERVER_USER
 env.forward_agent = True
 
 env.hosts = []
+env.test = False
 
 
 """
@@ -24,6 +26,11 @@ bucket.
 
 
 @task
+def test():
+    env.test = True
+
+
+@task
 def production():
     """
     Run as though on production.
@@ -31,6 +38,8 @@ def production():
     env.settings = 'production'
     server_config.configure_targets(env.settings)
     env.hosts = server_config.SERVERS
+    env.db = os.environ.get('PRODUCTION_DATABASE_URL')
+    env.bucket = os.environ.get('AWS_S3_PRODUCTION_BUCKET')
 
 
 @task
@@ -41,6 +50,16 @@ def staging():
     env.settings = 'staging'
     server_config.configure_targets(env.settings)
     env.hosts = server_config.SERVERS
+    env.db = os.environ.get('DATABASE_URL')
+    env.bucket = os.environ.get('AWS_S3_STAGING_BUCKET')
+
+
+@task
+def local():
+    env.settings = 'local'
+    server_config.configure_targets(env.settings)
+    env.db = os.environ.get('DATABASE_URL')
+    env.bucket = None
 
 """
 Branches

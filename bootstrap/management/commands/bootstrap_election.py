@@ -338,11 +338,28 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('election_date', type=str)
+        parser.add_argument(
+            '--test',
+            action='store_true',
+            default=False,
+            help="Run elex in test mode"
+        )
 
     def handle(self, *args, **options):
         writefile = open('bootstrap.json', 'w')
-        elex_args = ['elex', 'results', options['election_date']]
-        elex_args.extend(server_config.ELEX_FLAGS)
+        elex_args = [
+            'elex',
+            'results',
+            options['election_date'],
+            '--national-only',
+            '-o',
+            'json'
+        ]
+
+        if options['test']:
+            elex_args.append('--test')
+
+        print(elex_args)
         subprocess.run(elex_args, stdout=writefile)
 
         with open('bootstrap.json', 'r') as readfile:
