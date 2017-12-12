@@ -11,18 +11,18 @@
 <meta property="og:url" content="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/special-election/{{election_day.special_election_datestring}}/" />
 <link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/special-election/{{election_day.special_election_datestring}}/" />
 <!-- Project title -->
-<meta property="twitter:title" content="{{year}} {{state}} Special Election Results | {{race.office.slug|capfirst}}" />
-<meta property="og:title" content="{{year}} {{state}} Special Election Results | {{race.office.slug|capfirst}}" />
+<meta property="twitter:title" content="{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
+<meta property="og:title" content="{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
 <!-- Project description -->
-<meta property="twitter:description" content="See results, maps and live coverage." />
-<meta property="og:description" content="See results, maps and live coverage." />
-<meta name="description" content="See results, maps and live coverage." />
+<meta property="twitter:description" content="Results, maps and live coverage." />
+<meta property="og:description" content="Results, maps and live coverage." />
+<meta name="description" content="Results, maps and live coverage." />
 <!-- Keywords -->
-<meta property="og:keywords" content="politico,election,elections,{{state}} election,special election,results,maps,analysis" />
+<meta property="og:keywords" content="politico,election,elections,{{state}} election,special election,results,maps,analysis,{{candidates.GOP.person.last_name}},{{candidates.Dem.person.last_name}}" />
 
 <!-- title and description -->
 <!-- update this lily -->
-<title>{{year}} {{state}} Special Election Results | {{race.office.slug|capfirst}} live map by county, real-time voting updates</title>
+<title>{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}} live results and maps</title>
 <meta name="description" content="POLITICO's live {{year}} {{state}} special election results, maps and demographic charts.">
 
 {%endblock%}
