@@ -37,8 +37,14 @@ const App = (props) => {
       />
     </div>
   ) : (
-    <div className="content-extra-large too-few-results">
-      <p>Check back after polls close for results, maps and live analysis!</p>
+    <div>
+      <div className="content-extra-large too-few-results">
+        <p>Check back after polls close at 8 p.m. EST for results, maps and live analysis.</p>
+      </div>
+      <div className="content-group ad">
+        <p>Advertisement</p>
+        <div className="ad-slot flex horizontal" id="pol-06" />
+      </div>
     </div>
   );
 
