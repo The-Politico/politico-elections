@@ -3296,8 +3296,8 @@ eslint@3.19.0:
     user-home "^2.0.0"
 
 eslint@^4.9.0:
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.13.0.tgz#1991aa359586af83877bde59de9d41f53e20826d"
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.13.1.tgz#0055e0014464c7eb7878caf549ef2941992b444f"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -5854,7 +5854,7 @@ pluralize@^7.0.0:
 
 "politico-elections-turnout@git+ssh://git@github.com/The-Politico/module_elections-turnout.git":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#7f2eb3c4f24c55cc86e576fcaf0982ecb443066e"
+  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#e94892d9853ddce4e32ab0de29f54ece90be1563"
   dependencies:
     autoprefixer "^7.2.1"
     babel-core "^6.26.0"
@@ -5901,7 +5901,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#faacf89f028b920fa545a8ccc85e49a9a79d01f0"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#fc8eba2a3aef8039159ba168ffae6719c30856e7"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"

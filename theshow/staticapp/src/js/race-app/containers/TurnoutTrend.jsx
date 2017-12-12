@@ -39,7 +39,7 @@ const TurnoutChartContainer = props => props.hidden ? null : (
       <div>
         <NerdBox
           note="
-          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county can make that change in the raw vote a less effective measure of turnout. The chart is also designed to highlight outliers, counties that have different.
+          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county can make that change in the raw vote a less effective measure of turnout.
           "
         />
       </div>
