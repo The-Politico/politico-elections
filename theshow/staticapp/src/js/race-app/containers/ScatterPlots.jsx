@@ -16,14 +16,14 @@ const ScatterPlots = (props) => {
       variable: 'B15003',
       data_key: 'college_educated',
       trendX: 'educated',
-      title: 'College educated population',
+      title: 'College-educated population',
       accessor: d => d.college_educated / d.total,
     },
     {
       variable: 'B19001',
       data_key: 'middle_class',
       trendX: 'middle class',
-      title: 'Middle class population',
+      title: 'Middle-class population',
       accessor: d => d.middle_class / d.total,
     },
     {
@@ -68,7 +68,7 @@ const ScatterPlots = (props) => {
           note="
           These charts show the relationship between the percentage of the population in
           each county that identifies
-          with a demographic characteristic (minority, college-educated, etc.) and
+          with a demographic characteristic (minority, college educated, etc.) and
           the split of that county&rsquo;s vote
           between the Democratic and Republican candidate (GOP 45% - Dem. 40% = GOP +5).
           The relationship with party vote shows the value of the&nbsp;
@@ -82,7 +82,7 @@ const ScatterPlots = (props) => {
           come from the latest U.S. Census American Community Survey. We use total
           population estimates as a proxy for the voting-age population that actually
           turns out on Election Day, so, political strategists, take these stats
-          with a pinch of salt. 😊 🇺🇸
+          with a pinch of salt. 😊
           "
         />
         <div className="clear" />

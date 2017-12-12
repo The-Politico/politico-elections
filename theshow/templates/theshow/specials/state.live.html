@@ -11,18 +11,18 @@
 <meta property="og:url" content="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/special-election/{{election_day.special_election_datestring}}/" />
 <link rel="canonical" href="https://www.politico.com/interactives/elections/{{year}}/{{state.slug}}/special-election/{{election_day.special_election_datestring}}/" />
 <!-- Project title -->
-<meta property="twitter:title" content="{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
-<meta property="og:title" content="{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
+<meta property="twitter:title" content="{{state}} {{office.body.slug|capfirst}} Election Results {{year}} | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
+<meta property="og:title" content="{{state}} {{office.body.slug|capfirst}} Election Results {{year}} | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}" />
 <!-- Project description -->
-<meta property="twitter:description" content="Results, maps and live coverage." />
-<meta property="og:description" content="Results, maps and live coverage." />
-<meta name="description" content="Results, maps and live coverage." />
+<meta property="twitter:description" content="{{candidates.GOP.person.first_name}} {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.first_name}} {{candidates.Dem.person.last_name}} in a {{year}} {{state}} special election. Live election results, maps, stats and coverage." />
+<meta property="og:description" content="{{candidates.GOP.person.first_name}} {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.first_name}} {{candidates.Dem.person.last_name}} in a {{year}} {{state}} special election. Live election results, maps, stats and coverage." />
+<meta name="description" content="{{candidates.GOP.person.first_name}} {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.first_name}} {{candidates.Dem.person.last_name}} in a {{year}} {{state}} special election. Live election results, maps, stats and coverage." />
 <!-- Keywords -->
-<meta property="og:keywords" content="politico,election,elections,{{state}} election,special election,results,maps,analysis,{{candidates.GOP.person.last_name}},{{candidates.Dem.person.last_name}}" />
+<meta property="og:keywords" content="politico,election,elections,{{state}},{{state}} election,special election,map,results,votes,maps,analysis,{{candidates.GOP.person.last_name}},{{candidates.Dem.person.last_name}}, {{candidates.GOP.person.first_name}} {{candidates.GOP.person.last_name}},{{candidates.Dem.person.first_name}} {{candidates.Dem.person.last_name}},statistics" />
 
 <!-- title and description -->
 <!-- update this lily -->
-<title>{{year}} {{state}} Special Election Results | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}} live results and maps</title>
+<title>{{state}} {{office.body.slug|capfirst}} Election Results {{year}} | {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}} live results and maps</title>
 <meta name="description" content="POLITICO's live {{year}} {{state}} special election results, maps and demographic charts.">
 
 {%endblock%}
@@ -43,7 +43,7 @@
        <a class="icon icon-mail" target="_blank"></a>
     </div>
     <h1>
-    {{year}} {{state.name}} special election results: {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}
+    {{state.name}} {{office.body.slug|capfirst}} {{year}} special election: {{candidates.GOP.person.last_name}} vs. {{candidates.Dem.person.last_name}}
     </h1>
     <h3 class="live-results">LIVE Results last updated: <span class="red"></span></h3>
 

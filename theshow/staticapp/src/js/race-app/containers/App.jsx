@@ -38,7 +38,7 @@ const App = (props) => {
     </div>
   ) : (
     <div className="content-extra-large too-few-results">
-      <p>Check back soon for more results, maps and live analysis!</p>
+      <p>Check back after polls close for results, maps and live analysis!</p>
     </div>
   );
 

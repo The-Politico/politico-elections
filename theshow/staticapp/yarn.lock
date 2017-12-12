@@ -5864,7 +5864,7 @@ pluralize@^7.0.0:
 
 "politico-elections-turnout@git+ssh://git@github.com/The-Politico/module_elections-turnout.git":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#e94892d9853ddce4e32ab0de29f54ece90be1563"
+  resolved "git+ssh://git@github.com/The-Politico/module_elections-turnout.git#d723c24cd278f4079091096bc76006f95cf1dbad"
   dependencies:
     autoprefixer "^7.2.1"
     babel-core "^6.26.0"
@@ -5911,7 +5911,7 @@ pluralize@^7.0.0:
 
 "politico-module-elections-county-arrow-swing-chart@git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart":
   version "1.0.0"
-  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#fc8eba2a3aef8039159ba168ffae6719c30856e7"
+  resolved "git+ssh://git@github.com:The-Politico/module_elections-county-arrow-swing-chart#7b18c1e46f45e724a8f81875594f5391f6fc0163"
   dependencies:
     autoprefixer "^7.1.6"
     babel-core "^6.26.0"

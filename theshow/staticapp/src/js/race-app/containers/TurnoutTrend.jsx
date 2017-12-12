@@ -19,7 +19,7 @@ const TurnoutChartContainer = props => props.hidden ? null : (
           <h4>How to read this chart</h4>
           <div className="float-left left">
             <p>
-            This chart measures the change in the number of votes cast between the 2016 presidential election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They are areas where a change in turnout different from most counties overwhelming benefited one party.
+            This chart measures the change in the number of votes cast between the 2016 presidential election and this one. We compare that change with the same shift in the head-to-head vote split. Look for counties further in the corners of the chart. They are areas where a change in turnout different from most counties overwhelmingly benefited one party.
             </p>
           </div>
           <div className="float-left right">
@@ -39,7 +39,7 @@ const TurnoutChartContainer = props => props.hidden ? null : (
       <div>
         <NerdBox
           note="
-          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county can affect how well that change represents a true change in turnout. Each county is only displayed on this chart after all its precincts have reported votes.
+          Change in turnout in this chart is estimated using the percent change in the raw number of votes by county. Large changes in the number of registered voters in a county can affect how well that change represents a true change in turnout. Each county is displayed on this chart only after all its precincts have reported votes.
           "
         />
       </div>

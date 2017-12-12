@@ -26,9 +26,8 @@ const SwingChartContainer = props => (
       <div>
         <NerdBox
           note="
-          Vote percents represent the head-to-head vote split between only Democrats and Republicans
-          and don&rsquo;t include third party votes. So, for example, Dem. votes /
-          (Dem. votes + GOP votes) = Dem. percent.
+          Vote margins represent the head-to-head vote split between only Democrats and Republicans
+          and don&rsquo;t include third-party votes. So, for example, GOP 45% - Dem. 40% = GOP +5.
           "
         />
       </div>
