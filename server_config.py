@@ -118,7 +118,7 @@ def configure_targets(deployment_target):
 
         # elex config
         CURRENT_ELECTION = '2017-12-12'
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
 
     else:
         SERVERS = []
@@ -129,7 +129,7 @@ def configure_targets(deployment_target):
 
         # elex config
         CURRENT_ELECTION = '2017-12-12'
-        ELEX_FLAGS = ['--national-only', '--test', '-o', 'json']
+        ELEX_FLAGS = ['--national-only', '-o', 'json']
 
     DEPLOYMENT_TARGET = deployment_target
 
